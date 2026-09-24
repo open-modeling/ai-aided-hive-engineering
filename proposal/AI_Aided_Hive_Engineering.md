@@ -1,6 +1,6 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.29"
+subtitle: "Formal Proposal - Draft 0.30"
 date: "18 September 2026"
 ---
 
@@ -2859,7 +2859,848 @@ A Contract identifies its Product relationship and required Work Product indepen
 
 The Product provides the top-level scope and intent context; Contracts are bounded execution mechanisms inside that Product context. Product identity and Product-level intent can continue while Contracts are created, revised, split, fulfilled, discontinued, or replaced.
 
-#### 11.1.1 Contract execution as Solution Exploration
+
+#### 11.1.1 Formal Contract data structure
+
+A Contract is not one lifecycle-state object and is not one mutable tuple whose fields are destructively updated.
+
+A Contract has:
+
+1. a stable Contract identity;
+2. one or more immutable Contract definition revisions;
+3. a temporal lifecycle state associated with an applicable definition revision;
+4. an append-only execution and governance history.
+
+Conceptually:
+
+$$Contract(C)=(Identity(C),Definitions(C),Lifecycle(C),History(C)).$$
+
+These components have different semantics.
+
+Changing lifecycle state does not by itself create a new Contract definition revision.
+
+Changing governed Contract content can create a new definition revision.
+
+Historical events do not mutate earlier definitions or lifecycle observations.
+
+##### 11.1.1.1 Contract identity
+
+Every Contract has a stable identity:
+
+$$cid(C).$$
+
+Contract identity persists across ordinary Contract revisions:
+
+$$C^0,C^1,\ldots,C^k.$$
+
+Therefore:
+
+$$cid(C^i)=cid(C^j)$$
+
+for revisions of the same Contract.
+
+A successor Contract has a different identity:
+
+$$Succeeds(C_2,C_1)\Rightarrow cid(C_2)\neq cid(C_1).$$
+
+The successor relation preserves continuity without pretending that materially different governed work remains the same Contract.
+
+##### 11.1.1.2 Contract definition revision
+
+A Contract definition revision is an immutable governed record.
+
+For revision $k$:
+
+$$C^k=\langle cid,k,type,issuer,authorityRef,productContext,productTarget,workProductRequirement,assignment,executionPolicy,resourceBudget,prerequisiteSpec,dependencySpec,acceptanceSpec,informationPolicy,enforcementSpec,topologyRef,profileRef,revisionMeta\rangle.$$
+
+This is a conceptual typed record.
+
+It does not require a positional tuple in implementation.
+
+A conformant implementation can use structured objects, graph nodes/relations, database records, SysML elements, documents, or another representation while preserving the same semantics.
+
+##### 11.1.1.3 Contract type
+
+$$type(C^k)$$
+
+identifies the Project Profile-defined Contract class relevant to execution policy and other Contract-specific rules.
+
+Contract type can distinguish, for example:
+
+- development;
+- production;
+- verification;
+- test;
+- integration;
+- analysis;
+- external supply;
+- another project-defined Contract class.
+
+The common model does not define a universal Contract taxonomy.
+
+The existing execution-policy relation remains:
+
+$$ExecutionPolicy(type(C),profile).$$
+
+Contract type therefore selects applicable policy.
+
+It does not by itself establish execution validity.
+
+##### 11.1.1.4 Issuer and authority reference
+
+$$issuer(C^k)=a$$
+
+identifies the Actor that created or issued the applicable Contract revision.
+
+The Contract can preserve a reference to the authority basis used to validate that operation:
+
+$$authorityRef(C^k).$$
+
+The authority reference does not make authority an internal Contract-owned property.
+
+It provides provenance to the explicit external authority model.
+
+Validity requires:
+
+$$AuthorizedFor(issuer(C^k),IssueOrRevise,C^k,\sigma,t,\kappa).$$
+
+Therefore:
+
+$$Issuer(C,a)\not\Rightarrow UniversalAuthority(a).$$
+
+The authority remains operation-, Scope-, time-, and context-qualified.
+
+##### 11.1.1.5 Product context and Product target
+
+The Contract definition contains both:
+
+$$productContext(C^k)$$
+
+and:
+
+$$productTarget(C^k).$$
+
+These are not identical.
+
+`productContext` identifies the Product whose top-level scope and intent establish the engineering context.
+
+`productTarget` identifies the Contract-specific engineering objective inside that Product context.
+
+Conceptually:
+
+$$ProductTarget(C^k)=(P,\tau_P)$$
+
+where $P$ is the Product and $\tau_P$ is the Contract-specific target condition or target semantics.
+
+Therefore:
+
+$$ProductTarget(C)\subseteq ProductContext(P)$$
+
+conceptually.
+
+The target can concern creation, modification, analysis, verification, Evidence generation, integration, delivery, or another governed Product-related effect.
+
+##### 11.1.1.6 Required Work Product specification
+
+The Contract definition does not contain the future submitted Work Product revision itself.
+
+It contains a **Work Product Requirement**:
+
+$$WPReq(C^k).$$
+
+Conceptually:
+
+$$WPReq(C^k)=(role,schema,semanticScope,validationRules,traceabilityRules,supplementaryInformation,informationBoundary).$$
+
+The exact schema belongs to the Project Profile.
+
+The actual submitted Work Product is linked later through lifecycle execution:
+
+$$Submit(w^r,C^k).$$
+
+Thus:
+
+$$WPReq(C^k)\neq w^r.$$
+
+This prevents the Contract requirement and its eventual fulfilment artifact from collapsing into one object.
+
+##### 11.1.1.7 Assignment
+
+Assignment remains part of the Contract definition:
+
+$$Assignment(C^k,a).$$
+
+For an executable Contract:
+
+$$|Executor(C^k)|=1.$$
+
+The definition records one accountable Executor, not the set of all participants.
+
+Therefore:
+
+$$Executor(C^k)\neq Participants(C^k)$$
+
+in general.
+
+A Contract can involve many Human, Hive, Agent, supplier, tool, facility, or organizational participants while retaining one accountable Executor.
+
+A reassignment creates a revised Contract definition when the accountable Executor changes:
+
+$$Executor(C^k)=a$$
+
+$$Executor(C^{k+1})=b.$$
+
+Earlier Assignment remains historical.
+
+##### 11.1.1.8 Obligation is derived Contract semantics
+
+Obligation is not restored as a separately required object.
+
+Instead it is derived from the Contract semantics.
+
+Conceptually:
+
+$$Obligation(C^k)=Fulfil(Executor(C^k),ProductTarget(C^k),WPReq(C^k),AcceptanceSpec(C^k)).$$
+
+This means that the Executor is accountable for either:
+
+- delivering the required Contract result under the applicable Acceptance conditions; or
+- explicitly reporting inability to fulfil.
+
+Therefore a separate stored `Obligation` object is optional implementation detail.
+
+The common model requires the semantics, not a second object.
+
+##### 11.1.1.9 Execution policy
+
+Each definition references its applicable execution policy:
+
+$$ExecutionPolicyRef(C^k).$$
+
+Resolved policy determines constraints such as:
+
+- Executor eligibility;
+- independence;
+- prohibited role combinations;
+- development/verification separation;
+- permitted Hive topology;
+- external-party constraints;
+- required physical or organizational separation.
+
+Validity requires:
+
+$$Assignment(C^k,a)\Rightarrow SatisfiesExecutionPolicy(a,C^k,profile).$$
+
+Policy is definition-level governance.
+
+Whether execution can start at time $t$ remains a runtime readiness question.
+
+##### 11.1.1.10 Resource Budget and Resource Envelope
+
+The Contract definition can establish a Contract-specific Resource Budget:
+
+$$R_C^k.$$
+
+The project/Hive has the broader Resource Envelope:
+
+$$R_H.$$
+
+Conceptually:
+
+$$R_C^k\preceq R_H$$
+
+where the Project Profile defines the relevant multidimensional comparison.
+
+The Contract budget can constrain:
+
+- context;
+- model calls;
+- compute;
+- wall time;
+- money;
+- Human effort;
+- energy;
+- equipment;
+- external capacity;
+- another project-defined resource.
+
+Resource allocation is distinct from runtime resource availability.
+
+Therefore:
+
+$$Budgeted(r,C)\not\Rightarrow Available(r,C,t).$$
+
+The latter participates in readiness.
+
+##### 11.1.1.11 Prerequisite specification
+
+The Contract definition contains a set of readiness predicates:
+
+$$PrerequisiteSpec(C^k)=\{p_1,p_2,\ldots,p_n\}.$$
+
+A prerequisite is not limited to another Contract.
+
+It can refer to:
+
+- completion of external work;
+- another Contract state;
+- availability of a Work Product;
+- Product state;
+- Evidence;
+- computational capacity;
+- physical resources;
+- facilities;
+- manufacturing capability;
+- supplier availability;
+- legal/commercial condition;
+- Human participation;
+- environmental condition;
+- another Project Profile-defined predicate.
+
+At runtime:
+
+$$Ready(C^k,t)\Rightarrow\forall p\in PrerequisiteSpec(C^k):Evaluate(p,S_t)=TRUE.$$
+
+`UNKNOWN` prerequisite evaluation does not silently become `TRUE`.
+
+The Project Profile determines whether an unresolved predicate blocks readiness or receives another explicit disposition.
+
+##### 11.1.1.12 Dependency specification
+
+A dependency is a typed relation between Contract execution and another stateful subject.
+
+Conceptually:
+
+$$Dependency=(source,target,condition,requiredState,scope,revisionPolicy).$$
+
+For Contracts:
+
+$$DependsOn(C_i,C_j,\delta).$$
+
+A dependency does **not** automatically mean that the target Contract must be `FULFILLED`.
+
+For example the required condition can be:
+
+$$State(C_j)=READY$$
+
+or:
+
+$$State(C_j)=FULFILLED$$
+
+or:
+
+$$Accepted(w_j,C_j)$$
+
+or another defined predicate.
+
+Thus:
+
+$$Dependency\neq CompletionDependency$$
+
+universally.
+
+This is important for parallel engineering.
+
+##### 11.1.1.13 Internal and external dependencies
+
+A Contract dependency target can be inside or outside the Hive-governed Contract model.
+
+For internal Contract $C_i$:
+
+$$DependsOn(C_i,C_j,\delta)$$
+
+can reference another governed Contract.
+
+For external condition $x$:
+
+$$DependsOnExternal(C_i,x,\delta)$$
+
+can represent:
+
+- supplier contract fulfilment;
+- legal agreement;
+- customer approval;
+- external laboratory result;
+- regulatory permission;
+- physical delivery;
+- third-party service;
+- another externally governed event.
+
+The Hive need not falsely represent every external process as an internal Hive Contract.
+
+It needs an explicit observable condition and provenance sufficient to evaluate the dependency.
+
+##### 11.1.1.14 Dependency is not authority
+
+Dependency topology transports execution conditions.
+
+It does not create authority.
+
+Therefore:
+
+$$DependsOn(C_i,C_j)\not\Rightarrow AuthorityInheritance(C_i,C_j).$$
+
+Likewise, a parent/child Contract relation does not itself make one Executor authoritative over another Contract.
+
+##### 11.1.1.15 Prerequisite and dependency distinction
+
+A **dependency** describes a relationship.
+
+A **prerequisite** describes a condition that must currently evaluate as satisfied for a defined lifecycle transition.
+
+A dependency can therefore exist without currently gating readiness.
+
+Conceptually:
+
+$$Dependency(C_i,x)\not\Rightarrow x\in ReadyPrerequisites(C_i).$$
+
+The Contract definition or Project Profile establishes when that dependency becomes a readiness predicate.
+
+This prevents every known relationship from unnecessarily serializing execution.
+
+##### 11.1.1.16 Acceptance specification
+
+The Contract definition contains:
+
+$$AcceptanceSpec(C^k).$$
+
+Conceptually:
+
+$$AcceptanceSpec=(ExecutorConformityRules,IndependentAcceptanceRules,EvidenceRequirements,AllowedGapPolicy,DelegationPolicy,DispositionRules,FulfilmentPredicate).$$
+
+This structure defines the applicable assessment semantics.
+
+It does not contain the result of an Acceptance attempt.
+
+Acceptance results belong to lifecycle/history.
+
+##### 11.1.1.17 Fulfilment predicate
+
+The Contract definition explicitly states what constitutes fulfilment.
+
+For ordinary Contract $C$, it includes Acceptance of the required Work Product:
+
+$$AcceptedRequiredWP(C).$$
+
+For Product Delivery Contract:
+
+$$Fulfilled(C)\Rightarrow AcceptedRequiredWP(C)\land ProductTargetSatisfied(C).$$
+
+Additional Project Profile-defined fulfilment conditions can apply.
+
+This prevents lifecycle logic from inferring fulfilment merely because a file was submitted or a Product changed.
+
+##### 11.1.1.18 Information policy
+
+The Contract definition contains or references an applicable information policy:
+
+$$InformationPolicy(C^k).$$
+
+It governs:
+
+- information that may enter execution;
+- information that may appear in the Work Product;
+- protected or proprietary information;
+- supplier information;
+- personal information;
+- internal rationale exposure;
+- required provenance;
+- cross-boundary materialization;
+- other Project Profile-defined information restrictions.
+
+Availability in Solution Space does not mean permission to expose information through a Contract Work Product.
+
+##### 11.1.1.19 Enforcement specification
+
+The Contract can reference project-defined enforcement semantics:
+
+$$EnforcementSpec(C^k).$$
+
+Possible consequences include:
+
+- refusal of Acceptance;
+- failed gate;
+- rework;
+- reassessment;
+- escalation;
+- prevention of subsequent execution;
+- commercial/legal remedy;
+- discontinuation;
+- another applicable project mechanism.
+
+These are not universal consequences.
+
+The common model requires enforceability to be explicit where the Contract depends on it.
+
+##### 11.1.1.20 Execution topology reference
+
+The Contract definition can reference its execution-topology context:
+
+$$TopologyRef(C^k).$$
+
+This can include relations to:
+
+- parent Contract;
+- child Contracts;
+- Integrator Contract;
+- verification Contract;
+- supplier Contract;
+- successor Contract;
+- Team API context;
+- another applicable execution relation.
+
+These topology relations remain distinct from Product topology and authority topology.
+
+##### 11.1.1.21 Project Profile reference
+
+Every Contract definition is interpreted against an applicable Project Profile revision:
+
+$$profileRef(C^k)=PP^m.$$
+
+A Contract cannot silently change meaning because the Project Profile changed later.
+
+Therefore:
+
+$$Interpret(C^k)$$
+
+uses its applicable Project Profile revision unless a governed Contract/Profile migration explicitly establishes another basis.
+
+##### 11.1.1.22 Definition revision metadata
+
+Each Contract definition revision preserves at minimum:
+
+$$RevisionMeta(C^k)=(predecessor,createdAt,effectiveFrom,changeReason,provenance).$$
+
+A revision can additionally identify:
+
+- initiating Decision;
+- Human input;
+- Candidate Delta;
+- dependency change;
+- Product change;
+- authority change;
+- failure/reassessment event;
+- another causal source.
+
+Revision metadata supports historical explanation.
+
+It does not replace the canonical relations to those source elements.
+
+##### 11.1.1.23 Runtime lifecycle view
+
+The immutable Contract definition and the current lifecycle state remain separate.
+
+For definition revision $C^k$:
+
+$$Runtime(C^k,t)=(State,ReadinessEvaluation,Blockers,ExecutionContext,SubmissionRef,AcceptanceAttemptRef)_t.$$
+
+This is a conceptual runtime projection.
+
+Not every field exists in every state.
+
+For example, before submission:
+
+$$SubmissionRef=\varnothing.$$
+
+Before Acceptance:
+
+$$AcceptanceAttemptRef=\varnothing.$$
+
+The lifecycle state is therefore not embedded permanently into the definition revision.
+
+##### 11.1.1.24 Lifecycle state is temporal
+
+For one unchanged Contract definition:
+
+$$State(C^k,t_1)=READY$$
+
+can later become:
+
+$$State(C^k,t_2)=EXECUTING.$$
+
+No Contract-definition revision is required merely because normal FSM execution occurred.
+
+By contrast, a material Contract semantic change creates:
+
+$$C^k\rightarrow C^{k+1}.$$
+
+The successor definition is then re-evaluated through the accepted FSM entry predicates.
+
+This separates:
+
+$$DefinitionRevision$$
+
+from:
+
+$$LifecycleTransition.$$
+
+##### 11.1.1.25 Contract event history
+
+Contract history is append-only.
+
+Let:
+
+$$History(C)=\langle e_0,e_1,\ldots,e_n\rangle.$$
+
+A Contract event can record, as applicable:
+
+- definition created;
+- definition revised;
+- Assignment established;
+- Assignment changed;
+- readiness evaluation;
+- lifecycle transition;
+- blocker detected;
+- blocker cleared;
+- execution started;
+- inability reported;
+- Work Product submitted;
+- Acceptance started;
+- Acceptance disposition;
+- rework requested;
+- reassessment entered;
+- Product target satisfied;
+- Contract fulfilled;
+- Contract discontinued;
+- successor created;
+- another Project Profile-defined event.
+
+Events preserve:
+
+$$(type,time,actor/context,relatedState,provenance).$$
+
+The event log does not need to duplicate all engineering data.
+
+It references canonical state where possible.
+
+##### 11.1.1.26 Event history is not canonical-state duplication
+
+Contract history must not become an ever-growing copy of Product state or internal reasoning.
+
+It records Contract-relevant state transitions and references the relevant canonical objects.
+
+Therefore:
+
+$$History(C)\neq ReplayOfEntireEngineeringState.$$
+
+This preserves the proposal's state-centric, low-context-overhead architecture.
+
+##### 11.1.1.27 Derived Contract views
+
+Common Contract properties can be computed from definition plus history.
+
+For example:
+
+$$CurrentDefinition(C,t)$$
+
+$$CurrentExecutor(C,t)$$
+
+$$CurrentState(C,t)$$
+
+$$CurrentBlockers(C,t)$$
+
+$$LatestSubmission(C,t)$$
+
+$$LatestAcceptanceDisposition(C,t).$$
+
+These are derived views.
+
+They do not need independent mutable truth stores if the implementation can compute them reliably from canonical Contract state.
+
+##### 11.1.1.28 Definition validity
+
+A Contract definition revision is valid only when its applicable structural rules hold.
+
+At minimum:
+
+$$ValidContractDefinition(C^k)\Rightarrow$$
+
+- stable Contract identity exists;
+- exactly one Issuer is identifiable for the revision operation;
+- Issuer authority is valid;
+- Product context is identified;
+- Product target is defined sufficiently for the Contract;
+- required Work Product specification exists;
+- exactly one Assignment exists where the revision is expected to be executable;
+- Assignment satisfies execution policy;
+- resource-budget semantics are defined;
+- prerequisite/dependency predicates are type-valid;
+- Acceptance semantics are defined;
+- information-policy references are resolvable;
+- applicable Project Profile revision is identified.
+
+A `DEFINED` Contract can still lack executable Assignment or satisfied readiness predicates.
+
+Definition validity therefore does not imply readiness.
+
+##### 11.1.1.29 Partial Contract definition
+
+Creation of Contract identity can precede full executable definition.
+
+This is necessary because the accepted FSM includes:
+
+$$DEFINED.$$
+
+Therefore:
+
+$$ContractExists(C)\not\Rightarrow Executable(C).$$
+
+A partially specified Contract can remain `DEFINED` while missing, for example:
+
+- valid Assignment;
+- required prerequisite information;
+- Resource Budget;
+- dependency resolution;
+- another required executable-field value.
+
+Missing required Contract information remains explicit under truthful incompleteness.
+
+##### 11.1.1.30 Material Contract revision
+
+A change requires a Contract-definition revision when it alters governed Contract semantics such as:
+
+- Product target;
+- required Work Product;
+- Executor Assignment;
+- execution policy;
+- Resource Budget;
+- readiness prerequisites;
+- dependency conditions;
+- Acceptance rules;
+- information boundary;
+- enforcement;
+- applicable Project Profile basis;
+- another material Contract field.
+
+Thus:
+
+$$MaterialContractChange\Rightarrow C^k\rightarrow C^{k+1}.$$
+
+The earlier definition remains addressable.
+
+##### 11.1.1.31 Runtime observation is not automatically Contract revision
+
+Not every environmental change revises the Contract.
+
+For example:
+
+- required compute becomes temporarily unavailable;
+- an external dependency changes state;
+- a blocker is cleared;
+- a test facility becomes available.
+
+These events can change runtime lifecycle state while the Contract definition remains unchanged.
+
+Therefore:
+
+$$RuntimeConditionChange\not\Rightarrow ContractDefinitionRevision.$$
+
+A revision is required only when the governed Contract semantics themselves change.
+
+##### 11.1.1.32 Revision versus successor Contract
+
+A revision preserves Contract identity when the governed obligation remains meaningfully continuous.
+
+A successor Contract is appropriate when the change creates a materially new governed obligation.
+
+Conceptually:
+
+$$SameGovernedObligation\Rightarrow RevisionCandidate$$
+
+whereas:
+
+$$MateriallyNewObligation\Rightarrow SuccessorContractCandidate.$$
+
+The common model does not define one universal numerical threshold between these cases.
+
+The Project Profile determines the applicable identity-continuity rule.
+
+Examples that can justify successor identity include material change of:
+
+- Product purpose;
+- accountability model;
+- external/legal obligation;
+- Work Product semantics;
+- delivery model;
+- Contract class;
+- another project-defined identity criterion.
+
+##### 11.1.1.33 Contract decomposition relation
+
+Contract decomposition is represented as relation, not nested mutable containment.
+
+For parent $C_p$ and child $C_i$:
+
+$$ChildContract(C_i,C_p).$$
+
+The relation is revision-qualified.
+
+A child Contract has its own complete definition:
+
+$$ValidContractDefinition(C_i).$$
+
+Parent fields are not implicitly inherited unless the relevant Project Profile rule explicitly derives them.
+
+In particular:
+
+$$Executor(C_p)=a\not\Rightarrow Executor(C_i)=a.$$
+
+This preserves the already accepted decomposition semantics.
+
+##### 11.1.1.34 Supplementary participants
+
+A Contract can identify or reference supplementary execution participants without turning them into Executors.
+
+Let:
+
+$$Participates(a,C,role).$$
+
+Then:
+
+$$Participates(a,C,role)\not\Rightarrow Executor(C)=a.$$
+
+Supplementary participation can emerge during execution.
+
+Adding a participant requires a Contract revision only when the applicable Contract semantics make that participant definition-governed.
+
+Transient internal Hive Agents need not become Contract-definition fields.
+
+##### 11.1.1.35 Contract data structure and Team API
+
+The Contract definition can reference the applicable Team API boundary.
+
+It does not embed every communication.
+
+Therefore:
+
+$$TeamAPIRef(C)$$
+
+identifies the governed communication context while individual Questions, Requests, Clarifications, Exchange Items, Feedback Exchange Items, and Work Products remain their own addressable elements.
+
+The Contract is governance structure.
+
+It is not a message container.
+
+##### 11.1.1.36 Contract data structure and Confidence
+
+Confidence is **not a Contract-definition field**.
+
+The Hive can maintain:
+
+$$Confidence_H(C,t)$$
+
+as an operational observation associated with execution.
+
+Contract and Acceptance failures affect that indicator as already defined.
+
+But:
+
+$$Confidence_H(C,t)\notin Definition(C^k).$$
+
+This preserves the distinction between durable Contract semantics and drifting operational health indication.
+
+
+#### 11.1.2 Contract execution as Solution Exploration
 
 A Contract remains a durable governance record defining responsibility, target result, resources, execution conditions, Acceptance, and history.
 
@@ -2873,7 +3714,7 @@ A Contract therefore bounds exploration through its Product target, required Wor
 
 Contract execution does not escape the general exploration rules merely because it is obligatory work. Resource use, trajectory survival, convergence, divergence, back-off, deactivation, preservation, and post-mortem rules apply to Contract-governed execution.
 
-#### 11.1.2 Contract lifecycle
+#### 11.1.3 Contract lifecycle
 
 A Contract is a durable, revision-qualified governance record.
 
@@ -2883,7 +3724,7 @@ $$ContractState(C)\in\{DEFINED,ASSIGNED,READY,EXECUTING,BLOCKED,SUBMITTED,UNDER\
 
 The lifecycle is not strictly monotonic. Forward progress is normal, but material changes can invalidate already satisfied lifecycle predicates and move a successor Contract revision to an earlier state.
 
-#### 11.1.3 State-entry predicates
+#### 11.1.4 State-entry predicates
 
 Each state has explicit entry conditions.
 
@@ -2956,7 +3797,7 @@ Examples include temporary resource unavailability, an unfinished dependency, un
 
 **DISCONTINUED.** The Contract has ended without successful fulfilment under that Contract identity.
 
-#### 11.1.4 FSM transition semantics
+#### 11.1.5 FSM transition semantics
 
 Contract lifecycle transitions are guarded transitions:
 
@@ -2993,7 +3834,7 @@ The common transition relation includes:
 
 `FULFILLED` and `DISCONTINUED` are terminal for that Contract identity. Further work occurs through an applicable successor Contract or another project process.
 
-#### 11.1.5 Revision-driven backward transition
+#### 11.1.6 Revision-driven backward transition
 
 A lifecycle state does not survive a material Contract revision merely because it was valid immediately before the revision.
 
@@ -3021,7 +3862,7 @@ $$READY(C^k)\rightarrow ASSIGNED(C^{k+1})$$
 
 when a material revision preserves the Executor but introduces a new unsatisfied readiness prerequisite.
 
-#### 11.1.6 Human intervention and backward transition
+#### 11.1.7 Human intervention and backward transition
 
 Human Arbitrary Input, Human Voluntary Choice, or Human Prescriptive Choice does not bypass the Contract authority and revision rules.
 
@@ -3033,7 +3874,7 @@ $$HumanInput\rightarrow GovernedContractRevision\rightarrow ReevaluateLifecycleP
 **Illustration - Human intervention and readiness.** A Contract is `READY`. A Human with applicable authority changes the required Product target and adds a mandatory physical qualification test. The current Executor remains valid, but the required test facility is not yet available. Then $READY(C^k)\rightarrow ASSIGNED(C^{k+1})$ because Assignment remains valid but readiness no longer holds. When the qualification resource becomes available, $ASSIGNED(C^{k+1})\rightarrow READY(C^{k+1})$. If the same Human change also requires an Executor type that the current Executor cannot satisfy, $READY(C^k)\rightarrow DEFINED(C^{k+1})$ until a new valid Assignment is established. The same rule applies to non-Human changes; the cause of revision does not change the FSM semantics.
 :::
 
-#### 11.1.7 Dependency-driven readiness
+#### 11.1.8 Dependency-driven readiness
 
 Dependencies are explicit readiness conditions where applicable.
 
@@ -3055,7 +3896,7 @@ The common model does not require every dependency to wait for full fulfilment. 
 
 External activities can be represented in the same readiness logic without being forced into internal Contract semantics.
 
-#### 11.1.8 Resource-driven readiness
+#### 11.1.9 Resource-driven readiness
 
 Resource Envelope declaration and resource availability are distinct.
 
@@ -3069,7 +3910,7 @@ $$RequiredResource(r,C)\land\neg ResourceAvailable(r,C,t)\Rightarrow\neg READY(C
 
 This applies to computational and physical resources.
 
-#### 11.1.9 Revision is not lifecycle state
+#### 11.1.10 Revision is not lifecycle state
 
 Revision remains orthogonal to state:
 
@@ -4971,6 +5812,29 @@ The Project Profile defines at least the parameters that are required by the pro
 
 The Project Profile cannot authorize inference of authority from Confidence, title, expertise, apparent seniority, conversational style, organizational visibility, or other social cues.
 
+- Contract-type vocabulary;
+- required Contract-definition fields by type;
+- Contract identity rules;
+- Contract revision materiality;
+- successor-Contract identity criteria;
+- Product-target representation;
+- Work Product Requirement schema;
+- prerequisite predicate types;
+- dependency relation types;
+- dependency-state predicates;
+- internal/external dependency representation;
+- Contract Resource Budget rules;
+- Acceptance Specification schemas;
+- information-policy references;
+- enforcement semantics;
+- supplementary participant representation;
+- Contract event types;
+- event retention rules;
+- derived runtime views;
+- Contract/Profile migration semantics.
+
+The Project Profile cannot collapse definition revision, lifecycle state, and historical event history into one destructive mutable state.
+
 The Project Profile cannot redefine Product and Work Product as universally identical concepts.
 
 The Project Profile cannot redefine Confidence as truth, probability, precision, Evidence, authority, Decision, Admission, Acceptance, Back-off, or Work Product content.
@@ -5164,6 +6028,25 @@ Additional Contract lifecycle invariants are:
 - **Low Confidence does not kill a trajectory by definition** - Unlikely trajectories can remain intentionally explorable.
 - **Post-mortem learnability** - Confidence history can be compared with actual outcomes and used to tune subsequent operational behaviour.
 
+- **Stable Contract identity** - Ordinary revision preserves `cid`.
+- **Successor identity differs** - $Succeeds(C_2,C_1)\Rightarrow cid(C_2)\neq cid(C_1)$.
+- **Definition/lifecycle separation** - Contract definition revision and lifecycle transition are distinct operations.
+- **Immutable definition revision** - A later revision does not mutate $C^k$.
+- **Runtime observation is not revision** - Environmental/resource/dependency change alone does not revise governed Contract semantics.
+- **Single accountable Executor in the definition** - An executable Contract definition has exactly one valid Assignment.
+- **Participants are not Executors** - Supplementary participation does not alter accountability.
+- **Obligation is Contract semantics** - No separate universal Obligation object is required.
+- **Requirement/result separation** - $WPReq(C^k)\neq SubmittedWP(C^k)$.
+- **Product/Work Product separation in Contract definition** - Product target and Work Product Requirement remain separate fields.
+- **Dependency/prerequisite separation** - A known dependency does not automatically gate readiness.
+- **External dependency honesty** - External legal, supplier, physical, or regulatory work need not be misrepresented as an internal Hive Contract.
+- **Budget/availability separation** - $Budgeted\not\Rightarrow Available$.
+- **Acceptance specification/result separation** - Acceptance rules belong to definition; Acceptance disposition belongs to lifecycle/history.
+- **History is append-only** - Later fulfilment, failure, rework, revision, or discontinuation does not erase prior Contract events.
+- **History is not reasoning replay** - Contract history references canonical engineering state instead of duplicating private computation.
+- **Project Profile revision qualification** - Contract semantics are interpreted against their applicable Project Profile revision.
+- **Confidence is runtime observation** - Confidence does not become a Contract-definition property.
+
 # Part VI - References and supporting material
 
 ## 22. Language and terminology references
@@ -5213,11 +6096,11 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.29 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.30 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.29 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.30 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
 **Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
 
