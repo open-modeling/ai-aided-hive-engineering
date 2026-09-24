@@ -8,6 +8,7 @@ author = "Julia (Ilya) Lebedev <ilya@lebedev.net>"
 name = "AI DevMode Standards"
 version = "5.0.0-rc.1"
 source_archive = "AI_DevMode_Standards_v5.0.0-rc.1.zip"
+sha256 = "4a9c1cd1acaa35fff791dfceca50144784cc5207e8021156a110e10f20846f20"
 tag = "core-v5.0.0-rc.1"
 required = true
 
