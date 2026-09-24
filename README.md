@@ -1,6 +1,6 @@
 # AI Aided Hive Engineering
 
-This repository contains the source of the **AI Aided Hive Engineering Proposal** and the AI DevMode standards core used by the project.
+This repository contains the source of the **AI Aided Hive Engineering Proposal** and is structured to import the AI DevMode standards core used by the project as the root of the Git history.
 
 The canonical proposal source is [`proposal/AI_Aided_Hive_Engineering.md`](proposal/AI_Aided_Hive_Engineering.md). Generated PDF documents are release artifacts and are not committed to Git.
 
@@ -15,6 +15,16 @@ Proposal milestones use tags of the form `proposal-X.Y`. The reconstructed miles
 - `proposal-0.40`
 
 Core releases use the source archive notation, for example `core-v5.0.0-rc.1`. Version strings are not added to filenames inside `core/` merely because the imported archive has that version.
+
+## Core bootstrap
+
+The core archive is imported as the initial Git commit, not stored as a versioned ZIP in the repository. Given the archive named in `project.toml`, run:
+
+```sh
+./scripts/import-core /path/to/AI_DevMode_Standards_v5.0.0-rc.1.zip
+```
+
+The importer verifies the recorded SHA-256, flattens a single release-versioned archive root when present, preserves internal core filenames/content, rebuilds the current history on top of the core commit, restores proposal milestone tags, creates the core tag, and runs full validation.
 
 ## Build
 
