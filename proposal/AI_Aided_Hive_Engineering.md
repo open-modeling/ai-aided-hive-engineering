@@ -1,13 +1,17 @@
 Hive/Swarm Engineering
 Governance
-Formal Proposal - Draft 0.6
-Status: working draft with accepted Change Proposals 1-6 integrated
+Formal Proposal - Draft 0.7
+Status: working draft with accepted Change Proposals 1-6 integrated; release-challenge fixes 1-8
+applied
 Compilation date: 14 September 2026
 Normative basis: approved project discussion, resolved formal audit, and accepted Change
 Proposals 1-6.
 Language basis: project-authored prose follows the external controlled-language foundation
-based on BCP 14 and ASD-STE100. This proposal does not redefine that foundation. Citations and
-imported source text remain unchanged.
+based on BCP 14 and ASD-STE100, together with applicable ISO
+drafting/plain-language/terminology guidance selected by the project. This proposal does not
+redefine that foundation. Other engineering standards and frameworks cited later are
+illustrative or supportive compatibility references. Citations and imported source text remain
+unchanged.
 Mathematics: formulas are stored as native editable Word equations (Office Math), not images
 or literal LaTeX markup.
 Scope: The proposal governs how a hive/swarm accelerates product provisioning while
@@ -33,7 +37,7 @@ does not prescribe one artifact taxonomy, one industry lifecycle, or one authori
 # 17. Derived no-sphere property
 # 18. Formal invariants and audit checks
 # 19. Project-profile parameters
-# 20. Non-normative corroborating references
+# 20. Reference hierarchy
 # 1. Purpose and optimization objective
 The objective is to provide a formal governance basis for autonomous hive/swarm engineering
 that can operate across heterogeneous product-development domains while preserving local
@@ -51,10 +55,11 @@ can define such weighting only through an explicit project profile or Contract d
 Optimization rule: The hive optimizes for a satisfiable, convergent solution under project
 constraints; it is not entitled to chase global optimality or innovation indefinitely.
 # 2. Language foundation and statement semantics
-The proposal depends on an external controlled-language foundation. BCP 14 defines normative
-keyword semantics. ASD-STE100 defines controlled English rules for project-authored prose.
-The proposal references these standards and project terminology; it does not reconstruct or
-redefine them.
+The proposal depends on an external language and drafting foundation. BCP 14 defines
+normative keyword semantics. ASD-STE100 defines controlled English rules for project-authored prose. Applicable ISO plain-language, terminology, and drafting guidance can
+supplement that foundation when selected by the project. Other engineering standards and
+frameworks cited by this proposal are illustrative or supportive compatibility references and do
+not define proposal conformance.
 Citations, quotations, imported requirements, legal text, contractual text, identifiers, and other
 protected source material remain unchanged during language normalization.
 Each substantive statement has one semantic role: FORMAL, CONFORMANCE, PROFILE, or
@@ -68,8 +73,8 @@ Proposition Arbitrary addressable engineering object. It
 can represent a system, model, source-code
 slice, physical assembly, analysis, evidence
 object, compound sub-project, or another
-recursively addressable engineering object.
 Term Meaning in this proposal
+recursively addressable engineering object.
 Decision Materialized, rationale-bearing disposition
 used to preserve or direct Hive exploration or
 behavior. Agreement is represented
@@ -90,12 +95,13 @@ by the Contract and project profile;
 acceptance does not imply release,
 deployment, production, or baselining.
 Contract Addressable execution agreement with one
-accountable Executor, one or more
-issuing/accepting parties, optional
-supplementary parties, enforceable
+accountable Executor, one or more Issuers,
+optional supplementary parties, enforceable
 obligations, bounded resources, execution
-topology, Work Product delivery, acceptance,
-and enforcement.
+topology, Work Product delivery, acceptance
+semantics, and enforcement. Acceptance
+participation is assigned separately through
+Acceptance Obligations.
 Scale / magnification Layer-bound abstraction/detail range. Extent
 is a separate property that measures how
 much of the layer an object affects.
@@ -108,9 +114,9 @@ known gap.
 Calibration Project-specific post-production/field-time
 activity over Solution Space entries, such as
 parameter tuning, feature flags, A/B
+Term Meaning in this proposal
 configuration, or user-scripted properties. Its
 lifecycle and governance relations are
-Term Meaning in this proposal
 defined by the project profile.
 Baseline (project-specific) Configuration Management designation for a
 controlled reference configuration/state when
@@ -139,11 +145,18 @@ Each engineering layer has a bounded magnification range. Direct communication a
 relations MUST satisfy the applicable scale-compatibility rule. Cross-layer effects require explicit
 materialization and local interpretation.
 ## 3.4 AX-4 - Delegated autonomy
-Each layer remains autonomous while at least one solution is both engineering-feasible and
-within Hive commitment authority. Human-reserved commitments remain outside this Hive-committable solution space even when they are technically feasible.
+Each scoped engineering problem remains autonomous while at least one solution is both
+engineering-feasible and within Hive authority for the commitment at issue. Human interaction
+is not reduced to a reserved-commitment flag: a Human can provide arbitrary Input, make a
+voluntary or prescriptive Choice, or provide a Work Product or other Proposition. If
+autonomous commitment is blocked, the required external resolution depends on what is
+missing. Only an obligatory Decision that lies outside Hive commitment authority requires
+HUMAN_PRESCRIPTIVE_CHOICE. Human authority does not create engineering feasibility.
 HPC means HUMAN_PRESCRIPTIVE_CHOICE. HUMAN_VOLUNTARY_CHOICE can occur while
-autonomous continuation remains possible, and HUMAN_ARBITRARY_INPUT can arrive
-asynchronously at any time. Human authority does not create engineering feasibility.
+autonomous continuation remains possible, HUMAN_ARBITRARY_INPUT can arrive
+asynchronously at any time, and a Human can provide a Work Product or another required
+Proposition. If no engineering-feasible solution exists, the Hive preserves the conflict until new
+information, authority, constraints, or Work Products change the solution space.
 ## 3.5 AX-5 - Bounded satisficing
 The hive searches within the project-defined problem, authority, capability and resource
 envelope and seeks a satisfiable convergent solution. Unsupported divergent search does not
@@ -156,12 +169,15 @@ The semantic primitive is Proposition. A Proposition is an arbitrary addressable
 object. It can represent a complete system, subsystem, model, digital twin, network topology,
 source-code slice, physical assembly, analysis, compound sub-project, or another recursively
 addressable engineering object.
-Decision, Exchange Item, State Transition, evidence objects, and Work Product roles participate
-in the Proposition graph. Role and source are orthogonal: a human-originated, Hive-originated,
-delegated, or external object can use the same formal role when its semantics match.
+Decision, Exchange Item, State Transition, evidence, and Work Product semantics participate in
+the Proposition graph through context-qualified role predicates. Role and source are
+orthogonal: a human-originated, Hive-originated, delegated, or external object can use the same
+role when its semantics and context match. Exchange Item and Work Product are
+boundary/Contract-relative roles rather than universal disjoint subsets of P.
 Proposition membership provides stable identity, ancestry, lifecycle participation, and relation
-interoperability. It does not imply common subtype algebra, common representation, or
-predicate substitutability.
+interoperability. It does not imply common subtype algebra, common representation, predicate
+substitutability, or a universal role partition. The same Proposition can carry different
+boundary-relative roles in different Contract contexts.
 A Decision is an internal, materialized, rationale-bearing disposition that preserves or directs a
 possible course of Hive exploration or behavior. A Decision can be supported by one cluster,
 several clusters, an outlier, or a human source. Agreement is a support relation and is not part
@@ -169,12 +185,13 @@ of the Decision definition.
 ## 4.1 Decision, Exchange Item and Work Product roles
 An Exchange Item is an addressable materialized piece of engineering information used as a
 response or boundary communication and as explicit traceability material. A Work Product is a
-complete, structured contractual result of one layer. Its admissible structure, semantic scope,
-validation obligations, supplementary information, and information-exposure boundary are
-defined by the applicable Contract and project profile.
-Roles are boundary- and plane-dependent. The same underlying Proposition can be a Work
-Product for one Contract and an Exchange Item for another entitled recipient. A Work Product
-is not reducible to an arbitrary Exchange Item collection at the same contractual plane; it must
+complete, structured contractual result of one layer. Exchange Item status is qualified by an
+exchange boundary; Work Product status is qualified by a Contract. The Work Product
+admissible structure, semantic scope, validation obligations, supplementary information, and
+information-exposure boundary are defined by the applicable Contract and project profile.
+Roles are context-dependent. The same underlying Proposition can satisfy IsWorkProduct(p,C1)
+for one Contract and IsExchangeItem(p,b2) at another exchange boundary. A Work Product is
+not reducible to an arbitrary Exchange Item collection at the same contractual plane; it must
 satisfy its own formal, semantic, validation, traceability, supplementary-information, and
 information-boundary rules.
 Communication interfaces do not introduce a separate ontology. They are revision-qualified
@@ -312,9 +329,9 @@ or tooling. Such a Decision records the need for later reasoning, communication,
 does not authorize production effort by itself.
 ## 8.1 Example: CAN evolution
 ## 8.2 Layer-local blast
-A Decision remains local to the team or Hive execution context in which it is made. Cross-team
-blast is exposed only through updates to material objects, especially Exchange Items and Work
-Products, that other teams actually consume. A team that does not consume a changed item is
+A Decision has direct blast only inside its local Contract and bounded Hive/Team execution
+context. Outside that boundary, another team is affected only when an Exchange Item that it
+actually consumes is updated. A team that does not consume a changed Exchange Item is
 unaffected by that Decision.
 This gives a native blast area without an authority sphere. Large materialized blast extent can
 still trigger economic assessment or human intervention, but the Decision itself never reaches
@@ -327,15 +344,17 @@ Containment: Information may cross a layer boundary. Decision authority does not
 automatically.
 # 9. Contract, Exchange Item budget and Work Product execution
 A Contract is an addressable execution agreement centered on an obligatory Work Product. It
-has one accountable Executor, one or more issuing/accepting parties, optional supplementary
-parties, enforceable obligations, a bounded resource envelope, an execution topology, and
-explicit acceptance semantics. Party participation can evolve when execution reveals expertise
-or capabilities that were not known at Contract creation.
+has one accountable Executor, one or more Issuers, optional supplementary parties,
+enforceable obligations, a bounded resource envelope, an execution topology, and explicit
+acceptance semantics. Acceptance participation is represented separately through Acceptance
+Obligations and does not have to coincide with the Issuer set. Party participation can evolve
+when execution reveals expertise or capabilities that were not known at Contract creation.
 ## 9.1 Contract roles and evolving participation
-The Executor X_C is the single accountable party for current-level Contract fulfilment.
-Issuing/accepting parties I_C can be plural. Supplementary parties S_C can provide information,
-analysis, Exchange Items, implementation, verification support, or other inputs required by the
-expected Work Product.
+The Executor X_C is the single accountable party for current-level Contract fulfilment. Issuers
+I_C can be plural. Supplementary parties S_C can provide information, analysis, Exchange Items,
+implementation, verification support, or other inputs required by the expected Work Product.
+Acceptance participation is assigned independently by AcceptObligation(a,C); an Acceptor need
+not be an Issuer, and an Issuer need not automatically be an Acceptor.
 The Executor can decide to add a supplementary party or create another Contract when new
 execution needs appear. For example, an IT Contract can add Cyber Security participation after
 analysis reveals a security need. Contract evolution preserves the previous addressable revision
@@ -378,8 +397,9 @@ parent Work Product. Verification Contracts consume production Work Products and
 independently materialize verification evidence and reports.
 Verification independence is profile-controlled. The mathematics permits separation by role,
 actor cluster, Hive instance, model, department, enterprise, model provider, infrastructure, or
-data center. An applicable norm or project profile selects the required topology; the core
-algebra does not force one universal physical arrangement.
+data center. An applicable norm or project profile supplies the required constraints and the
+conformance predicate used to evaluate the actual topology; the core algebra defines no
+universal ordering among these heterogeneous dimensions.
 A split Contract topology does not necessarily split the overall Hive. The same Hive can
 coordinate several production and verification Contracts when the required independence
 profile permits it. Stronger norms can require separate Hive instances, departments,
@@ -406,10 +426,11 @@ Horizontal coordination uses the same Proposition algebra as every other enginee
 exchange. Actors send Questions, Requests, Clarifications and materialized responses; there is
 no separate generic Interface object that bypasses Proposition identity, revision, traceability, or
 Contract scope.
-Product API is a design Decision exposed as an Exchange Item whose representation follows the
-product boundary. It can be a CAN matrix, Revit or CAD definition, pinout, protobuf, drawing,
-table, textual specification, human-machine specification, or another project-supported
-representation.
+Product API is a design Decision materialized as a distinct Exchange Item whose representation
+follows the product boundary. The Decision remains local rationale; the materialized Exchange
+Item is what other parties consume. The representation can be a CAN matrix, Revit or CAD
+definition, pinout, protobuf, drawing, table, textual specification, human-machine specification,
+or another project-supported form.
 Team API is the set of Work Products and communications used by the participating actors to
 evolve the product. It includes the back-and-forth Proposition exchange and the material results
 that those actors consume or produce.
@@ -427,10 +448,10 @@ evolution, horizontal communication, and traceability across several Contracts w
 preserving the Contract-role and validation-independence requirements defined elsewhere in
 this proposal.
 ## 9.7 Acceptance obligations, fulfilment proposal and traceability
-Contract Acceptance is an explicit obligation assigned to eligible actors. An actor whose own
-Work Product participates as a direct parent input can receive an acceptance obligation.
-Delegated or contracted third parties are excluded from parent acceptance; the parent Executor
-accepts their result and remains accountable for its use.
+Contract Acceptance is an explicit obligation assigned to eligible actors independently from
+Issuer membership. An actor whose own Work Product participates as a direct parent input can
+receive an acceptance obligation. Delegated or contracted third parties are excluded from
+parent acceptance; the parent Executor accepts their result and remains accountable for its use.
 The Executor controls immediate traceability quality at the current engineering layer. It
 identifies Known Gaps, maintains valid immediate relations, prevents fabricated closure, and
 informs the accepting parties when the Contract is proposed as fulfilled.
@@ -468,9 +489,10 @@ operation appropriate to that boundary. Such an operation still has its own form
 validation, traceability, and information-policy checks; recursive copying is never a default
 closure rule.
 A layer is closure-ready only when its coherent Work Product satisfies the applicable Contract
-conformance and acceptance rules. Acceptance is a Contract obligation/result. It does not imply
-release, deployment, production, baselining, or any other project-specific lifecycle or
-supporting-process predicate.
+conformance and acceptance rules. Acceptance is a Contract obligation/result. Release,
+deployment, production, baselining, recall, decommissioning, and comparable states are
+project-specific predicates. The core algebra defines no implication from Contract acceptance to
+any such predicate unless the project profile explicitly introduces one.
 ## 9.10 Enforcement and atomic joint commitment
 Enforcement can mean refusal of acceptance, failed gate, rework, escalation, deployment
 prevention, commercial or legal remedy, or another project-defined normative consequence.
@@ -492,9 +514,9 @@ another layer.
 Cross-layer evidence reuse MUST use local evidence generation. A foreign evidence asset can
 inform the local artifact but cannot inherit evidential closure into the receiving layer.
 # 11. Maturity and brittleness
-Maturity expresses decisive power: how much implementation freedom an accepted
-Proposition removes from the current feasible space. It is not a quality grade and is not a fixed
-A/B/C form.
+Maturity expresses prescriptiveness: how much a Proposition reduces the current feasible
+design space. It is not an acceptance state, quality grade, completeness grade, or fixed A/B/C
+form.
 The relation is a partial order. Two propositions constraining orthogonal dimensions may be
 incomparable.
 ## 11.1 Brittleness predicate
@@ -510,9 +532,9 @@ mandate a numeric threshold.
 The propositions "information must be displayed", "information must be shown in top-left on
 the primary display", "information must be shown at configurable position on configurable
 display", and "information must enter an ASIL-C RTOS display section" are all legitimate
-possible propositions. They constrain different dimensions and may have very different decisive
-power and brittleness. Their acceptability must be justified at the layer that owns the
-commitment; the generic model does not rank them by wording alone.
+possible propositions. They constrain different dimensions and may have very different
+prescriptiveness and brittleness. Any commitment to them must be justified at the layer that
+owns the commitment; the generic model does not rank them by wording alone.
 # 12. Gaps, UNKNOWNs and Future Actions
 A structural edge does not make a valid trace. A false-parent gap exists when an asserted
 relation points to a semantically/logically irrelevant item. An orphan exists when a required
@@ -662,9 +684,11 @@ its role.
 Truthful gap handling No valid parent -> explicit orphan; hidden gaps are
 Invariant / audit Required condition
 penalized.
-Local blast Decision blast remains within one layer.
-Layer-wide extent requires economic
-assessment before commitment.
+Local blast Decision blast has direct effect only inside the
+local Contract and bounded Hive/Team
+execution context. Other teams are affected
+only through updated Exchange Items they
+consume.
 Local evidence Every layer records its own evidence artifact for local
 closure.
 Revision scope Supersession and temporal relations identify
@@ -698,9 +722,9 @@ supplementary-information, and
 information-exposure rules.
 Exchange Item budget Exchange Item production and rework stay
 within the applicable Contract resource
+Invariant / audit Required condition
 envelope unless the Contract is changed.
 Projection identity Repository/tool projections preserve links to
-Invariant / audit Required condition
 underlying Proposition identity and
 provenance; storage location alone does not
 define semantics.
@@ -709,8 +733,10 @@ assessed according to its nature and against
 the current solution space before
 commitment or incorporation.
 Single Contract Executor Every Contract has exactly one accountable
-Executor; issuing/accepting and
-supplementary parties may be plural.
+Executor; Issuers and supplementary parties
+may be plural. Acceptance participation is
+represented separately by Acceptance
+Obligations.
 Verification independence A production Contract role does not validate
 its own Work Product; actual validation
 independence satisfies the project-required
@@ -731,18 +757,18 @@ Contract, and the parent Executor controls
 delegated-input acceptance and immediate
 traceability quality.
 Materialized cross-team blast A Decision affects another team only through
-changed Exchange Items or Work Products
-that the team consumes; the Decision itself
-does not propagate as cross-team authority.
+changed Exchange Items that the team
+consumes; the Decision itself does not
+propagate as cross-team authority.
 Communication-role minimum Project role vocabularies include Question,
 Request, Clarification, and Exchange Item;
 additional Proposition roles are project-specific.
 Representation-neutral Product API A Product API is a design Decision
+Invariant / audit Required condition
 materialized as an Exchange Item; the
 algebra does not prescribe a software-specific
 representation.
 Vertical Integrator The Integrator can consume multiple Work
-Invariant / audit Required condition
 Products from multiple parties but produces
 a coherent Work Product vertically toward
 the parent Contract and gains no implicit
@@ -776,7 +802,8 @@ not holes in the foundational model:
  Relation vocabulary, subtype signatures, converse labels and semantic validators.
  Scale/magnification frames and permitted bridges.
  Which sources are negotiable or non-negotiable at each project horizon.
- Contract parties, authority data, reserved human decisions and enforcement mechanisms.
+ Contract parties, authority data, human Decision-authority scopes, human-intervention
+obligations, and enforcement mechanisms.
  Obligation priorities, execution prerequisites and joint-commitment groups.
  Work Product schemas, semantic-role constraints, required validators, information-exposure policies, and Proposition quality predicates appropriate to each Work Product
 family.
@@ -801,10 +828,21 @@ and Known Gap disposition rules.
  Communication Proposition roles beyond Question, Request, Clarification and Exchange
 Item; external-party communication profiles; Product API representations; and Team API
 communication/Work Product sets.
-# 20. Non-normative corroborating references
-The following external sources were used only to cross-check terminology and
-mathematical/engineering shape. They are not incorporated as project requirements and do not
-override the proposal.
+# 20. Reference hierarchy
+The proposal has a narrow language/drafting dependency set: BCP 14 (RFC 2119 and RFC 8174)
+for normative keyword semantics, ASD-STE100 Issue 9 for Simplified Technical English, and
+applicable ISO plain-language/terminology/drafting guidance selected by the project, including
+ISO 24495-1 where applicable. Engineering standards and frameworks listed below are
+illustrative or supportive compatibility references only; they do not define proposal
+conformance or override the project model.
+Normative language/drafting references:
+RFC Editor BCP 14 (RFC 2119 and RFC 8174): https://www.rfc-editor.org/info/bcp14/
+ASD-STE100 Simplified Technical English, Issue 9 (January 2025): https://www.asd-ste100.org/
+ISO 24495-1:2023, Plain language - Part 1: Governing principles and guidelines:
+https://www.iso.org/standard/78907.html
+ISO/IEC Directives, Part 2, Principles and rules for the structure and drafting of ISO and IEC
+documents: https://www.iso.org/directives-and-policies.html
+Illustrative/supportive engineering references:
 # 1. INCOSE Requirements Working Group, Guide to Writing Requirements / associated
 requirement guidance. Relevant themes: appropriate abstraction level, singular/well-formed
 requirement statements, consistency of requirement sets, verification/validation practice.
@@ -842,16 +880,23 @@ Integration Verification: https://vda-qmc.de/wp-content/uploads/2023/12/Automoti
  AIAG Advanced Product Quality Planning (APQP), 3rd Edition overview:
 https://www.aiag.org/training-and-resources/manuals/details/APQP-3
 Compilation status
-This draft integrates accepted Change Proposals 1-6 into the formal model. CP4 establishes
-Contract execution topology, decomposition, V-model verification, configurable validation
-independence, Integrator Contracts, coherent layer Work Products, acceptance obligations,
-immediate traceability control, Known Gap disclosure, and adjacent-layer authority locality.
-CP5 establishes representation-neutral communication and Product/Team API semantics. CP6
-establishes Work Product conformance and layer closure: magnification is a prerequisite to
-integration, construction strategy is project-specific, Work Products have explicit
+This draft integrates accepted Change Proposals 1-6 and applies release-challenge fixes 1-8. CP4
+establishes Contract execution topology, decomposition, V-model verification, configurable
+validation independence, Integrator Contracts, coherent layer Work Products, Acceptance
+Obligations, immediate traceability control, Known Gap disclosure, and adjacent-layer authority
+locality. CP5 establishes representation-neutral communication and Product/Team API
+semantics. CP6 establishes Work Product conformance and layer closure: magnification is a
+prerequisite to integration, construction strategy is project-specific, Work Products have explicit
 formal/semantic/validation/information boundaries, artifact-role semantics constrain content,
-and Contract acceptance is disjoint from Configuration Management and other project-specific
-lifecycle predicates. It does not define a concrete skill architecture, implementation technology,
-universal relation semantics, universal integration strategy, or enterprise authority model.
-Release challenge status: Draft 0.6 remains a working draft. Release readiness requires
-adversarial review of remaining ontology, authority, evidence, process-boundary, and project-profile assumptions.
+and Contract acceptance is independent from Configuration Management and project-specific
+lifecycle predicates. Exchange Item and Work Product roles are now context-qualified rather
+than global disjoint sets; human intervention is scoped by the missing obligation rather than a
+generic reserved-commitment predicate; Decision blast outside the local Contract/Hive
+boundary propagates only through consumed Exchange Item updates; and Acceptance
+participation is separate from Issuer membership. Items 9 and 10 from the release challenge
+remain open for explicit resolution. It does not define a concrete skill architecture,
+implementation technology, universal relation semantics, universal integration strategy, or
+enterprise authority model.
+Release challenge status: Draft 0.7 remains a working draft. Release-challenge items 1-8 are
+corrected. Items 9 (semantic-role marking/enforcement) and 10 (profile-scoped scale examples)
+remain open for explicit decision before formal release.
