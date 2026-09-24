@@ -1,6 +1,6 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.36"
+subtitle: "Formal Proposal - Draft 0.37"
 date: "23 September 2026"
 ---
 
@@ -6854,104 +6854,32 @@ The formal audit includes the following additional checks.
 
 ## 20. Project Profile
 
-The Project Profile defines at least the parameters that are required by the project:
+The Project Profile supplies project-specific values for parameters that the common model intentionally leaves open.
 
-- Product boundaries, Scale positions, and Engineering Layers;
-- Proposition roles and Engineering Object families;
-- relation vocabulary, signatures, converse labels, validators, and semantic composition rules;
-- Scale positions, Engineering Layer topology, Magnification traversal, adjacent-layer transfer rules, and same-Scale cross-domain relation rules;
-- Contract parties, authority, human Decision scopes, enforcement, and Contract resource models;
-- Work Product schemas, semantic-role constraints, required validators, information-exposure policies, and acceptance rules;
-- required Instrumental Checks, Low-profile Assessments, High-profile Assessments, escalation conditions, and instrumentation-improvement rules;
-- Team API communication rules;
-- Trade Space representation, trajectory rating, cluster independence, outlier policy, Rollback Cost model, deactivation and post-mortem criteria;
-- Resource Envelope dimensions, measurement rules, invention allocations, and waste classification;
-- validation/verification independence topology;
-- Evidence rules, UNKNOWN materiality, Gap and Future Action policy;
-- supporting-process predicates such as Configuration Management, Change Management, baseline, release, deployment, production, risk, and quality rules;
-- lifecycle labels for Decisions, Engineering Objects, Work Products, Contracts, and other project elements;
-- external-party communication constraints and permitted formats;
-- integration/composition strategies and their validation requirements;
-- Contract-type execution policies and Executor eligibility;
-- required independence between Contract types and Hive/Actor separation requirements;
-- integration-input verification and rework rules;
-- Contract-execution health indicators, divergence thresholds, and back-off behavior;
-- Agent deactivation, Contract-role Actor deactivation, reassignment, recovery, and termination policies.
-- readiness prerequisite kinds, including external-work, dependent-Contract, computational-resource, physical-resource, legal/commercial, Product-state, and synchronization conditions;
-- Contract lifecycle transition guards and materiality conditions for runtime regression and definition-revision re-entry;
-- lifecycle event ordering where several observations occur at the same timestamp;
-- temporary-block classification and reassessment thresholds;
-- readiness evaluation frequency and resumption policy after `BLOCKED`;
-- Acceptance materiality across Contract revisions;
-- discontinuation guards and additional lifecycle audit/event metadata;
-- blocker categories and conditions requiring `REASSESSMENT_REQUIRED`;
-- Work Product preparation/submission protocol and revision handling;
-- Acceptance dispositions, permitted Acceptance delegation, and rules for reuse of unaffected validation or Evidence;
-- successor-Contract and external Contract dependency rules;
-- Confidence response model for material Contract and Acceptance failures.
-- Confidence representation, observation window, trend calculation, and update frequency;
-- Confidence inputs from convergence/divergence, Evidence trends, Decision progression, validation outcomes, Resource Cost, remaining Resource Envelope, and historical resolution;
-- permitted stochastic/Monte-Carlo/pseudo-random Confidence and exploration-diversity mechanisms;
-- operator-facing Confidence presentation and traffic-light thresholds;
-- permitted automated operational uses of Confidence and the Evidence required to justify them;
-- post-mortem Confidence tuning and drift-assessment rules.
-- explicit authority sources and authority-record representation;
-- authority kinds and operation-level authority requirements;
-- Human and non-Human authority Scopes and applicability intervals;
-- Contract-Issuer, Contract-revision, Assignment, Decision-commitment, and Acceptance-delegation authority rules;
-- authority delegability, delegation limits, revocation, expiry, and role-combination restrictions;
-- required Human identity/authentication mechanisms where applicable;
-- Human-input transformation semantics, input normalization, and transformation Scope;
-- ordered Human-input application semantics and atomic/joint input groups where required;
-- Human-input composability rules and Decision Space derivation after transformation;
-- infeasibility detection after composed Human inputs;
-- Human-input retraction and supersession semantics;
-- recovery behaviour after non-composable input or empty feasible space.
+It specializes the common model for a Product, engineering domain, organization, lifecycle, or implementation context. It does not redefine the common foundation.
 
-- admissible Product kinds and Product-intent representation;
-- Product-scope and Product-state vocabularies;
-- Product-to-Contract scoping rules;
-- Product target satisfaction predicates and Contract classes that constitute Product Delivery;
-- relations between Product targets and required Work Products;
-- Product/Work Product composition and materiality mappings;
-- Hive capability representation and capability-acquisition mechanisms;
-- enabling-technology representation and availability rules;
-- Product Development Envelope assessment;
-- capability and enablement change detection;
-- rules for external capability, supplier, or tooling involvement;
-- Product-level acceptance, qualification, certification, release, production, deployment, delivery, and similar lifecycle predicates;
-- relationships between those Product predicates and Contract Acceptance.
+| Parameter group | Project-defined content |
+|---|---|
+| **Product and capability** | Product boundaries; admissible Product kinds and Product-intent representation; Product scope and state vocabularies; Product-to-Contract scoping; Product target satisfaction and Product Delivery Contract classes; Product/Work Product relations, composition and materiality; Hive capability representation and acquisition; enabling-technology representation and availability; Product Development Envelope assessment; capability and enablement change detection; external capability, supplier, and tooling involvement; Product-level acceptance, qualification, certification, release, production, deployment, delivery, and their relation to Contract Acceptance. |
+| **Semantic model and relations** | Proposition roles; Engineering Object families; relation vocabulary; source/target signatures; converse labels; validators; semantic-composition rules. |
+| **Scale and engineering topology** | Scale positions; Engineering Layers; domain topology; Magnification traversal; adjacent-layer transfer; same-Scale cross-domain relation rules. |
+| **Work Products, Evidence, and validation** | Work Product schemas; semantic-role constraints; required validators; information-exposure policies; Acceptance rules; Instrumental Checks; Low-profile and High-profile Assessments; escalation and instrumentation-improvement rules; Evidence rules; UNKNOWN materiality; Gap and Future Action policy. |
+| **Contract definition and lifecycle** | Contract-type vocabulary and required fields; identity, revision-materiality, and successor criteria; Product-target representation; Work Product Requirement schema; prerequisite and dependency types, states, and internal/external representation; Contract Resource Budget; Acceptance Specification; information policy; enforcement; supplementary participants; event types and retention; derived runtime views; Contract/Profile migration; readiness prerequisite kinds; lifecycle transition guards; runtime-regression and definition-revision materiality; same-time event ordering; temporary blocking and reassessment; readiness evaluation and resumption; Work Product preparation, submission, and revision handling; Acceptance materiality, dispositions, delegation, and reuse of unaffected validation or Evidence; discontinuation guards; blocker categories; successor and external Contract dependencies. |
+| **Authority and Human input** | Contract parties; explicit authority sources and records; authority kinds and operation-level requirements; Human and non-Human authority Scope and applicability; Contract-Issuer, Contract-revision, Assignment, Decision-commitment, and Acceptance-delegation authority; delegability, delegation limits, revocation, expiry, and role combinations; Human identity/authentication where applicable; Human-input normalization, transformation, Scope, ordering, atomic/joint groups, composability, Decision Space derivation, infeasibility handling, retraction, supersession, and recovery. |
+| **Execution, communication, verification, and integration** | Team API rules; external-party communication constraints and formats; Contract-type execution policies and Executor eligibility; required Contract-type independence and Hive/Actor separation; validation/verification independence topology; integration/composition strategies and validation requirements; integration-input verification and rework rules. |
+| **Exploration, resources, Rollback, and recovery** | Trade Space representation; trajectory rating; Cluster independence; outlier policy; Rollback Cost model; Resource Envelope dimensions and measurement; invention allocation; Waste classification; Contract-execution health, divergence, and back-off; Agent and Contract-role Actor deactivation; reassignment; recovery; termination; post-mortem criteria. |
+| **Confidence** | Response to material Contract and Acceptance failures; representation; observation window; trend calculation; update frequency; inputs from convergence/divergence, Evidence, Decision progression, validation, Resource Cost, remaining Resource Envelope, and historical resolution; permitted stochastic or Monte-Carlo mechanisms; operator-facing representation; permitted automated uses and their Evidence basis; post-mortem tuning and drift assessment. |
+| **Supporting processes and lifecycle vocabulary** | Configuration Management, Change Management, Baseline, release, deployment, production, risk, quality, and other supporting-process predicates; lifecycle labels for Decisions, Engineering Objects, Work Products, Contracts, and other project elements. |
 
-The Project Profile cannot authorize inference of authority from Confidence, title, expertise, apparent seniority, conversational style, organizational visibility, or other social cues.
+The Project Profile cannot create authority from Confidence, title, expertise, apparent seniority, conversational style, organizational visibility, or other social cues.
 
-- Contract-type vocabulary;
-- required Contract-definition fields by type;
-- Contract identity rules;
-- Contract revision materiality;
-- successor-Contract identity criteria;
-- Product-target representation;
-- Work Product Requirement schema;
-- prerequisite predicate types;
-- dependency relation types;
-- dependency-state predicates;
-- internal/external dependency representation;
-- Contract Resource Budget rules;
-- Acceptance Specification schemas;
-- information-policy references;
-- enforcement semantics;
-- supplementary participant representation;
-- Contract event types;
-- event retention rules;
-- derived runtime views;
-- Contract/Profile migration semantics.
+It cannot collapse Contract definition revision, lifecycle state, and historical event history into one destructively mutable state.
 
-The Project Profile cannot collapse definition revision, lifecycle state, and historical event history into one destructive mutable state.
+It cannot redefine Product and Work Product as universally identical concepts.
 
-The Project Profile cannot redefine Product and Work Product as universally identical concepts.
+It cannot redefine Confidence as truth, probability, precision, Evidence, authority, Decision, Admission, Acceptance, Back-off, or Work Product content.
 
-The Project Profile cannot redefine Confidence as truth, probability, precision, Evidence, authority, Decision, Admission, Acceptance, Back-off, or Work Product content.
-
-The Project Profile does not define common-model technical Product interfaces. Those remain engineering content unless another applicable engineering method or external norm governs them.
+Technical Product interfaces remain engineering content. The Project Profile can configure their applicable engineering rules, but it does not make them part of the common governance model merely by naming them.
 
 ## 21. Formal model audit
 
@@ -7221,7 +7149,7 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.36 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.37 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
@@ -7238,4 +7166,5 @@ Draft 0.36 retains the structural rewrite introduced in Draft 0.9 and corrects t
 - **Contract realization phases:** recover and formalize progression from lightweight Solution Exploration through planning, Work Product materialization, integration, and where applicable physical-world realization. This is a global Contract model concern.
 - **Traceability dimensions:** refine operational/metadata and materialized engineering dimensions of the existing Product graph while preserving the common relation algebra.
 - **Formal Symbol and Predicate Audit:** normalize existing notation against the mathematical dictionary; remove symbol collisions; collect named predicates, relations, and functions into one appendix with mathematical type/signature, meaning, defining section, and formal role. Reassess Candidate Delta and Admission as part of that package.
+- **Project Profile language formalization:** formalize the Project Profile as a domain-specific language rather than an open-ended parameter ledger. Define its syntax, mathematical/semantic types, declarations, references, composition, inheritance/override rules, validation, versioning/migration, Profile-to-Profile compatibility, extension points, and conformance semantics while preserving the common-model boundary.
 - **Proposal structural compaction:** reduce repeated formal prose, duplicated invariants, excessive section depth, and implementation-oriented detail while retaining accepted engineering semantics and required mathematics.
