@@ -1,6 +1,6 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.27"
+subtitle: "Formal Proposal - Draft 0.28"
 date: "18 September 2026"
 ---
 
@@ -291,8 +291,8 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Obligation** | Responsibility of an Executor for the complete result of an assigned Contract. The Executor delivers the required result or explicitly reports inability to fulfil the Contract to the authoritative party or parties. Obligation is Contract semantics, not necessarily a separate stored object. |
 | **Outlier** | Discovered outcome or trajectory with low current cluster support. It remains recorded even when active allocation is zero. |
 | **Overthinking** | Reasoning expenditure whose expected information or decision value is lower than its Resource Cost, or reasoning applied to a result that deterministic state/algebra can establish directly. |
-| **Product** | Coherent engineered subject whose state is created, evolved, verified, accepted, produced, or delivered. |
-| **Product Delivery** | Contract fulfilment in which accepted Work Products advance the Product to the Contract target state. |
+| **Product** | Coherent engineered subject and primary top-level scope/intent of Hive operation. The Product identifies what the Hive is working to establish, evolve, analyze, verify, realize, or deliver and bounds the corresponding engineering context. Actual Product development is bounded by available Hive capabilities, enabling technology, authority, and resources. |
+| **Product Delivery** | Specialization of Contract fulfilment in which fulfilment requires satisfaction of an explicit Product target state in addition to Acceptance of the required Work Product. |
 | **Project Profile** | Formal project input that defines open parameters such as relation vocabulary, scale topology, Work Product schemas, validators, authority, resource models, lifecycle predicates, and validation independence. |
 | **Proposition** | Core addressable semantic element of the solution model. It is not an Engineering Object by default. It can later be materialized, carried, or realized by Engineering Objects. |
 | **Relation** | Typed semantic or structural association between addressable elements, qualified by scope, revision, time, and Project Profile semantics. |
@@ -982,7 +982,28 @@ Unaffected Evidence or validation can be reused only where the applicable Projec
 
 ### 6.7 Product
 
-A Product is the coherent engineered subject at a defined boundary.
+A Product is the coherent engineered subject and the primary scope and intent anchor for Hive operation.
+
+A Product can be, for example:
+
+- a mobile application;
+- a book;
+- an SoC;
+- a software component;
+- an electronic or mechanical component;
+- a complex device;
+- a vehicle;
+- a system-of-systems;
+- another project-defined engineered subject.
+
+These examples do not constrain Product kind.
+
+The Product establishes the top-level engineering context within which the Hive operates. Conceptually:
+
+$$Product(P)
+ightarrow HiveOperatingContext(H,P).$$
+
+The Product therefore identifies what the Hive is working on and what engineering intent establishes that work. It does not prescribe how the Product is decomposed, architected, implemented, manufactured, written, encoded, integrated, or otherwise realized. Those remain engineering outcomes discovered or established during Product development.
 
 Product structure, Work Product structure, Contract execution topology, Engineering Layer topology, and Hive execution topology represent different concerns.
 
@@ -990,15 +1011,414 @@ Product decomposition describes the engineered subject. Work Product structure d
 
 Therefore:
 
-$$ContractDecomposition\not\Rightarrow ProductDecomposition$$
+$$ContractDecomposition
+ot\Rightarrow ProductDecomposition$$
 
-$$ContractDecomposition\not\Rightarrow HiveDecomposition$$
+$$ContractDecomposition
+ot\Rightarrow HiveDecomposition$$
 
 and:
 
-$$ProductDecomposition\not\Rightarrow ContractDecomposition.$$
+$$ProductDecomposition
+ot\Rightarrow ContractDecomposition.$$
 
 The common proposal does not prescribe technical interfaces, architecture, protocols, decomposition strategy, or other engineering content of a Product. Such details belong to project engineering work. Where examples are useful for explanation, they are Illustrations and do not establish proposal semantics.
+
+#### 6.7.1 Product as the primary Hive input
+
+Product definition is a primary input to Hive operation. It establishes the initial scope, intent, and subject of Product-oriented Solution Exploration.
+
+Let:
+
+$$Intent(P)$$
+
+represent Product-level intent and:
+
+$$Scope(P)$$
+
+represent the applicable Product scope.
+
+Then initiation of Product-oriented Hive work can be represented conceptually as:
+
+$$(P,Intent(P),Scope(P))
+ightarrow InitializeExplorationContext(H,P).$$
+
+This does not require the Product to be fully defined before work begins. The initial Product definition can contain known needs, intended outcomes, constraints, UNKNOWNs, Known Gaps, existing Product state, externally imposed conditions, available capabilities, partial intent, or ambiguous intent. Truthful incompleteness remains applicable.
+
+Therefore:
+
+$$ProductDefined(P)
+ot\Rightarrow ProductFullySpecified(P).$$
+
+A Product can establish meaningful Hive work while much of its eventual structure remains unexplored.
+
+#### 6.7.2 Product is broader than a Contract target
+
+A Contract operates inside a Product context. The Product provides the overall subject and engineering intent. A Contract governs one bounded execution responsibility related to that Product.
+
+Conceptually, for a Contract belonging to Product $P$:
+
+$$ContractTarget(C)\subseteq ProductContext(P).$$
+
+This does not require the Contract target to represent a physical Product fragment. A Contract can concern Product development, analysis, architecture, verification, Evidence generation, integration, supplier work, documentation, qualification, or another bounded responsibility.
+
+The Product is not created merely by aggregating Contracts:
+
+$$Product(P)
+ot\equivigcup_i Contract(C_i).$$
+
+Likewise:
+
+$$ProductScope(P)
+ot\Rightarrow CompleteContractDecomposition(P).$$
+
+The existence of a Product does not imply that every part of its intended development has already been decomposed into Contracts.
+
+#### 6.7.3 Product operating scope
+
+The Product establishes a general scope of work for the Hive.
+
+Let:
+
+$$OperationalScope_H(P,t)$$
+
+be the currently applicable Product-oriented operating scope of Hive $H$. It can contain active engineering questions, active Contracts, Product Decisions, Trade Spaces, Product-relevant Evidence, unresolved Product UNKNOWNs and Gaps, applicable Engineering Layers, enabling capabilities and tools, and Product-related external dependencies.
+
+The operating scope can evolve as the Product becomes better understood:
+
+$$OperationalScope_H(P,t)
+ightarrow OperationalScope_H(P,t+\Delta t).$$
+
+Such evolution does not imply that Product identity changes. The Product can remain the same while its known engineering scope expands, contracts, or is restructured.
+
+#### 6.7.4 Product intent and Product state are distinct
+
+The Product includes an engineering intent that establishes Hive operation, but intended state and actual state remain distinct.
+
+Let:
+
+$$DesiredState(P,t)$$
+
+and:
+
+$$ObservedState(P,t)$$
+
+represent those concepts where applicable. Then:
+
+$$DesiredState(P,t)
+eq ObservedState(P,t)$$
+
+in general.
+
+The gap between intended and actual state is part of the engineering problem. The Hive operates over that gap rather than treating Product intent as Evidence that the intended state already exists.
+
+#### 6.7.5 Hive capability bounds Product development
+
+Product intent does not imply that the Hive is capable of realizing every possible Product state.
+
+Let:
+
+$$Capability_H(t)$$
+
+represent the engineering capabilities available to Hive $H$ at time $t$. Capability can include reasoning capability, domain knowledge, software-development capability, simulation capability, verification capability, physical-design capability, tooling access, manufacturing access, external specialist capability, Human capability, supplier capability, and other project-defined execution capability.
+
+The Product defines the intended engineering problem. Hive capability restricts what parts of that problem can actually be executed autonomously or through currently available participants.
+
+Therefore:
+
+$$ProductIntent(P)
+ot\Rightarrow HiveCapable(H,P).$$
+
+#### 6.7.6 Enabling technology bounds Product development
+
+Actual Product development also depends on available enabling technology.
+
+Let:
+
+$$Enablement(P,t)$$
+
+represent the applicable set of technologies, facilities, tools, platforms, infrastructure, processes, and external technical capabilities available for Product development.
+
+Illustrative examples include programming languages and frameworks, EDA/CAD/CAE tools, fabrication technologies, semiconductor process nodes, test equipment, manufacturing methods, simulation environments, laboratories, cloud/compute infrastructure, publishing technologies, third-party platforms, and external engineering services.
+
+A theoretically valid Product solution can remain unavailable when required enabling technology does not exist or is inaccessible. Therefore:
+
+$$TechnicallyConceivable(x)
+ot\Rightarrow Developable_H(x,t).$$
+
+#### 6.7.7 Product Development Envelope
+
+Hive capability and enabling technology jointly bound the currently reachable development region.
+
+For Product $P$, define:
+
+$$DevelopmentEnvelope_H(P,t)$$
+
+as the currently reachable Product-development region under the applicable Product intent, Hive capabilities, enabling technology, authority, Resource Envelope, and external constraints.
+
+Conceptually:
+
+$$DevelopmentEnvelope_H(P,t)=SolutionSpace(P,t)\cap CapabilityReach_H(t)\cap EnablementReach(P,t)\cap AuthorityReach_H(t)\cap ResourceReach_H(t).$$
+
+This is a conceptual intersection and does not require all dimensions to use the same mathematical representation.
+
+The important invariant is:
+
+$$SolutionSpace(P,t)
+ot\equiv DevelopmentEnvelope_H(P,t).$$
+
+The Solution Space can contain valid or interesting Product possibilities that the current Hive cannot yet develop.
+
+#### 6.7.8 Capability limitation does not invalidate Product intent
+
+If Product intent lies partly outside the current Development Envelope, the Product itself is not invalid. Instead the Hive exposes the limitation.
+
+For intended state $x$:
+
+$$x\in IntendedProductRegion(P)\land x
+otin DevelopmentEnvelope_H(P,t)$$
+
+can lead to capability acquisition, tooling development, external Contract, supplier involvement, Human intervention, enabling-technology development, Product intent revision, deferred work, or explicit inability report.
+
+The model must not silently reduce Product intent merely to make the current Hive appear capable:
+
+$$CapabilityLimit
+ot\Rightarrow SilentProductScopeReduction.$$
+
+#### 6.7.9 Development Envelope can evolve
+
+Hive capability and enabling technology are temporal. Therefore:
+
+$$DevelopmentEnvelope_H(P,t_1)
+eq DevelopmentEnvelope_H(P,t_2)$$
+
+can occur even when Product intent is unchanged.
+
+For example:
+
+$$NewTool
+ightarrow ExpandedCapability
+ightarrow ExpandedDevelopmentEnvelope$$
+
+or:
+
+$$SupplierUnavailable
+ightarrow ReducedEnablement
+ightarrow ReducedDevelopmentEnvelope.$$
+
+A Product path that was previously infeasible can later become feasible without changing Product identity. A previously feasible Product path can likewise become unavailable.
+
+#### 6.7.10 Product scope, capability, enablement, and resources
+
+The Product Development Envelope remains distinct from the Resource Envelope.
+
+Product answers what engineered subject and intent establish the work. Capability describes what kinds of engineering action the Hive can perform. Enablement describes what technical means exist and are accessible. Resource Envelope describes how much applicable resource is available.
+
+Therefore:
+
+$$ProductScope
+eq Capability
+eq Enablement
+eq ResourceEnvelope.$$
+
+They interact, but none substitutes for another.
+
+#### 6.7.11 Product and Work Product are independent roles
+
+Product and Work Product describe different semantics.
+
+For subject $x$:
+
+$$ProductRole(x,\kappa)$$
+
+means that $x$ is treated as the engineered subject in context $\kappa$.
+
+For Contract $C$:
+
+$$WorkProductRole(x,C)$$
+
+means that $x$ is the complete Contract-required result.
+
+Neither role implies the other:
+
+$$ProductRole(x,\kappa)
+ot\Rightarrow WorkProductRole(x,C)$$
+
+and:
+
+$$WorkProductRole(x,C)
+ot\Rightarrow ProductRole(x,\kappa).$$
+
+The same addressable or material entity can play both roles when the applicable engineering context explicitly establishes both:
+
+$$ProductRole(x,\kappa)\land WorkProductRole(x,C).$$
+
+Role coincidence does not collapse the two concepts.
+
+#### 6.7.12 Product state and Work Product state
+
+Product state and Work Product state are distinct. Let:
+
+$$State_P(p,t)$$
+
+represent the applicable Product state and:
+
+$$State_{WP}(w,C,t)$$
+
+represent the Contract-relative Work Product state. In general:
+
+$$State_P(p,t)
+eq State_{WP}(w,C,t).$$
+
+A Work Product can change without changing the Product:
+
+$$WorkProductRevised(w)
+ot\Rightarrow ProductChanged(p).$$
+
+Conversely:
+
+$$ProductChanged(p)
+ot\Rightarrow WorkProductRevised(w)$$
+
+universally.
+
+Whether a Product change makes a particular Work Product stale is determined through the applicable Contract, traceability, revision, and impact rules. Where the Product change is material to the Work Product or its Acceptance basis, reassessment is required.
+
+#### 6.7.13 Product target and required Work Product
+
+A Contract contains two semantically distinct elements:
+
+1. the Product target - what engineering state the Contract concerns or intends to establish; and
+2. the required Work Product - what complete result the Executor must submit for Contract fulfilment.
+
+Conceptually:
+
+$$ProductTarget(C)=(p,s_{target})$$
+
+and:
+
+$$RequiredWorkProduct(C)=w_{req}.$$
+
+These are different Contract semantics. Therefore:
+
+$$ProductTarget(C)
+eq RequiredWorkProduct(C)$$
+
+as roles, even when the same material object participates in both roles.
+
+#### 6.7.14 Work Product Acceptance does not create universal Product Acceptance
+
+Acceptance remains Contract-relative. For:
+
+$$Accepted(w^r,C^k)$$
+
+the model establishes that the specified Work Product revision satisfies the applicable Acceptance rules of the specified Contract revision. It does not establish a universal predicate:
+
+$$AcceptedProduct(p).$$
+
+Therefore:
+
+$$Accepted(w,C)
+ot\Rightarrow GloballyAccepted(p).$$
+
+The common model does not define universal Product Acceptance. Product-level acceptance, qualification, certification, release, manufacturing acceptance, customer acceptance, regulatory approval, or another Product lifecycle predicate can be defined through the Project Profile or an applicable external process.
+
+#### 6.7.15 Acceptance does not automatically mutate Product state
+
+Acceptance is a governance event. A Work Product Acceptance event does not by itself constitute a Product state-transition operation:
+
+$$Accepted(w,C)
+ot\Rightarrow ProductStateTransition(p).$$
+
+A Product transition occurs only where the Contract or applicable project process establishes that transition.
+
+### 6.8 Product Delivery
+
+Product Delivery is a specialization of Contract fulfilment.
+
+For an ordinary Contract $C$:
+
+$$Fulfilled(C)$$
+
+means that its required Work Product has passed the applicable Acceptance rules. This does not universally imply that the Product itself has moved to a new target state.
+
+For a Product Delivery Contract:
+
+$$ProductDeliveryContract(C)$$
+
+fulfilment additionally requires satisfaction of the applicable Product target. Therefore:
+
+$$ProductDeliveryContract(C)\land Fulfilled(C)\Rightarrow ProductTargetSatisfied(C).$$
+
+For a Contract that is not a Product Delivery Contract:
+
+$$Fulfilled(C)
+ot\Rightarrow ProductStateChanged.$$
+
+A verification, analysis, feasibility, testing, planning, Evidence-generation, or similar Contract can therefore be successfully fulfilled without itself changing the Product.
+
+#### 6.8.1 Product target satisfaction
+
+Product target satisfaction is established according to the Contract and applicable engineering method. The common proposal does not prescribe how that target is technically demonstrated.
+
+Illustrative project-defined mechanisms can include direct state observation, integration result, test Evidence, manufacturing result, deployed state, delivered physical item, accepted configuration, or another domain-specific mechanism.
+
+The common semantic requirement is only that:
+
+$$ProductTargetSatisfied(C)$$
+
+must not be inferred solely from:
+
+$$Accepted(w,C)$$
+
+unless the applicable Acceptance rule explicitly establishes Product target satisfaction.
+
+### 6.9 Product / Work Product cardinality independence
+
+The relationship between Product structure and Work Product structure is many-to-many in the common model. One Work Product can concern several Product elements. Several Work Products can concern one Product or Product element.
+
+Therefore no one-to-one structural mapping is assumed. Let the Project Profile define the applicable relation:
+
+$$RelatesWPToProduct(w,p,\kappa).$$
+
+Then:
+
+$$|\{p:RelatesWPToProduct(w,p,\kappa)\}|$$
+
+and:
+
+$$|\{w:RelatesWPToProduct(w,p,\kappa)\}|$$
+
+are not universally constrained to one.
+
+### 6.10 Work Product integration and Product integration
+
+Work Product integration and Product integration are distinct operations.
+
+The Integrator Contract constructs a coherent Work Product from qualified Work Product inputs. Therefore:
+
+$$IntegrateWorkProducts(w_1,\ldots,w_n,w_I)
+ot\Rightarrow IntegrateProductElements(p_1,\ldots,p_n,p_I).$$
+
+Likewise:
+
+$$ProductIntegrated(p)
+ot\Rightarrow WorkProductsIntegrated.$$
+
+When a project requires both, its engineering method and Contract topology establish the relation between them.
+
+### 6.11 Product observation and historical Work Product state
+
+Product state can evolve after a Work Product has been Accepted. Later operation can reveal degradation, failure, unexpected behaviour, changed environment, or another new condition.
+
+Such later Product state does not retroactively rewrite historical Acceptance:
+
+$$LaterProductState(p,t_2)
+ot\Rightarrow RewriteAcceptance(w^r,C^k,t_1).$$
+
+The historical statement remains that $w^r$ was Accepted against $C^k$ under the information and rules applicable at $t_1$.
+
+New Product information can instead create new Evidence, Feedback Exchange Items, Decision reassessment, Work Product revision, new Contract, successor Contract, Change Management activity, or another applicable governed response.
 
 ## 7. Operational algebra
 
@@ -2114,6 +2534,10 @@ The Contract is durable and revision-qualified. Previous Contract states remain 
 
 A Contract becomes executable only when its Assignment is unambiguous for the applicable scope. Conflicting directives that would establish incompatible Assignments for the same scope require resolution under the applicable authority rules before execution proceeds. Human-originated input does not bypass this rule. The Human role and authority model is a prerequisite of safe execution and is defined separately from this Contract section.
 
+A Contract identifies its Product relationship and required Work Product independently. A Contract can create or modify Product state, verify Product state, analyze Product state, produce Evidence about Product state, construct a Work Product without directly changing Product state, or perform another Project Profile-defined engineering responsibility. The Contract must not infer Product effect merely from the type or existence of its Work Product.
+
+The Product provides the top-level scope and intent context; Contracts are bounded execution mechanisms inside that Product context. Product identity and Product-level intent can continue while Contracts are created, revised, split, fulfilled, discontinued, or replaced.
+
 #### 11.1.1 Contract execution as Solution Exploration
 
 A Contract remains a durable governance record defining responsibility, target result, resources, execution conditions, Acceptance, and history.
@@ -2863,6 +3287,56 @@ according to the revised Contract predicates.
 
 Every transition preserves history. There is no same-state transition used to hide iteration.
 
+#### 11.6.17 Product boundary
+
+Acceptance assesses Work Product conformance and Contract fulfilment.
+
+Where the Contract is a Product Delivery Contract, Contract fulfilment also requires:
+
+$$ProductTargetSatisfied(C).$$
+
+Thus:
+
+$$Accepted(w,C)$$
+
+and:
+
+$$ProductTargetSatisfied(C)$$
+
+are separate predicates even where both are required for:
+
+$$Fulfilled(C).$$
+
+For a Product Delivery Contract:
+
+$$Fulfilled(C)\iff AcceptedRequiredWorkProduct(C)\land ProductTargetSatisfied(C)$$
+
+subject to any additional applicable Contract conditions.
+
+For a non-delivery Contract, Product target satisfaction can represent verification, analysis, characterization, or another target semantics rather than Product mutation.
+
+#### 11.6.18 Product / Work Product rework boundary
+
+Work Product rework and Product rework are not equivalent:
+
+$$WorkProductRework
+ot\Rightarrow ProductRework$$
+
+and:
+
+$$ProductRework
+ot\Rightarrow WorkProductRework$$
+
+universally.
+
+Work Product rework can occur because traceability is incomplete, Evidence is inadequate, required supplementary information is missing, Work Product content violates its schema, or Acceptance rationale is insufficient while Product state remains unchanged.
+
+Product rework can change the engineered subject. The affected Work Products are then identified through impact analysis. If the Product rework affects a Work Product's validity:
+
+$$MaterialToWP(\Delta p,w,C)\Rightarrow Reassess(w,C).$$
+
+`MaterialToWP` is Project Profile-defined.
+
 ### 11.7 Team API
 
 A Team API is the governed cross-Actor or cross-Hive communication boundary used to coordinate Product evolution and Contract execution.
@@ -3535,6 +4009,27 @@ They are supporting processes, not universal semantic primitives. A Baseline, fo
 
 Supporting-process predicates remain Project Profile parameters unless a Contract or applicable external norm makes them obligatory.
 
+Supporting-process states apply independently to Product and Work Product where the project defines them. For example:
+
+$$Baselined(w)
+ot\Rightarrow Baselined(p)$$
+
+and:
+
+$$Released(p)
+ot\Rightarrow Released(w).$$
+
+The project can deliberately align such states. The common model does not. Likewise:
+
+$$Accepted(w,C)
+ot\Rightarrow Released(p)$$
+
+$$Accepted(w,C)
+ot\Rightarrow Deployed(p)$$
+
+$$Accepted(w,C)
+ot\Rightarrow Produced(p).$$
+
 ## 17. Swarm exploration, divergence, waste, and resource control
 
 ### 17.1 Resource Envelope
@@ -4127,6 +4622,22 @@ The Project Profile defines at least the parameters that are required by the pro
 - permitted automated operational uses of Confidence and the Evidence required to justify them;
 - post-mortem Confidence tuning and drift-assessment rules.
 
+- admissible Product kinds and Product-intent representation;
+- Product-scope and Product-state vocabularies;
+- Product-to-Contract scoping rules;
+- Product target satisfaction predicates and Contract classes that constitute Product Delivery;
+- relations between Product targets and required Work Products;
+- Product/Work Product composition and materiality mappings;
+- Hive capability representation and capability-acquisition mechanisms;
+- enabling-technology representation and availability rules;
+- Product Development Envelope assessment;
+- capability and enablement change detection;
+- rules for external capability, supplier, or tooling involvement;
+- Product-level acceptance, qualification, certification, release, production, deployment, delivery, and similar lifecycle predicates;
+- relationships between those Product predicates and Contract Acceptance.
+
+The Project Profile cannot redefine Product and Work Product as universally identical concepts.
+
 The Project Profile cannot redefine Confidence as truth, probability, precision, Evidence, authority, Decision, Admission, Acceptance, Back-off, or Work Product content.
 
 The Project Profile does not define common-model technical Product interfaces. Those remain engineering content unless another applicable engineering method or external norm governs them.
@@ -4218,6 +4729,36 @@ Additional Contract decomposition, execution-topology, and authority-locality in
 - **Integrator rework request is not design authority** - The Integrator can reject or request correction without inheriting originating Decision authority.
 - **Contribution traceability is not authority** - Integration ancestry supports forward and converse traceability without authority inheritance.
 - **Team API scope** - Team API governs cross-Actor/cross-Hive engineering communication and does not prescribe technical Product interfaces.
+Additional Product / Work Product invariants are:
+
+- **Product establishes Hive scope** - Product is the primary engineering subject and intent around which Product-oriented Hive operation is organized.
+- **Product is not complete specification** - $ProductDefined(P)
+ot\Rightarrow FullySpecified(P)$.
+- **Product is broader than Contract topology** - $ProductScope(P)
+ot\equiv ContractTopology(P)$.
+- **Product intent does not imply capability** - $ProductIntent(P)
+ot\Rightarrow HiveCapable(H,P)$.
+- **Conceivable does not imply developable** - $TechnicallyConceivable(x)
+ot\Rightarrow Developable_H(x,t)$.
+- **Capability limitation remains explicit** - $CapabilityLimit
+ot\Rightarrow SilentScopeReduction$.
+- **Development is capability- and technology-bounded** - developability depends on applicable Hive capability and enabling technology.
+- **Development Envelope is temporal** - changes in tools, suppliers, facilities, technologies, or capabilities can expand or reduce the Product region reachable by the Hive without changing Product identity.
+- **Role independence** - Product role and Work Product role do not imply each other.
+- **Role coincidence is permitted** - one entity can explicitly play both roles without collapsing their semantics.
+- **State independence** - Product state and Work Product state are distinct.
+- **Contract duality** - Product target and required Work Product are separate Contract elements.
+- **Acceptance locality** - Work Product Acceptance is Contract-relative and does not establish universal Product Acceptance.
+- **Acceptance is not Product mutation** - $Accepted(w,C)
+ot\Rightarrow ProductStateTransition(p)$.
+- **Product Delivery specialization** - Product target satisfaction is an additional Contract-fulfilment condition where the Contract requires Product Delivery.
+- **Many-to-many mapping** - Product decomposition and Work Product decomposition are not assumed to be isomorphic.
+- **Integration independence** - Work Product integration and Product integration are distinct operations.
+- **Rework independence** - Work Product rework and Product rework are not universally equivalent.
+- **Historical Acceptance preservation** - later Product change does not rewrite a historical Work Product Acceptance event.
+- **Impact-controlled invalidation** - Product change affects a Work Product only through an applicable materiality/impact relation.
+- **Supporting-process independence** - release, deployment, production, baseline, certification, and similar Product/Work Product states remain Project Profile-defined and do not follow automatically from Contract Acceptance.
+
 Additional Contract lifecycle invariants are:
 
 - **FSM completeness** - Every common Contract state has explicit entry semantics and permitted transition families.
@@ -4309,11 +4850,11 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.27 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.28 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.27 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.28 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
 **Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
 
