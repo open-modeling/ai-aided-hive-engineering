@@ -1,6 +1,6 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.28"
+subtitle: "Formal Proposal - Draft 0.29"
 date: "18 September 2026"
 ---
 
@@ -252,6 +252,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Acceptance** | Contract-governed process that assesses Contract fulfilment and the resulting Work Product against the applicable Acceptance rules and records the resulting disposition. |
 | **Check Cascade** | Cost-ordered sequence of applicable checks in which a more expensive check is entered only after all applicable cheaper checks have passed. |
 | **Assignment** | Contract relation that identifies the Actor responsible for execution of that Contract. A valid Assignment establishes that Actor as the Executor in the Contract context. Assignment is part of the Contract state, not a separate Engineering Object. |
+| **Authority** | Explicit, externally established permission for an Actor to perform a governed operation within a defined Scope, time, and context. Authority is operation-specific and does not imply correctness, Evidence sufficiency, or engineering feasibility. |
 | **Actor** | Human, Hive, external organization, or other authority-capable participant. Computational micro-agents are not Actors unless a Project Profile grants that role. |
 | **Agent** | Computational participant that performs a bounded operation. Agent identity does not create semantic authority. |
 | **Baseline** | Configuration Management reference state created only when the applicable Configuration Management process defines it. |
@@ -740,17 +741,337 @@ $$H=\{HAI,HVC,HPC,HWP\}.$$
 - `HPC` = HUMAN_PRESCRIPTIVE_CHOICE.
 - `HWP` = HUMAN_WORK_PRODUCT.
 
-`HAI` can arrive asynchronously and can project a successor engineering universe. It can be controversial or outside the current Hive recommendation. It does not erase prior state.
+These classes describe how Human-originated information enters Hive operation. They do not define authority.
 
-`HVC` is optional while autonomous continuation remains possible.
+For Human $h$ and Human-originated input $x$:
 
-`HPC` is required only for an obligatory Decision when no Hive-committable choice remains or when that Decision authority is explicitly human.
+$$HumanOrigin(x,h)\not\Rightarrow Authorized(h,x).$$
 
-`HWP` is a Work Product supplied by a Human or human organization. It is assessed using the same applicable Work Product, information-boundary, traceability, and validation rules as other Work Products.
+`HAI` can arrive asynchronously and can project a successor engineering universe. It can be controversial or outside the current Hive recommendation. It does not erase prior state and does not by itself create Binding, Contract revision, Assignment, or another authoritative effect.
 
-Binding is restricted to obligatory Decisions:
+`HVC` is optional while autonomous continuation remains possible. A Human-selected candidate is assessed against the current Solution Space before commitment.
+
+`HPC` is required only for an obligatory Decision when no Hive-committable choice remains or when that Decision authority is explicitly human. Requesting a Human prescription does not make any responding Human authoritative automatically.
+
+`HWP` is a Work Product supplied by a Human or human organization. Human origin provides provenance but does not bypass Work Product, information-boundary, traceability, Evidence, validation, or Acceptance rules.
+
+Binding remains restricted to qualifying obligatory Decisions:
 
 $$Binding\subseteq Decision\times Scope\times Time.$$
+
+#### 5.5.1 Explicit Human authority
+
+Authority is an externally established governance property consumed by the Hive. The common proposal does not infer an enterprise hierarchy from Human behaviour or organizational appearance.
+
+Let:
+
+$$AuthorizedFor(a,o,\sigma,t,\kappa)$$
+
+mean that Actor $a$ is authorized to perform governed operation $o$ within Scope $\sigma$, time $t$, and context $\kappa$.
+
+Authority is therefore operation-, Scope-, time-, and context-qualified. The common model does not define one universal scalar or Boolean $Authority(a)$.
+
+An authority fact can be represented conceptually as:
+
+$$AuthorityFact=(Source,Actor,Operation,Scope,Time,Conditions,Provenance).$$
+
+Authority sources are explicit Project Profile inputs. They can originate from applicable law or regulation, contractual authority, enterprise governance, Product ownership, delegated authority, project governance, or another recognized source. These categories do not establish one universal precedence order.
+
+The Hive MUST NOT infer authority from title, confidence, expertise, social cues, organizational visibility, or perceived seniority:
+
+$$Title(h)\not\Rightarrow Authority(h)$$
+
+$$Seniority(h)\not\Rightarrow Authority(h)$$
+
+$$Confidence_H(h)\not\Rightarrow Authority(h)$$
+
+$$Expertise(h)\not\Rightarrow Authority(h)$$
+
+$$SocialCue(h)\not\Rightarrow Authority(h).$$
+
+Expertise can be relevant to Evidence, assessment, or participant selection. It does not automatically create governance authority.
+
+#### 5.5.2 Authority does not create correctness or feasibility
+
+Authority permits a governed effect. It does not prove that the effect is correct, feasible, or sufficiently evidenced:
+
+$$AuthorizedFor(h,o)\not\Rightarrow Correct(o)$$
+
+$$AuthorizedFor(h,d)\not\Rightarrow Feasible(d)$$
+
+$$AuthorizedFor(h,d)\not\Rightarrow EvidenceSufficient(d).$$
+
+Human authority cannot change physical, mathematical, technical, or logical feasibility.
+
+#### 5.5.3 Authority kinds and role separation
+
+At minimum, authority can be required to commit an obligatory Decision, create a Contract, revise a Contract, establish or revise Assignment, delegate Acceptance assessment, or perform another explicitly governed operation.
+
+Authority for one operation does not imply another:
+
+$$AuthorizedFor(a,ContractIssue)\not\Rightarrow AuthorizedFor(a,DecisionCommitment)$$
+
+and:
+
+$$AuthorizedFor(a,DecisionCommitment)\not\Rightarrow AuthorizedFor(a,Assignment).$$
+
+Contract Issuer, Executor, Acceptance delegate, Human Decision authority, request originator, Work Product producer, and Engineering Layer participant remain distinct roles.
+
+For example:
+
+$$Executor(a,C)\not\Rightarrow Issuer(a,C)$$
+
+$$Executor(a,C)\not\Rightarrow DecisionAuthority(a,C)$$
+
+$$AcceptanceDelegate(a,C)\not\Rightarrow DesignAuthority(a,C)$$
+
+and:
+
+$$OriginatesRequest(a,C)\not\Rightarrow Issuer(a,C).$$
+
+One Actor can carry several roles where the Project Profile and required independence rules permit that combination.
+
+#### 5.5.4 Multi-layer and Contract-boundary locality
+
+A Human can participate in several Engineering Layers without creating an authority bridge:
+
+$$Participates(h,L_i)\land Participates(h,L_j)\not\Rightarrow AuthorityBridge(h,L_i,L_j).$$
+
+Knowledge acquired in one Engineering Layer can inform reasoning but does not become an implicit Decision in another layer:
+
+$$Knows(h,p,L_i)\land Participates(h,L_j)\not\Rightarrow Decision_j(p).$$
+
+Authority also does not propagate through Contract topology:
+
+$$ParentContract(C_i,C_j)\not\Rightarrow AuthorityInheritance(C_i,C_j)$$
+
+$$DependsOn(C_i,C_j)\not\Rightarrow AuthorityInheritance(C_i,C_j)$$
+
+$$Integrates(C_i,C_j)\not\Rightarrow AuthorityInheritance(C_i,C_j).$$
+
+Where information must affect another Engineering Layer or Contract context, it follows the applicable Decision, Exchange Item, feedback, Contract, or other explicit materialization mechanism.
+
+#### 5.5.5 Delegation
+
+Authority can be delegated only where the authority source permits delegation.
+
+Let:
+
+$$Delegates(a,b,o,\sigma,I)$$
+
+mean Actor $a$ delegates operation $o$ within Scope $\sigma$ and applicability interval $I$ to Actor $b$.
+
+Delegation is explicit and bounded. It does not imply unlimited transfer:
+
+$$DelegatedAuthority(b)\subseteq DelegableAuthority(a)$$
+
+unless another independent authority source establishes broader authority for $b$.
+
+Delegation does not create Contract Assignment automatically:
+
+$$Delegates(a,b,o)\not\Rightarrow Executor(b,C).$$
+
+Authority can expire or be revoked. Later authority change does not rewrite the authority state under which earlier governed operations occurred.
+
+#### 5.5.6 Human input semantic classification
+
+Every Human-originated item is classified by what it is, not merely by who supplied it.
+
+A Human input can become, as applicable, a Question, Request, Clarification, candidate Proposition, Decision candidate, Exchange Item, Work Product, Evidence candidate, Contract revision request, or another Project Profile-defined role.
+
+Therefore:
+
+$$HumanOrigin(x)\not\Rightarrow DecisionRole(x).$$
+
+Human provenance does not replace semantic typing.
+
+#### 5.5.7 Human inputs as engineering-space transformations
+
+Authority qualification determines whether a Human input is permitted to act. After admission, its engineering effect is a transformation of the current engineering space.
+
+Let the current scoped Solution Space be:
+
+$$\mathcal S_t.$$
+
+For admitted Human input $A$, define a potentially partial transformation:
+
+$$\Phi_A:\mathcal S\rightharpoonup\mathcal S.$$
+
+The transformation can narrow or broaden the current space, add or relax constraints, add objectives, change Product intent, open or invalidate trajectories, alter Contract or capability assumptions, or otherwise produce a successor engineering universe.
+
+A partial transformation is used because a Human input can change the structure or cardinality of the space and can also be non-composable with the state produced by another input.
+
+Authority and transformation remain separate:
+
+$$AuthorizedInput(A)\Rightarrow EligibleToApply(\Phi_A)$$
+
+but:
+
+$$AuthorizedInput(A)\not\Rightarrow Feasible(\Phi_A(\mathcal S_t)).$$
+
+#### 5.5.8 Sequential Human input algebra
+
+For readability define:
+
+$$\mathcal S+A\equiv\Phi_A(\mathcal S).$$
+
+Sequential inputs are evaluated from left to right:
+
+$$\mathcal S+A+B=\Phi_B(\Phi_A(\mathcal S)).$$
+
+Human-input composition is not assumed commutative:
+
+$$A+B\neq B+A$$
+
+in general, equivalently:
+
+$$\Phi_B\circ\Phi_A\neq\Phi_A\circ\Phi_B.$$
+
+The first input can change the context in which the second input is interpreted. It can remove candidates, introduce constraints, create Contracts, change Product intent, open a new Solution Space region, or change the Engineering Layer or Scale at which the second input becomes material.
+
+Human input is therefore state-dependent:
+
+$$\Phi_A(\mathcal S_1)\neq\Phi_A(\mathcal S_2)$$
+
+in general.
+
+For an ordered Human-input sequence:
+
+$$\Sigma_H=(A_1,A_2,\ldots,A_n)$$
+
+let:
+
+$$\Phi_{\Sigma_H}=\Phi_{A_n}\circ\cdots\circ\Phi_{A_2}\circ\Phi_{A_1}.$$
+
+A permutation $\pi(\Sigma_H)$ does not generally preserve the resulting engineering state:
+
+$$\Phi_{\pi(\Sigma_H)}(\mathcal S_t)\neq\Phi_{\Sigma_H}(\mathcal S_t).$$
+
+The temporal order of Human inputs is therefore semantically material and remains part of historical state.
+
+#### 5.5.9 Retraction and supersession are not inverse operations
+
+Removing, retracting, superseding, or reversing Human input $A$ does not mean applying $\Phi_A^{-1}$.
+
+Define a governed retraction or repair operation:
+
+$$R_A.$$
+
+Then in general:
+
+$$B+A-A\neq B$$
+
+and:
+
+$$R_A\circ\Phi_A\circ\Phi_B\neq\Phi_B.$$
+
+After $A$ has been applied, the engineering universe can already contain new Decisions, Evidence, Contracts, completed work, changed Product state, Work Product revisions, spent resources, external commitments, physical realization, discovered constraints, and later inputs.
+
+Therefore:
+
+$$Retract(A)\neq HistoricalErasure(A).$$
+
+Likewise, explicit supersession:
+
+$$Supersedes(B,A,\sigma,t)$$
+
+controls continuing applicability of $A$ in the stated Scope and time but does not imply:
+
+$$B=A^{-1}$$
+
+or restoration of the state that existed before $A$.
+
+#### 5.5.10 Composable Human inputs
+
+After authority admission, multiple Human inputs are evaluated through their engineering composition; no additional governance-dispute primitive is introduced.
+
+Define:
+
+$$Composable(A,B,\mathcal S).$$
+
+When:
+
+$$Composable(A,B,\mathcal S_t)$$
+
+and the resulting feasible region is non-empty:
+
+$$\mathcal F(\mathcal S_t+A+B)\neq\varnothing,$$
+
+both inputs can participate in a valid successor engineering state. Their joint effect can narrow, broaden, restructure, or redirect the active Solution Space.
+
+#### 5.5.11 Non-composable Human inputs
+
+The first failure mode occurs when the transformations cannot produce a sufficiently defined successor engineering state:
+
+$$\neg Composable(A,B,\mathcal S_t).$$
+
+Using partial-function notation:
+
+$$\Phi_B(\Phi_A(\mathcal S_t))\uparrow.$$
+
+This is an input-composition failure. Authority qualification has already been resolved before transformation application.
+
+Let:
+
+$$\mathcal D_P(\mathcal S,\kappa)$$
+
+denote the Decision candidate space derived from engineering state $\mathcal S$ under the applicable Project Profile and context.
+
+If the successor engineering state cannot be established:
+
+$$\neg Composable(A,B,\mathcal S_t)\Rightarrow\mathcal D_P(\mathcal S_t+A+B,\kappa)\uparrow.$$
+
+The Hive preserves both inputs, provenance, authority qualification, previous engineering state, the failed composition attempt, and the reason composition could not be established. Truthful incompleteness applies. The Hive does not fabricate a Decision Space merely to continue.
+
+#### 5.5.12 Composable inputs with empty feasible space
+
+A distinct failure mode occurs when the transformations compose successfully but the resulting feasible region is empty.
+
+Let:
+
+$$\mathcal S_{AB}=\Phi_B(\Phi_A(\mathcal S_t)).$$
+
+Then it is possible that:
+
+$$Composable(A,B,\mathcal S_t)\land\mathcal F(\mathcal S_{AB})=\varnothing.$$
+
+Here the successor engineering state is defined, and its Decision Space can be calculated, but no currently feasible continuation exists:
+
+$$\mathcal D_{feasible}(\mathcal S_{AB})=\varnothing.$$
+
+This differs fundamentally from non-composition. In the non-composable case the successor state and corresponding Decision Space are undefined; in the empty-feasible-space case they are defined and explicitly infeasible.
+
+Because Human-input composition is order-sensitive, it is possible that:
+
+$$\mathcal F(\mathcal S+A+B)\neq\varnothing$$
+
+while:
+
+$$\mathcal F(\mathcal S+B+A)=\varnothing,$$
+
+or that one ordering is composable while another is not.
+
+An empty feasible space means that autonomous commitment is unavailable:
+
+$$\mathcal F(\mathcal S_t)=\varnothing\Rightarrow\neg AutonomousCommitmentAvailable.$$
+
+Recovery can require revision or relaxation of an input, another Human input, Product-intent revision, capability or enabling-technology acquisition, Contract revision, Resource Envelope change, external capability, or another newly explored trajectory. Human authority still does not manufacture engineering feasibility.
+
+#### 5.5.13 Binding and Contract lifecycle effect
+
+For a Human response to create Binding, Decision semantics and applicable authority must both hold:
+
+$$Bind(d,\sigma,t)\Rightarrow DecisionRole(d)\land AuthorizedFor(a,Bind,d,\sigma,t)\land ApplicableDecisionConditionsSatisfied(d).$$
+
+The common model does not introduce a generic `HumanOverride` primitive. A Human can cause a major change through ordinary governed primitives such as Human ingress, Decision, Candidate Delta, Contract revision, Assignment, and successor engineering state.
+
+A Human input or authority change that materially revises a Contract feeds the existing revision-aware Contract FSM. It does not create a separate Human lifecycle.
+
+Human intervention never destructively rewrites prior engineering history:
+
+$$S_t\rightarrow S_{t+1}^{human}$$
+
+preserves $S_t$ as an addressable historical state.
 
 ### 5.6 AX-1 - Semantic legitimacy
 
@@ -4621,6 +4942,18 @@ The Project Profile defines at least the parameters that are required by the pro
 - operator-facing Confidence presentation and traffic-light thresholds;
 - permitted automated operational uses of Confidence and the Evidence required to justify them;
 - post-mortem Confidence tuning and drift-assessment rules.
+- explicit authority sources and authority-record representation;
+- authority kinds and operation-level authority requirements;
+- Human and non-Human authority Scopes and applicability intervals;
+- Contract-Issuer, Contract-revision, Assignment, Decision-commitment, and Acceptance-delegation authority rules;
+- authority delegability, delegation limits, revocation, expiry, and role-combination restrictions;
+- required Human identity/authentication mechanisms where applicable;
+- Human-input transformation semantics, input normalization, and transformation Scope;
+- ordered Human-input application semantics and atomic/joint input groups where required;
+- Human-input composability rules and Decision Space derivation after transformation;
+- infeasibility detection after composed Human inputs;
+- Human-input retraction and supersession semantics;
+- recovery behaviour after non-composable input or empty feasible space.
 
 - admissible Product kinds and Product-intent representation;
 - Product-scope and Product-state vocabularies;
@@ -4635,6 +4968,8 @@ The Project Profile defines at least the parameters that are required by the pro
 - rules for external capability, supplier, or tooling involvement;
 - Product-level acceptance, qualification, certification, release, production, deployment, delivery, and similar lifecycle predicates;
 - relationships between those Product predicates and Contract Acceptance.
+
+The Project Profile cannot authorize inference of authority from Confidence, title, expertise, apparent seniority, conversational style, organizational visibility, or other social cues.
 
 The Project Profile cannot redefine Product and Work Product as universally identical concepts.
 
@@ -4704,6 +5039,34 @@ Additional computation-boundary invariants are:
 - **Rejected-candidate preservation** - Failure of admission blocks the proposed canonical change but does not require deletion of useful exploratory knowledge.
 - **Candidate Delta / Work Product separation** - Candidate Delta admission and Contract Work Product Acceptance are distinct operations.
 - **Participant transience** - Persistence of the participant that produced a candidate is not required for persistence of admitted engineering state; required provenance survives independently.
+
+Additional Human authority and input-transformation invariants are:
+
+- **Explicit authority source** - Every authoritative effect has an applicable explicit authority source.
+- **No inferred authority** - Title, seniority, Confidence, expertise, social cues, and organizational visibility do not establish authority.
+- **Operation-specific authority** - Authority for one governed operation does not imply authority for another.
+- **Scope/time qualification** - Authority outside its valid Scope, time, or context cannot establish the governed effect.
+- **Authority is not feasibility** - $Authority\not\Rightarrow Feasibility$.
+- **Authority is not Evidence** - Authority does not establish Evidence sufficiency or correctness.
+- **Human origin is not authority** - $HumanOrigin\not\Rightarrow Authority$.
+- **HPC request is not authorization** - A requested Human prescription becomes binding only when the responding Human has applicable authority.
+- **Role separation** - Issuer, Executor, Acceptance delegate, Decision authority, originator, and Work Product producer remain distinct roles.
+- **Multi-layer Human locality** - One Human participating at several Engineering Layers does not create an authority bridge.
+- **Contract-boundary locality** - Authority does not propagate through parent/child, dependency, integration, shared-Hive, or Team API relations.
+- **Delegation is explicit** - Delegation is bounded by operation, Scope, time, and delegable authority.
+- **Delegation is not Assignment** - Authority delegation does not make an Actor Executor unless Contract Assignment also establishes that role.
+- **Authority and transformation are separate** - $Authorized(A)\not\Rightarrow Feasible(\Phi_A(\mathcal S))$.
+- **Human input is order-sensitive** - $A+B\neq B+A$ in general.
+- **Human input is not generally reversible** - $B+A-A\neq B$ in general.
+- **Retraction is not inverse** - $R_A\neq\Phi_A^{-1}$ in general.
+- **Input composition can be partial** - $\neg Composable(A,B,\mathcal S)\Rightarrow\Phi_B(\Phi_A(\mathcal S))\uparrow$.
+- **Undefined successor means undefined Decision Space** - non-composable Human inputs do not permit the Hive to fabricate a successor Decision Space.
+- **Defined composition can eliminate feasibility** - $Composable(A,B,\mathcal S)\land\mathcal F(\mathcal S+A+B)=\varnothing$ is a valid explicit engineering state.
+- **Empty feasible space is an engineering-state result** - authorized inputs can compose into an engineering state with no feasible continuation.
+- **Authority cannot manufacture feasibility** - authorized Human choice does not imply a non-empty feasible region.
+- **Input history is ordered** - a permutation of Human inputs does not generally preserve successor engineering state.
+- **Supersession is not historical reversal** - superseding an input changes active continuation without restoring a fictional state in which the input never occurred.
+- **Human intervention preserves history** - Human-caused successor states do not destructively replace earlier engineering states.
 
 Additional Contract decomposition, execution-topology, and authority-locality invariants are:
 
@@ -4850,11 +5213,11 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.28 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.29 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.28 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.29 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
 **Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
 
