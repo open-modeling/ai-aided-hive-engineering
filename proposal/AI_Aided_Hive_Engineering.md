@@ -1,10 +1,10 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.35"
-date: "18 September 2026"
+subtitle: "Formal Proposal - Draft 0.36"
+date: "23 September 2026"
 ---
 
-**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Magnification/Decision Blast Radius/Decision Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/repair exploration, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, Candidate Delta/canonical-state computation-boundary revisions, and Contract decomposition/execution-topology/authority-locality revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
+**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Magnification/Decision Blast Radius/Decision Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/Rollback, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, Candidate Delta/canonical-state computation-boundary revisions, and Contract decomposition/execution-topology/authority-locality revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
 
 **Normative basis.** Approved project discussion and accepted changes through Draft 0.8, aligned with the project dialogue recap and resource-consumption analysis where those sources do not conflict with later decisions.
 
@@ -25,6 +25,8 @@ This proposal does not aim to build a better virtual organization or incremental
 **Hive** is a form of distributed intelligence in which orchestration is performed through coordinated multi-agent operations rather than through a persistent human-like organization. To an observer, it acts as one coherent engineering intelligence while retaining distributed specialization internally.
 
 Engineering meaning is held in explicit shared state rather than in conversations or private agent memory. At its foundation, this state is represented as a multidimensional temporal graph that preserves project entities, evidence, relationships, and evolution without requiring the whole history to participate in every task.
+
+Hive engineering is intentionally concurrent and non-deterministic. Starting from the same initial engineering basis, separate valid Hive executions can explore different Solution Space regions, commit Decisions in different orders, materialize different Work Products, and converge to different Product realizations. The governance model establishes engineering validity, traceability, authority, convergence, and resource control. It does not define Product development as deterministic reproduction of one trajectory or one Product realization.
 
 The intended result is faster and more stable engineering delivery through lower coordination overhead, less context pollution, controlled rework and exploration, preserved engineering evidence, and economically justified use of computational and engineering resources. The proposal complements established engineering lifecycles, processes, and standards rather than replacing them.
 
@@ -98,7 +100,7 @@ The proposal addresses a coordination problem rather than a lack of AI capabilit
 - Fast recognition of an invalid direction usually costs less than preserving activity merely because resources have already been invested in it.
 - Local improvement should be evaluated against its effect on the wider Product. A technically better local solution can be economically worse when it creates extensive rework elsewhere.
 - Unnecessary upward propagation of change creates avoidable Decision rework, analysis, coordination, Work Product rework, and repeated validation.
-- The preferred repair path is therefore the smallest one that resolves the problem correctly. Wider reshuffling is justified only when the affected level cannot absorb the change.
+- When a committed Decision has to be cancelled, Rollback preserves compatible parallel engineering and removes the same-Layer materialized continuation required for complete cancellation. Cross-Layer consequences remain governed by ordinary adjacent-Layer engineering.
 - In many current AI harnesses, a human directive becomes effectively undisputable once entered into execution. A seemingly simple intervention can therefore trigger major downstream rework without systematic assessment of its effect on the existing solution space.
 - Human intervention should instead be assessed against current alternatives, constraints, evidence, affected Product elements, and expected cost before commitment wherever the applicable authority allows that assessment.
 - Trade-space analysis is a basis for informed and data-driven decision making. It preserves viable alternatives and their consequences so that human and autonomous Decisions do not lose the information generated during exploration.
@@ -199,13 +201,15 @@ Where imported material conflicts with proposal terminology, the original materi
 
 #### 4.3.4 BCP 14 Scope
 
-BCP 14 defines the normative meaning of the uppercase keywords **MUST**, **MUST NOT**, **SHOULD**, **SHOULD NOT**, **MAY**, and other applicable BCP 14 terms.
+BCP 14 provides unambiguous normative keyword semantics where explicit conformance force adds useful meaning.
 
-BCP 14 semantics apply only where the proposal intentionally defines a technical requirement.
+Its use in this proposal is intentionally sparse.
 
-In the current proposal structure, normative technical statements are contained in Parts III–V unless a section explicitly states otherwise.
+Definitions, mathematical statements, axioms, assumptions, invariants, derived properties, and explanatory architecture normally express their meaning through their formal role and context. They do not require uppercase normative keywords merely to strengthen prose.
 
-Outside normative use, equivalent lowercase words retain their ordinary English meaning.
+Uppercase BCP 14 keywords are reserved for clauses where the distinction between requirement, permission, and recommendation materially affects interpretation or conformance.
+
+Lowercase words such as *must*, *should*, and *may* retain their ordinary English meaning unless BCP 14 semantics are explicitly intended.
 
 Quoted or imported material retains the normative semantics of its source.
 
@@ -225,6 +229,10 @@ Mathematical statements use consistent notation and preserve the distinction bet
 Structural mathematical operations do not acquire engineering semantics unless those semantics are explicitly defined.
 
 Mathematical notation in the Markdown master uses a representation that preserves clean source evolution and can be converted accurately into native mathematical notation in derived Word and PDF representations.
+
+**Mathematical expression style.** Mathematics is the primary formal language of this proposal. Sets, relations, mappings, order, algebra, topology, and temporal qualification are preferred when they express the engineering concept directly. Computer-science notation is useful where it contributes engineering meaning to computation or execution boundaries. It is not required when ordinary mathematical structure already expresses the concept.
+
+The proposal distinguishes mathematical structure, engineering semantics assigned to that structure, and implementation mechanisms. An implementation can realize the mathematical model through software structures without making those structures part of the common formal model.
 
 #### 4.3.6 Project Profile
 
@@ -264,8 +272,10 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Decision** | Rationale-bearing Proposition that preserves or directs a possible course of exploration or behavior. A Decision is not an Engineering Object. |
 | **Decision Blast Radius** | Calculated propagation reach of a candidate Decision over the currently available engineering state before that Decision is committed. Decision Blast Radius supports feasibility and engineering-economy assessment and does not itself change canonical state. |
 | **Decision Extent** | Propagation reach already materialized by a committed Decision in the engineering state at a stated time. |
+| **Deprecation** | Ordinary forward engineering evolution in which later engineering supersedes, replaces, or makes earlier materialized engineering obsolete while continuing Product development from that history. |
 | **Delusive Traceability** | Apparently complete traceability created through semantically invalid, fabricated, or unjustified relations. |
 | **Engineering Layer** | Domain-local engineering context associated with one major Scale position and the corresponding Magnification level. An Engineering Layer can contain an execution sub-scale used to arrange local execution topology and gates without changing its major Scale position. |
+| **Engineering State** | Temporally addressable governed engineering state at a stated time. Engineering State contains the applicable Product Evolution History, active Materialized Product State, Solution Space, Contracts, Decisions, Evidence, Work Products, relations, Gaps, and other governed engineering information. |
 | **Engineering Object** | Materialized project entity with tool, repository, physical, or document identity. It can carry or materialize one or more Propositions. |
 | **Evidence** | Recorded information used by a defined validator or argument to support a Proposition. Evidence is scope- and role-specific. |
 | **Exchange Item** | Boundary-relative information object used to communicate Propositions, Product interfaces, results, feedback, or other materialized information. |
@@ -288,6 +298,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Known Gap** | Gap whose existence and scope are known and recorded. |
 | **Local Optimum / Local Extremum** | Best/extreme candidate relative to a declared neighborhood or currently explored region, not the entire theoretical Solution Space. |
 | **Low-profile Assessment** | Bounded, semi-instrumented semantic assessment using explicit checklists, questions, local rules, or similar structures. |
+| **Materialized Product State** | Product state currently materialized or realized at the stated time. Materialized Product State can grow, contract, or replace previously materialized content. |
 | **Magnification** | Function on Scale used in two related senses: the Scale position at which an engineering element belongs, and bounded traversal of the underlying graph data model toward an existing coarser or finer engineering representation. Magnification does not create missing engineering content. |
 | **Micro-agent** | Short-lived, specialized, low-Resource-Cost Agent used for one narrow exploration or validation operation. |
 | **Obligation** | Responsibility of an Executor for the complete result of an assigned Contract. The Executor delivers the required result or explicitly reports inability to fulfil the Contract to the authoritative party or parties. Obligation is Contract semantics, not necessarily a separate stored object. |
@@ -295,12 +306,17 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Overthinking** | Reasoning expenditure whose expected information or decision value is lower than its Resource Cost, or reasoning applied to a result that deterministic state/algebra can establish directly. |
 | **Product** | Coherent engineered subject and primary top-level scope/intent of Hive operation. The Product identifies what the Hive is working to establish, evolve, analyze, verify, realize, or deliver and bounds the corresponding engineering context. Actual Product development is bounded by available Hive capabilities, enabling technology, authority, and resources. |
 | **Product Delivery** | Specialization of Contract fulfilment in which fulfilment requires satisfaction of an explicit Product target state in addition to Acceptance of the required Work Product. |
+| **Product Evolution History** | Accumulated temporally addressable engineering history of the Product, including Decisions, Evidence, Contracts, Work Products, exploration outcomes, supersession, deprecation, Rollback, Gaps, and other retained engineering information. Product Evolution History grows monotonically with time. |
 | **Project Profile** | Formal project input that defines open parameters such as relation vocabulary, scale topology, Work Product schemas, validators, authority, resource models, lifecycle predicates, and validation independence. |
 | **Proposition** | Core addressable semantic element of the solution model. It is not an Engineering Object by default. It can later be materialized, carried, or realized by Engineering Objects. |
 | **Relation** | Typed semantic or structural association between addressable elements, qualified by scope, revision, time, and Project Profile semantics. |
 | **Reshuffling** | Primarily vertical Decision rework caused when an Engineering Layer committed downstream constraints without sufficient exploration to support delivery through affected downstream layers. A downstream finding becomes Reshuffling when it cannot be absorbed locally and requires Decision change at an adjacent or higher Engineering Layer. |
 | **Resource Cost** | Multi-dimensional consumption caused by an operation, exploration, Contract, trajectory, or change. |
 | **Resource Envelope** | Declared availability/limits for relevant resource dimensions such as context, model calls, compute, wall time, money, human effort, energy, equipment, and external capacity. It is not a universal scalar. |
+| **Rollback** | Evidence-supported engineering activity that completely cancels one previously committed Decision on one Engineering Layer. Rollback removes from current materialization the same-Layer engineering consequences that cannot remain valid after cancellation of that Decision, while retaining compatible parallel engineering and historical addressability. |
+| **Rollback Closure** | Least same-Layer set of Decisions, Contracts, and Work Products that have to be cancelled or rematerialized together for a Rollback to completely cancel its target Decision while leaving a valid same-Layer remainder. |
+| **Rollback Contract** | Contract governing one Rollback. It identifies the committed Decision being cancelled, applicable Evidence, the Rollback Closure, the expected resulting state, required Work Product, and Acceptance conditions. |
+| **Rollback Cost** | Resource Cost attributable to exploration, realization, verification, integration consequences, or other engineering work caused by a Rollback. Its complete economy semantics are deferred to the Engineering Economy backlog package. |
 | **Scale of measurement** | Established measurement-theory classification defining which comparisons and algebraic operations are meaningful for a measured property. Common scales of measurement are nominal, ordinal, interval, and ratio. The proposal uses these established meanings and does not redefine them. |
 | **Scale** | Project-wide engineering instance of an interval scale used to position Engineering Layers by engineering order of magnitude. Ordering and distance between Scale positions are meaningful, and the coordinate origin is arbitrary. The occupied Scale range can extend toward both coarser and finer engineering orders as Product engineering evolves. |
 | **Solution Space** | Addressable set of currently known candidate states, constraints, outcomes, and their relations for a scoped problem. |
@@ -311,6 +327,74 @@ The dictionary is intentionally compact. A term definition may reference another
 | **UNKNOWN** | Required information whose value, validity, applicability, or result has not been established. |
 | **Waste** | Resource consumption that creates neither required governance/validation effect nor reusable progress, evidence, knowledge, or Product value for the active objective. |
 | **Work Product** | Complete required Contract result prepared under a defined schema and Acceptance rule. A Work Product can be an input to another Contract. |
+
+#### Mathematical symbols
+
+Mathematical symbols are part of the proposal dictionary. This table is authoritative for new formal text. Existing notation that conflicts with these symbols is normalized through the Formal Symbol and Predicate Audit backlog item.
+
+| Symbol | Meaning |
+|---|---|
+| $t$ | Time or temporally ordered observation point. |
+| $t_1,t_2$ | Two ordered observation points. |
+| $H$ | Hive. |
+| $P$ | One Product. |
+| $p$ | One Proposition. |
+| $\mathbb P$ | Set of Propositions. |
+| $\mathbb O$ | Set of Engineering Objects. |
+| $D$ | Set of Decisions in the stated context. |
+| $D^*$ | Same bounded Decision set compared across trajectories. |
+| $d$ | One Decision. |
+| $d_0$ | Committed Decision targeted by a Rollback. |
+| $D_L$ | Decisions belonging to Engineering Layer $L$. |
+| $C$ | Contract. |
+| $C^k$ | Revision $k$ of Contract $C$. |
+| $C_I$ | Integration Contract. |
+| $C_R$ | Rollback Contract. |
+| $C_0$ | Contract context associated with the initial Rollback target. |
+| $C_L$ | Contracts belonging to Engineering Layer $L$. |
+| $W$ | Set of Work Products in the stated context. |
+| $w$ | One Work Product. |
+| $w^r$ | Revision $r$ of Work Product $w$. |
+| $w_0$ | Initial materialized Work Product associated with Rollback target $d_0$. |
+| $w_I$ | Integrated Work Product. |
+| $W_L$ | Work Products belonging to Engineering Layer $L$. |
+| $W_I$ | Required materialized input Work Product set for Integration Contract $C_I$. |
+| $W^{ready}_{C_I}$ | Work Products ready for integration under $C_I$. |
+| $\mathbf W_a,\mathbf W_b$ | Ordered materialized Work Product sequences of compared trajectories. |
+| $L$ | Engineering Layer. |
+| $L_R$ | Engineering Layer of Rollback Contract $C_R$. |
+| $X_t$ | Engineering State at time $t$. |
+| $X_0$ | Common initial Engineering State used when comparing trajectories. |
+| $K_t$ | Product Evolution History accumulated by time $t$. |
+| $P^{mat}_t$ | Active Materialized Product State at time $t$. |
+| $P^{mat}_a,P^{mat}_b$ | Materialized Product States reached by compared trajectories. |
+| $R_t(C_R)$ | Subset of $P^{mat}_t$ removed from active materialization by successful Rollback Contract $C_R$. |
+| $\mathcal S_t$ | Solution Space applicable at time $t$. |
+| $\Omega$ | Theoretical Solution Universe. |
+| $\sigma$ | Scope. |
+| $\kappa$ | Engineering context. |
+| $\tau$ | Engineering trajectory. |
+| $\tau_a,\tau_b$ | Two compared engineering trajectories. |
+| $\pi$ | Ordering or permutation. |
+| $\pi_a,\pi_b$ | Two Decision commitment orderings. |
+| $\Gamma_R(C_R)$ | Rollback Closure of Rollback Contract $C_R$. |
+| $\mathcal D_C(t)$ | Contract-dependency relation applicable at time $t$. |
+| $G$ | Graph projection of addressable engineering elements and relation instances. |
+| $V_G$ | Vertex set of graph projection $G$. |
+| $E_G$ | Edge/relation-instance set of graph projection $G$. |
+| $r$ | Typed relation family. |
+| $S_r,T_r$ | Source and target sets of relation $r$. |
+| $x,y,z$ | Locally typed arbitrary elements. |
+| $i,j,k,m,n$ | Local indices or revision counters. |
+| $a,b$ | Labels distinguishing compared cases when used as subscripts. |
+| $\langle\cdot\rangle$ | Ordered tuple. |
+| $\subseteq,\subset,\cup,\cap,\setminus,\in,\varnothing$ | Standard set operators and the empty set. |
+| $=,\neq,\Rightarrow,\Leftrightarrow,\forall,\exists,\neg,\land,\lor$ | Standard equality and logical operators. |
+| $<,>$ | Standard order operators where the participating domain defines an order. |
+| $\times$ | Cartesian product. |
+| $\rightarrow$ | Directed progression or mapping where defined by context. |
+| $\{\cdot\}$ | Set notation. |
+| $\ldots$ | Omitted additional elements of the same locally defined structure. |
 
 # Part III - Foundation
 
@@ -954,7 +1038,7 @@ The temporal order of Human inputs is therefore semantically material and remain
 
 Removing, retracting, superseding, or reversing Human input $A$ does not mean applying $\Phi_A^{-1}$.
 
-Define a governed retraction or repair operation:
+Define a governed retraction operation:
 
 $$R_A.$$
 
@@ -1158,7 +1242,7 @@ $$Discovered(o,q,t)\Rightarrow Preserve(o,q,t).$$
 
 Active resource allocation is separate from preservation:
 
-$$Allocation(o,t)=Rate(o,Progress,Novelty,Evidence,Independence,RepairCost,DeliveryValue,ResourceEnvelope).$$
+$$Allocation(o,t)=Rate(o,Progress,Novelty,Evidence,Independence,RollbackCost,DeliveryValue,ResourceEnvelope).$$
 
 $$Allocation(o,t)=0\not\Rightarrow Delete(o).$$
 
@@ -1169,6 +1253,114 @@ The Hive MUST NOT spend production effort on invention until known means are exh
 **Boundary.** AX-5 does not limit the number of discovered outcomes and does not treat majority support as truth. It limits only active expenditure.
 
 **Validation.** Remove AX-5 and the model can either discard low-support discoveries or consume unlimited resources on persistent trajectories. Both conflict with the intended resource and post-mortem behavior.
+
+### 5.11 AX-6 - Concurrent non-deterministic Product evolution
+
+**Intent.** Represent Product development as concurrent exploration with preserved history, order-sensitive commitment, and non-deterministic realization.
+
+#### Common origin and divergent trajectories
+
+Two valid Hive executions can begin from the same Engineering State $X_0$. Let their engineering trajectories be $\tau_a$ and $\tau_b$. They share their common origin:
+
+$$X_0\in\tau_a\cap\tau_b.$$
+
+They can also share later Decisions, Evidence, Contracts, Work Products, and intermediate engineering states. When their engineering progression differs:
+
+$$\tau_a\neq\tau_b.$$
+
+Thus Product evolution supports intersecting but distinct trajectories.
+
+#### Decision ordering is material
+
+Let $D^*$ be the same bounded set of Decisions committed in two trajectories, with two different commitment orders:
+
+$$\pi_a\neq\pi_b.$$
+
+The most probable outcome is that different admissible commitment orders produce different trajectories:
+
+$$\tau_a\neq\tau_b.$$
+
+Their ordered materialized Work Product sequences are correspondingly different:
+
+$$\mathbf W_a\neq\mathbf W_b.$$
+
+The Work Product sets can still intersect because both trajectories can reuse or independently reach common materialized results. The model treats distinct trajectories and distinct materialized Product states as the most probable outcome. Equality remains a special convergence case. The proposal assigns no universal numeric probability to either outcome.
+
+#### Resulting Materialized Product State
+
+For two valid Hive executions starting from the same initial Engineering State and committing the same bounded Decision set, the most probable outcome is distinct Materialized Product States:
+
+$$P^{mat}_a\neq P^{mat}_b.$$
+
+Equality:
+
+$$P^{mat}_a=P^{mat}_b$$
+
+remains possible when the particular trajectories converge to engineering-equivalent realizations. Where that equality matters, it is established for the particular trajectories rather than assumed from common origin or common Decision membership.
+
+#### Decision commitment ordering
+
+The Hive explores Decisions concurrently where applicable. Decisions can require different amounts of exploration, Evidence, realization, verification, and other engineering work. Their readiness for commitment can therefore emerge in an order different from the order in which the underlying engineering questions were introduced.
+
+Product evolution is governed by engineering validity and economy rather than by a universal submission queue.
+
+#### Decisions and Contract dependencies
+
+The common model does not define a general Decision-to-Decision execution-dependency relation. Contract dependencies remain part of Contract topology:
+
+$$\mathcal D_C(t)\subseteq C\times C.$$
+
+A committed Decision can change Product or Contract state and thereby change that topology:
+
+$$\mathcal D_C(t_1)\neq\mathcal D_C(t_2).$$
+
+Decision ordering and Contract dependencies therefore remain distinct concepts.
+
+#### Product Evolution History
+
+Product Evolution History grows monotonically. For:
+
+$$t_1<t_2,$$
+
+$$K_{t_1}\subseteq K_{t_2}.$$
+
+New Decisions, Evidence, Contracts, Work Products, Gaps, Rollbacks, deprecations, supersessions, and exploration outcomes extend the historically addressable Product evolution.
+
+#### Materialized Product State
+
+Materialization has different semantics. No monotonic inclusion relation is assigned to $P^{mat}_t$. A later Decision can add Product content:
+
+$$P^{mat}_{t_1}\subset P^{mat}_{t_2},$$
+
+or remove previously materialized Product content:
+
+$$P^{mat}_{t_2}\subset P^{mat}_{t_1}.$$
+
+Both are ordinary Product evolution.
+
+#### Solution Space
+
+Solution Space is also non-monotonic. Engineering exploration can expand $\mathcal S_t$, while Decisions, constraints, loss of capability, physical realization, or removal of Product content can restrict it. Both:
+
+$$\mathcal S_{t_1}\subset\mathcal S_{t_2}$$
+
+and:
+
+$$\mathcal S_{t_2}\subset\mathcal S_{t_1}$$
+
+are valid forms of evolution.
+
+#### Engineering State
+
+Engineering State contains these distinct projections:
+
+$$X_t=\langle K_t,P^{mat}_t,\mathcal S_t,\ldots\rangle.$$
+
+Monotonicity of $K_t$ therefore does not imply monotonicity of materialization or Solution Space.
+
+**Boundary.** AX-6 does not remove Contract prerequisites, integration gates, verification, Acceptance, authority, or other engineering constraints. It defines the global evolution model in which those constraints operate.
+
+**Validation.** Without AX-6, the model can be misread as deterministic sequential transformation from a fixed input to a unique Product realization, or as monotonically accumulating Product materialization. Both interpretations conflict with concurrent Hive exploration, order-sensitive Decision commitment, and explicit Product rollback.
 
 # Part IV - Formal Proposal
 
@@ -2613,7 +2805,7 @@ $$MagnificationBand(x,t)\Rightarrow PermanentConfidencePenalty.$$
 
 The condition is transient for Confidence.
 
-When the malformed element is repaired and the mixed-level condition no longer exists, it is no longer an active Confidence input.
+When the malformed element is corrected and the mixed-level condition no longer exists, it is no longer an active Confidence input.
 
 Its history remains available for post-mortem analysis and future Brittleness assessment.
 
@@ -3132,136 +3324,115 @@ The preferred engineering behaviour is:
 
 This does not require exhaustive exploration before every commitment. The required depth is bounded by the current Product context, available evidence, Resource Envelope, and expected Decision Extent.
 
-#### 10.4.1 Repair is a search problem
+#### 10.4.1 Rollback
 
-A valid repair is not obtained by algebraically reversing the change that caused the problem.
+Rollback is an Evidence-supported engineering activity that completely cancels one previously committed Decision.
 
-For a change $\Delta$:
+Rollback is governed by $C_R$ and belongs to one Engineering Layer $L_R$.
 
-$$Repair(\Delta)\neq \Delta^{-1}$$
+The Rollback target is $d_0$. The corresponding Contract context and materialized Work Product are $C_0$ and $w_0$. Thus:
 
-in general.
+$$\{d_0,C_0,w_0\}\subseteq\Gamma_R(C_R).$$
 
-The reason is that the successor Solution Space can contain alternatives that did not exist, were not visible, or were not selected before the change.
+Applicable Evidence establishes the engineering basis for cancellation of $d_0$.
 
-A repair can therefore:
+Rollback operates against the current Engineering State rather than restoring a historical Product snapshot. Its purpose is complete cancellation of the selected Decision and its applicable materialized continuation.
 
-- restore an earlier solution;
-- revise an existing Decision;
-- choose another previously known alternative;
-- discover a new local alternative;
-- redistribute constraints;
-- change an interface;
-- alter another affected Decision;
-- propagate feedback to an adjacent engineering context.
+#### 10.4.2 Deprecation and Rollback
 
-Repair is established by **direct exploration of the successor Solution Space**.
+Deprecation and Rollback describe different Product evolution.
 
-#### 10.4.2 Distributed repair exploration
+**Deprecation** is forward evolution. Later engineering supersedes or replaces earlier engineering and continues Product development through the newer realization.
 
-Let:
+**Rollback** cancels a previously committed Decision and removes its applicable materialized continuation from the current Product state.
 
-$$A(\Delta)$$
+Rollback therefore acts on current Product realization rather than returning the Product to the historical state that existed before the cancelled Decision. Product Evolution History remains in $K_t$ while active Materialized Product State changes.
 
-be the engineering contexts directly affected by change $\Delta$.
+::: {custom-style="Illustration"}
+**Illustration - Deprecation versus Rollback.** An earlier Product realization uses incandescent lighting. Ordinary engineering later replaces it with LED lighting; this is Deprecation because the Product continues through the newer lighting realization. In parallel, the wiring-harness topology evolves for unrelated engineering reasons. A later Rollback cancels the original lighting Decision completely. Because the LED realization belongs to the continuation of that Decision, the lighting succession is included in the Rollback Closure. The current wiring-harness topology remains because it is outside that closure. The resulting Product retains the parallel harness evolution and contains no materialized realization of the cancelled lighting Decision. The Product is not restored to the earlier historical snapshot.
+:::
 
-Each affected context explores repair alternatives inside its own Scale, authority, evidence, and Contract boundaries.
+#### 10.4.3 Rollback Closure
 
-When a candidate repair changes an Exchange Item, constraint, evidence condition, or another boundary-relevant element, the applicable adjacent context joins the exploration.
+The Rollback Closure $\Gamma_R(C_R)$ is the least same-Layer set of Decisions, Contracts, and Work Products whose active effects have to be cancelled or rematerialized together to completely cancel $d_0$.
 
-Conceptually:
+The initial Rollback subject belongs to the closure:
 
-$$A_0(\Delta)\rightarrow A_1(\Delta)\rightarrow \cdots$$
+$$\{d_0,C_0,w_0\}\subseteq\Gamma_R(C_R).$$
 
-where additional affected contexts are discovered through materialized propagation rather than assumed from unrestricted graph reachability.
+The closure is confined to the Rollback Layer:
 
-Several adjacent teams or Contract contexts can therefore explore the change in parallel.
+$$\Gamma_R(C_R)\subseteq D_{L_R}\cup C_{L_R}\cup W_{L_R}.$$
 
-This exploration determines:
+Later same-Layer engineering enters the Rollback Closure when it forms part of the deprecating, superseding, replacing, or materially dependent continuation of an element already in the closure and cannot remain valid after cancellation of that element.
 
-- whether the change can be absorbed locally;
-- which Decisions require rework;
-- which Work Products are affected;
-- whether additional adjacent-layer propagation is required;
-- the actual Resource Cost of viable alternatives.
+The Decision-Contract-Work Product succession is therefore included whenever the materialized engineering history requires it. A Rollback cannot select an isolated historical Work Product while retaining a later same-Layer realization whose validity depends on the cancelled Decision.
 
-#### 10.4.3 Repair candidate set
+#### 10.4.4 Rollback of current materialization
 
-At time $t$, let:
+Let $R_t(C_R)$ be the subset of the active Materialized Product State attributable to the Rollback Closure and incompatible with cancellation of $d_0$. For a successful Rollback:
 
-$$\mathcal{R}(\Delta,t)$$
+$$R_t(C_R)\subseteq P^{mat}_t$$
 
-be the set of valid repair candidates discovered so far through direct exploration.
+and the resulting active materialization is:
 
-A candidate $r$ belongs to this set only when it restores a valid engineering state under the applicable semantic, Scale, evidence, Contract, and authority rules.
+$$P^{mat}_{t+1}=P^{mat}_t\setminus R_t(C_R).$$
 
-Its cost is a vector:
+Rollback therefore removes the complete materialized continuation being cancelled from current Product realization. Materialized engineering outside $R_t(C_R)$ remains in the Product and preserves compatible parallel engineering.
 
-$$RC(r)=(review,rework,reverification,coordination,schedule,money,compute,humanEffort,physicalChange,\ldots)$$
+If the set difference does not produce a valid same-Layer engineering state, the Rollback Closure expands to include additional required same-Layer engineering or the Rollback remains blocked. Rollback therefore removes a complete engineering continuation rather than an arbitrary subset selected for convenience.
 
-The common model does not reduce this vector to one universal scalar.
+#### 10.4.5 Single-Layer boundary
 
-#### 10.4.4 Minimum known repair
+Rollback is local to one Engineering Layer.
 
-Because repair alternatives are discovered incrementally, the Hive generally cannot claim a theoretical global minimum repair cost.
+If cancellation of $d_0$ exposes an effect requiring a Decision on another Engineering Layer, that effect enters the ordinary adjacent-Layer engineering process. The Rollback Contract does not cancel Decisions or materialized Work Products owned by another Engineering Layer.
 
-Instead, at time $t$, it can identify the non-dominated repair candidates in the explored set:
+This separates responsibility for local cancellation from Product-wide engineering response.
 
-$$ParetoRepair(\Delta,t)=\{r\in\mathcal{R}(\Delta,t)\mid \nexists r'\in\mathcal{R}(\Delta,t):RC(r')\prec RC(r)\}$$
+#### 10.4.6 Previously rolled-back history
 
-A Project Profile or Contract can select among these candidates using its applicable priorities and authority.
+Rollback does not traverse backward through an element already cancelled by a successful Rollback.
 
-A claim of **minimum repair** is therefore qualified by the explored Solution Space.
+If such an element is required to construct the proposed Rollback Closure, the new engineering problem is formulated from the applicable current Materialized Product State.
 
-The proposal does not infer:
+This prevents repeated cancellation of the same historical engineering continuation and bounds Rollback-induced Brittleness.
 
-$$ObservedRepairMinimum=GlobalRepairMinimum$$
+#### 10.4.7 Rollback classification
 
-unless the applicable search domain is demonstrably complete.
+Rollback has one engineering purpose: complete cancellation of one committed Decision and the same-Layer materialized continuation that cannot remain valid without it.
 
-#### 10.4.5 Local absorption
+The resulting Work Product can change any technical aspect required to materialize that cancellation and retain a valid same-Layer remainder.
 
-If the affected Engineering Layer can repair the issue within its local Solution Space, authority, and materialized boundary commitments, the change is absorbed locally and does not become Reshuffling.
+A request that introduces a replacement realization or materially new Product intent in addition to cancellation is not a Rollback. Such a request is rejected under the Rollback classification. Continuation as ordinary engineering work is a separate Decision and Contract activity.
 
-Reshuffling begins when the finding requires a Decision change at an adjacent or higher Engineering Layer.
+#### 10.4.8 Rollback outcome
 
-Conceptually:
+Rollback Solution Exploration establishes the Rollback Closure and evaluates the resulting same-Layer state.
 
-$$LocalRepair(\Delta,\kappa)\land NoMaterialBoundaryChange(\Delta,\kappa)\Rightarrow StopUpwardPropagation$$
+Possible outcomes include:
 
-This preserves parallel work and minimizes Decision rework at higher Scales.
+- successful Rollback;
+- expansion of the Rollback Closure;
+- additional Evidence requirement;
+- a Known Gap;
+- a blocker in current materialized state;
+- rejection of Rollback classification;
+- absence of a viable Rollback.
 
-If no adequate local repair is found, or every viable repair changes material boundary information, the affected context propagates the relevant feedback to the nearest adjacent context.
+Successful Rollback produces the Work Product required by $C_R$ and updates the Materialized Product State according to §10.4.4.
 
-This is the repair counterpart of the Scale/Decision Extent rules in Section 9.
+The cancelled Decision, affected Contracts, Work Products, Evidence, and historical relations remain in Product Evolution History $K_t$. Failed, cancelled, rejected, and non-selected Rollback exploration also remains historically addressable under the ordinary exploration, Evidence, Contract-history, and provenance model.
 
-#### 10.4.6 Repair exploration and Decision Extent
+#### 10.4.9 Rollback and traceability
 
-Reshuffling is often discovered through downstream repair exploration. An apparently valid upstream Decision can reveal increasing Decision Extent as adjacent Engineering Layers attempt to realize it.
+Rollback uses the existing multidimensional Product graph and ordinary relation algebra.
 
-Decision Extent helps determine where repair exploration must occur.
+The Rollback Closure provides a bounded same-Layer filter for Rollback reasoning and traceability traversal. Rollback Contract properties can also be used as query filters.
 
-As exploration discovers additional affected engineering elements, the observed Decision Extent can increase.
+Historical and current engineering relations retain the same traversal, Scope, revision, Scale, and semantic-validation rules used by ordinary Product evolution.
 
-Therefore Decision Extent is not necessarily known completely when the change is first proposed.
-
-A repair investigation can reveal that an apparently local change has:
-
-- larger Decision Blast Radius;
-- additional affected Work Products;
-- new reverification requirements;
-- broader Product consequences;
-- severe economic impact.
-
-Such findings can invalidate the original Decision rationale and trigger its reassessment.
-
-#### 10.4.7 Repair stopping condition
-
-Repair exploration stops when the applicable authority has enough information to select a valid repair under the available Resource Envelope and decision criteria.
-
-It does not require exhaustive enumeration of every theoretically possible repair.
-
-The Hive preserves rejected and non-selected repair candidates when their rationale or evidence remains useful for later Decisions, post-mortem analysis, or future change.
+An implementation can represent a Rollback Contract with a specialized node kind and additional properties.
 
 ### 10.5 Human intervention geometry
 
@@ -4138,7 +4309,7 @@ The execution governed by a Contract is part of Solution Exploration. Let $\math
 
 $$Execution(C)\subseteq\mathcal{X}.$$
 
-This does not redefine the Contract itself as an exploration artifact. It means that execution under the Contract explores, constructs, validates, repairs, and converges toward a state that satisfies the Contract.
+This does not redefine the Contract itself as an exploration artifact. It means that execution under the Contract explores, constructs, validates, reworks, and converges toward a state that satisfies the Contract.
 
 A Contract therefore bounds exploration through its Product target, required Work Product, Assignment, Resource Envelope, execution policy, dependencies, Acceptance rules, authority, and information boundaries.
 
@@ -4952,6 +5123,32 @@ $$Integration\neq DecisionAggregation.$$
 
 Combining Work Products does not merge their Decision authority domains.
 
+#### 11.3.1 Parallel exploration before integration
+
+Potential interaction between engineering activities does not require a permanent classification of those activities as independent or dependent. Separate Contract trajectories can explore prospective Work Products concurrently while those results remain in Solution Space or intermediate engineering state. Their interaction can become visible later as engineering information develops.
+
+The common convergence point for materialized Work Products is Integration.
+
+#### 11.3.2 Integration convergence
+
+For Integration Contract $C_I$, let $W_I$ be the materialized Work Products required for that integration and $W^{ready}_{C_I}$ the subset currently qualified for integration. Construction of the intended integrated Work Product is available when:
+
+$$W_I\subseteq W^{ready}_{C_I}.$$
+
+While:
+
+$$W_I\setminus W^{ready}_{C_I}\neq\varnothing,$$
+
+the intended integration remains incomplete.
+
+The unfinished source Contracts can continue their own exploration and preparation. Other unrelated Contracts can also continue. Integration therefore serializes the participating materialized inputs at their convergence point without imposing a global sequential Product-development process.
+
+The common progression is:
+
+$$\text{parallel Solution Exploration}\rightarrow W_I\rightarrow w_I\rightarrow\text{integrated verification}\rightarrow\text{final applicable Acceptance}.$$
+
+Contract-specific prerequisites and dependencies can gate individual Contracts before this point. They do not create a universal Product-wide Decision sequence.
+
 ### 11.4 Integrator Contract
 
 An Integrator Contract is used when several Work Products must be constructed into a coherent result. It has exactly one accountable Executor:
@@ -5197,7 +5394,7 @@ Acceptance failure specifically contributes to the validation/rework history use
 
 $$AcceptanceFailure\rightarrow ConfidenceObservation.$$
 
-It is not necessary that every failure mechanically lowers Confidence by a fixed amount. A failed test can remove substantial uncertainty and expose a clear repair path.
+It is not necessary that every failure mechanically lowers Confidence by a fixed amount. A failed test can remove substantial uncertainty and expose a clear correction path.
 
 Therefore:
 
@@ -5915,7 +6112,7 @@ A false-parent Gap occurs when an asserted relation fails semantic validation:
 
 $$Asserted_r(p,q,\kappa)\land\neg Valid_r(p,q,\kappa)\Rightarrow FalseParentGap(p,q,r,\kappa).$$
 
-An invalid relation does not repair an Orphan.
+An invalid relation does not resolve an Orphan.
 
 The governance model rewards explicit incompleteness and penalizes false closure:
 
@@ -6631,6 +6828,30 @@ A conformant implementation MUST:
 
 A conformance claim MUST identify the model version, Project Profile revision, checker/review method, and evidence set.
 
+### 19.1 Concurrent evolution and Rollback checks
+
+The formal audit includes the following additional checks.
+
+- **Concurrent divergence:** valid trajectories can originate from the same $X_0$ and remain intersecting while differing in their engineering progression.
+- **Decision-order sensitivity:** for different admissible commitment orders over the same $D^*$, the most probable outcome is distinct trajectories and distinct ordered Work Product sequences.
+- **Product-result divergence:** for repeated valid Hive executions from the same initial engineering basis, the most probable outcome is $P^{mat}_a\neq P^{mat}_b$; equality is a special convergence case established for the participating trajectories.
+- **Monotonic Product Evolution History:** $t_1<t_2\Rightarrow K_{t_1}\subseteq K_{t_2}$.
+- **Non-monotonic materialization:** Materialized Product State can grow or contract.
+- **Non-monotonic Solution Space:** Solution Space can expand or contract as engineering progresses.
+- **Decision/Contract dependency separation:** Contract dependency topology is distinct from Decision ordering.
+- **Integration convergence:** the intended integration is available only when $W_I\subseteq W^{ready}_{C_I}$.
+- **Rollback Evidence basis:** cancellation of a committed Decision has applicable Evidence.
+- **One Rollback target:** one Rollback Contract cancels one committed Decision.
+- **Single-Layer Rollback Closure:** $\Gamma_R(C_R)\subseteq D_{L_R}\cup C_{L_R}\cup W_{L_R}$.
+- **Rollback Closure completeness:** same-Layer engineering that cannot remain valid after cancellation belongs to the Rollback Closure.
+- **Current-state subtraction:** successful Rollback produces $P^{mat}_{t+1}=P^{mat}_t\setminus R_t(C_R)$.
+- **Parallel-work preservation:** compatible materialization outside $R_t(C_R)$ remains active.
+- **No snapshot restoration:** Rollback operates on current materialization rather than restoring an earlier historical Product snapshot.
+- **Previously rolled-back history:** a new Rollback does not traverse backward through an element already cancelled by successful Rollback.
+- **Cross-Layer locality:** one Rollback Contract does not cancel another Engineering Layer's Decisions or Work Products.
+- **Rollback classification:** replacement realization or materially new Product intent is handled as ordinary engineering rather than Rollback.
+- **Common traceability:** Rollback uses the common Product graph and relation algebra.
+
 ## 20. Project Profile
 
 The Project Profile defines at least the parameters that are required by the project:
@@ -6643,7 +6864,7 @@ The Project Profile defines at least the parameters that are required by the pro
 - Work Product schemas, semantic-role constraints, required validators, information-exposure policies, and acceptance rules;
 - required Instrumental Checks, Low-profile Assessments, High-profile Assessments, escalation conditions, and instrumentation-improvement rules;
 - Team API communication rules;
-- Trade Space representation, trajectory rating, cluster independence, outlier policy, repair-cost model, deactivation and post-mortem criteria;
+- Trade Space representation, trajectory rating, cluster independence, outlier policy, Rollback Cost model, deactivation and post-mortem criteria;
 - Resource Envelope dimensions, measurement rules, invention allocations, and waste classification;
 - validation/verification independence topology;
 - Evidence rules, UNKNOWN materiality, Gap and Future Action policy;
@@ -6776,7 +6997,7 @@ Additional Evidence-locality and traceability invariants are:
 - **No automatic Evidence composition** - A structural path does not become an Evidence support relation without an explicit valid semantic composition rule.
 - **No Evidence-volume authority** - Quantity, repetition, detail, or verbosity of Evidence does not establish authority, relevance, support, or sufficiency.
 - **No Evidence sphere** - Broad potential relevance of Evidence does not create direct Evidence applicability across Engineering Layers.
-- **Traceability is not reversibility of engineering semantics** - Converse graph traversal is a structural operation. It does not imply that causality, authority, change propagation, repair, or another engineering operation is semantically invertible.
+- **Traceability is not reversibility of engineering semantics** - Converse graph traversal is a structural operation. It does not imply that causality, authority, change propagation, Rollback, or another engineering operation is semantically invertible.
 
 Additional computation-boundary invariants are:
 
@@ -6994,23 +7215,27 @@ Engineering standards and frameworks remain supportive/non-normative in this com
 
 The following project material informed this revision:
 
-- `harness-hive-dialogue-recap.md` - non-normative recap used to restore the state-centric Hive architecture, bounded traversal, trade-space, trajectory, cluster, repair-cost, and non-actor design direction. Later accepted decisions in this proposal take precedence where the recap is older.
+- `harness-hive-dialogue-recap.md` - non-normative recap used to restore the state-centric Hive architecture, bounded traversal, trade-space, trajectory, cluster, Rollback-cost, and non-actor design direction. Later accepted decisions in this proposal take precedence where the recap is older.
 - `resource_consumption_recap.md` - decision recap for context/input, orchestration, polling waste, and root/sub-agent resource use.
 - `session_resource_analysis.xlsx` - supporting workbook containing summary, category, phase, waste, support, agent, sub-agent, timing, session, and daily pivots.
 
 # Compilation status
 
-Draft 0.35 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.36 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.35 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also formalizes project-wide interval Scale positioning, Magnification traversal, same-Scale direct relation locality, adjacent-layer propagation, Decision Blast Radius, Decision Extent, and execution sub-scale topology. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records. It now also includes the derived three-dimensional Scale/Magnification topology figure specified by Section 9.24. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.36 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/Rollback model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also formalizes project-wide interval Scale positioning, Magnification traversal, same-Scale direct relation locality, adjacent-layer propagation, Decision Blast Radius, Decision Extent, and execution sub-scale topology. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records. It now also includes the derived three-dimensional Scale/Magnification topology figure specified by Section 9.24. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
-**Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
+**Rollback invariant.** Rollback completely cancels one committed Decision on one Engineering Layer. The Rollback Closure identifies the same-Layer Decision-Contract-Work Product continuation that cannot remain valid after cancellation. Successful Rollback removes the corresponding active materialization from the current Materialized Product State while preserving compatible parallel engineering and all historical engineering knowledge.
 
 **Reshuffling locality invariant.** A downstream finding becomes Reshuffling only when it cannot be absorbed within the affected local Engineering Layer and requires vertical Decision rework. Propagation stops at the nearest Engineering Layer capable of resolving the finding correctly.
 
 ## Open backlog
 
 - **Traceability delta clarification:** formalize the traceability-specific relationship between Scale positions, including the meaningful ratio/delta semantics noted during Scale review, without changing the accepted interval-Scale model until the traceability algebra is reviewed separately.
-- **Minimal-repair formalization:** model minimal repair cost as an outcome of direct Solution Space exploration by the affected and adjacent engineering contexts. It cannot be computed as an inverse operation of the proposed change because feasible repairs, local absorption, alternative Decisions, and cross-Scale consequences must be discovered rather than algebraically reversed.
+- **Engineering Economy consolidation:** consolidate the economic objective, Resource Cost, Rollback Cost, exploration versus materialization cost, Decision ordering under concurrency, Decision Blast Radius/Decision Extent economics, over-commitment, resource depletion, and staged resource expenditure.
+- **Contract realization phases:** recover and formalize progression from lightweight Solution Exploration through planning, Work Product materialization, integration, and where applicable physical-world realization. This is a global Contract model concern.
+- **Traceability dimensions:** refine operational/metadata and materialized engineering dimensions of the existing Product graph while preserving the common relation algebra.
+- **Formal Symbol and Predicate Audit:** normalize existing notation against the mathematical dictionary; remove symbol collisions; collect named predicates, relations, and functions into one appendix with mathematical type/signature, meaning, defining section, and formal role. Reassess Candidate Delta and Admission as part of that package.
+- **Proposal structural compaction:** reduce repeated formal prose, duplicated invariants, excessive section depth, and implementation-oriented detail while retaining accepted engineering semantics and required mathematics.
