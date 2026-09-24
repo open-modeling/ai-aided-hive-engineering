@@ -4001,7 +4001,6 @@ The common same-definition-revision runtime transitions are:
 
 This table is the normative common transition relation.
 
-The Contract lifecycle figure in Section 11.1.12 is derived from this relation.
 
 ##### 11.1.7.1 Readiness loss is not necessarily Contract revision
 
@@ -4320,12 +4319,6 @@ $$READY(C^k)\rightarrow ASSIGNED(C^{k+1})$$
 caused by Contract revision.
 
 The visible state names are the same. The causal semantics are not.
-
-##### 11.1.12.1 Contract lifecycle figure
-
-![Contract lifecycle FSM](../assets/images/Hive_Swarm_Contract_Lifecycle_FSM_0.31.png)
-
-**Figure - Contract lifecycle FSM.** Contract definition revision and runtime lifecycle transition are orthogonal. The figure is derived from the normative transition relation in Section 11.1.7 and introduces no additional lifecycle semantics. It distinguishes normal forward runtime transitions, recovery/backward/reassessment runtime transitions, definition-revision re-entry, and the common discontinuation family. The representative revision regression $READY(C^k)\rightarrow ASSIGNED(C^{k+1})$ is distinct from runtime readiness regression $READY(C^k)\rightarrow ASSIGNED(C^k)$.
 
 #### 11.1.13 Human intervention and lifecycle effect
 
@@ -6456,7 +6449,7 @@ ot\Rightarrow ProductStateTransition(p)$.
 
 Additional Contract lifecycle invariants are:
 
-- **FSM source of truth** - The guarded transition relation is normative; the lifecycle figure is derived from it.
+- **FSM source of truth** - The guarded transition relation is normative.
 - **Partial transition function** - Unsupported transitions remain undefined rather than being guessed.
 - **Event ordering matters** - Lifecycle events are temporally ordered and are not assumed commutative.
 - **Runtime and revision transitions differ** - $\delta_{run}\neq\delta_{rev}$.
@@ -6469,7 +6462,6 @@ Additional Contract lifecycle invariants are:
 - **Definition revision does not automatically resume execution** - revision re-enters through `DEFINED`, `ASSIGNED`, or `READY` unless explicit reassessment is required.
 - **Terminal state means terminal Contract identity** - further governed work uses a successor Contract rather than silently reopening `FULFILLED` or `DISCONTINUED`.
 - **No hidden self-loop** - activity can be recorded without inventing lifecycle progress.
-- **Visual/formal consistency** - every figure edge or transition family corresponds to the normative relation.
 - **FSM completeness** - Every common Contract state has explicit entry semantics and permitted transition families.
 - **Guarded transitions** - Contract lifecycle transitions occur only when their applicable transition guards hold.
 - **Backward transitions are valid** - Lifecycle progress is not assumed monotonic.
@@ -6578,11 +6570,11 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.31 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.32 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.31 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records, and a derived lifecycle figure. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.32 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
 **Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
 
