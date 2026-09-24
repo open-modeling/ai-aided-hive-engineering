@@ -1,10 +1,10 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.24"
+subtitle: "Formal Proposal - Draft 0.25"
 date: "17 September 2026"
 ---
 
-**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Scaling/Magnification/Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/repair exploration, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, and Candidate Delta/canonical-state computation-boundary revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
+**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Scaling/Magnification/Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/repair exploration, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, Candidate Delta/canonical-state computation-boundary revisions, and Contract decomposition/execution-topology/authority-locality revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
 
 **Normative basis.** Approved project discussion and accepted changes through Draft 0.8, aligned with the project dialogue recap and resource-consumption analysis where those sources do not conflict with later decisions.
 
@@ -291,7 +291,6 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Outlier** | Discovered outcome or trajectory with low current cluster support. It remains recorded even when active allocation is zero. |
 | **Overthinking** | Reasoning expenditure whose expected information or decision value is lower than its Resource Cost, or reasoning applied to a result that deterministic state/algebra can establish directly. |
 | **Product** | Coherent engineered subject whose state is created, evolved, verified, accepted, produced, or delivered. |
-| **Product API** | Exchange Item that materializes a Product-interface Decision in a project-appropriate representation. |
 | **Product Delivery** | Contract fulfilment in which accepted Work Products advance the Product to the Contract target state. |
 | **Project Profile** | Formal project input that defines open parameters such as relation vocabulary, scale topology, Work Product schemas, validators, authority, resource models, lifecycle predicates, and validation independence. |
 | **Proposition** | Core addressable semantic element of the solution model. It is not an Engineering Object by default. It can later be materialized, carried, or realized by Engineering Objects. |
@@ -303,7 +302,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Scaling** | Project-defined transition between different Scales. Scaling prevents direct semantic or operational linkage between elements that belong to incompatible engineering orders and requires information to be reconciled and materialized at the receiving Scale. |
 | **Solution Space** | Addressable set of currently known candidate states, constraints, outcomes, and their relations for a scoped problem. |
 | **Swarm** | Population of specialized computational participants assigned by the Hive to one bounded task. Swarm contributions can form Clusters supporting Decisions. |
-| **Team API** | Project-defined set of Work Products and communications used to coordinate Product evolution among parties. |
+| **Team API** | Governed cross-Actor or cross-Hive communication boundary used to coordinate Product evolution and Contract execution through applicable Work Products, Exchange Items, and communication Propositions. |
 | **Trade Space** | Project-visible candidate region used to compare alternatives for one problem under current constraints, evidence, and authority. |
 | **Trajectory** | Temporally ordered path of exploration outcomes and Decisions through a Trade Space. |
 | **UNKNOWN** | Required information whose value, validity, applicability, or result has not been established. |
@@ -408,11 +407,11 @@ The projection contains the semantic state required for the problem under the ap
 
 A projection is a computational view. It is not an independent canonical engineering state.
 
-Therefore:
+Therefore, for canonical elements selected into the projection:
 
-$$x\in\Pi_q(S_t)\Rightarrow x\in S_t$$
+$$x\in\Pi_q(S_t)\Rightarrow x\in S_t,$$
 
-for canonical elements selected into the projection, while temporary structures introduced during computation do not thereby become members of $S_t$.
+while temporary structures introduced during computation do not thereby become members of $S_t$.
 
 The computational sequence is:
 
@@ -430,11 +429,7 @@ A participant can compute, infer, explore, simulate, compare, or propose a chang
 
 The Hive applies deterministic operations before assigning unresolved work to semantic reasoning.
 
-For projection:
-
-$$\Pi_q(S_t)$$
-
-the deterministic stage can establish properties such as:
+For projection $\Pi_q(S_t)$, the deterministic stage can establish properties such as:
 
 - set membership;
 - relation domain and range;
@@ -565,13 +560,7 @@ The tuple does not define Decisions and Evidence as ontologically separate from 
 
 A Candidate Delta can also propose revision, deactivation, supersession, relation change, materialization, or another state operation permitted by the common model and Project Profile.
 
-The Candidate Delta expresses:
-
-> **This is the change proposed by the computation.**
-
-It does not express:
-
-> **This change is already part of the Product state.**
+The Candidate Delta expresses: **This is the change proposed by the computation.** It does not express: **This change is already part of the Product state.**
 
 Therefore:
 
@@ -625,11 +614,7 @@ be the validators required for the proposed change in engineering context $\kapp
 
 Admission requires every applicable blocking validator to permit the change.
 
-Conceptually:
-
-$$Admissible(\Delta_q,S_t,\kappa)$$
-
-holds only when the Candidate Delta satisfies the applicable validation rules.
+Conceptually, $Admissible(\Delta_q,S_t,\kappa)$ holds only when the Candidate Delta satisfies the applicable validation rules.
 
 These can include:
 
@@ -652,7 +637,7 @@ Formally:
 
 $$Admissible(\Delta_q,S_t,\kappa)\Rightarrow\forall v\in ApplicableValidators(\Delta_q,S_t,\kappa):Pass(v).$$
 
-where the Project Profile determines whether an unresolved validator blocks admission, creates an explicit UNKNOWN or Gap, requires escalation, or permits another defined disposition.
+The Project Profile determines whether an unresolved validator blocks admission, creates an explicit UNKNOWN or Gap, requires escalation, or permits another defined disposition.
 
 Truthful incompleteness remains applicable during admission.
 
@@ -681,15 +666,13 @@ It preserves the applicable:
 - Scale and Magnification rules;
 - information boundaries.
 
-Application creates a successor state.
-
-It does not rewrite the previous canonical state.
+Application creates a successor state. It does not rewrite the previous canonical state.
 
 Therefore:
 
 $$Apply(S_t,\Delta_q)=S_{t+1}$$
 
-does not imply destructive historical replacement of $S_t$.
+does not imply historical replacement of $S_t$.
 
 Instead:
 
@@ -952,10 +935,6 @@ A Decision can be contested, supported by an outlier, committed, deactivated, de
 
 An Exchange Item is a boundary-relative materialized information object. Its representation is project-specific. It can be a textual document, model file, protocol schema, CAN matrix, Revit artifact, drawing, source code, binary, simulation result, physical sample record, or another information form appropriate to the Product.
 
-A Product API is a design Decision materialized as one or more Exchange Items:
-
-$$DesignDecision(d_{api})\land Materializes(d_{api},e_{api})\land IsExchangeItem(e_{api},b).$$
-
 Exchange Item atomicity is boundary-relative. Feedback can target an internal locator of the Exchange Item when the representation supports it.
 
 ### 6.6 Work Product
@@ -968,7 +947,23 @@ A Work Product can become an input to another Contract while remaining the compl
 
 ### 6.7 Product
 
-A Product is the coherent engineered subject at a defined boundary. Product structure and Work Product structure are different. Contract decomposition can split execution without fragmenting the final Product view delivered by the layer.
+A Product is the coherent engineered subject at a defined boundary.
+
+Product structure, Work Product structure, Contract execution topology, Engineering Layer topology, and Hive execution topology represent different concerns.
+
+Product decomposition describes the engineered subject. Work Product structure describes results required by Contracts. Contract decomposition distributes governed execution responsibility. Hive topology describes how the Hive organizes computational execution.
+
+Therefore:
+
+$$ContractDecomposition\not\Rightarrow ProductDecomposition$$
+
+$$ContractDecomposition\not\Rightarrow HiveDecomposition$$
+
+and:
+
+$$ProductDecomposition\not\Rightarrow ContractDecomposition.$$
+
+The common proposal does not prescribe technical interfaces, architecture, protocols, decomposition strategy, or other engineering content of a Product. Such details belong to project engineering work. Where examples are useful for explanation, they are Illustrations and do not establish proposal semantics.
 
 ## 7. Operational algebra
 
@@ -1177,6 +1172,7 @@ The model distinguishes:
 
 A successful structural check does not imply successful semantic or evidence checks.
 
+
 The same reliability dimensions apply to Candidate Delta admission.
 
 A Candidate Delta does not become admissible merely because one validation dimension succeeds.
@@ -1195,7 +1191,7 @@ $$GeneratedByTrustedParticipant(\Delta)\not\Rightarrow Admissible(\Delta).$$
 
 Admission is therefore conjunctive over the validators applicable to the proposed effect, rather than based on producer identity or one global confidence value.
 
-This section does not define model-confidence or calibration semantics. Those remain separate from the computation-boundary rules.
+This section does not define model-confidence or calibration semantics.
 
 ### 8.4 Work Product information boundary
 
@@ -1717,15 +1713,27 @@ Increasing Extent does not give the originating Decision authority over another 
 
 ### 9.7 Engineering Layer and execution sub-layer
 
-An Engineering Layer defines a bounded Scale and Magnification context in which the project maintains one coherent Product view.
+An Engineering Layer defines a bounded Scale and Magnification context in which engineering elements can be reasoned about as one coherent Product view.
 
-An execution sub-layer defines Contract execution topology inside that Engineering Layer.
+An execution sub-layer describes execution topology inside that Engineering Layer.
 
-Contract decomposition, parallel execution, verification Contracts, or an Integrator Contract do not create a new Scale merely because they introduce additional execution depth.
+Contract decomposition, parallel execution, verification Contracts, Integrator Contracts, and other execution structures can introduce execution depth without introducing another Engineering Layer.
 
-Execution depth and engineering Scale are independent properties.
+Therefore:
 
-Several Contracts can therefore operate at different execution sub-layers while remaining at the same Scale and Magnification.
+$$ExecutionDepth\not\Rightarrow EngineeringScaleChange$$
+
+and:
+
+$$ChildContract(C_c,C_p)\not\Rightarrow FinerScale(C_c,C_p).$$
+
+Several Contracts can operate at different execution sub-layers while remaining at the same Scale and Magnification.
+
+Conversely, Contract nesting does not establish a cross-Scale engineering relationship. Thus:
+
+$$ContractTopology\neq ScaleTopology.$$
+
+Cross-Scale effects remain subject to the Scaling rules.
 
 ### 9.8 Scale-compatible engineering operations
 
@@ -1977,37 +1985,261 @@ The Contract is durable and revision-qualified. Previous Contract states remain 
 
 A Contract becomes executable only when its Assignment is unambiguous for the applicable scope. Conflicting directives that would establish incompatible Assignments for the same scope require resolution under the applicable authority rules before execution proceeds. Human-originated input does not bypass this rule. The Human role and authority model is a prerequisite of safe execution and is defined separately from this Contract section.
 
+#### 11.1.1 Contract execution as Solution Exploration
+
+A Contract remains a durable governance record defining responsibility, target result, resources, execution conditions, Acceptance, and history.
+
+The execution governed by a Contract is part of Solution Exploration. Let $\mathcal{X}$ be the Solution Exploration activity of the Hive. For Contract $C$:
+
+$$Execution(C)\subseteq\mathcal{X}.$$
+
+This does not redefine the Contract itself as an exploration artifact. It means that execution under the Contract explores, constructs, validates, repairs, and converges toward a state that satisfies the Contract.
+
+A Contract therefore bounds exploration through its Product target, required Work Product, Assignment, Resource Envelope, execution policy, dependencies, Acceptance rules, authority, and information boundaries.
+
+Contract execution does not escape the general exploration rules merely because it is obligatory work. Resource use, trajectory survival, convergence, divergence, back-off, deactivation, preservation, and post-mortem rules apply to Contract-governed execution.
+
 ### 11.2 Contract decomposition
 
-A Contract can be decomposed into child Contracts when the Product target requires separable execution domains. Child Contracts provide complete results of their own scope. Those Work Products become inputs to the parent execution.
+A Contract can be decomposed when fulfilment requires separable execution responsibilities.
 
-Contract decomposition does not imply Hive decomposition. The same Hive can coordinate all child Contracts while maintaining horizontal Product and Team APIs.
+Each resulting Contract remains a complete Contract for its own scope. Every Contract has exactly one accountable Executor:
 
-### 11.3 Integration and composition
+$$|Executor(C)|=1.$$
 
-Integration is project-specific. Direct integration requires compatible magnification:
+This invariant applies to every Contract, including Contracts involving teams, multiple contributors, several supporting Actors, or several internal Hive execution participants. A Contract can involve many participants while still having one accountable Executor. The accountable Executor is therefore not equivalent to the set of people, Agents, organizations, or systems participating in execution.
 
-$$Integrate(x,y)\Rightarrow M(x)\sim M(y).$$
+#### 11.2.1 Decomposition creates new Assignments
 
-The common algebra does not prescribe copying, aggregation, model merge, compilation, physical assembly, packaging, or another integration strategy. Each Work Product keeps its own schema and validation rules. Cross-scale incorporation is only allowed through a project-defined strategy that preserves information boundaries and validation.
+For:
 
-Integration is not aggregation.
+$$Split(C_p)=\{C_1,C_2,\ldots,C_n\}$$
+
+each resulting Contract has its own Assignment:
+
+$$\forall C_i\in Split(C_p): |Executor(C_i)|=1.$$
+
+The decomposition does not imply:
+
+$$Executor(C_i)=Executor(C_j)$$
+
+for distinct Contracts $C_i$ and $C_j$. Nor does the parent Assignment automatically propagate into child Contracts:
+
+$$Executor(C_p)=a\not\Rightarrow Executor(C_i)=a.$$
+
+A decomposition that simply assigns every resulting responsibility to the same Executor is not the default semantics of Contract splitting. Whether reuse is permissible depends on the applicable execution policies.
+
+#### 11.2.2 Contract-type execution policies
+
+Different Contract types can impose different execution policies. Let:
+
+$$ExecutionPolicy(type(C),profile)$$
+
+define the applicable restrictions.
+
+An Assignment is valid only when:
+
+$$Assignment(C,a)\Rightarrow SatisfiesExecutionPolicy(a,C,profile).$$
+
+Execution policy can constrain eligible Executor classes, required independence, prohibited combinations of responsibilities, required separation between development, production, testing, verification, integration, Acceptance, or other activities, permitted Hive topology, and external-party requirements.
+
+For Contracts whose execution roles require independence:
+
+$$IndependentExecutionRequired(C_i,C_j)\Rightarrow Executor(C_i)\neq Executor(C_j).$$
+
+Thus development and independent testing or verification cannot use the same Executor when the applicable engineering method requires independent execution. The exact required separation is Project Profile controlled.
+
+#### 11.2.3 Contract decomposition distributes responsibility
+
+A child Contract produces a complete Work Product relative to its own obligation. That Work Product can remain only one input relative to a broader parent objective.
+
+Therefore:
+
+$$CompleteFor(w_i,C_i)\not\Rightarrow CompleteFor(w_i,C_p).$$
+
+Contract decomposition distributes execution responsibility. It does not fragment the Product automatically and does not transfer the parent Executor's authority to child Executors or vice versa. Parent and child Contracts retain their own Issuer, Assignment, Executor, Product target, Work Product, Obligation, Resource Envelope, execution policy, Acceptance rules, revision, and history.
+
+#### 11.2.4 Contract decomposition does not imply Hive decomposition
+
+Contract splitting does not require Hive splitting:
+
+$$ContractSplit\not\Rightarrow HiveSplit.$$
+
+A Hive can coordinate multiple Contracts while preserving their distinct Assignments, Executors, Resource Envelopes, execution policies, Work Products, validation, and Acceptance.
+
+The Hive can use lightweight specialized Agents internally. If Hive $H$ is the Contract Executor:
+
+$$Executor(C)=H$$
+
+and Agent $a_k$ performs a bounded operation:
+
+$$Performs(a_k,x,C)$$
+
+this does not imply:
+
+$$Executor(C)=a_k.$$
+
+A lightweight Agent is an internal computational participant unless explicitly given another role by the model. The Contract-facing responsibility remains stable even when the Hive creates, replaces, deactivates, or reallocates its internal Agents.
+
+#### 11.2.5 Upper-layer Actor and Hive execution boundary
+
+An Actor operating at an upper Engineering Layer interacts with the Hive through the applicable governed engineering boundary. Conceptually:
+
+$$Actor_{upper}\leftrightarrow Hive\leftrightarrow\{Agent_1,\ldots,Agent_n\}.$$
+
+The upper-layer Actor does not depend on the identity or continued existence of the Hive's lightweight specialized Agents. Therefore:
+
+$$Interacts(Actor_{upper},Hive)\not\Rightarrow Directs(Actor_{upper},Agent_k)$$
+
+unless an explicit execution mechanism establishes such interaction.
+
+The Hive can change its internal execution topology without forcing that topology into the upper-layer engineering model.
+
+#### 11.2.6 Human participation at several layers
+
+The same Human can participate at several Engineering Layers. Human identity does not merge those engineering contexts.
+
+For Human $h$:
+
+$$Participates(h,L_i)\land Participates(h,L_j)$$
+
+does not imply:
+
+$$AuthorityBridge(L_i,L_j)$$
+
+and does not imply:
+
+$$ImplicitDecision(h,L_i,L_j).$$
+
+A Human's awareness of both contexts can inform reasoning, but it does not make an undocumented choice a valid cross-layer Decision. Where Decision semantics are required, the Decision remains explicit, scoped, and authority-qualified. Personal continuity, informal discussion, presumed intent, organizational habit, or the fact that the same person already knows the information cannot replace explicit Decision materialization.
+
+#### 11.2.7 Execution topology does not imply authority topology
+
+An execution relation is not an authority relation by default:
+
+$$ExecutionRelation(x,y)\not\Rightarrow AuthorityRelation(x,y).$$
+
+This includes relations created by Contract decomposition, Work Product dependency, verification, integration, shared Hive execution, and Team API communication.
+
+Similarly:
+
+$$ChildContract(C_c,C_p)\not\Rightarrow AuthorityInheritance(C_p,C_c)$$
+
+and:
+
+$$ChildContract(C_c,C_p)\not\Rightarrow AuthorityInheritance(C_c,C_p).$$
+
+Authority remains explicit and context-qualified.
+
+### 11.3 Integration
+
+Integration constructs a coherent Work Product from qualified inputs according to the applicable Contract and project engineering method. The proposal does not prescribe how technical integration is implemented. Technical construction details belong to the engineering domain and Project Profile where applicable.
+
+The governance invariants are:
+
+$$Integration\neq AuthorityAggregation$$
+
+and:
+
+$$Integration\neq DecisionAggregation.$$
+
+Combining Work Products does not merge their Decision authority domains.
 
 ### 11.4 Integrator Contract
 
-When partial Work Products need to become one coherent same-scale Work Product, the parent can create a separate Integrator Contract. The Integrator can receive multiple Work Products as a side effect of the parent topology while remaining vertically scoped to its own Contract obligation.
+An Integrator Contract is used when several Work Products must be constructed into a coherent result. It has exactly one accountable Executor:
 
-The Integrator does not gain horizontal authority over child Decisions. It builds the coherent result required by its Contract.
+$$|Executor(C_I)|=1.$$
 
-### 11.5 V-model verification topology
+The Integrator is responsible for determining that every candidate input is fit for the intended integration operation.
 
-The Hive cannot both fulfill and validate the same Contract role. Production, test planning/test-suite production, integration verification, and other required verification activities are separate Contracts where the applicable engineering method requires that separation.
+#### 11.4.1 Mandatory Work Product verification before integration
 
-The Project Profile defines the required independence topology. It can require separate roles inside one Hive, separate Hive instances using the same model, separate departments, separate enterprises, different model providers, different infrastructure, or another topology.
+For every candidate input Work Product $w$:
 
-Conformance uses a predicate rather than a universal scalar independence order:
+$$CandidateInput(w,C_I)\Rightarrow VerifyForIntegration(w,C_I).$$
+
+Actual integration is permitted only after the required input checks succeed:
+
+$$Integrate(w,C_I)\Rightarrow IntegrationReady(w,C_I).$$
+
+Source-Contract Acceptance alone does not establish integration readiness:
+
+$$Accepted(w,C_s)\not\Rightarrow IntegrationReady(w,C_I).$$
+
+The Integrator must assess the Work Product against the specific context in which it will be integrated. The proposal does not prescribe the technical content of this verification. The Integrator Contract, Project Profile, applicable engineering method, and Work Product semantics define the necessary checks.
+
+#### 11.4.2 Rework request
+
+When a Work Product is not integration-ready, the Integrator can request rework. Where correction is necessary for fulfilment of the Integrator Contract, issuing that rework request is part of the Integrator's Obligation.
+
+$$\neg IntegrationReady(w,C_I)\Rightarrow RequestRework(I,w).$$
+
+The Integrator does not thereby gain unrestricted authority to change the originating engineering Decision:
+
+$$RequestRework(I,w)\not\Rightarrow DesignAuthority(I,w).$$
+
+The responsible source Contract receives the issue through the applicable feedback or Contract mechanism and performs the required reassessment.
+
+#### 11.4.3 Verification after integration
+
+Verification of the integrated Work Product can expose incompatibilities that could not be observed on isolated inputs. The execution loop can therefore be:
+
+$$VerifyInputs\rightarrow Integrate\rightarrow VerifyIntegratedResult.$$
+
+When integrated-result verification fails:
+
+$$VerifyIntegratedResult\rightarrow Diagnose\rightarrow RequestRework$$
+
+followed by:
+
+$$Rework\rightarrow ReverifyInput\rightarrow Reintegrate.$$
+
+A revised Work Product must be reverified before it is used again:
+
+$$Revised(w)\Rightarrow ReverifyForIntegration(w,C_I).$$
+
+Previous verification is not silently inherited by a changed revision.
+
+#### 11.4.4 Integrator construction responsibility
+
+Within its own Contract, the Integrator controls coherent-product construction. This includes input qualification, integration sequencing, applicable compatibility checks, construction, ancestry preservation, integration-specific validation, Gap exposure, and initiation of necessary rework.
+
+Therefore:
+
+$$ConstructionResponsibility(I,C_I)\not\Rightarrow DesignAuthority(I,C_k)$$
+
+for a contributing source Contract $C_k$. The Integrator's power to reject an input for integration or request rework is not the same as authority to change the source design.
+
+#### 11.4.5 Integration ancestry
+
+The integrated Work Product preserves ancestry to contributing Work Products and applicable boundary information. For contributing Work Product $w_k$ and integrated Work Product $w_I$:
+
+$$Contributes(w_k,w_I).$$
+
+The converse is derived:
+
+$$IsContributedToBy=Contributes^{\smile}.$$
+
+Both forward and reverse traceability are available without authority inheritance.
+
+$$Contributes(w_k,w_I)\not\Rightarrow Authority(w_I,w_k)$$
+
+and:
+
+$$Contributes(w_k,w_I)\not\Rightarrow Authority(w_k,w_I).$$
+
+### 11.5 Verification execution topology
+
+Development, production, verification, testing, and integration can have different Contract execution policies. The common proposal does not require one universal physical separation. It does require the actual topology to satisfy the applicable independence rule:
 
 $$SatisfiesIndependence(actual,required,profile).$$
+
+Where independent verification or testing is required:
+
+$$Executor(C_{development})\neq Executor(C_{verification}).$$
+
+The required separation can be implemented through different Actors, Hive instances, organizations, models, providers, infrastructure, or another Project Profile mechanism. A single Hive can coordinate related Contracts only when doing so remains compatible with the required independence.
 
 ### 11.6 Acceptance
 
@@ -2031,11 +2263,21 @@ This stage produces the Contract Acceptance disposition. The disposition and its
 
 Successful Acceptance establishes that the submitted result satisfies the applicable Contract Acceptance rules. It does not by itself imply release, deployment, production, baselining, or another project-specific lifecycle transition.
 
-### 11.7 Product API and Team API
+### 11.7 Team API
 
-A Product API is an Exchange Item of a project-appropriate kind that materializes an interface Decision. Its representation depends on the Product nature.
+A Team API is the governed cross-Actor or cross-Hive communication boundary used to coordinate Product evolution and Contract execution.
 
-A Team API is the set of Work Products and communications used by parties to evolve the Product. Hive-Human communication is native to the model. External-party communication can require a Project Profile communication Contract and can be limited to formats such as PDF, spreadsheet, email, supplier portal, or another external boundary representation.
+Conceptually:
+
+$$TeamAPI: Actor/Hive\leftrightarrow Actor/Hive.$$
+
+A Team API can carry or reference Questions, Requests, Clarifications, Exchange Items, Feedback Exchange Items, Work Products, Contract-relevant execution information, and other Project Profile-defined communications.
+
+Team API does not prescribe Product architecture or technical Product interfaces. It governs engineering communication between execution parties.
+
+Shared Team API access does not imply shared authority:
+
+$$SharedTeamAPI(a,b)\not\Rightarrow SharedAuthority(a,b).$$
 
 ### 11.8 Blast containment
 
@@ -2810,6 +3052,112 @@ This is an **exploration restart**. It does not erase the earlier trajectory.
 
 It is also distinct from Contract identity: a Contract is not restarted merely because its execution encounters divergence.
 
+### 17.5 Contract execution convergence and divergence
+
+Contract execution is bounded Solution Exploration and therefore uses the same convergence/divergence governance as other exploration.
+
+For Contract $C$, let $\tau_C$ denote its active execution trajectory. The trajectory can include construction attempts, verification results, integration attempts, rework, repeated submissions, feedback resolution, alternative execution approaches, and repair exploration.
+
+Contract execution is healthy while the trajectory demonstrates sufficient progress toward a valid fulfilment state under the applicable Resource Envelope.
+
+#### 17.5.1 Rework is exploration
+
+A rework request does not imply that one predetermined correction exists. It reopens the affected part of Solution Exploration:
+
+$$ReworkRequest\rightarrow AffectedSolutionExploration$$
+
+not:
+
+$$ReworkRequest\rightarrow PredeterminedFix.$$
+
+The responsible context explores a valid correction under the applicable Contract, Decision, Evidence, Scale, and authority rules. This is consistent with the existing rule that, in general:
+
+$$Repair(\Delta)\neq\Delta^{-1}.$$
+
+#### 17.5.2 Repeated rework and integration failure
+
+One failed integration attempt does not by itself establish unhealthy divergence. Failure provides Evidence about the current trajectory. Repeated failure without adequate progress is a convergence signal.
+
+Relevant signals can include repeated rejection of the same Work Product, recurrence of the same defect class, repeated incompatibility, repeated integration or verification failure, repeated rework without reducing the affected problem, increasing Resource Cost with insufficient progress, persistent disagreement between responsible Actors, and inability to reconcile contending engineering trajectories.
+
+The Project Profile can include these factors in the existing divergence-health calculation:
+
+$$Health_P(\tau_C,t).$$
+
+Continuous activity is not equivalent to convergence. Therefore:
+
+$$MoreReworkCycles\not\Rightarrow MoreProgress$$
+
+and:
+
+$$MoreIntegrationAttempts\not\Rightarrow Convergence.$$
+
+#### 17.5.3 Contract back-off
+
+When Contract execution becomes unhealthy:
+
+$$UnhealthyDivergence(\tau_C,t)\Rightarrow Allocation(\tau_C,t+\Delta t)<Allocation(\tau_C,t)$$
+
+under the applicable Project Profile.
+
+Back-off reduces future expenditure on the failing execution trajectory. It does not erase the Contract, Work Products, Decisions, Evidence, failed integration results, rework requests, verification results, provenance, or execution history.
+
+Repeated failure can eventually produce:
+
+$$Allocation(\tau_C,t)=0.$$
+
+The current execution trajectory then becomes inactive. Contract history remains addressable.
+
+#### 17.5.4 Agent and Actor deactivation
+
+Back-off can operate on execution resources contributing to an unhealthy trajectory.
+
+For an internal Agent $a$:
+
+$$PersistentLowValue(a,\tau_C)\Rightarrow Deactivate(a,\tau_C)$$
+
+can remove that Agent from active execution while preserving useful outputs and provenance.
+
+For an Actor $A$, deactivation is Contract/context qualified. The model does not infer global deletion or invalidity of the Actor. Instead, $Deactivate(A,C)$ means that the Actor is no longer used in the applicable active Contract role or execution trajectory.
+
+If the deactivated Actor is the Contract Executor:
+
+$$Executor(C)=A\land Deactivate(A,C)$$
+
+then execution cannot continue under an implicit replacement. A new valid Assignment is required:
+
+$$Deactivate(Executor(C),C)\Rightarrow RequireReassignment(C)$$
+
+before governed execution resumes. This preserves:
+
+$$|Executor(C)|=1$$
+
+for every executable Contract state.
+
+#### 17.5.5 Post-mortem and recovery
+
+Unhealthy Contract divergence triggers the existing exploration post-mortem logic.
+
+Recovery can require a different Agent population, another Swarm composition, Executor reassignment, Contract revision, Contract decomposition, a different integration strategy, reopening an engineering Decision, additional Evidence, modification of Resource Envelope, escalation to another Actor, Human intervention where applicable, a successor Contract, or termination where no viable continuation exists.
+
+The recovery mechanism addresses the cause of unhealthy execution rather than merely repeating the failed trajectory. Therefore:
+
+$$Unhealthy(\tau_C)\not\Rightarrow Repeat(\tau_C)$$
+
+without a justified change to the execution conditions.
+
+#### 17.5.6 Contract continuity and exploration restart
+
+An exploratory restart is not a rewrite of Contract history. The original Contract state and failed trajectory remain addressable.
+
+Recovery can continue under the same Contract where its semantics permit recovery, or through revision, reassignment, decomposition, successor Contract, or another governed transition.
+
+Therefore:
+
+$$ExplorationRestart\neq HistoricalContractReset.$$
+
+The Hive preserves failure information because it is part of the Solution Space and is required to prevent repetition of the same unhealthy trajectory.
+
 ## 18. Derived no-sphere theorem
 
 ### Theorem NS-1 - No authority or Evidence sphere
@@ -2871,6 +3219,24 @@ Information can propagate through many Engineering Layers while Decisions, Evide
 
 **Derived property:** Decisions and Evidence remain local semantic Propositions. Their engineering effects cross Scale boundaries only through explicit materialized exchanges and renewed local interpretation. Forward and reverse graph traversal preserve traceability but do not create semantic inheritance.
 
+### Execution-topology extension
+
+Execution topology does not create authority topology. Therefore:
+
+$$Reachable_{ContractTopology}(C_i,C_j)\not\Rightarrow Authority(C_i,C_j)$$
+
+$$SameHuman(h,L_i,L_j)\not\Rightarrow AuthorityBridge(L_i,L_j)$$
+
+$$SameHive(C_i,C_j)\not\Rightarrow AuthorityCollapse(C_i,C_j)$$
+
+and:
+
+$$Integrates(I,w)\not\Rightarrow DesignAuthority(I,w).$$
+
+Contract execution can propagate results, feedback, rework requests, verification failures, and integration consequences without propagating implicit Decision authority.
+
+**Derived property:** execution topology transports responsibility, results, dependencies, feedback, and exploration state. It does not transport authority unless an explicit authority mechanism establishes that effect.
+
 # Part V - Conformance and Project Profile
 
 ## 19. Conformance
@@ -2905,7 +3271,7 @@ The Project Profile defines at least the parameters that are required by the pro
 - Contract parties, authority, human Decision scopes, enforcement, and Contract resource models;
 - Work Product schemas, semantic-role constraints, required validators, information-exposure policies, and acceptance rules;
 - required Instrumental Checks, Low-profile Assessments, High-profile Assessments, escalation conditions, and instrumentation-improvement rules;
-- Product API representations and Team API communication rules;
+- Team API communication rules;
 - Trade Space representation, trajectory rating, cluster independence, outlier policy, repair-cost model, deactivation and post-mortem criteria;
 - Resource Envelope dimensions, measurement rules, invention allocations, and waste classification;
 - validation/verification independence topology;
@@ -2913,7 +3279,14 @@ The Project Profile defines at least the parameters that are required by the pro
 - supporting-process predicates such as Configuration Management, Change Management, baseline, release, deployment, production, risk, and quality rules;
 - lifecycle labels for Decisions, Engineering Objects, Work Products, Contracts, and other project elements;
 - external-party communication constraints and permitted formats;
-- integration/composition strategies and their validation requirements.
+- integration/composition strategies and their validation requirements;
+- Contract-type execution policies and Executor eligibility;
+- required independence between Contract types and Hive/Actor separation requirements;
+- integration-input verification and rework rules;
+- Contract-execution health indicators, divergence thresholds, and back-off behavior;
+- Agent deactivation, Contract-role Actor deactivation, reassignment, recovery, and termination policies.
+
+The Project Profile does not define common-model technical Product interfaces. Those remain engineering content unless another applicable engineering method or external norm governs them.
 
 ## 21. Formal model audit
 
@@ -2978,6 +3351,31 @@ Additional computation-boundary invariants are:
 - **Candidate Delta / Work Product separation** - Candidate Delta admission and Contract Work Product Acceptance are distinct operations.
 - **Participant transience** - Persistence of the participant that produced a candidate is not required for persistence of admitted engineering state; required provenance survives independently.
 
+Additional Contract decomposition, execution-topology, and authority-locality invariants are:
+
+- **Single Executor cardinality** - Every executable Contract state has exactly one accountable Executor: $|Executor(C)|=1$.
+- **Decomposition does not inherit Assignment** - Child Contracts require their own valid Assignments; parent Assignment does not propagate automatically.
+- **Execution-policy compliance** - Every Assignment satisfies the execution policy applicable to that Contract type.
+- **Independent execution** - Development and independent verification/testing cannot share an Executor where the applicable policy prohibits it.
+- **Contract execution is Solution Exploration** - $Execution(C)\subseteq\mathcal{X}$, so the general convergence/divergence and resource-survival rules apply.
+- **Rework is exploration** - A rework request reopens affected Solution Exploration; it does not prescribe an algebraic inverse fix.
+- **Integration failure is convergence Evidence** - Repeated integration or verification failure contributes to Contract-execution health assessment.
+- **No unlimited rework** - Persistent unhealthy rework leads to back-off rather than unlimited resource expenditure.
+- **Agent deactivation** - Persistently unproductive internal participants can be removed from the active trajectory without deleting useful history.
+- **Executor deactivation requires reassignment** - An executable Contract cannot silently continue after its Executor is deactivated.
+- **Post-mortem before blind repetition** - Recovery from unhealthy divergence changes execution conditions, resources, responsibility, engineering state, or another relevant factor rather than merely repeating the failed trajectory.
+- **Contract continuity** - Exploration restart does not rewrite Contract or failure history.
+- **Contract decomposition is not Hive decomposition** - Splitting execution responsibilities does not require one Hive per Contract.
+- **Hive/Agent boundary** - Lightweight internal Agents do not become Contract Executors merely through participation.
+- **Upper-layer Actor/Hive boundary** - Upper-layer Actors operate through the governed Hive boundary rather than relying on direct control of transient Agents.
+- **Multi-layer Human is not implicit authority** - One Human operating at multiple Engineering Layers does not create an authority bridge or legitimize undocumented Decisions.
+- **Execution topology is not authority topology** - Parent/child, dependency, integration, verification, shared-Hive, or Team API relations do not create authority unless explicitly defined.
+- **Mandatory integration qualification** - Every Work Product is checked for integration readiness before integration.
+- **Rework after integrated verification** - Integrated-result failure can require source Work Product rework and subsequent reverification.
+- **Integrator rework request is not design authority** - The Integrator can reject or request correction without inheriting originating Decision authority.
+- **Contribution traceability is not authority** - Integration ancestry supports forward and converse traceability without authority inheritance.
+- **Team API scope** - Team API governs cross-Actor/cross-Hive engineering communication and does not prescribe technical Product interfaces.
+
 # Part VI - References and supporting material
 
 ## 22. Language and terminology references
@@ -3027,11 +3425,11 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.24 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.25 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.24 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability, the derived no-sphere theorem, and Candidate Delta/canonical-state computation-boundary semantics. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.25 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, and Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
 **Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
 
