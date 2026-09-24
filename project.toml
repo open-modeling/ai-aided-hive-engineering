@@ -1,0 +1,43 @@
+[repository]
+name = "AI_Aided_Hive_Engineering"
+display_name = "AI Aided Hive Engineering"
+license = "EPL-2.0"
+author = "Julia (Ilya) Lebedev <ilya@lebedev.net>"
+
+[core]
+name = "AI DevMode Standards"
+version = "5.0.0-rc.1"
+source_archive = "AI_DevMode_Standards_v5.0.0-rc.1.zip"
+tag = "core-v5.0.0-rc.1"
+required = true
+
+[proposal]
+title = "AI Aided Hive Engineering Proposal"
+version = "0.40"
+status = "draft"
+date = "2026-09-24"
+source = "proposal/AI_Aided_Hive_Engineering.md"
+tag = "proposal-0.40"
+
+[paths]
+images = "assets/images"
+supplementary_data = "data/supplementary"
+build = "build"
+dist = "dist"
+
+[build.pdf]
+engine = "xelatex"
+filename = "AI_Aided_Hive_Engineering-0.40.pdf"
+toc = true
+toc_depth = 3
+papersize = "a4"
+font_size = "10pt"
+
+[release]
+base_name = "AI_Aided_Hive_Engineering-0.40"
+archive = "AI_Aided_Hive_Engineering-0.40.zip"
+include_markdown = true
+include_images = true
+include_pdf = true
+include_core = true
+include_supplementary_data = true
