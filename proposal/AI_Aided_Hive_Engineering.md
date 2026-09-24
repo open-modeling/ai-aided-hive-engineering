@@ -1,10 +1,10 @@
 Hive/Swarm Engineering
 Governance
-Formal Proposal - Draft 0.4
-Status: working draft with accepted Change Proposals 1-4 integrated
+Formal Proposal - Draft 0.5
+Status: working draft with accepted Change Proposals 1-5 integrated
 Compilation date: 14 September 2026
 Normative basis: approved project discussion, resolved formal audit, and accepted Change
-Proposals 1-4.
+Proposals 1-5.
 Language basis: project-authored prose follows the external controlled-language foundation
 based on BCP 14 and ASD-STE100. This proposal does not redefine that foundation. Citations and
 imported source text remain unchanged.
@@ -73,10 +73,12 @@ Decision Materialized, rationale-bearing disposition
 used to preserve or direct Hive exploration or
 behavior. Agreement is represented
 separately through support relations.
-Exchange Item Addressable materialized engineering artifact
-used for coordination, explicit vertical
-traceability, or cross-layer communication at
-a defined boundary. Atomicity is boundary-relative.
+Exchange Item Addressable materialized piece of
+engineering information used as a response
+or boundary communication and as explicit
+traceability material. Its representation is
+project- and product-specific; atomicity is
+boundary-relative.
 State Transition A Proposition subtype defining allowed state change;
 execution of the transition is a separate operation.
 Work Product Complete, acknowledged contractual result of
@@ -128,12 +130,11 @@ Each engineering layer has a bounded magnification range. Direct communication a
 relations MUST satisfy the applicable scale-compatibility rule. Cross-layer effects require explicit
 materialization and local interpretation.
 ## 3.4 AX-4 - Delegated autonomy
-Each layer remains autonomous while at least one admissible solution remains within the hive
-commitment authority for that layer.
-Here HVC means HUMAN_VOLUNTARY_CHOICE and HPC means
-HUMAN_PRESCRIPTIVE_CHOICE. The autonomous feasible space includes both engineering
-feasibility and enterprise authority. A technically feasible but human-reserved choice can
-therefore require HPC without making the raw engineering feasible space empty.
+Each layer remains autonomous while at least one solution is both engineering-feasible and
+within Hive commitment authority. Human-reserved commitments remain outside this Hive-committable solution space even when they are technically feasible.
+HPC means HUMAN_PRESCRIPTIVE_CHOICE. HUMAN_VOLUNTARY_CHOICE can occur while
+autonomous continuation remains possible, and HUMAN_ARBITRARY_INPUT can arrive
+asynchronously at any time. Human authority does not create engineering feasibility.
 ## 3.5 AX-5 - Bounded satisficing
 The hive searches within the project-defined problem, authority, capability and resource
 envelope and seeks a satisfiable convergent solution. Unsupported divergent search does not
@@ -157,14 +158,21 @@ possible course of Hive exploration or behavior. A Decision can be supported by 
 several clusters, an outlier, or a human source. Agreement is a support relation and is not part
 of the Decision definition.
 ## 4.1 Decision, Exchange Item and Work Product roles
-An Exchange Item is an addressable materialized engineering artifact used for Hive
-coordination, explicit vertical traceability, or cross-layer communication at a defined boundary.
-A Work Product is a complete, acknowledged contractual result of one layer. It consists of
-released Exchange Items and mandatory supplementary release information.
+An Exchange Item is an addressable materialized piece of engineering information used as a
+response or boundary communication and as explicit traceability material. A Work Product is a
+complete, acknowledged contractual result of one layer. It consists of released Exchange Items
+and mandatory supplementary release information.
 Roles are boundary- and plane-dependent. The same underlying Proposition can be a Work
 Product for one Contract and an Exchange Item for another entitled recipient. A Work Product
 is never a bare Exchange Item at the same contractual plane; release or delivery records and
 other required supplementary information are part of the Work Product.
+Communication interfaces do not introduce a separate ontology. They are revision-qualified
+sequences of Propositions exchanged back and forth between actors. The project profile defines
+the full Proposition-role vocabulary; Question, Request, Clarification, and Exchange Item are the
+minimum communication roles.
+An Exchange Item is the materialized information returned or supplied in that exchange. Other
+roles are project-specific and can represent the needs of a domain, process, tool, physical actor,
+or external party without changing the core Proposition algebra.
 Decision lifecycle states include FOUND, ACTIVE, COMMITTED, DEACTIVATED, DEPRECATED,
 and SUPERSEDED. Deactivated, deprecated, and superseded Decisions remain addressable in
 the semi-latent exploratory space for post-mortem analysis and restart.
@@ -292,13 +300,17 @@ or tooling. Such a Decision records the need for later reasoning, communication,
 does not authorize production effort by itself.
 ## 8.1 Example: CAN evolution
 ## 8.2 Layer-local blast
-Decision blast is contained within one layer. Large horizontal extent does not authorize cross-layer propagation. If projected blast approaches the extent of the layer Work Product, the Hive
-MUST perform an economic assessment before commitment because project-wide refactoring
-can consume time and money comparable to original development.
+A Decision remains local to the team or Hive execution context in which it is made. Cross-team
+blast is exposed only through updates to material objects, especially Exchange Items and Work
+Products, that other teams actually consume. A team that does not consume a changed item is
+unaffected by that Decision.
+This gives a native blast area without an authority sphere. Large materialized blast extent can
+still trigger economic assessment or human intervention, but the Decision itself never reaches
+across teams as an invisible control edge.
 A Decision with unsuitable magnification or extent can be materialized as feedback or as a
-decisive Exchange Item for the adjacent layer. Example: implementation analysis can report
-that a proposed UX creates an unsafe condition; a wiring analysis can report that option X
-improves performance in region Y.
+decisive Exchange Item for an adjacent layer or team. Examples include an unsafe-condition
+finding, a changed physical interface definition, a manufacturing constraint, or another
+product-specific material update.
 Containment: Information may cross a layer boundary. Decision authority does not cross
 automatically.
 # 9. Contract, Exchange Item budget and Work Product execution
@@ -364,26 +376,40 @@ enterprises, models, providers, or infrastructure.
 The parent Contract can create both partial-production Contracts and a separate Integrator
 Contract. These Contracts can occupy different execution sub-layers while remaining at the
 same engineering magnification.
-The Integrator Contract receives accepted partial Work Products, applicable test and
-verification reports, interface information, configuration information, and Known Gaps. Its
-obligation is to reconstruct one coherent Work Product for the engineering layer.
+The Integrator operates in the vertical paradigm: it receives qualified inputs and produces one
+coherent Work Product for the parent fulfilment path. It may receive several Work Products
+from several parties as a side-effect of the parent Contract decomposition; this multiplicity does
+not create horizontal design authority for the Integrator.
 The coherent Work Product preserves ancestry to the child Work Products and their Exchange
-Items. Completion of every child Contract is necessary only when the parent acceptance rule
-requires it; it is never sufficient by itself to prove completion of the parent Contract.
+Items. The Integrator controls integration closure and product coherence, while design
+authority remains where the applicable Contracts and Decisions place it.
 Rework can iterate after integration or verification finds a defect. The new result is revision-qualified: feedback can cause a child Contract to produce a successor Work Product, followed by
 renewed integration and verification. This is temporal iteration across revisions, not a same-state circular dependency.
 ## 9.6 Horizontal interfaces and whole-Hive coordination
-Contract decomposition establishes horizontal interfaces among sibling execution Contracts.
-The Hive controls both Product API and Team API interfaces so that partial results can be
-integrated without turning the execution graph into isolated organizational silos.
- Product API defines technical interfaces, compatibility, configuration, and engineering
-boundaries among partial Work Products.
- Team API defines Exchange Item expectations, release timing, feedback routes,
-acknowledgement, escalation, ownership, and traceability responsibilities among execution
-actors.
-These interfaces remain horizontal within the engineering layer. Contract splitting is an
-execution mechanism, not a requirement to split the Hive or create a new architecture
-authority level.
+Horizontal coordination uses the same Proposition algebra as every other engineering
+exchange. Actors send Questions, Requests, Clarifications and materialized responses; there is
+no separate generic Interface object that bypasses Proposition identity, revision, traceability, or
+Contract scope.
+Product API is a design Decision exposed as an Exchange Item whose representation follows the
+product boundary. It can be a CAN matrix, Revit or CAD definition, pinout, protobuf, drawing,
+table, textual specification, human-machine specification, or another project-supported
+representation.
+Team API is the set of Work Products and communications used by the participating actors to
+evolve the product. It includes the back-and-forth Proposition exchange and the material results
+that those actors consume or produce.
+Hive and Human actors are native communication participants in this model. Native
+compatibility does not imply agreement, correctness, or authority. Compatibility with an
+external party is not assumed; the applicable Contract or Team API defines a communication
+profile appropriate to that party, often constrained to familiar exchanges such as spreadsheet
+files, PDF documents, email, portals, or other agreed media.
+A Product API can be agreed during a shared design-stage Contract and then exposed as the
+Exchange Item consumed by several production Contracts. When the resulting parts conform to
+that materialized design, the Integrator can combine their Work Products without acquiring
+horizontal authority over their local Decisions.
+Contract splitting therefore does not require splitting the Hive. One Hive can coordinate product
+evolution, horizontal communication, and traceability across several Contracts while
+preserving the Contract-role and validation-independence requirements defined elsewhere in
+this proposal.
 ## 9.7 Acceptance obligations, fulfilment proposal and traceability
 Contract Acceptance is an explicit obligation assigned to eligible actors. An actor whose own
 Work Product participates as a direct parent input can receive an acceptance obligation.
@@ -492,7 +518,8 @@ HUMAN_VOLUNTARY_CHOICE An optional human choice while the Hive can
 otherwise continue. The selected proposition
 is assessed against the current solution space
 before commitment.
-HUMAN_PRESCRIPTIVE_CHOICE A required human choice when no Hive-committable solution remains or when the
+HUMAN_PRESCRIPTIVE_CHOICE A required human choice when no Hive-
+committable solution remains or when the
 commitment is reserved to human authority.
 Binding applies only to qualifying Decisions,
 not to Work Products or Exchange Items.
@@ -654,6 +681,22 @@ third parties do not accept the parent
 Contract, and the parent Executor controls
 delegated-input acceptance and immediate
 traceability quality.
+Materialized cross-team blast A Decision affects another team only through
+changed Exchange Items or Work Products
+that the team consumes; the Decision itself
+does not propagate as cross-team authority.
+Communication-role minimum Project role vocabularies include Question,
+Request, Clarification, and Exchange Item;
+additional Proposition roles are project-specific.
+Representation-neutral Product API A Product API is a design Decision
+materialized as an Exchange Item; the
+algebra does not prescribe a software-specific
+representation.
+Vertical Integrator The Integrator can consume multiple Work
+Products from multiple parties but produces
+a coherent Work Product vertically toward
+the parent Contract and gains no implicit
+horizontal design authority.
 ## 18.1 Axiom non-reducibility status
 The five axioms survived the project countermodel audit: removing any one while retaining the
 other four permits a model that violates an explicitly documented project property (false traces;
@@ -684,6 +727,9 @@ decomposition depth and Integrator topology.
 enterprise, provider, and infrastructure dimensions.
  Contract acceptance obligations, adjacent-layer participation, fulfilment proposal content,
 and Known Gap disposition rules.
+ Communication Proposition roles beyond Question, Request, Clarification and Exchange
+Item; external-party communication profiles; Product API representations; and Team API
+communication/Work Product sets.
 # 20. Non-normative corroborating references
 The following external sources were used only to cross-check terminology and
 mathematical/engineering shape. They are not incorporated as project requirements and do not
@@ -725,12 +771,17 @@ Integration Verification: https://vda-qmc.de/wp-content/uploads/2023/12/Automoti
  AIAG Advanced Product Quality Planning (APQP), 3rd Edition overview:
 https://www.aiag.org/training-and-resources/manuals/details/APQP-3
 Compilation status
-This draft integrates accepted Change Proposals 1-4 into the formal model. CP4 adds the
-Contract execution topology: evolving participation, budgeted execution, layer/sub-layer
-separation, Contract decomposition, V-model production and verification Contracts,
-configurable validation independence, Integrator Contracts, coherent layer Work Products,
-acceptance obligations, immediate traceability control, Known Gap disclosure, and adjacent-layer authority locality. It does not define a concrete skill architecture, implementation
-technology, universal relation semantics, or enterprise authority model.
-The next review should formalize horizontal interface semantics between sibling Contracts,
-especially Product API versus Team API, interface ownership, compatibility, change
-propagation, and how interface failure enters Decision and Contract divergence.
+This draft integrates accepted Change Proposals 1-5 into the formal model. CP4 establishes
+Contract execution topology, decomposition, V-model verification, configurable validation
+independence, Integrator Contracts, coherent layer Work Products, acceptance obligations,
+immediate traceability control, Known Gap disclosure, and adjacent-layer authority locality.
+CP5 establishes representation-neutral communication and Product/Team API semantics:
+interfaces remain Proposition exchanges, Product API is materialized as an Exchange Item,
+Team API combines Work Products with communication, external-party communication is
+profile-controlled, cross-team Decision blast propagates only through consumed material
+updates, and the Integrator remains vertically scoped. It does not define a concrete skill
+architecture, implementation technology, universal relation semantics, or enterprise authority
+model.
+The next review should formalize layer closure and coherent Work Product completion: how
+design, implementation, verification evidence, Known Gaps, accepted child Work Products, and
+integration results combine into a solid layer result without requiring artifact-type uniformity.
