@@ -1,6 +1,6 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.30"
+subtitle: "Formal Proposal - Draft 0.34"
 date: "18 September 2026"
 ---
 
@@ -2874,6 +2874,204 @@ A change requiring both domain transition and Scale transition is decomposed int
 > **Multi-domain change requires domain-local accommodation assessment.**
 
 > **Execution depth can use a local sub-scale without changing major engineering Scale.**
+
+### 9.24 Three-dimensional engineering topology model
+
+Figure 9-1 provides a conceptual three-dimensional representation of Scale, Magnification, parallel engineering domains, execution sub-scale, Decision Blast Radius, Decision Extent, and information propagation.
+
+The figure is derived from the normative rules of this section. It introduces no additional topology, relation, authority, or propagation semantics.
+
+#### 9.24.1 Coordinate interpretation
+
+The three visual dimensions represent different properties.
+
+The **vertical dimension** represents the project-wide major Scale and therefore Magnification level.
+
+Movement upward or downward in this dimension represents movement toward coarser or finer engineering order according to the Project Profile orientation.
+
+The **horizontal dimension** separates parallel engineering domains or Product views.
+
+Different domains can occupy different subsets of the available Magnification levels. A missing Engineering Layer remains visibly absent.
+
+The **depth dimension** represents the execution sub-scale inside an Engineering Layer.
+
+It can show parallel execution, sequential work, verification, integration, gates, or other Layer-local execution topology without implying another major engineering Scale.
+
+Therefore:
+
+$$ExecutionSubScale\perp MajorScale$$
+
+conceptually, while:
+
+$$ExecutionDepth\not\Rightarrow MajorEngineeringScaleChange.$$
+
+The three visual axes are not three equivalent mathematical scales. Only the major Scale axis represents the project-wide engineering interval Scale.
+
+#### 9.24.2 Engineering Layers
+
+An occupied Engineering Layer is represented as a bounded region at one major Scale position inside one engineering domain.
+
+Several Engineering Layers can exist at the same Scale position in different domains.
+
+A domain does not need to contain a Layer at every Magnification level.
+
+The absence of a Layer must remain visually explicit.
+
+The figure must not insert a fictitious Layer to make parallel domain structures regular.
+
+#### 9.24.3 Same-Scale cross-domain relations
+
+A direct relation between parallel engineering domains is shown only between elements at the same major Scale position.
+
+Conceptually:
+
+$$CrossDomainRelation(x_a,x_b)\Rightarrow Scale(x_a)=Scale(x_b).$$
+
+Such relations therefore appear horizontally across the same Scale plane.
+
+The figure must not show a direct diagonal relation that simultaneously changes engineering domain and major Scale.
+
+#### 9.24.4 Adjacent-Layer propagation
+
+Movement between major Scale positions remains domain-local.
+
+A cross-Scale consequence is shown as a sequence of adjacent Engineering Layer transfers using Exchange Items or Feedback Exchange Items and local interpretation.
+
+Conceptually:
+
+$$Decision_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow LocalInterpretation_j$$
+
+for forward/downstream propagation, and:
+
+$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow LocalInterpretation_i$$
+
+for feedback/upstream propagation.
+
+Where an intermediate Engineering Layer exists in the domain, propagation must pass through it.
+
+The figure must therefore not show:
+
+$$L_i\rightarrow L_k$$
+
+when an applicable Engineering Layer $L_j$ exists between them.
+
+Where a domain legitimately has no Layer at an intermediate Magnification level, its nearest occupied Layers remain adjacent in that domain topology and can be connected directly through the applicable Exchange Item boundary.
+
+#### 9.24.5 Magnification
+
+Magnification is represented along the major Scale dimension.
+
+Changing Magnification means bounded traversal toward existing engineering information at another Magnification level.
+
+The figure must therefore show Magnification as movement through the engineering topology, not as a second independent axis.
+
+It must not imply:
+
+$$MagnificationChange\Rightarrow GeneratedDetail.$$
+
+If finer or coarser information does not exist, the traversal terminates unless governed engineering exploration creates new information.
+
+#### 9.24.6 Decision Blast Radius
+
+A candidate Decision is shown at its originating Engineering Layer.
+
+Its **Decision Blast Radius** is represented by a topology-constrained calculated reach over the currently available engineering state.
+
+Decision Blast Radius answers:
+
+> **If this candidate Decision were applied to the current engineering state, how far would the change propagate?**
+
+The visual representation must not be a geometric sphere.
+
+Propagation can follow only valid same-Scale relations and adjacent-Layer transfers. The calculated region is therefore shaped by engineering topology.
+
+The Blast Radius representation must distinguish candidate calculation from committed state.
+
+$$Calculated(BR(d,S_t))\not\Rightarrow Committed(d).$$
+
+A calculated Blast Radius can terminate before commitment when the candidate is infeasible or economically unacceptable.
+
+#### 9.24.7 Decision Extent
+
+For a committed Decision, **Decision Extent** is represented by the engineering region through which its consequences have already materialized at the illustrated time.
+
+Decision Extent answers:
+
+> **How far has this committed Decision already propagated?**
+
+Decision Extent uses the same topology as Decision Blast Radius but represents observed committed propagation rather than candidate calculation.
+
+The two regions need not coincide:
+
+$$DecisionExtent(d,t)\lessgtr BR(d,S_{precommit}).$$
+
+The figure must therefore visually distinguish calculated Blast Radius from materialized Decision Extent.
+
+#### 9.24.8 Local accommodation
+
+Propagation terminates visually at an Engineering Layer when that Layer can accommodate the effect inside its local Solution Space and applicable domain-local propagation boundary.
+
+The termination point represents:
+
+$$CanAccommodate(d,L,\Delta).$$
+
+It does not imply that the Decision has universal authority over every Layer traversed before that point.
+
+Each affected Engineering Layer performs local interpretation.
+
+#### 9.24.9 Multi-domain effects
+
+A Decision can affect more than one engineering domain.
+
+A valid cross-domain effect first appears through a same-Scale relation.
+
+Each affected domain then evaluates and propagates the effect through its own adjacent Engineering Layers.
+
+The figure can therefore show branching into several domain-local propagation paths.
+
+It must not replace those paths with one diagonal Product-wide connection.
+
+#### 9.24.10 Human locality
+
+If a Human participates in several Engineering Layers, the figure must not depict the Human as a vertical authority connection between those Layers.
+
+Human participation can be shown at multiple Layer-local positions, but each position remains subject to the artifacts, Decisions, and authority of its own Engineering Layer.
+
+Thus:
+
+$$SameHuman\not\Rightarrow CrossLayerAuthority.$$
+
+#### Figure 9-1 - Scale, Magnification, and Decision propagation
+
+![Figure 9-1 - Scale, Magnification, and Decision propagation](../assets/images/Hive_Swarm_Scale_3D_Figure_9-1_0.34.png)
+
+The figure uses one main three-dimensional engineering topology.
+
+The major Scale/Magnification direction is vertical. Parallel engineering domains occupy separated horizontal regions. Execution sub-scale extends in depth inside each Engineering Layer.
+
+The model includes a sparse domain in which an intermediate Magnification level is absent. This demonstrates that adjacency is defined by actual Engineering Layers in that domain rather than by forcing every domain to occupy every Scale position.
+
+Same-Scale cross-domain relations appear horizontally.
+
+Adjacent-Layer Exchange Item and Feedback Exchange Item propagation appear along domain-local Scale paths.
+
+A prohibited jump over an existing Engineering Layer and a prohibited diagonal cross-domain/cross-Scale relation are shown only as explicitly rejected examples, never as ordinary topology.
+
+A candidate Decision has a **calculated Decision Blast Radius** shown as a non-committed topology-constrained region.
+
+A committed Decision has a **Decision Extent** shown as the region actually materialized at the illustrated time.
+
+The two regions are visually distinct and need not have the same boundary.
+
+Execution sub-scale structure is visible inside one Engineering Layer to demonstrate that local execution depth does not introduce another major Engineering Layer.
+
+**Figure 9-1 - Scale, Magnification, and Decision propagation.** Major Scale and Magnification arrange Engineering Layers by engineering order of magnitude. Parallel domains can relate directly only at the same Scale position. Cross-Scale consequences propagate inside a domain through adjacent Engineering Layers using Exchange Items or Feedback Exchange Items and local interpretation. Execution sub-scale organizes Layer-local execution without changing major Scale. Decision Blast Radius is calculated before commitment; Decision Extent represents propagation already materialized by a committed Decision. The figure is derived from Section 9 and introduces no additional semantics.
+
+The visual explains the topology rather than prescribing one specific engineering process. Architecture, safety, software, manufacturing, or other domain names are illustrative only. The primary visual grammar is:
+
+$$Scale\times Domain\times ExecutionSubScale.$$
+
+The figure must not be interpreted as implying that Decision Blast Radius is a Euclidean sphere, that all domains contain identical Layer hierarchies, that Magnification generates information, or that Scale position creates authority.
 
 ## 10. Decisions, trade space, exploration, and human intervention
 
@@ -6804,11 +7002,11 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.33 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.34 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.33 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also formalizes project-wide interval Scale positioning, Magnification traversal, same-Scale direct relation locality, adjacent-layer propagation, Decision Blast Radius, Decision Extent, and execution sub-scale topology. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.34 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also formalizes project-wide interval Scale positioning, Magnification traversal, same-Scale direct relation locality, adjacent-layer propagation, Decision Blast Radius, Decision Extent, and execution sub-scale topology. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records. It now also includes the derived three-dimensional Scale/Magnification topology figure specified by Section 9.24. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
 **Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
 
@@ -6817,5 +7015,4 @@ Draft 0.33 retains the structural rewrite introduced in Draft 0.9 and corrects t
 ## Open backlog
 
 - **Traceability delta clarification:** formalize the traceability-specific relationship between Scale positions, including the meaningful ratio/delta semantics noted during Scale review, without changing the accepted interval-Scale model until the traceability algebra is reviewed separately.
-- **3D concept illustration:** add a dedicated 3D model showing Engineering Layers, Scale, Magnification, Decision Blast Radius, Decision Extent, adjacent-layer information propagation, and same-Scale cross-domain relations. The figure must explain the concept itself rather than merely provide an example hierarchy.
 - **Minimal-repair formalization:** model minimal repair cost as an outcome of direct Solution Space exploration by the affected and adjacent engineering contexts. It cannot be computed as an inverse operation of the proposed change because feasible repairs, local absorption, alternative Decisions, and cross-Scale consequences must be discovered rather than algebraically reversed.
