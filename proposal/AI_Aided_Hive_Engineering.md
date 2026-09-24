@@ -250,6 +250,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | Term | Definition |
 |---|---|
 | **Acceptance** | Contract-governed process that assesses Contract fulfilment and the resulting Work Product against the applicable Acceptance rules and records the resulting disposition. |
+| **Check Cascade** | Cost-ordered sequence of applicable checks in which a more expensive check is entered only after all applicable cheaper checks have passed. |
 | **Assignment** | Contract relation that identifies the Actor responsible for execution of that Contract. A valid Assignment establishes that Actor as the Executor in the Contract context. Assignment is part of the Contract state, not a separate Engineering Object. |
 | **Actor** | Human, Hive, external organization, or other authority-capable participant. Computational micro-agents are not Actors unless a Project Profile grants that role. |
 | **Agent** | Computational participant that performs a bounded operation. Agent identity does not create semantic authority. |
@@ -275,11 +276,14 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Human Prescriptive Choice (HPC)** | Human choice required when an obligatory Decision cannot be committed by the Hive. |
 | **Human Voluntary Choice (HVC)** | Optional human choice made while autonomous Hive continuation remains possible. |
 | **Human Work Product (HWP)** | Work Product supplied by a Human or human organization. Human origin does not bypass validation. |
+| **High-profile Assessment** | Open semantic or logical assessment used only for properties that cannot yet be established adequately by cheaper checks. |
+| **Instrumental Check** | Deterministic or mechanically executable check over explicit engineering data, structure, or rules. |
 | **Integrator** | Executor of an integration Contract that constructs a coherent same-scale Work Product from applicable partial Work Products and evidence. |
 | **Issuer** | Actor that, under applicable authority, creates or revises a Contract and assigns its execution. Originating an input, request, Choice, or human directive does not by itself make an Actor an Issuer. |
 | **Justification** | Valid relation/evidence structure that satisfies the applicable validators for using a Proposition as a decision, trace, or commitment basis. |
 | **Known Gap** | Gap whose existence and scope are known and recorded. |
 | **Local Optimum / Local Extremum** | Best/extreme candidate relative to a declared neighborhood or currently explored region, not the entire theoretical Solution Space. |
+| **Low-profile Assessment** | Bounded, semi-instrumented semantic assessment using explicit checklists, questions, local rules, or similar structures. |
 | **Magnification** | Resolution at which an engineering subject is examined or represented. Magnification defines the admissible detail for reasoning at an Engineering Layer; it is a view of a Scale, not the Scale itself. |
 | **Micro-agent** | Short-lived, specialized, low-Resource-Cost Agent used for one narrow exploration or validation operation. |
 | **Obligation** | Responsibility of an Executor for the complete result of an assigned Contract. The Executor delivers the required result or explicitly reports inability to fulfil the Contract to the authoritative party or parties. Obligation is Contract semantics, not necessarily a separate stored object. |
@@ -566,7 +570,7 @@ Exchange Item atomicity is boundary-relative. Feedback can target an internal lo
 
 ### 6.6 Work Product
 
-A Work Product is a complete obligatory Contract result. It has its own schema, permitted information boundary, formal and semantic checks, required validation, supplementary information, and acceptance rule. A lower-level Work Product does not automatically become content of an upper Work Product merely because it exists.
+A Work Product is a complete obligatory Contract result. It has its own schema, permitted information boundary, applicable checks under Section 8.5, required validation, supplementary information, and Acceptance rule. A lower-level Work Product does not automatically become content of an upper Work Product merely because it exists.
 
 $$IsWorkProduct(w,C)\Rightarrow ConformsToSchema(w,C).$$
 
@@ -651,6 +655,230 @@ Existence in the Solution Space does not grant permission to expose information 
 $$Exists(x,SolutionSpace)\not\Rightarrow PermittedIn(x,WP,C).$$
 
 This protects formal structure, semantic role, intellectual property, security, safety information, supplier data, and other project-defined boundaries.
+
+### 8.5 Check cascade and assessment economy
+
+Engineering checking follows a cost-ordered cascade.
+
+The classes do not represent increasing quality. They represent increasingly expensive ways to establish different engineering properties.
+
+A subject can require one, two, or all three classes. The classes are not bound to a particular Engineering Layer, Work Product type, lifecycle phase, or Actor.
+
+The applicable sequence is:
+
+$$Instrumental \rightarrow LowProfile \rightarrow HighProfile$$
+
+A later stage is entered only when that stage is required for the property being assessed and every applicable cheaper stage has passed.
+
+A failed cheaper check stops the cascade. The subject is corrected or otherwise dispositioned before a more expensive assessment proceeds.
+
+#### 8.5.1 Instrumental Checks
+
+Instrumental Checks operate on explicit data structures and deterministic rules.
+
+Typical subjects include:
+
+- schema and syntax;
+- required fields;
+- type and relation signatures;
+- graph invariants;
+- deterministic consistency rules;
+- calculable constraints;
+- trace structure;
+- revision and identity consistency;
+- information-boundary rules;
+- executable validators.
+
+Instrumental Checks can be executed repeatedly at low marginal cost and close to the point where engineering information is created or changed.
+
+A failed Instrumental Check prevents unnecessary semantic assessment when the same defect is already established mechanically.
+
+Passing an Instrumental Check establishes only the property checked by that instrument. It does not establish semantic correctness.
+
+#### 8.5.2 Low-profile Assessment
+
+Low-profile Assessment operates only after the applicable Instrumental Checks have passed.
+
+It evaluates bounded semantic properties using semi-instrumented structures such as:
+
+- controlled checklists;
+- defined review questions;
+- semantic-role rules;
+- expected information patterns;
+- domain-specific review templates;
+- bounded consistency criteria.
+
+Its purpose is to align semantics on top of formally valid engineering information without reopening unrestricted engineering reasoning.
+
+Low-profile Assessment can identify defects that Instrumental Checks cannot establish because those defects require interpretation.
+
+A failed Low-profile Assessment stops the cascade before High-profile Assessment.
+
+The subject is corrected or dispositioned and the applicable cheaper checks are repeated before further escalation.
+
+#### 8.5.3 High-profile Assessment
+
+High-profile Assessment is used only for residual properties that cannot be established adequately through Instrumental Checks or Low-profile Assessment.
+
+It can require:
+
+- broad Product context;
+- trade-space exploration;
+- specialist judgement;
+- conflicting-evidence reconciliation;
+- multi-domain reasoning;
+- independent reasoning;
+- substantial computational or human resources.
+
+High-profile Assessment is not a duplicate validation round over defects that cheaper mechanisms are expected to detect.
+
+Therefore:
+
+> A High-profile Assessment should normally operate on a subject that is already instrumentally valid and semantically aligned under the applicable Low-profile Assessment.
+
+Its purpose is to address remaining open engineering questions, not to compensate for inadequate lower-cost validation.
+
+#### 8.5.4 Gating rule
+
+For an engineering subject $x$, the check classes are ordered by Resource Cost:
+
+$$I \prec L \prec H$$
+
+where:
+
+- $I$ = Instrumental Check;
+- $L$ = Low-profile Assessment;
+- $H$ = High-profile Assessment.
+
+The cascade is strictly gated:
+
+$$Run(L,x) \Rightarrow Pass(I,x)$$
+
+$$Run(H,x) \Rightarrow Pass(I,x)\land Pass(L,x)$$
+
+and therefore:
+
+$$Fail(I,x) \Rightarrow \neg Run(L,x)\land\neg Run(H,x)$$
+
+$$Fail(L,x) \Rightarrow \neg Run(H,x)$$
+
+A subject does not have to proceed to every check class. Checking can stop after the cheapest stage that establishes all properties required at that point.
+
+However, a more expensive stage cannot bypass a cheaper stage.
+
+Every engineering context therefore provides enough explicit structure to support Instrumental Checks before semantic assessment. Where this is not possible with the current engineering method, data representation, or tooling, the deficiency is itself an engineering-economy problem and drives improvement of that method, representation, or tooling.
+
+#### 8.5.5 Coverage discipline
+
+The Check Cascade accumulates validation capability from expensive reasoning into cheaper and more repeatable mechanisms.
+
+A finding made at one check class is examined to determine whether the same condition can be established reliably at a cheaper class.
+
+If a Low-profile Assessment discovers a condition that can be established deterministically, the Hive creates a Decision to improve Instrumental Checks.
+
+$$LowProfileFinding \rightarrow Decision \rightarrow InstrumentalCheck$$
+
+If a High-profile Assessment discovers a condition that can be established through a bounded semantic rule, the Hive creates a Decision to improve Low-profile Assessment.
+
+$$HighProfileFinding \rightarrow Decision \rightarrow LowProfileRule$$
+
+If the High-profile finding can be established deterministically, the Decision can improve Instrumental Checks directly:
+
+$$HighProfileFinding \rightarrow Decision \rightarrow InstrumentalCheck$$
+
+The same defect class should therefore move downward through the Check Cascade whenever a cheaper representation preserves the required meaning and reliability.
+
+A High-profile Assessment should not repeatedly discover conditions that the established Low-profile or Instrumental mechanisms are expected to identify.
+
+Likewise, a Low-profile Assessment should not repeatedly discover conditions that established Instrumental Checks can identify.
+
+The intended evolution is:
+
+$$HighProfile \rightarrow LowProfile \rightarrow Instrumental$$
+
+as engineering knowledge becomes sufficiently structured.
+
+This evolution improves the engineering method itself rather than merely reducing the cost of one execution.
+
+#### 8.5.6 Instrumentation improvement
+
+When a finding can be checked at lower Resource Cost without losing the required semantic meaning, the Hive records a Decision to improve the checking infrastructure.
+
+The improvement can introduce or revise:
+
+- schemas;
+- relation constraints;
+- data structures;
+- deterministic validators;
+- calculations;
+- checklists;
+- review questions;
+- semantic-role constraints;
+- other bounded validation mechanisms.
+
+The Decision remains subject to ordinary engineering authority, Resource Envelope, and implementation economics.
+
+The existence of a possible automation does not require immediate implementation when the expected saving does not justify its cost.
+
+> Repeated expensive reasoning should be converted into cheaper validation when the conversion is semantically adequate and economically justified.
+
+#### 8.5.7 Re-entry after a finding
+
+A finding that changes the assessed subject invalidates every affected result downstream of that change.
+
+After correction, Decision rework, or another disposition, checking resumes from the cheapest check class whose result can have been affected.
+
+For example, a Low-profile finding that causes a structural change returns through Instrumental Checks before Low-profile Assessment is repeated:
+
+$$LowProfile \xrightarrow{finding} DecisionRework \rightarrow Instrumental \rightarrow LowProfile$$
+
+A High-profile finding that causes broader rework similarly returns through the complete affected cascade:
+
+$$HighProfile \xrightarrow{finding} DecisionRework \rightarrow Instrumental \rightarrow LowProfile \rightarrow HighProfile$$
+
+A finding also triggers the coverage-discipline rule in Section 8.5.5.
+
+Therefore, when a Low-profile or High-profile finding can be detected reliably at lower Resource Cost, the Hive creates a Decision to improve the cheaper checking mechanism rather than relying on the expensive stage to rediscover the same condition.
+
+Re-entry is determined by the effect of the change, not by the stage at which the problem happened to be discovered.
+
+#### 8.5.8 Engineering-layer independence and minimum structure
+
+Check classes are not assigned to particular Engineering Layers.
+
+Every Engineering Layer supports the Check Cascade:
+
+$$Instrumental \rightarrow LowProfile \rightarrow HighProfile$$
+
+The exact data structures, validators, checklists, semantic rules, and reasoning methods differ by engineering context, but a more expensive check does not substitute for a missing cheaper checking capability.
+
+A Product-level Work Product therefore requires Instrumental Checks before Low-profile or High-profile Assessment when those later assessments are required.
+
+The same rule applies to software, physical engineering, manufacturing, simulation, human studies, and other project domains.
+
+If an Engineering Layer is insufficiently structured to support useful Instrumental Checks, the proposal treats this as a deficiency in engineering method, data representation, or tooling rather than as justification to begin directly with expensive reasoning.
+
+The Hive creates or proposes Decisions to improve the applicable:
+
+- engineering structure;
+- data representation;
+- schemas and relations;
+- instrumentation;
+- validators;
+- checklists;
+- methods;
+- tools.
+
+The objective is to move validation toward explicit and inexpensive mechanisms while preserving the semantics required by the engineering context.
+
+Acceptance stage and check class remain separate dimensions:
+
+- Executor conformity assessment uses the Check Cascade;
+- independent Acceptance uses the Check Cascade;
+- Acceptance responsibility determines **who performs or owns the assessment**;
+- the Check Cascade determines **in what cost order the assessment proceeds**.
+
+Independent Acceptance therefore does not justify bypassing Instrumental or Low-profile checks.
 
 ## 9. Scale, Scaling, Magnification, and Extent
 
@@ -769,232 +997,3 @@ Scaling therefore does not mean automatic inheritance of:
 A Decision at one Scale does not directly become a Decision at another Scale.
 
 The propagation pattern is:
-
-$$Decision_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow Decision_j$$
-
-The Exchange Item materializes the information required by the receiving Scale.
-
-The receiving context interprets that information and establishes its own Decision where a Decision is required.
-
-The original Decision remains associated with its originating engineering context. It does not become invisible authority over lower Scales.
-
-#### 9.4.2 Upward evidence and feedback propagation
-
-Evidence found at a finer Scale does not directly establish a Decision or evidential closure at a broader Scale.
-
-The propagation pattern is:
-
-$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow Decision_i$$
-
-The receiving Scale assesses the feedback and determines whether its local Decision or Solution Space must change.
-
-Where evidential closure is required, the receiving Scale produces or records evidence appropriate to its own context.
-
-Foreign evidence can inform local reasoning. It does not automatically inherit evidential closure into another Scale.
-
-#### 9.4.3 Nearest affected Scale
-
-Bottom-up propagation stops at the nearest affected Scale that can resolve the effect correctly.
-
-Higher Scales remain undisturbed when the receiving Scale can absorb the change within its local Solution Space and authority.
-
-Further propagation occurs only when the affected Scale cannot resolve the change locally.
-
-This limits unnecessary Decision rework, Work Product rework, reverification, and coordination.
-
-### 9.5 Scaling and Decision blast
-
-Decision blast remains local to the engineering context in which the Decision exists.
-
-Scaling allows the **effects** of a Decision to cross a Scale boundary, but the Decision itself does not become a cross-layer authority edge.
-
-A cross-Scale effect therefore requires:
-
-- materialized boundary information;
-- interpretation at the receiving Scale;
-- local reasoning;
-- a local Decision when the received information changes the local solution.
-
-This prevents Decision Blast Radius from becoming an uncontrolled sphere in which one Decision directly affects unrelated engineering orders.
-
-A broader Decision constrains the next relevant Scale instead of directly manipulating arbitrary implementation details several orders below it.
-
-A finer-scale finding propagates upward only through explicit feedback and local reassessment.
-
-When a Decision effect cannot be absorbed locally, or its Extent becomes economically significant, the affected context materializes the condition as Feedback or another applicable Exchange Item.
-
-The receiving authoritative context reassesses the Decision before further propagation.
-
-### 9.6 Decision Extent
-
-Extent measures how far the effect of a Decision propagates within its local engineering context.
-
-Extent is derived from **Decision Blast Radius** and makes the consequences of a Decision visible before they become hidden rework, refactoring, reverification, reintegration, or coordination cost.
-
-Extent is evaluated within the current Scale and Magnification.
-
-A significant Extent usually has a severe economic effect. Growth of Extent therefore questions whether the originating Decision remains rational under the current Product state, Resource Envelope, and available alternatives.
-
-When Extent becomes material, the Hive does not silently continue propagation.
-
-The affected region is exposed and the Decision is reassessed by the Actor that has authority for the affected context.
-
-Depending on the applicable authority model, that Actor can be:
-
-- an authorized Hive participant;
-- a Human;
-- another Contract-authorized Actor.
-
-The reassessment can result in:
-
-- confirmation of the Decision;
-- clarification or narrowing of the Decision;
-- revision of the Decision;
-- supersession of the Decision;
-- additional exploration;
-- additional evidence collection;
-- feedback to the adjacent Scale when the effect cannot be resolved locally.
-
-Extent remains local to its Scale.
-
-Increasing Extent does not give the originating Decision authority over another Scale.
-
-### 9.7 Engineering Layer and execution sub-layer
-
-An Engineering Layer defines a bounded Scale and Magnification context in which the project maintains one coherent Product view.
-
-An execution sub-layer defines Contract execution topology inside that Engineering Layer.
-
-Contract decomposition, parallel execution, verification Contracts, or an Integrator Contract do not create a new Scale merely because they introduce additional execution depth.
-
-Execution depth and engineering Scale are independent properties.
-
-Several Contracts can therefore operate at different execution sub-layers while remaining at the same Scale and Magnification.
-
-### 9.8 Scale-compatible engineering operations
-
-Engineering operations that directly combine, integrate, trace, constrain, or establish semantic closure between elements operate only on compatible Scale and Magnification unless the Project Profile explicitly defines an applicable Scaling boundary.
-
-For example:
-
-$$Integrate(x,y)\Rightarrow ScaleCompatible(x,y)\land MagnificationCompatible(x,y)$$
-
-Different-Scale inputs require an explicit Scaling or other project-defined transformation before they become valid inputs to the same local engineering operation.
-
-The transformation preserves the applicable:
-
-- semantic rules;
-- traceability;
-- validation;
-- evidence;
-- information boundaries.
-
-Scaling is an explicit reconciliation mechanism. It is not permission to recursively copy information across Product decomposition.
-
-Scale compatibility and Extent answer different questions.
-
-Scale and Magnification determine whether engineering elements can participate directly in the same engineering operation.
-
-Extent determines how far the consequences of a Decision spread within that compatible local context.
-
-A Decision can remain fully Scale-compatible while its Extent becomes economically unacceptable.
-
-### 9.9 Scale and Extent rules
-
-> **Scale locality:** an engineering element can directly operate on, constrain, integrate with, or establish semantic closure for another element only when the applicable relation permits their Scale and Magnification combination. Cross-order effects use Scaling and local interpretation.
-
-> **Extent control:** Decision Extent is evaluated during exploration and propagation. Significant Extent triggers economic assessment and authoritative reassessment before further commitment or propagation.
-
-These rules preserve the **no-sphere** property: Decisions create local reasoning and local effects; cross-Scale consequences pass through explicit materialization, interpretation, and renewed authority.
-
-## 10. Decisions, trade space, exploration, and human intervention
-
-### 10.1 Trade space
-
-For problem $q$, the Trade Space $T(q,t)$ is the project-visible region of candidate outcomes that can currently be compared under applicable constraints, evidence, authority, and Product/Contract objectives.
-
-A Trade Space can contain discrete alternatives and references to continuous optimization delegated to simulations, field tests, calibration systems, or external optimizers. Continuous parameter optimization is not automatically Hive global search.
-
-### 10.2 Local and global extrema
-
-For candidate $x$ and declared neighborhood $N(x)$:
-
-$$LocalOpt(x,N)\Leftrightarrow \nexists y\in N(x):Better(y,x).$$
-
-For theoretical Solution Universe $\Omega$:
-
-$$GlobalOpt(x,\Omega)\Leftrightarrow \nexists y\in\Omega:Better(y,x).$$
-
-The Hive normally knows only a project-visible subset of $\Omega$. A local optimum can therefore be established relative to a declared neighborhood while global optimality remains unknown.
-
-**Extremum Exploration** deliberately expands the active neighborhood or opens a materially different trajectory to search for another local extremum or to challenge whether the current region is adequate. It does not imply exhaustive global search.
-
-### 10.3 Trajectories, clusters, and outliers
-
-A trajectory is a temporally ordered path of candidate outcomes and Decisions for one problem. A cluster is sufficiently independent support for one trajectory. Cluster power controls resource survival, not truth.
-
-An outlier is preserved even if it has low current support:
-
-$$Outlier(o)\land Discovered(o)\Rightarrow Preserve(o).$$
-
-If an outlier later gains evidence, novelty value, or post-mortem relevance, it can become active without reconstructing lost reasoning.
-
-### 10.4 Reshuffling
-
-Reshuffling is the reopening or reallocation of previously active solution commitments due to propagated change. A project can represent reshuffling cost as a vector:
-
-$$RC(\Delta)=(review,rework,reverification,coordination,schedule,money,physicalChange,\ldots).$$
-
-The common model does not force these dimensions into one scalar.
-
-### 10.5 Human intervention geometry
-
-Let current Hive candidate set be $B$ and human input normalized to set $A$. Human interaction can create exact match, narrowing, broadening, equality, partial intersection, or disjoint geometry relative to $B$. The human-interaction class is orthogonal to this set geometry.
-
-Human input is assessed before execution. Human authority does not create mathematical or engineering feasibility.
-
-## 11. Contracts and Product delivery
-
-### 11.1 Contract structure
-
-A Contract records **who** is responsible, **what** result is expected, and **when or under which dependencies** execution can proceed.
-
-**Who** identifies the Issuer, Assignment and resulting Executor, supplementary parties where applicable, and any explicitly delegated Acceptance responsibility.
-
-**What** identifies the Product target, required Work Product, Executor Obligation, Resource Envelope, Acceptance rules, and applicable enforcement.
-
-**When and dependencies** identify prerequisites, expected dependencies, execution topology, and revision/time context required to determine when execution can start, continue, block, submit a result, or require reassessment.
-
-The Contract is durable and revision-qualified. Previous Contract states remain addressable so that later fulfilment, failure, discontinuation, reassignment, or post-mortem analysis does not rewrite execution history.
-
-A Contract becomes executable only when its Assignment is unambiguous for the applicable scope. Conflicting directives that would establish incompatible Assignments for the same scope require resolution under the applicable authority rules before execution proceeds. Human-originated input does not bypass this rule. The Human role and authority model is a prerequisite of safe execution and is defined separately from this Contract section.
-
-### 11.2 Contract decomposition
-
-A Contract can be decomposed into child Contracts when the Product target requires separable execution domains. Child Contracts provide complete results of their own scope. Those Work Products become inputs to the parent execution.
-
-Contract decomposition does not imply Hive decomposition. The same Hive can coordinate all child Contracts while maintaining horizontal Product and Team APIs.
-
-### 11.3 Integration and composition
-
-Integration is project-specific. Direct integration requires compatible magnification:
-
-$$Integrate(x,y)\Rightarrow M(x)\sim M(y).$$
-
-The common algebra does not prescribe copying, aggregation, model merge, compilation, physical assembly, packaging, or another integration strategy. Each Work Product keeps its own schema and validation rules. Cross-scale incorporation is only allowed through a project-defined strategy that preserves information boundaries and validation.
-
-Integration is not aggregation.
-
-### 11.4 Integrator Contract
-
-When partial Work Products need to become one coherent same-scale Work Product, the parent can create a separate Integrator Contract. The Integrator can receive multiple Work Products as a side effect of the parent topology while remaining vertically scoped to its own Contract obligation.
-
-The Integrator does not gain horizontal authority over child Decisions. It builds the coherent result required by its Contract.
-
-### 11.5 V-model verification topology
-
-The Hive cannot both fulfill and validate the same Contract role. Production, test planning/test-suite production, integration verification, and other required verification activities are separate Contracts where the applicable engineering method requires that separation.
-
-The Project Profile defines the required independence topology. It can require separate roles inside one Hive, separate Hive instances using the same model, separate departments, separate enterprises, different model providers, different infrastructure, or another topology.
-
-Conformance uses a predicate rather than a universal scalar independence order:
