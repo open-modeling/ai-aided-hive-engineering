@@ -1,10 +1,10 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.23"
+subtitle: "Formal Proposal - Draft 0.24"
 date: "17 September 2026"
 ---
 
-**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Scaling/Magnification/Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/repair exploration, Cluster/divergence resource-survival revisions, and Evidence Proposition algebra/feedback-locality/reversible-traceability revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
+**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Scaling/Magnification/Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/repair exploration, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, and Candidate Delta/canonical-state computation-boundary revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
 
 **Normative basis.** Approved project discussion and accepted changes through Draft 0.8, aligned with the project dialogue recap and resource-consumption analysis where those sources do not conflict with later decisions.
 
@@ -392,21 +392,358 @@ where $\kappa$ contains the applicable scope, revision, time, Project Profile, a
 
 ### 5.4 Computational algebra
 
-The Hive uses deterministic algebra before assigning semantic reasoning work to a Swarm.
+The Hive separates **canonical engineering state** from the temporary computation used to propose changes to that state.
+
+Let:
+
+$$S_t$$
+
+be the canonical engineering state at revision/time $t$.
+
+For a bounded engineering problem $q$, computation starts from a projection of that state:
+
+$$\Pi_q(S_t)\subseteq S_t.$$
+
+The projection contains the semantic state required for the problem under the applicable Scope, Scale, Magnification, Contract, authority, revision, and Project Profile rules.
+
+A projection is a computational view. It is not an independent canonical engineering state.
+
+Therefore:
+
+$$x\in\Pi_q(S_t)\Rightarrow x\in S_t$$
+
+for canonical elements selected into the projection, while temporary structures introduced during computation do not thereby become members of $S_t$.
 
 The computational sequence is:
 
-$$ProjectState\rightarrow Projection(q)\rightarrow StructuralOps\rightarrow SemanticQuestions\rightarrow CandidateDelta\rightarrow Validation\rightarrow SuccessorState.$$
+$$S_t\rightarrow\Pi_q(S_t)\rightarrow DeterministicOps\rightarrow BoundedSemanticComputation\rightarrow\Delta_q\rightarrow Admission\rightarrow S_{t+1}.$$
 
-`Projection(q)` selects the semantic state needed for problem $q$. Structural operations compute deterministic facts such as reachability, relation type checks, revision lookup, set membership, known dependency closure, and declared scope intersection. Only unresolved semantic questions are sent to micro-agents, humans, simulations, or other reasoning resources.
+where $\Delta_q$ is a Candidate Delta.
 
-A Candidate Delta can contain:
+The sequence establishes a strict boundary:
 
-$$\Delta_q=(P_{cand},R_{cand},D_{cand},E_{cand},U_{cand},G_{cand},F_{cand},Req_{cand}).$$
+$$Computation\neq CanonicalMutation.$$
 
-where the terms represent proposed Propositions, Relations, Decisions, Evidence, UNKNOWNs, Gaps, Future Actions, and Requests/Work Product needs.
+A participant can compute, infer, explore, simulate, compare, or propose a change without being able to apply that change directly to canonical engineering state.
 
-The Hive MUST NOT make a canonical state transition merely because a model generated a candidate. Applicable relation, authority, evidence, Contract, and Project Profile validators determine whether the candidate can affect active state.
+#### 5.4.1 Deterministic operations before semantic computation
+
+The Hive applies deterministic operations before assigning unresolved work to semantic reasoning.
+
+For projection:
+
+$$\Pi_q(S_t)$$
+
+the deterministic stage can establish properties such as:
+
+- set membership;
+- relation domain and range;
+- relation type compatibility;
+- converse and inverse-image results;
+- bounded reachability;
+- Scope intersection;
+- revision lookup;
+- supersession status;
+- schema conformance;
+- known dependency structure;
+- declared Scale and Magnification compatibility;
+- other mechanically decidable Project Profile rules.
+
+Let:
+
+$$K_q=DeterministicOps(\Pi_q(S_t))$$
+
+be the mechanically established state available to the computation.
+
+Only properties that remain unresolved after applicable deterministic operations enter semantic computation.
+
+Therefore:
+
+$$DeterministicallyResolvable(x)\Rightarrow\neg RequireSemanticReasoning(x)$$
+
+unless the Project Profile explicitly requires an additional semantic assessment for that property.
+
+The purpose is not to prohibit semantic reasoning. The purpose is to prevent expensive or probabilistic reasoning from being used to rediscover facts that the explicit engineering state and algebra already establish.
+
+#### 5.4.2 Bounded semantic computation
+
+Semantic computation operates on the bounded problem projection and the deterministic results established from it.
+
+Conceptually:
+
+$$C_q=SemanticCompute(\Pi_q(S_t),K_q,R_q)$$
+
+where $R_q$ is the applicable Resource Envelope for the computation.
+
+$C_q$ is temporary computational state.
+
+It can contain:
+
+- intermediate hypotheses;
+- reasoning branches;
+- model outputs;
+- simulation results not yet admitted;
+- candidate relations;
+- candidate Decisions;
+- candidate Evidence;
+- candidate UNKNOWNs or Gaps;
+- rejected alternatives;
+- other temporary structures required by the computation.
+
+Temporary computational state is not canonical merely because it exists.
+
+Therefore:
+
+$$x\in C_q\not\Rightarrow x\in S_t$$
+
+and:
+
+$$Generated(x)\not\Rightarrow Canonical(x).$$
+
+Only the engineering information selected for preservation or proposed canonical change crosses the computation boundary.
+
+This prevents intermediate reasoning from becoming engineering state by accident.
+
+#### 5.4.3 Computational participants
+
+Agents, micro-agents, humans, simulations, solvers, tools, and other computational participants can contribute to bounded semantic computation.
+
+Persistent participant identity is not required for computation.
+
+The engineering state therefore does not depend on the continued existence of the participant that produced a candidate.
+
+What must survive where applicable is provenance sufficient to identify the origin and applicable context of the proposed result.
+
+A computational participant does not obtain canonical-state authority merely by producing an output.
+
+Therefore:
+
+$$Produces(a,\Delta_q)\not\Rightarrow CanApply(a,\Delta_q)$$
+
+and:
+
+$$Produces(a,p)\not\Rightarrow Canonical(p).$$
+
+The ability to generate a Candidate Delta and the authority to admit its effects are separate properties.
+
+This rule applies equally to highly capable models, deterministic tools, humans, and other contributors.
+
+#### 5.4.4 Candidate Delta
+
+A Candidate Delta is a proposed change to canonical engineering state.
+
+It is not a successor state and it is not engineering truth.
+
+For problem $q$:
+
+$$\Delta_q=(P_{cand},R_{cand},D_{cand},E_{cand},U_{cand},G_{cand},F_{cand},Req_{cand})$$
+
+where the components can contain proposed:
+
+- Propositions;
+- Relations;
+- Decisions;
+- Evidence;
+- UNKNOWNs;
+- Gaps;
+- Future Actions;
+- Requests or Work Product needs.
+
+The components are typed views within the common ontology.
+
+For example:
+
+$$D_{cand}\subseteq P_{cand}$$
+
+and:
+
+$$E_{cand}\subseteq P_{cand}$$
+
+where those candidate Propositions carry Decision and Evidence roles respectively.
+
+The tuple does not define Decisions and Evidence as ontologically separate from Propositions.
+
+A Candidate Delta can also propose revision, deactivation, supersession, relation change, materialization, or another state operation permitted by the common model and Project Profile.
+
+The Candidate Delta expresses:
+
+> **This is the change proposed by the computation.**
+
+It does not express:
+
+> **This change is already part of the Product state.**
+
+Therefore:
+
+$$Candidate(\Delta_q)\not\Rightarrow Admitted(\Delta_q)$$
+
+and:
+
+$$Candidate(p)\not\Rightarrow ActiveProposition(p).$$
+
+#### 5.4.5 Candidate Delta base state
+
+A Candidate Delta is evaluated relative to the canonical state from which its problem projection was derived.
+
+Let:
+
+$$Base(\Delta_q)=S_t$$
+
+identify that base state or its revision-qualified identity.
+
+The meaning of the Candidate Delta is therefore not independent from its base state.
+
+If canonical engineering state changes materially before the Candidate Delta is applied, prior validation cannot automatically be reused.
+
+For:
+
+$$S_t\neq S_{t'}$$
+
+the model does not infer:
+
+$$Admissible(\Delta_q,S_t)\Rightarrow Admissible(\Delta_q,S_{t'}).$$
+
+Instead, the Hive determines whether the changed state affects the Candidate Delta.
+
+When the applicable state has changed:
+
+$$AffectedBy(\Delta_q,S_t\rightarrow S_{t'})\Rightarrow Revalidate(\Delta_q,S_{t'}).$$
+
+A Candidate Delta can therefore become stale without becoming historically invalid.
+
+Its original computation and provenance remain addressable, while its applicability to the new canonical state must be reassessed.
+
+#### 5.4.6 Candidate Delta admission
+
+A Candidate Delta reaches canonical engineering state only through explicit admission.
+
+Let:
+
+$$ApplicableValidators(\Delta_q,S_t,\kappa)$$
+
+be the validators required for the proposed change in engineering context $\kappa$.
+
+Admission requires every applicable blocking validator to permit the change.
+
+Conceptually:
+
+$$Admissible(\Delta_q,S_t,\kappa)$$
+
+holds only when the Candidate Delta satisfies the applicable validation rules.
+
+These can include:
+
+- structural validity;
+- relation typing;
+- semantic validity;
+- Scope and revision validity;
+- Scale and Magnification validity;
+- Evidence rules;
+- authority validity;
+- Contract admissibility;
+- Work Product information-boundary rules;
+- applicable Check Cascade results;
+- Project Profile conformance;
+- other domain-specific validators required by the affected state.
+
+This does not require every Candidate Delta to satisfy every validator defined by the project. Only applicable validators participate.
+
+Formally:
+
+$$Admissible(\Delta_q,S_t,\kappa)\Rightarrow\forall v\in ApplicableValidators(\Delta_q,S_t,\kappa):Pass(v).$$
+
+where the Project Profile determines whether an unresolved validator blocks admission, creates an explicit UNKNOWN or Gap, requires escalation, or permits another defined disposition.
+
+Truthful incompleteness remains applicable during admission.
+
+The Hive does not fabricate a passing result merely to make a Candidate Delta admissible.
+
+#### 5.4.7 Controlled application
+
+Only an admitted Candidate Delta can apply its proposed engineering changes to canonical state.
+
+For an admitted delta:
+
+$$Admissible(\Delta_q,S_t,\kappa)\Rightarrow S_{t+1}=Apply(S_t,\Delta_q,\kappa).$$
+
+The application operation itself is controlled.
+
+It preserves the applicable:
+
+- identity rules;
+- revision history;
+- temporal history;
+- Scope;
+- provenance;
+- relation semantics;
+- Contract state;
+- authority boundaries;
+- Scale and Magnification rules;
+- information boundaries.
+
+Application creates a successor state.
+
+It does not rewrite the previous canonical state.
+
+Therefore:
+
+$$Apply(S_t,\Delta_q)=S_{t+1}$$
+
+does not imply destructive historical replacement of $S_t$.
+
+Instead:
+
+$$S_t\rightarrow S_{t+1}$$
+
+is a revision-qualified state transition and $S_t$ remains addressable according to the historical-state rules.
+
+#### 5.4.8 Rejected, deferred, and partially admissible candidates
+
+Failure to admit the proposed engineering change does not require deletion of the Candidate Delta.
+
+A Candidate Delta can be:
+
+- admitted;
+- rejected;
+- deferred;
+- returned for correction;
+- decomposed into independently admissible parts where the applicable semantics permit;
+- retained as an exploratory alternative;
+- converted into a Gap, UNKNOWN, Future Action, or another applicable state element.
+
+The exact disposition is Project Profile and context dependent.
+
+The critical invariant is:
+
+$$\neg Admissible(\Delta_q)\not\Rightarrow ApplyProposedChange(\Delta_q)$$
+
+while preservation of useful discovery remains possible:
+
+$$Discovered(\Delta_q)\Rightarrow PreserveApplicableKnowledge(\Delta_q).$$
+
+A rejected Candidate Delta can therefore remain valuable for post-mortem analysis, alternate trajectories, later revisions, or repeated engineering exploration without contaminating active Product state.
+
+#### 5.4.9 Candidate Delta is not a Work Product
+
+A Candidate Delta and a Work Product have different roles.
+
+A Candidate Delta is a proposal to evolve canonical engineering state.
+
+A Work Product is a complete Contract-required result governed by its schema and Acceptance rules.
+
+A computation can propose a Work Product, propose changes to a Work Product, or identify the need for one through a Candidate Delta.
+
+This does not make the Candidate Delta itself the required Work Product.
+
+Therefore:
+
+$$CandidateDelta\neq WorkProduct$$
+
+in general.
+
+Likewise, admission of a Candidate Delta does not by itself mean that a Contract Work Product has been Accepted.
+
+Canonical-state admission and Contract Acceptance remain separate operations.
 
 ### 5.5 Human ingress and choice set
 
@@ -528,6 +865,32 @@ For an addressable universe $U_{b,t}$ identified by branch/universe $b$ and time
 $$\pi_k:U_{b,t}\rightarrow R_k.$$
 
 Different projections can represent the same Proposition or Engineering Object. File-system containment does not imply semantic containment.
+
+Canonical engineering state is the authoritative engineering state used as the basis for subsequent projections, Decisions, Contracts, validation, and Product evolution.
+
+Temporary computation is external to that authority boundary until its proposed effects are admitted.
+
+Conceptually:
+
+$$CanonicalState\;|\;Computation$$
+
+with only controlled operations crossing the boundary:
+
+$$CanonicalState\rightarrow Projection\rightarrow Computation$$
+
+and:
+
+$$Computation\rightarrow CandidateDelta\rightarrow Admission\rightarrow CanonicalState.$$
+
+There is no direct operation:
+
+$$SemanticComputation\rightarrow CanonicalMutation$$
+
+without Candidate Delta admission.
+
+This separation makes the model state-centric rather than agent-centric.
+
+A Swarm can disappear after producing its result without losing the engineering state required for later work. A different participant can continue from the canonical state without replaying the original private reasoning process.
 
 ### 6.2 Proposition and Engineering Object
 
@@ -813,6 +1176,26 @@ The model distinguishes:
 - Project Profile conformance.
 
 A successful structural check does not imply successful semantic or evidence checks.
+
+The same reliability dimensions apply to Candidate Delta admission.
+
+A Candidate Delta does not become admissible merely because one validation dimension succeeds.
+
+For example:
+
+$$StructuralValid(\Delta)\not\Rightarrow SemanticValid(\Delta)$$
+
+$$SemanticValid(\Delta)\not\Rightarrow AuthorityValid(\Delta)$$
+
+$$EvidenceSufficient(\Delta)\not\Rightarrow ContractAdmissible(\Delta)$$
+
+and:
+
+$$GeneratedByTrustedParticipant(\Delta)\not\Rightarrow Admissible(\Delta).$$
+
+Admission is therefore conjunctive over the validators applicable to the proposed effect, rather than based on producer identity or one global confidence value.
+
+This section does not define model-confidence or calibration semantics. Those remain separate from the computation-boundary rules.
 
 ### 8.4 Work Product information boundary
 
@@ -2578,6 +2961,23 @@ Additional Evidence-locality and traceability invariants are:
 - **No Evidence sphere** - Broad potential relevance of Evidence does not create direct Evidence applicability across Engineering Layers.
 - **Traceability is not reversibility of engineering semantics** - Converse graph traversal is a structural operation. It does not imply that causality, authority, change propagation, repair, or another engineering operation is semantically invertible.
 
+Additional computation-boundary invariants are:
+
+- **Canonical-state boundary** - Temporary computation cannot mutate canonical engineering state directly.
+- **Projection boundedness** - Semantic computation operates on an explicitly bounded projection of canonical state rather than assuming unrestricted whole-project context.
+- **Deterministic-first computation** - Applicable mechanically decidable properties are established before unresolved semantic reasoning is assigned.
+- **Temporary-state separation** - Intermediate reasoning, hypotheses, and computational structures do not become canonical elements merely because they were generated.
+- **Candidate status** - A Candidate Delta is a proposal, not a successor state, accepted Proposition, Decision, Evidence closure, Work Product, or truth claim.
+- **Producer/admission separation** - Producing a Candidate Delta does not grant authority to apply it.
+- **Base-state qualification** - Every Candidate Delta is qualified by the canonical state or revision from which its problem projection was derived.
+- **Stale-delta reassessment** - A Candidate Delta affected by subsequent canonical-state change must be revalidated before application.
+- **Applicable-validator admission** - Canonical application requires successful disposition of every validator applicable to the proposed effect.
+- **Truthful admission failure** - Missing or failed validation remains explicit and is not replaced by fabricated closure.
+- **Controlled application** - An admitted Candidate Delta produces a revision-qualified successor state without destructively rewriting the previous state.
+- **Rejected-candidate preservation** - Failure of admission blocks the proposed canonical change but does not require deletion of useful exploratory knowledge.
+- **Candidate Delta / Work Product separation** - Candidate Delta admission and Contract Work Product Acceptance are distinct operations.
+- **Participant transience** - Persistence of the participant that produced a candidate is not required for persistence of admitted engineering state; required provenance survives independently.
+
 # Part VI - References and supporting material
 
 ## 22. Language and terminology references
@@ -2627,11 +3027,11 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.23 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.24 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.23 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, and Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability, and the derived no-sphere theorem. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.24 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability, the derived no-sphere theorem, and Candidate Delta/canonical-state computation-boundary semantics. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
 **Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
 
