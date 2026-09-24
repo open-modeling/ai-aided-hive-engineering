@@ -1,6 +1,6 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.19"
+subtitle: "Formal Proposal - Draft 0.20"
 date: "16 September 2026"
 ---
 
@@ -295,7 +295,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Project Profile** | Formal project input that defines open parameters such as relation vocabulary, scale topology, Work Product schemas, validators, authority, resource models, lifecycle predicates, and validation independence. |
 | **Proposition** | Core addressable semantic element of the solution model. It is not an Engineering Object by default. It can later be materialized, carried, or realized by Engineering Objects. |
 | **Relation** | Typed semantic or structural association between addressable elements, qualified by scope, revision, time, and Project Profile semantics. |
-| **Reshuffling** | Reopening or reallocating previously active solution commitments because a change propagates beyond its original local problem. Reshuffling cost measures resulting review, rework, reverification, and coordination. |
+| **Reshuffling** | Primarily vertical Decision rework caused when an Engineering Layer committed downstream constraints without sufficient exploration to support delivery through affected downstream layers. A downstream finding becomes Reshuffling when it cannot be absorbed locally and requires Decision change at an adjacent or higher Engineering Layer. |
 | **Resource Cost** | Multi-dimensional consumption caused by an operation, exploration, Contract, trajectory, or change. |
 | **Resource Envelope** | Declared availability/limits for relevant resource dimensions such as context, model calls, compute, wall time, money, human effort, energy, equipment, and external capacity. It is not a universal scalar. |
 | **Scale** | Project-relative position of an engineering subject or representation in an ordered topology of size, decomposition, or abstraction. Scale supports comparison of elements by relative level and approximate order of magnitude; it does not require one universal numeric scale. |
