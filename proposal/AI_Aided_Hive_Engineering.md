@@ -1,10 +1,10 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.12"
+subtitle: "Formal Proposal - Draft 0.13"
 date: "16 September 2026"
 ---
 
-**Status.** Abstract revision after Draft 0.11. The formal model and document structure are otherwise unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
+**Status.** Accepted Abstract and Part I Section 3 revisions integrated. The formal model is otherwise unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
 
 **Normative basis.** Approved project discussion and accepted changes through Draft 0.8, aligned with the project dialogue recap and resource-consumption analysis where those sources do not conflict with later decisions.
 
@@ -65,25 +65,64 @@ The project resource analysis is supporting evidence for the architecture choice
 
 The measured archive does not contain exact model identifiers for all sub-agents and its phase timing includes explicit proxy values. The proposal therefore uses these data as a decision input, not as a universal performance benchmark.
 
-## 3. Non-specialist operating model
+## 3. Why this proposal is needed and what it contains
 
-The following sequence summarizes the formal proposal without requiring relation algebra.
+The proposal addresses a coordination problem rather than a lack of AI capability. Modern models can already perform substantial analysis, design, implementation, and validation work. The remaining problem is how to coordinate that work without reproducing the cost, loss of information, loss of decision reasoning, loss of decision history and participants, and overall instability of a large human organization.
 
-1. The project defines a Product, its engineering layers, Project Profile, applicable norms, Contracts, authority boundaries, Work Product schemas, and declared Resource Envelopes.
-2. The Hive represents the current engineering meaning as Propositions and typed Relations. Files, models, code, assemblies, reports, and other Engineering Objects materialize or carry that meaning.
-3. For each active problem, the Hive selects only the relevant semantic projection. It does not load the entire project by default.
-4. The Hive assigns bounded tasks to Swarms. A Swarm can use specialized micro-agents, solvers, simulations, tools, humans, or external services. Their contributions form Clusters supporting Decisions.
-5. Each exploration returns candidate Propositions, Relations, Decisions, evidence, UNKNOWNs, Gaps, Work Product requests, or other small semantic deltas.
-6. The Hive validates those candidates before they affect active state. Structural reachability never becomes semantic truth by itself.
-7. A Decision reduces or redirects the active design space for a local problem. Decision authority remains local. Cross-team or cross-layer effects appear through updated Exchange Items that the other party actually consumes.
-8. Contracts turn engineering intent into obligatory Work Products. Contract decomposition can create child production, planning, verification, and integration Contracts without splitting the Hive itself.
-9. A layer can contain many Contract sub-layers but still produces a coherent Product definition and implementation state at that engineering magnification.
-10. Verification is independent according to the applicable Project Profile. The mathematics permits same-group, separate-Hive, separate-department, separate-enterprise, or other required validation topologies.
-11. The Executor controls immediate traceability quality, Known Gaps, and the fulfilment proposal. Acceptance is a separate obligation assigned to applicable actors.
-12. Trade-space exploration preserves every discovered outcome. Active resource allocation can be reduced to zero for weak trajectories without deleting their knowledge.
-13. The Hive stops expanding a trajectory when the expected value of more exploration does not justify its Resource Cost, or when the Contract objective is satisfied. Global optimality is not assumed.
-14. Supporting processes such as Configuration Management, Change Management, Problem Resolution, Quality Assurance, Risk Management, and Measurement operate over the Solution Space. They are not core semantic primitives.
-15. Historical state remains addressable. Later revisions supersede or extend prior state; they do not rewrite it.
+### 3.1 Operational reasons
+
+- Coordination should not become a major part of execution. Waiting, polling, task tracking, responsibility assignment and reassignment, status reporting, synchronization, repeated handoffs, and duplicated context consume capacity without directly improving the Product.
+- Intermediate reasoning should not continuously pollute the working context. Only information that remains relevant to engineering state should survive beyond the computation that produced it.
+- Independent work should proceed in parallel and without unnecessary blocking.
+- Decisions should propagate through changed engineering information and affected Product elements, not through organizational waiting chains.
+- Bottom-up findings should be handled first at the nearest affected level. Higher levels should remain undisturbed when the change can be resolved locally.
+- This allows unaffected work to continue in parallel and prevents local changes from triggering unnecessary synchronization or replanning across the Hive.
+- Independent specialists should be able to contribute without requiring a persistent organizational hierarchy around every task.
+- The execution model should preserve continuity when participants, tools, models, or external services change.
+- Human participation should remain possible without making routine engineering dependent on continuous human approval.
+
+### 3.2 Engineering reasons
+
+- Engineering decisions should remain traceable to the information, evidence, constraints, alternatives, and authority that justified them.
+- Incomplete knowledge should remain visible. A known gap is safer than an apparently complete but unjustified engineering chain.
+- Failure should be exposed early. Fast failure followed by reassessment is healthier than forced continuation after an engineering path has become unsound, because forced execution accumulates rework, invalid evidence, and downstream cost.
+- Engineering information exists at different levels of Product decomposition and abstraction. Their relations must remain explicit without allowing detailed local reasoning to acquire unintended authority elsewhere.
+- Alternatives, rejected directions, outliers, and the reasoning behind past Decisions are valuable engineering knowledge. Good projects already record part of this information, for example through ADRs in software engineering, but those records often become large, weakly structured collections with poor evolution, visibility, and traceability to the Product elements they affected.
+- Decision history should therefore remain connected to the relevant Product state, evidence, alternatives, and later changes instead of becoming detached documentation.
+- The model should support software, physical products, mixed systems, and established engineering lifecycles without assuming one artifact taxonomy or organizational structure.
+
+### 3.3 Economic reasons
+
+- Engineering cost includes more than model execution. It includes human attention, computation, elapsed time, coordination, rework, physical work, external services, supplier effort, and the cost of changing already-developed results.
+- Cheap exploration is valuable before expensive engineering work is committed. Exploration itself becomes waste when additional investigation has little expected value compared with the resources available and the value of the Decision being improved.
+- Fast recognition of an invalid direction usually costs less than preserving activity merely because resources have already been invested in it.
+- Local improvement should be evaluated against its effect on the wider Product. A technically better local solution can be economically worse when it creates extensive rework elsewhere.
+- Unnecessary upward propagation of change creates avoidable Decision rework, analysis, coordination, Work Product rework, and repeated validation.
+- The preferred repair path is therefore the smallest one that resolves the problem correctly. Wider reshuffling is justified only when the affected level cannot absorb the change.
+- In many current AI harnesses, a human directive becomes effectively undisputable once entered into execution. A seemingly simple intervention can therefore trigger major downstream rework without systematic assessment of its effect on the existing solution space.
+- Human intervention should instead be assessed against current alternatives, constraints, evidence, affected Product elements, and expected cost before commitment wherever the applicable authority allows that assessment.
+- Trade-space analysis is a basis for informed and data-driven decision making. It preserves viable alternatives and their consequences so that human and autonomous Decisions do not lose the information generated during exploration.
+- The objective is reliable Product delivery within explicitly available project resources, not unlimited search for a theoretical global optimum.
+
+### 3.4 Logical reasons
+
+Engineering information cannot be treated as true merely because it is connected, repeated, agreed by several participants, produced by a capable model, or prescribed by a human.
+
+The proposal therefore needs a consistent foundation for identity, relations, evidence, time, scope, authority, uncertainty, change, and the boundaries between different parts of the Product.
+
+This foundation separates engineering meaning from the temporary computation used to discover it and makes both the current engineering state and the reasoning that led to it inspectable after participants or reasoning sessions disappear.
+
+### 3.5 What the proposal contains
+
+The proposal is organized around five complementary concerns:
+
+- a **language and terminology foundation** that keeps engineering concepts stable and unambiguous;
+- a **mathematical foundation** for entities, relations, graph structure, temporal evolution, reasoning, and Product decomposition;
+- an **operational and data model** that preserves engineering state independently from individual agents, tools, and conversations;
+- an **engineering governance model** for Decisions, trade-space exploration, evidence, Contracts, validation, traceability, Product delivery, human intervention, resource use, and supporting engineering processes;
+- a **Project Profile and conformance model** that keeps domain-, lifecycle-, organization-, and standard-specific choices outside the universal foundation.
+
+The remaining parts of the proposal formalize these concerns while leaving implementation technology and project-specific engineering practice open.
 
 # Part II - Language Foundation
 
