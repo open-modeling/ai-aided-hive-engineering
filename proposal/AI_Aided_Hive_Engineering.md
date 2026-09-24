@@ -1,6 +1,6 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.21"
+subtitle: "Formal Proposal - Draft 0.22"
 date: "16 September 2026"
 ---
 
@@ -260,6 +260,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Conformance Evaluation** | Formal check of implementation/state against this model plus the applicable Project Profile. |
 | **Contract** | Durable governed record that defines a Product target, required Work Product, Issuer, Assignment, Resource Envelope, execution topology, Acceptance rules, enforcement, and the information required to preserve execution and fulfilment history. |
 | **Decision** | Rationale-bearing Proposition that preserves or directs a possible course of exploration or behavior. A Decision is not an Engineering Object. |
+| **Delusive Traceability** | Apparently complete traceability created through semantically invalid, fabricated, or unjustified relations. |
 | **Engineering Layer** | Project-defined bounded Scale and Magnification context within which engineering elements can be reasoned about as one coherent Product view. |
 | **Engineering Object** | Materialized project entity with tool, repository, physical, or document identity. It can carry or materialize one or more Propositions. |
 | **Evidence** | Recorded information used by a defined validator or argument to support a Proposition. Evidence is scope- and role-specific. |
@@ -268,7 +269,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Exploration** | Bounded computational attempt to extend, test, compare, or refine the current Solution Space. |
 | **Extent** | Measurable reach of a Decision effect within its current Scale and Magnification. Significant Extent usually has severe economic effect and can question the rationality of the originating Decision. |
 | **Extremum Exploration** | Exploration intended to discover a different local extremum or challenge whether a materially better region exists outside the current search neighborhood. |
-| **Future Action** | Contracted resolution of a Known Gap with an identified Party, Outcome, Method, Definition of Ready, and Definition of Done. |
+| **Future Action** | Explicit deferred engineering activity that resolves or closes a Known Gap after its required prerequisites become available. It identifies the responsible party, trigger, expected result, required artifacts, execution method or reference, readiness conditions, and completion conditions. |
 | **Gap** | Explicitly known missing relation, evidence, content, capability, or result required for a stated purpose. |
 | **Hive** | Complete execution model that maintains engineering state, governance, Contracts, resources, and execution topology and commands Swarms assigned to bounded tasks. |
 | **Hive Mind** | Distributed/federated intelligence paradigm in which the Hive operates as one coherent intelligence for an external observer while participating actors retain individual traits, properties, and behaviours. |
@@ -996,5 +997,3 @@ Direct linkage across incompatible Scales is not permitted merely because both e
 Magnification identifies the resolution at which an engineering subject is examined.
 
 The Project Profile defines a set of admissible Magnification bands:
-
-$$\mathcal{M}_P$$
