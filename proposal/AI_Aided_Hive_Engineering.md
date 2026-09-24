@@ -1,10 +1,10 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.22"
-date: "16 September 2026"
+subtitle: "Formal Proposal - Draft 0.23"
+date: "17 September 2026"
 ---
 
-**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Scaling/Magnification/Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/repair exploration, and Cluster/divergence resource-survival revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
+**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Scaling/Magnification/Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/repair exploration, Cluster/divergence resource-survival revisions, and Evidence Proposition algebra/feedback-locality/reversible-traceability revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
 
 **Normative basis.** Approved project discussion and accepted changes through Draft 0.8, aligned with the project dialogue recap and resource-consumption analysis where those sources do not conflict with later decisions.
 
@@ -541,6 +541,32 @@ $$Materializes\subseteq P\times O.$$
 
 A Decision is a Proposition role and is not an Engineering Object. A Decision can later materialize into an ADR, plan, change request, Product definition, Exchange Item, or another Engineering Object.
 
+Decision, Evidence, Question, Request, constraint, expected behavior, interface intent, Gap statement, and other semantic roles specialize Proposition semantics without creating separate semantic universes.
+
+For an engineering context $\kappa$, let:
+
+$$D_{\kappa}=\{p\in P\mid DecisionRole(p,\kappa)\}$$
+
+and:
+
+$$E_{\kappa}=\{p\in P\mid EvidenceRole(p,\kappa)\}.$$
+
+Therefore:
+
+$$D_{\kappa}\subseteq P$$
+
+and:
+
+$$E_{\kappa}\subseteq P.$$
+
+A Decision and an Evidence item are therefore Propositions playing different semantic roles.
+
+Evidence inherits the common Proposition algebra, including semantic identity, Scope, revision and temporal qualification, provenance, materialization, typed relations, converse relations, image and inverse-image operations, bounded forward and reverse traversal, and historical addressability.
+
+Evidence extends the common Proposition algebra with Evidence-specific relations and validators required to establish relevance, support, sufficiency, independence, representativeness, provenance, and local evidential closure.
+
+Membership in the common Proposition algebra does not imply predicate substitutability. An operation defined for Evidence is valid only when the participating Proposition has the required Evidence role and the applicable relation validators succeed.
+
 ### 6.3 Communication Proposition roles
 
 The common minimum communication roles are:
@@ -640,6 +666,54 @@ Traversal therefore cannot be used as an implicit whole-project closure operatio
 ### 7.3 Relation vocabulary
 
 The common proposal defines the algebra, not a universal engineering dictionary of relation names. A project introduces relation kinds, source/target signatures, validators, converse display labels, semantic composition rules, and change-impact semantics through the Project Profile.
+
+A semantic relation has one canonical direction and one canonical stored fact.
+
+For a typed relation:
+
+$$r\subseteq S_r\times T_r$$
+
+its mathematical converse is:
+
+$$r^{\smile}=\{(y,x)\mid(x,y)\in r\}.$$
+
+The converse is a derived view of the same relation. It is not a second independently asserted graph fact.
+
+A Project Profile can define human-readable labels for both directions. For example:
+
+$$Supports\Longleftrightarrow IsSupportedBy$$
+
+where:
+
+$$IsSupportedBy=Supports^{\smile}.$$
+
+Therefore:
+
+$$Supports(e,p)\iff IsSupportedBy(p,e).$$
+
+Similarly, where those relation families are defined:
+
+$$Implements\Longleftrightarrow ImplementedBy$$
+
+$$Supersedes\Longleftrightarrow IsSupersededBy$$
+
+$$References\Longleftrightarrow IsReferencedBy.$$
+
+The display labels do not create additional semantic relations.
+
+For a relation $r$, forward trace traversal from a source set $X$ is:
+
+$$Forward_r(X)=r[X]$$
+
+and reverse trace traversal from a target set $Y$ is:
+
+$$Reverse_r(Y)=r^{\smile}[Y].$$
+
+The same canonical relation therefore supports both questions: what does this element relate to, and what relates to this element?
+
+A traversal can use the forward direction, converse direction, or explicitly permitted bidirectional traversal according to the existing bounded-traversal rules.
+
+Reverse traversal does not reverse engineering causality, authority, or semantic implication. It provides reverse traceability over the same canonical relation.
 
 ### 7.4 Cycles
 
@@ -797,8 +871,7 @@ It evaluates bounded semantic properties using semi-instrumented structures such
 - defined review questions;
 - semantic-role rules;
 - expected information patterns;
-- domain-specific review templates;
-- bounded consistency criteria.
+- domain-specific review templates;- bounded consistency criteria.
 
 Its purpose is to align semantics on top of formally valid engineering information without reopening unrestricted engineering reasoning.
 
@@ -997,3 +1070,1575 @@ Direct linkage across incompatible Scales is not permitted merely because both e
 Magnification identifies the resolution at which an engineering subject is examined.
 
 The Project Profile defines a set of admissible Magnification bands:
+
+$$\mathcal{M}_P$$
+
+and assigns an applicable Magnification to an engineering element:
+
+$$\mu(x)\in\mathcal{M}_P$$
+
+The Project Profile defines the comparison relation between Magnification bands.
+
+For two engineering elements $x$ and $y$:
+
+$$SameMagnification(x,y)\iff\mu(x)=\mu(y)$$
+
+$$FinerThan(x,y)\iff\mu(x)>_M\mu(y)$$
+
+$$CoarserThan(x,y)\iff\mu(x)<_M\mu(y)$$
+
+where $>_M$ and $<_M$ are project-defined Magnification relations.
+
+These relations express engineering resolution. They do not necessarily represent physical size, numerical magnitude, organizational hierarchy, or Contract depth.
+
+Magnification comparison therefore provides at least:
+
+- same engineering resolution;
+- finer engineering resolution;
+- coarser engineering resolution.
+
+A Project Profile can define a partial order when engineering domains do not admit one universal linear ordering.
+
+Scale answers:
+
+> **At what engineering order does this element belong?**
+
+Magnification answers:
+
+> **At what resolution is this element being examined?**
+
+An element can remain at the same Scale while its Magnification changes for investigation.
+
+Increased Magnification does not transfer authority from the element's local engineering context to another Scale.
+
+### 9.3 Direct-link restriction
+
+A Hive operation does not directly operate, bind, constrain, integrate, or establish a semantic relation between elements whose Scale or Magnification is incompatible for that operation.
+
+For a direct engineering relation $r$:
+
+$$Direct_r(x,y)\Rightarrow ScaleCompatible_r(x,y)\land MagnificationCompatible_r(x,y)$$
+
+Compatibility is relation-specific and is defined by the Project Profile.
+
+When two elements belong to incompatible engineering orders, the proposal does not create a direct semantic edge between them. Their interaction uses Scaling.
+
+This prevents a higher-level Product context from directly operating implementation details several engineering orders below it.
+
+It also prevents detailed implementation information from acquiring direct authority over broader Product contexts.
+
+Examples of prohibited shortcuts include:
+
+- Product-level reasoning directly operating a Hall-effect sensor implementation inside an ABS component;
+- UX research directly constraining application source code;
+- customer-level intent directly binding implementation artifacts without the intermediate engineering interpretation required by the project.
+
+The restriction applies even when all involved elements are visible to the same Hive.
+
+Visibility does not imply direct bindability.
+
+### 9.4 Scaling
+
+Scaling transfers relevant information between different engineering orders without creating a direct semantic relation between the original source and destination elements.
+
+A Scaling transition contains three conceptual activities:
+
+1. identify information that is relevant beyond the originating Scale;
+2. materialize that information for the applicable boundary;
+3. interpret it locally at the receiving Scale.
+
+The receiving Scale establishes its own local engineering meaning from the received information.
+
+Scaling therefore does not mean automatic inheritance of:
+
+- Decisions;
+- authority;
+- evidence closure;
+- implementation detail;
+- semantic relations.
+
+#### 9.4.1 Downward Decision propagation
+
+A Decision at one Scale does not directly become a Decision at another Scale.
+
+The propagation pattern is:
+
+$$Decision_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow Decision_j$$
+
+The Exchange Item materializes the information required by the receiving Scale.
+
+The receiving context interprets that information and establishes its own Decision where a Decision is required.
+
+The original Decision remains associated with its originating engineering context. It does not become invisible authority over lower Scales.
+
+#### 9.4.2 Upward evidence and feedback propagation
+
+Evidence follows the same Scale-locality principle as Decisions.
+
+Evidence can directly participate in reasoning within the Engineering Layer in which its evidential relation is valid.
+
+For Evidence $e_j$ and Decision $d_j$ in Engineering Layer $L_j$:
+
+$$e_j\in E_j$$
+
+$$d_j\in D_j$$
+
+a valid local support relation can be:
+
+$$Supports_j(e_j,d_j).$$
+
+Its converse is:
+
+$$IsSupportedBy_j(d_j,e_j)$$
+
+and therefore:
+
+$$Supports_j(e_j,d_j)\iff IsSupportedBy_j(d_j,e_j).$$
+
+These are two traversal views of one canonical relation.
+
+No Exchange Item is required merely to relate Evidence and a Decision that belong to the same compatible local engineering context.
+
+Evidence locality changes at an Engineering Layer boundary.
+
+Evidence found at a finer Scale does not directly establish a Decision or evidential closure at a broader Scale.
+
+The established upward feedback pattern is:
+
+$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow Decision_i.$$
+
+The first transition means that the originating Engineering Layer uses its local Evidence to determine what information must be materialized as feedback for the receiving boundary.
+
+It does not mean that the complete Evidence Proposition, its complete materialization, or the complete local reasoning context is redistributed to the receiving Engineering Layer.
+
+The Feedback Exchange Item carries the information required for the receiving Scale to assess the condition.
+
+The receiving Scale interprets the Feedback Exchange Item in its own engineering context and determines whether its local Decision or Solution Space must change.
+
+Where evidential closure is required at the receiving Scale, that Scale establishes or records Evidence appropriate to its own context.
+
+Therefore:
+
+$$Evidence_j\not\Rightarrow EvidenceClosure_i$$
+
+and:
+
+$$PotentiallyRelevant(Evidence_j,L_i)\not\Rightarrow DirectDecisionInput_i(Evidence_j).$$
+
+Foreign Evidence can inform local reasoning. It does not automatically become local Evidence or inherit evidential closure into another Scale.
+
+##### Feedback traceability
+
+The relation between source Evidence and the Feedback Exchange Item remains traceable.
+
+Let:
+
+$$ProducesFeedback\subseteq E_j\times FEI_{j\rightarrow i}.$$
+
+Then its converse is:
+
+$$IsFeedbackFrom=ProducesFeedback^{\smile}.$$
+
+Therefore:
+
+$$ProducesFeedback(e_j,f_{j\rightarrow i})\iff IsFeedbackFrom(f_{j\rightarrow i},e_j).$$
+
+This relation records provenance between the local Evidence and the resulting boundary feedback.
+
+It does not imply that the Feedback Exchange Item reproduces the Evidence contents.
+
+In particular:
+
+$$IsFeedbackFrom(f,e)\not\Rightarrow Contents(e)\subseteq Contents(f).$$
+
+The Feedback Exchange Item can preserve a reference to the originating Evidence when required for provenance or later retrieval without importing that Evidence into every receiving Decision context.
+
+#### 9.4.3 Nearest affected Scale
+
+Bottom-up Evidence feedback stops at the nearest affected Engineering Layer that can resolve the condition correctly.
+
+If the receiving Engineering Layer can absorb the feedback within its local Solution Space and authority, propagation stops.
+
+If the receiving Engineering Layer cannot resolve the condition locally, it determines the information relevant to the next boundary and produces a new Feedback Exchange Item.
+
+A feedback chain can therefore have the form:
+
+$$Evidence_k\rightarrow FeedbackExchangeItem_{k\rightarrow j}\rightarrow Decision_j$$
+
+followed, only when further propagation is necessary, by:
+
+$$Decision_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow Decision_i.$$
+
+The original Evidence does not acquire direct semantic reach over every Engineering Layer traversed by the resulting feedback loop.
+
+Each boundary produces a locally relevant materialization, and each receiving Engineering Layer performs its own interpretation.
+
+This limits unnecessary Decision rework, Work Product rework, reverification, and coordination.
+
+### 9.5 Scaling and Decision blast
+
+Decision blast remains local to the engineering context in which the Decision exists.
+
+Scaling allows the **effects** of a Decision to cross a Scale boundary, but the Decision itself does not become a cross-layer authority edge.
+
+A cross-Scale effect therefore requires:
+
+- materialized boundary information;
+- interpretation at the receiving Scale;
+- local reasoning;
+- a local Decision when the received information changes the local solution.
+
+This prevents Decision Blast Radius from becoming an uncontrolled sphere in which one Decision directly affects unrelated engineering orders.
+
+A broader Decision constrains the next relevant Scale instead of directly manipulating arbitrary implementation details several orders below it.
+
+A finer-scale finding propagates upward only through explicit feedback and local reassessment.
+
+When a Decision effect cannot be absorbed locally, or its Extent becomes economically significant, the affected context materializes the condition as Feedback or another applicable Exchange Item.
+
+The receiving authoritative context reassesses the Decision before further propagation.
+
+### 9.6 Decision Extent
+
+Extent measures how far the effect of a Decision propagates within its local engineering context.
+
+Extent is derived from **Decision Blast Radius** and makes the consequences of a Decision visible before they become hidden rework, refactoring, reverification, reintegration, or coordination cost.
+
+Extent is evaluated within the current Scale and Magnification.
+
+A significant Extent usually has a severe economic effect. Growth of Extent therefore questions whether the originating Decision remains rational under the current Product state, Resource Envelope, and available alternatives.
+
+When Extent becomes material, the Hive does not silently continue propagation.
+
+The affected region is exposed and the Decision is reassessed by the Actor that has authority for the affected context.
+
+Depending on the applicable authority model, that Actor can be:
+
+- an authorized Hive participant;
+- a Human;
+- another Contract-authorized Actor.
+
+The reassessment can result in:
+
+- confirmation of the Decision;
+- clarification or narrowing of the Decision;
+- revision of the Decision;
+- supersession of the Decision;
+- additional exploration;
+- additional evidence collection;
+- feedback to the adjacent Scale when the effect cannot be resolved locally.
+
+Extent remains local to its Scale.
+
+Increasing Extent does not give the originating Decision authority over another Scale.
+
+### 9.7 Engineering Layer and execution sub-layer
+
+An Engineering Layer defines a bounded Scale and Magnification context in which the project maintains one coherent Product view.
+
+An execution sub-layer defines Contract execution topology inside that Engineering Layer.
+
+Contract decomposition, parallel execution, verification Contracts, or an Integrator Contract do not create a new Scale merely because they introduce additional execution depth.
+
+Execution depth and engineering Scale are independent properties.
+
+Several Contracts can therefore operate at different execution sub-layers while remaining at the same Scale and Magnification.
+
+### 9.8 Scale-compatible engineering operations
+
+Engineering operations that directly combine, integrate, trace, constrain, or establish semantic closure between elements operate only on compatible Scale and Magnification unless the Project Profile explicitly defines an applicable Scaling boundary.
+
+For example:
+
+$$Integrate(x,y)\Rightarrow ScaleCompatible(x,y)\land MagnificationCompatible(x,y)$$
+
+Different-Scale inputs require an explicit Scaling or other project-defined transformation before they become valid inputs to the same local engineering operation.
+
+The transformation preserves the applicable:
+
+- semantic rules;
+- traceability;
+- validation;
+- evidence;
+- information boundaries.
+
+Scaling is an explicit reconciliation mechanism. It is not permission to recursively copy information across Product decomposition.
+
+Scale compatibility and Extent answer different questions.
+
+Scale and Magnification determine whether engineering elements can participate directly in the same engineering operation.
+
+Extent determines how far the consequences of a Decision spread within that compatible local context.
+
+A Decision can remain fully Scale-compatible while its Extent becomes economically unacceptable.
+
+### 9.9 Scale and Extent rules
+
+> **Scale locality:** an engineering element can directly operate on, constrain, integrate with, or establish semantic closure for another element only when the applicable relation permits their Scale and Magnification combination. Cross-order effects use Scaling and local interpretation.
+
+> **Extent control:** Decision Extent is evaluated during exploration and propagation. Significant Extent triggers economic assessment and authoritative reassessment before further commitment or propagation.
+
+These rules preserve the **no-sphere** property: Decisions create local reasoning and local effects; cross-Scale consequences pass through explicit materialization, interpretation, and renewed authority.
+
+## 10. Decisions, trade space, exploration, and human intervention
+
+### 10.1 Trade space
+
+For problem $q$, the Trade Space $T(q,t)$ is the project-visible region of candidate outcomes that can currently be compared under applicable constraints, evidence, authority, and Product/Contract objectives.
+
+A Trade Space can contain discrete alternatives and references to continuous optimization delegated to simulations, field tests, calibration systems, or external optimizers. Continuous parameter optimization is not automatically Hive global search.
+
+### 10.2 Local and global extrema
+
+For candidate $x$ and declared neighborhood $N(x)$:
+
+$$LocalOpt(x,N)\Leftrightarrow \nexists y\in N(x):Better(y,x).$$
+
+For theoretical Solution Universe $\Omega$:
+
+$$GlobalOpt(x,\Omega)\Leftrightarrow \nexists y\in\Omega:Better(y,x).$$
+
+The Hive normally knows only a project-visible subset of $\Omega$. A local optimum can therefore be established relative to a declared neighborhood while global optimality remains unknown.
+
+**Extremum Exploration** deliberately expands the active neighborhood or opens a materially different trajectory to search for another local extremum or to challenge whether the current region is adequate. It does not imply exhaustive global search.
+
+### 10.3 Trajectories, clusters, and outliers
+
+A trajectory is a temporally ordered path of candidate outcomes and Decisions for one problem. A cluster is sufficiently independent support for one trajectory. Cluster power controls resource survival, not truth.
+
+An outlier is preserved even if it has low current support:
+
+$$Outlier(o)\land Discovered(o)\Rightarrow Preserve(o).$$
+
+If an outlier later gains evidence, novelty value, or post-mortem relevance, it can become active without reconstructing lost reasoning.
+
+### 10.4 Reshuffling
+
+Reshuffling is primarily a **vertical change and Decision-rework process** that occurs when an Engineering Layer committed to a Product direction without exploring its Solution Space deeply enough to support delivery through the affected downstream layers.
+
+The originating layer effectively treated its current solution as if it were sufficient for complete Product delivery in one step. Downstream engineering then discovers constraints, incompatibilities, missing Decisions, excessive Extent, or other facts that the original exploration did not expose.
+
+These findings propagate upward through the applicable Scaling and Exchange Item mechanisms and can require the originating or intermediate layers to revise Decisions that were previously treated as stable.
+
+Reshuffling can therefore include:
+
+- reopening an upstream Decision;
+- revising a Product or interface constraint;
+- changing downstream Exchange Items;
+- invalidating or revising dependent Decisions;
+- Work Product rework;
+- reverification and reintegration;
+- Contract revision;
+- renewed exploration at one or more Engineering Layers.
+
+Reshuffling is primarily vertical because its cause is a mismatch between the depth of exploration performed at one Engineering Layer and the engineering reality discovered at adjacent downstream layers.
+
+Ordinary local correction inside one Engineering Layer is **not** Reshuffling when the layer can absorb the change without reopening commitments at another Scale.
+
+The preferred engineering behaviour is:
+
+> An Engineering Layer explores sufficiently before committing downstream constraints, while downstream findings propagate upward only to the nearest Engineering Layer whose Decision must change.
+
+This does not require exhaustive exploration before every commitment. The required depth is bounded by the current Product context, available evidence, Resource Envelope, and expected Decision Extent.
+
+#### 10.4.1 Repair is a search problem
+
+A valid repair is not obtained by algebraically reversing the change that caused the problem.
+
+For a change $\Delta$:
+
+$$Repair(\Delta)\neq \Delta^{-1}$$
+
+in general.
+
+The reason is that the successor Solution Space can contain alternatives that did not exist, were not visible, or were not selected before the change.
+
+A repair can therefore:
+
+- restore an earlier solution;
+- revise an existing Decision;
+- choose another previously known alternative;
+- discover a new local alternative;
+- redistribute constraints;
+- change an interface;
+- alter another affected Decision;
+- propagate feedback to an adjacent engineering context.
+
+Repair is established by **direct exploration of the successor Solution Space**.
+
+#### 10.4.2 Distributed repair exploration
+
+Let:
+
+$$A(\Delta)$$
+
+be the engineering contexts directly affected by change $\Delta$.
+
+Each affected context explores repair alternatives inside its own Scale, authority, evidence, and Contract boundaries.
+
+When a candidate repair changes an Exchange Item, constraint, evidence condition, or another boundary-relevant element, the applicable adjacent context joins the exploration.
+
+Conceptually:
+
+$$A_0(\Delta)\rightarrow A_1(\Delta)\rightarrow \cdots$$
+
+where additional affected contexts are discovered through materialized propagation rather than assumed from unrestricted graph reachability.
+
+Several adjacent teams or Contract contexts can therefore explore the change in parallel.
+
+This exploration determines:
+
+- whether the change can be absorbed locally;
+- which Decisions require rework;
+- which Work Products are affected;
+- whether additional Scaling is required;
+- the actual Resource Cost of viable alternatives.
+
+#### 10.4.3 Repair candidate set
+
+At time $t$, let:
+
+$$\mathcal{R}(\Delta,t)$$
+
+be the set of valid repair candidates discovered so far through direct exploration.
+
+A candidate $r$ belongs to this set only when it restores a valid engineering state under the applicable semantic, Scale, evidence, Contract, and authority rules.
+
+Its cost is a vector:
+
+$$RC(r)=(review,rework,reverification,coordination,schedule,money,compute,humanEffort,physicalChange,\ldots)$$
+
+The common model does not reduce this vector to one universal scalar.
+
+#### 10.4.4 Minimum known repair
+
+Because repair alternatives are discovered incrementally, the Hive generally cannot claim a theoretical global minimum repair cost.
+
+Instead, at time $t$, it can identify the non-dominated repair candidates in the explored set:
+
+$$ParetoRepair(\Delta,t)=\{r\in\mathcal{R}(\Delta,t)\mid \nexists r'\in\mathcal{R}(\Delta,t):RC(r')\prec RC(r)\}$$
+
+A Project Profile or Contract can select among these candidates using its applicable priorities and authority.
+
+A claim of **minimum repair** is therefore qualified by the explored Solution Space.
+
+The proposal does not infer:
+
+$$ObservedRepairMinimum=GlobalRepairMinimum$$
+
+unless the applicable search domain is demonstrably complete.
+
+#### 10.4.5 Local absorption
+
+If the affected Engineering Layer can repair the issue within its local Solution Space, authority, and materialized boundary commitments, the change is absorbed locally and does not become Reshuffling.
+
+Reshuffling begins when the finding requires a Decision change at an adjacent or higher Engineering Layer.
+
+Conceptually:
+
+$$LocalRepair(\Delta,\kappa)\land NoMaterialBoundaryChange(\Delta,\kappa)\Rightarrow StopUpwardPropagation$$
+
+This preserves parallel work and minimizes Decision rework at higher Scales.
+
+If no adequate local repair is found, or every viable repair changes material boundary information, the affected context propagates the relevant feedback to the nearest adjacent context.
+
+This is the repair counterpart of the Scale/Extent rules in Section 9.
+
+#### 10.4.6 Repair exploration and Extent
+
+Reshuffling is often discovered through downstream repair exploration. An apparently valid upstream Decision can reveal increasing Extent as adjacent Engineering Layers attempt to realize it.
+
+Decision Extent helps determine where repair exploration must occur.
+
+As exploration discovers additional affected engineering elements, the observed Extent can increase.
+
+Therefore Extent is not necessarily known completely when the change is first proposed.
+
+A repair investigation can reveal that an apparently local change has:
+
+- larger Decision Blast Radius;
+- additional affected Work Products;
+- new reverification requirements;
+- broader Product consequences;
+- severe economic impact.
+
+Such findings can invalidate the original Decision rationale and trigger its reassessment.
+
+#### 10.4.7 Repair stopping condition
+
+Repair exploration stops when the applicable authority has enough information to select a valid repair under the available Resource Envelope and decision criteria.
+
+It does not require exhaustive enumeration of every theoretically possible repair.
+
+The Hive preserves rejected and non-selected repair candidates when their rationale or evidence remains useful for later Decisions, post-mortem analysis, or future change.
+
+### 10.5 Human intervention geometry
+
+Let current Hive candidate set be $B$ and human input normalized to set $A$. Human interaction can create exact match, narrowing, broadening, equality, partial intersection, or disjoint geometry relative to $B$. The human-interaction class is orthogonal to this set geometry.
+
+Human input is assessed before execution. Human authority does not create mathematical or engineering feasibility.
+
+## 11. Contracts and Product delivery
+
+### 11.1 Contract structure
+
+A Contract records **who** is responsible, **what** result is expected, and **when or under which dependencies** execution can proceed.
+
+**Who** identifies the Issuer, Assignment and resulting Executor, supplementary parties where applicable, and any explicitly delegated Acceptance responsibility.
+
+**What** identifies the Product target, required Work Product, Executor Obligation, Resource Envelope, Acceptance rules, and applicable enforcement.
+
+**When and dependencies** identify prerequisites, expected dependencies, execution topology, and revision/time context required to determine when execution can start, continue, block, submit a result, or require reassessment.
+
+The Contract is durable and revision-qualified. Previous Contract states remain addressable so that later fulfilment, failure, discontinuation, reassignment, or post-mortem analysis does not rewrite execution history.
+
+A Contract becomes executable only when its Assignment is unambiguous for the applicable scope. Conflicting directives that would establish incompatible Assignments for the same scope require resolution under the applicable authority rules before execution proceeds. Human-originated input does not bypass this rule. The Human role and authority model is a prerequisite of safe execution and is defined separately from this Contract section.
+
+### 11.2 Contract decomposition
+
+A Contract can be decomposed into child Contracts when the Product target requires separable execution domains. Child Contracts provide complete results of their own scope. Those Work Products become inputs to the parent execution.
+
+Contract decomposition does not imply Hive decomposition. The same Hive can coordinate all child Contracts while maintaining horizontal Product and Team APIs.
+
+### 11.3 Integration and composition
+
+Integration is project-specific. Direct integration requires compatible magnification:
+
+$$Integrate(x,y)\Rightarrow M(x)\sim M(y).$$
+
+The common algebra does not prescribe copying, aggregation, model merge, compilation, physical assembly, packaging, or another integration strategy. Each Work Product keeps its own schema and validation rules. Cross-scale incorporation is only allowed through a project-defined strategy that preserves information boundaries and validation.
+
+Integration is not aggregation.
+
+### 11.4 Integrator Contract
+
+When partial Work Products need to become one coherent same-scale Work Product, the parent can create a separate Integrator Contract. The Integrator can receive multiple Work Products as a side effect of the parent topology while remaining vertically scoped to its own Contract obligation.
+
+The Integrator does not gain horizontal authority over child Decisions. It builds the coherent result required by its Contract.
+
+### 11.5 V-model verification topology
+
+The Hive cannot both fulfill and validate the same Contract role. Production, test planning/test-suite production, integration verification, and other required verification activities are separate Contracts where the applicable engineering method requires that separation.
+
+The Project Profile defines the required independence topology. It can require separate roles inside one Hive, separate Hive instances using the same model, separate departments, separate enterprises, different model providers, different infrastructure, or another topology.
+
+Conformance uses a predicate rather than a universal scalar independence order:
+
+$$SatisfiesIndependence(actual,required,profile).$$
+
+### 11.6 Acceptance
+
+Acceptance is the Contract-governed assessment of fulfilment and Work Product conformance. It is distinct from Assignment, Obligation, execution, release, deployment, production, and baselining.
+
+Both Acceptance stages use the Check Cascade defined in Section 8.5. A more expensive applicable assessment does not proceed while a cheaper applicable check is failing. Independent Acceptance repeats or independently establishes the required evidence according to the Contract; independence does not convert every check into a High-profile Assessment.
+
+Acceptance has two sequential stages with different responsibility and evidential meaning. Stage 1 establishes the Executor's own conformity claim and submission state. Stage 2 independently evaluates that claim and produces the Contract Acceptance disposition. Passing Stage 1 is therefore a prerequisite for normal Stage 2 assessment, but it is not independent Acceptance.
+
+#### 11.6.1 Executor conformity assessment
+
+Before submission, the Executor performs the applicable checks against the Contract and prepares the Work Product for assessment. The Executor records the conformity result, Known Gaps, identified non-conformities, relevant evidence, and any condition that prevents a complete fulfilment claim.
+
+This stage is a self-assessment by the Executor. It establishes what the Executor claims to have fulfilled and with what evidence. It does not bind the Issuer to accept the result. When conformity cannot be established, the Executor reports that condition explicitly instead of presenting a partial or known-invalid result as conformant.
+
+#### 11.6.2 Independent Acceptance assessment
+
+After submission, the Issuer performs an independent assessment of Contract fulfilment and Work Product conformance, or delegates that assessment when the Contract permits delegation. The independent assessment considers the submitted Work Product, the Executor conformity record, applicable evidence, Known Gaps, and the Contract Acceptance rules. It does not treat the Executor's conformity claim as proof by itself.
+
+This stage produces the Contract Acceptance disposition. The disposition and its rationale are recorded in Contract history. Failed Acceptance does not erase the submitted Work Product, conformity record, evidence, Contract state, or earlier Decisions; these records remain available for correction, governance, and post-mortem analysis.
+
+Successful Acceptance establishes that the submitted result satisfies the applicable Contract Acceptance rules. It does not by itself imply release, deployment, production, baselining, or another project-specific lifecycle transition.
+
+### 11.7 Product API and Team API
+
+A Product API is an Exchange Item of a project-appropriate kind that materializes an interface Decision. Its representation depends on the Product nature.
+
+A Team API is the set of Work Products and communications used by parties to evolve the Product. Hive-Human communication is native to the model. External-party communication can require a Project Profile communication Contract and can be limited to formats such as PDF, spreadsheet, email, supplier portal, or another external boundary representation.
+
+### 11.8 Blast containment
+
+A Decision has direct effect only inside its local Contract and bounded Hive/Team context. Other parties are affected only when an Exchange Item that they consume changes.
+
+$$Affected(Team,d)\Leftrightarrow\exists e\in UpdatedExchangeItems(d):Consumes(Team,e).$$
+
+If a team does not consume a changed Exchange Item, that team is outside the native blast area for that Decision.
+
+## 12. Evidence and validation locality
+
+### 12.1 Evidence as a Proposition role
+
+Evidence is a Proposition used by a defined validator or engineering argument to support another Proposition in a defined engineering context.
+
+For context $\kappa$:
+
+$$E_{\kappa}=\{p\in P\mid EvidenceRole(p,\kappa)\}.$$
+
+Evidence therefore shares the common Proposition algebra.
+
+Evidence-specific semantics extend that algebra rather than replacing it.
+
+A principal Evidence relation is:
+
+$$Supports_{\kappa}\subseteq E_{\kappa}\times P_{\kappa}$$
+
+with derived converse:
+
+$$IsSupportedBy_{\kappa}=Supports_{\kappa}^{\smile}.$$
+
+Therefore:
+
+$$Supports_{\kappa}(e,p)\iff IsSupportedBy_{\kappa}(p,e).$$
+
+A Decision is a Proposition, so Evidence can directly support an informed local Decision:
+
+$$Supports_{\kappa}\subseteq E_{\kappa}\times D_{\kappa}$$
+
+where applicable.
+
+This does not imply that every Evidence Proposition supports every Decision or that Evidence support alone establishes Decision correctness.
+
+The applicable relation validators determine whether a particular support relation is legitimate.
+
+### 12.2 Evidence existence, relevance, support, and sufficiency
+
+Evidence existence, relevance, support, and sufficiency are separate properties.
+
+For:
+
+$$e\in E_{\kappa}$$
+
+and:
+
+$$p\in P_{\kappa}$$
+
+the following implications do not generally hold:
+
+$$Exists(e)\not\Rightarrow Relevant(e,p,\kappa)$$
+
+$$Relevant(e,p,\kappa)\not\Rightarrow Supports(e,p,\kappa)$$
+
+$$Supports(e,p,\kappa)\not\Rightarrow Sufficient(e,p,\kappa).$$
+
+A test result, analysis, simulation, inspection, field observation, end-user claim, regulatory statement, human study, review result, or another recorded Proposition can therefore exist without being valid Evidence for every Proposition to which it can be structurally connected.
+
+The Project Profile defines the applicable Evidence validators and sufficiency rules.
+
+Evidence evaluation uses the Check Cascade where applicable.
+
+Deterministic Evidence properties are established instrumentally before more expensive semantic assessment proceeds.
+
+### 12.3 Direct local Evidence use
+
+Evidence directly affects Decision making only where its support relation is valid in the local engineering context.
+
+For local Evidence $e_i$ and Decision $d_i$:
+
+$$Supports_i(e_i,d_i)$$
+
+can be used directly when the applicable Scale, Magnification, Scope, revision, state, and Evidence validators permit that relation.
+
+Reverse traceability is available through the converse:
+
+$$IsSupportedBy_i(d_i,e_i).$$
+
+The two expressions identify the same semantic edge.
+
+This permits efficient bidirectional engineering questions such as which Decisions this Evidence supports and which Evidence supports this Decision, without storing two independent relations.
+
+Evidence does not acquire authority because it supports a Decision.
+
+Likewise, a Decision does not make every Evidence item that supports it relevant to every context affected by the Decision.
+
+### 12.4 Evidence feedback across Engineering Layers
+
+Evidence does not directly cross an incompatible Engineering Layer boundary as an evidential relation.
+
+For Evidence $e_j$ at Engineering Layer $L_j$ and a broader Engineering Layer $L_i$:
+
+$$Reachable(e_j,L_i)\not\Rightarrow DirectlyApplicable(e_j,L_i)$$
+
+and:
+
+$$Reachable(e_j,p_i)\not\Rightarrow Supports_i(e_j,p_i).$$
+
+When locally assessed Evidence identifies a condition relevant to the adjacent broader Scale, the originating context produces a Feedback Exchange Item.
+
+The feedback loop is:
+
+$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow LocalInterpretation_i$$
+
+and, when a Decision is required:
+
+$$LocalInterpretation_i\rightarrow Decision_i.$$
+
+This preserves the compact established propagation form:
+
+$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow Decision_i$$
+
+with local interpretation understood as part of the receiving operation.
+
+The originating Evidence remains associated with its local engineering context.
+
+The Feedback Exchange Item carries only the information appropriate for the receiving boundary.
+
+### 12.5 Feedback Exchange Item information discipline
+
+A Feedback Exchange Item is a specialized Exchange Item used to materialize feedback from an affected Engineering Layer toward an adjacent broader Engineering Layer.
+
+Its purpose is to communicate the engineering condition that requires reassessment.
+
+It is not a container for unrestricted replication of the originating context.
+
+For Feedback Exchange Item $f_{j\rightarrow i}$:
+
+$$Contents(f_{j\rightarrow i})\subseteq BoundaryRelevant(State_j,B_{j\rightarrow i})$$
+
+where $B_{j\rightarrow i}$ is the applicable boundary.
+
+The applicable Project Profile and Contract determine required feedback information, permissible supplementary information, provenance requirements, Evidence references, information-exposure restrictions, and required Work Product interaction.
+
+The objective is sufficient engineering feedback without unnecessary propagation of local state.
+
+The Feedback Exchange Item therefore does not automatically contain the complete originating Evidence set, all supporting observations, unrelated Evidence, local Decision rationale, complete reasoning history, irrelevant implementation detail, or all materializations of the source Evidence.
+
+This protects foreign Decision contexts from irrelevant information accumulation while preserving traceability to the source.
+
+### 12.6 Evidence and Work Products
+
+A Work Product is not interchangeable with a Feedback Exchange Item.
+
+A Work Product is the complete result required by a Contract.
+
+A Feedback Exchange Item is boundary-relative communication used for feedback propagation.
+
+Evidence Propositions can nevertheless participate in Work Products according to the applicable Contract and Project Profile.
+
+A Work Product can contain Evidence, reference Evidence, contain Evidence relations, carry an applicable Feedback Exchange Item, use Evidence to support its conformity claim, or become input to another Contract.
+
+The existence of Evidence in a Work Product does not make that Evidence directly applicable to every Engineering Layer that can access the Work Product.
+
+Therefore:
+
+$$ContainedIn(e,WP)\not\Rightarrow DirectlyApplicable(e,L)$$
+
+for an arbitrary receiving Engineering Layer $L$.
+
+Evidence use remains governed by local Evidence and Scale rules.
+
+Work Product information-boundary rules remain applicable independently of Evidence traceability.
+
+### 12.7 Explicit Evidence retrieval
+
+The originating Evidence remains canonically addressable and traceable.
+
+A Feedback Exchange Item or Work Product can preserve a reference to its source Evidence without copying the Evidence into the receiving context.
+
+Therefore:
+
+$$Addressable(e)\not\Rightarrow Distributed(e)$$
+
+and:
+
+$$ReferencedBy(f,e)\not\Rightarrow ImportedIntoDecisionContext(e).$$
+
+A receiving Engineering Layer can explicitly retrieve source Evidence when the Feedback Exchange Item does not contain sufficient information for local assessment, independent verification requires the source Evidence, a local Evidence argument requires detailed provenance, or the applicable Contract or Project Profile requires it.
+
+Retrieval makes the Evidence available for an explicit receiving activity.
+
+It does not automatically establish that the retrieved Evidence supports a receiving-layer Proposition.
+
+The local support relation must still be established under the applicable Evidence validators.
+
+### 12.8 No automatic Evidence composition
+
+Evidence participates in the Proposition graph and can therefore be reached through structural traversal.
+
+Structural reachability does not establish Evidence support.
+
+For:
+
+$$e\in E$$
+
+and:
+
+$$p\in P$$
+
+$$Reachable_G(e,p)\not\Rightarrow Supports(e,p).$$
+
+Likewise:
+
+$$Supports(e,p_1)\land r(p_1,p_2)\not\Rightarrow Supports(e,p_2)$$
+
+unless the applicable relation calculus explicitly defines a sound semantic composition rule for that combination.
+
+The same restriction applies when the path contains Decisions, Exchange Items, Feedback Exchange Items, Work Products, Engineering Objects, or other Propositions.
+
+A sequence of valid graph edges does not automatically create evidential closure.
+
+This prevents Evidence laundering, accidental Evidence inheritance, implicit Evidence composition, uncontrolled cross-Scale Evidence reach, foreign-context pollution, and authority being inferred from Evidence volume or verbosity.
+
+### 12.9 Large-Extent Evidence and field feedback
+
+A single Evidence Proposition can have potentially broad Product relevance without having broad direct evidential applicability.
+
+For Evidence $e$:
+
+$$WidePotentialRelevance(e)\not\Rightarrow WideDirectApplicability(e).$$
+
+Consider a field bug report describing unexpected behavior in one vehicle or one component.
+
+The report can potentially indicate a condition relevant to a physical element, component, subsystem, vehicle behavior, fleet population, Product requirements, or customer experience.
+
+This potential Scale range does not create direct Evidence relations to every one of those contexts.
+
+The owning Engineering Layer first assesses the Evidence locally.
+
+If the condition can be resolved locally, propagation stops.
+
+If the condition is relevant to the adjacent broader Engineering Layer, the local context creates:
+
+$$FeedbackExchangeItem_{component\rightarrow subsystem}.$$
+
+The subsystem context interprets that feedback and reassesses its local Solution Space and Decisions.
+
+If the subsystem resolves the condition, propagation stops.
+
+If it cannot, that layer creates a new Feedback Exchange Item for the next affected Scale.
+
+The original field report does not need to enter every Product, architecture, software, manufacturing, regulatory, UX, or service Decision context merely because the observed condition can eventually have consequences there.
+
+The same principle applies to an end-user claim.
+
+An end-user claim can be important Evidence at the context in which it is assessed and can initiate a substantial feedback loop.
+
+It does not thereby become direct Evidence for every Engineering Layer reached by that feedback loop.
+
+## 13. Maturity, prescriptiveness, and brittleness
+
+Maturity in this proposal is not an Acceptance state, completeness score, quality grade, or lifecycle state.
+
+It represents **deliberate prescriptiveness** at a defined engineering context: how much of the currently feasible solution freedom a Proposition removes.
+
+Maturity changes alter the Solution Space. They therefore also require reassessment of the affected Decision Blast Radius and Extent.
+
+### 13.1 Prescriptiveness order
+
+For context $\kappa$, let:
+
+$$F_\kappa$$
+
+be the feasible solution region before applying Proposition $p$.
+
+Let:
+
+$$F_\kappa[p]=\{x\in F_\kappa\mid x\text{ satisfies }p\}$$
+
+be the feasible region remaining after $p$ is applied.
+
+Two Propositions are equivalent with respect to prescriptiveness when they leave the same feasible region:
+
+$$p_1\equiv_\kappa p_2\iff F_\kappa[p_1]=F_\kappa[p_2].$$
+
+Define the prescriptiveness order by:
+
+$$[p_1]_\kappa\preceq_M[p_2]_\kappa\iff F_\kappa[p_2]\subseteq F_\kappa[p_1].$$
+
+Therefore $p_2$ is at least as prescriptive as $p_1$ when it leaves no more solution freedom than $p_1$.
+
+The order is partial. Propositions constraining different dimensions can be incomparable.
+
+Prescriptiveness is context-qualified. The same Proposition can remove substantial freedom in one engineering context and little freedom in another.
+
+### 13.2 Maturity interpretation
+
+Maturity describes whether the degree of prescriptiveness is intentional and appropriate for the current engineering horizon.
+
+A mature Proposition does not have to contain more detail.
+
+A high-level Proposition can be mature while deliberately preserving substantial implementation freedom.
+
+A detailed Proposition can be mature when the applicable engineering context has sufficient reason and authority to constrain that detail.
+
+The model therefore does not infer:
+
+$$MoreDetail\Rightarrow MoreMature$$
+
+or:
+
+$$MorePrescriptive\Rightarrow Better.$$
+
+Maturity, correctness, evidence sufficiency, Acceptance, and lifecycle state remain separate properties.
+
+### 13.3 Maturity change and Decision Extent
+
+A change in Maturity changes the feasible Solution Space and can alter the effects of existing Decisions.
+
+Therefore:
+
+$$MaturityChanged(p,\kappa)\Rightarrow ReassessBlastAndExtent(p,\kappa).$$
+
+This rule does not mean that every Maturity change necessarily produces a large Extent.
+
+It means that the existing Decision Blast Radius cannot be assumed to remain valid after the feasible Solution Space changes.
+
+An increase in prescriptiveness can:
+
+- invalidate downstream alternatives;
+- narrow existing implementation choices;
+- require Decision rework;
+- change Exchange Items;
+- trigger Work Product rework or reverification;
+- propagate through subsequent Engineering Layers under the Scaling rules.The economic impact can therefore be much larger than the apparent size of the changed Proposition.
+
+#### 13.3.1 Freezing a de-facto downstream solution
+
+A special case occurs when an upstream Maturity change formalizes a solution that is already established de facto at the adjacent downstream Scale.
+
+In this case the material implementation can already conform to the new upstream restriction, so the immediate Decision Blast Radius can be smaller than for a genuinely new constraint.
+
+This does **not** make the pattern economically or architecturally desirable by itself.
+
+The upstream change still evolves the Solution Space and requires the affected downstream state, traceability, evidence, Decisions, and Work Products to be reassessed for consistency.
+
+The pattern can be legitimate when downstream engineering has, for a valid reason, performed engineering normally owned by an upstream context and the result is subsequently propagated upward through the applicable Scaling and authority rules.
+
+Examples can include a lower-level feasibility discovery, supplier engineering result, manufacturing constraint, or implementation finding that causes the upstream context to adopt an already-developed solution.
+
+The exception therefore permits **reverse engineering influence**, not silent inversion of Scale authority.
+
+### 13.4 Revision Envelope
+
+Brittleness is evaluated against a declared set of plausible perturbations or revisions.
+
+For Proposition or solution state $p$, let:
+
+$$\Delta(p,\kappa)$$
+
+be the Revision Envelope applicable in context $\kappa$.
+
+The Revision Envelope can include:
+
+- plausible requirement changes;
+- parameter changes;
+- interface changes;
+- implementation substitutions;
+- environmental changes;
+- local physical changes;
+- changes to assumptions;
+- other project-relevant perturbations.
+
+A brittleness claim without a declared Revision Envelope is incomplete.
+
+### 13.5 Impact of revision
+
+For a perturbation:
+
+$$\delta\in\Delta(p,\kappa)$$
+
+let:
+
+$$Impact(p,\delta,\kappa)$$
+
+represent the resources and engineering effects required to restore a valid state.
+
+Impact is multidimensional and can include:
+
+$$Impact=(time,money,compute,humanEffort,rework,reverification,coordination,physicalChange,schedule,\ldots).$$
+
+Re-exploration is one possible component. It is not the definition of Brittleness.
+
+Likewise, the applicable Contract Resource Envelope does not define whether the solution is brittle. A solution can be brittle even when a particular project has enough resources to absorb the impact.
+
+### 13.6 Brittleness
+
+Brittleness is sensitivity of an engineering solution to a **small, subtle, local, or wrong-Scale detail whose change produces disproportionate engineering and economic impact**.
+
+The Project Profile defines how the applicable context distinguishes a minor trigger from severe impact.
+
+Conceptually:
+
+$$Brittle(p,\Delta,\Theta,\kappa)$$
+
+holds when:
+
+$$\exists\delta\in\Delta(p,\kappa):MinorOrWrongScale(\delta,p,\kappa)\land Severe_\Theta(Impact(p,\delta,\kappa)).$$
+
+`MinorOrWrongScale` can represent a change that is, for the applicable context:
+
+- small in scope;
+- subtle in meaning;
+- local in Product structure;
+- low in apparent implementation effort;
+- introduced at an inappropriate Scale or Magnification.
+
+`Severe` represents disproportionate effect on engineering economy, including time, money, computation, human effort, physical work, coordination, or other applicable resources.
+
+The common proposal does not prescribe one universal numeric threshold.
+
+The essential property is **disproportion** between the apparent significance of the triggering detail and the resulting impact.
+
+### 13.7 Maturity and Brittleness
+
+Maturity and Brittleness remain formally distinct properties.
+
+The proposal does not assert:
+
+$$MoreMature\Rightarrow MoreBrittle$$
+
+because that implication is not established.
+
+However, increasing prescriptiveness can create conditions that make Brittleness more likely: fewer remaining alternatives can make later changes harder to absorb and can increase Decision Extent or downstream rework.
+
+Therefore a material increase in Maturity should prompt Brittleness assessment, but Brittleness is established only from actual sensitivity to plausible perturbations.
+
+A highly prescriptive solution can remain robust.
+
+A less prescriptive solution can still be brittle when a subtle or wrong-Scale detail produces severe consequences.
+
+### 13.8 Relationship to Extent
+
+Extent and Brittleness answer different questions.
+
+**Extent** asks:
+
+> How far does the effect of this Decision reach?
+
+**Brittleness** asks:
+
+> How severe is the engineering and economic consequence of a relatively small or inappropriate trigger?
+
+A Decision can have:
+
+- large Extent without being brittle, when a broad change is expected to affect a broad region;
+- small Extent but high Brittleness, when a small local change causes severe cost inside that region;
+- both large Extent and high Brittleness, which is a strong signal that the Decision requires reassessment.
+
+Maturity changes can affect both dimensions and therefore require reassessment of each rather than assuming one from the other.
+
+## 14. UNKNOWNs, Gaps, and Future Actions
+
+UNKNOWNs and Gaps preserve incomplete engineering knowledge explicitly.
+
+Missing or invalid engineering information does not become complete through a plausible but unjustified relation.
+
+### 14.1 Orphan and false-parent Gap
+
+For required relation family $r$:
+
+$$RequiredRelation(p,r,\kappa)\land\nexists q:Valid_r(p,q,\kappa)\Rightarrow Orphan(p,r,\kappa).$$
+
+A false-parent Gap occurs when an asserted relation fails semantic validation:
+
+$$Asserted_r(p,q,\kappa)\land\neg Valid_r(p,q,\kappa)\Rightarrow FalseParentGap(p,q,r,\kappa).$$
+
+An invalid relation does not repair an Orphan.
+
+The governance model rewards explicit incompleteness and penalizes false closure:
+
+$$Reward(ExplicitOrphan)>Reward(UnsupportedTrace),$$
+
+$$Penalty(DelusiveTraceability)>Penalty(ExplicitOrphan).$$
+
+The purpose is to make truthful incompleteness economically preferable to fabricated traceability.
+
+### 14.2 UNKNOWN
+
+An UNKNOWN is required information whose value, validity, applicability, or result is not yet established.
+
+#### 14.2.1 Owned UNKNOWN
+
+An owned UNKNOWN belongs to the current engineering context.
+
+If a Decision depends on it:
+
+$$OwnedUnknown(u,\kappa)\land DependsOn(d,u)\Rightarrow BlocksCommitment(d)$$
+
+until the UNKNOWN is resolved or explicitly dispositioned.
+
+#### 14.2.2 Foreign UNKNOWN
+
+A foreign UNKNOWN originates outside the current engineering context.
+
+It becomes blocking only when material to the current commitment:
+
+$$ForeignUnknown(u,\kappa)\land MaterialTo(u,d,\kappa)\Rightarrow BlocksCommitment(d).$$
+
+Materiality is Project Profile dependent.
+
+Non-material foreign UNKNOWNs do not trigger unbounded investigation.
+
+### 14.3 Known Gap
+
+A Known Gap is an explicit known deficiency.
+
+The deficiency and affected engineering context are known. Its final resolution is not yet available.
+
+A Known Gap is therefore different from an UNKNOWN.
+
+### 14.4 Future Action
+
+A Future Action provides controlled deferred closure for a Known Gap when the required engineering result cannot yet be produced because necessary Product state, evidence, or physical realization does not yet exist.
+
+A Future Action is represented as:
+
+$$FA=(Party,Trigger,Outcome,Artifacts,Method,DoR,DoD).$$
+
+where:
+
+- `Party` identifies the responsible party;
+- `Trigger` identifies the condition that makes execution possible;
+- `Outcome` identifies the required result;
+- `Artifacts` identifies the required Engineering Objects or information;
+- `Method` identifies the applicable activity or reference;
+- `DoR` identifies readiness conditions;
+- `DoD` identifies completion conditions.
+
+A Future Action is not an UNKNOWN. The Gap, responsibility, expected result, and closure mechanism are known. Execution is deferred because its prerequisites are not yet available.
+
+#### 14.4.1 Deferred closure and Baseline
+
+A project can establish a Baseline that contains a Known Gap when the applicable Project Profile permits deferred closure and a valid Future Action controls that Gap.
+
+Conceptually:
+
+$$KnownGap(g)\land FutureAction(f,g)\land AuthorizedDeferredClosure(g,f,B)\Rightarrow BaselinePermitted(B).$$
+
+The Future Action does not claim that the Gap is resolved. It allows Product progression without fabricating information that cannot yet legitimately exist.
+
+#### 14.4.2 Completion
+
+When the Future Action becomes executable, the responsible party performs the defined activity and produces the required artifacts.
+
+Successful completion requires:
+
+$$FutureActionCompleted(f)\land RequiredArtifactsValid(f)\Rightarrow GapResolved(g).$$
+
+The resulting artifacts enter the applicable controlled engineering state according to project Configuration Management rules. They do not rewrite the historical state in which the Gap remained unresolved.
+
+A failed Future Action preserves the Gap and triggers applicable reassessment or another authorized disposition.
+
+### 14.5 Commitment and Acceptance boundary
+
+A Decision does not become binding while a required owned UNKNOWN or material foreign UNKNOWN remains unresolved:
+
+$$Bind(d,\kappa)\Rightarrow\neg OwnedUnknownRequired(d,\kappa)\land\neg MaterialForeignUnknownRequired(d,\kappa).$$
+
+A Known Gap can cross a Baseline, commitment, or Acceptance boundary only when the applicable Contract or Project Profile explicitly permits that disposition.
+
+Where deferred closure depends on a later Product state, the applicable Future Action identifies the responsible party, trigger, required outcome, artifacts, and completion conditions.
+
+### 14.6 Temporal evolution
+
+Typical semantic transitions include:
+
+$$UNKNOWN\rightarrow Resolved$$
+
+$$UNKNOWN\rightarrow KnownGap$$
+
+$$KnownGap\rightarrow FutureAction\rightarrow Resolved.$$
+
+Transitions preserve history. Later discovery does not rewrite earlier engineering state.
+
+### Illustrative Material - Future Actions
+
+*The following material is illustrative. It does not establish additional rules.*
+
+Engineering Design can establish that a component requires calibration while valid calibration values cannot yet be produced because the Product is not sufficiently materialized. The Baseline can preserve the Known Gap together with a Future Action that identifies the responsible party, the required in-field or pre-production activity, and the artifacts that must later be produced and added to the controlled Product state as project-defined Supplementary Documents.
+
+A typical progression is:
+
+$$DesignNeed\rightarrow KnownGap\rightarrow FutureAction\rightarrow MaterializedProduct\rightarrow Calibration\rightarrow CalibrationArtifacts\rightarrow GapClosure.$$
+
+The same pattern can apply to A/B testing, feature-flagged activation, parameter tuning, field measurement, commissioning adjustment, controlled deployment observation, supplier measurements available only from produced hardware, and other activities whose valid result depends on a later Product state.
+
+The common temporal condition is:
+
+$$CannotKnowNow\land CanKnowAfter(ProductState).$$
+
+## 15. Recursive Y/V architectural model
+
+The recursive Y/V model reconciles negotiable and fixed-horizon sources at every engineering magnification.
+
+The left branch contains sources that can be negotiated within the current horizon, such as Product requests, UX findings, business choices, or lower-cost design alternatives. The right branch contains sources treated as fixed at that horizon, such as applicable law, established natural constraints, already committed high-cost manufacturing, or other non-negotiable obligations.
+
+The center reconciles contradictions and produces a feasible region. Engineering realization then generates evidence, deficiencies, and Product feedback that can reopen the appropriate negotiable side.
+
+The same pattern can recur at Product, system, subsystem, component, implementation, manufacturing, deployment, or another Project Profile layer.
+
+## 16. Supporting processes over Solution Space
+
+Configuration Management, Change Management, Problem Resolution, Quality Assurance, Risk Management, Measurement, release management, production control, and similar disciplines operate over Solution Space entries and Engineering Objects.
+
+They are supporting processes, not universal semantic primitives. A Baseline, for example, exists only where Configuration Management establishes it. A production batch can be accepted without becoming a Baseline. Software can pass acceptance testing before deployment, while production deployment performs only project-defined sanity checks.
+
+Supporting-process predicates remain Project Profile parameters unless a Contract or applicable external norm makes them obligatory.
+
+## 17. Swarm exploration, divergence, waste, and resource control
+
+### 17.1 Resource Envelope
+
+The proposal does not use the phrase `bounded resources` as an undefined scalar. A Resource Envelope is a vector of declared availability or limits:
+
+$$R=(context,modelCalls,compute,wallTime,money,humanEffort,energy,equipment,externalCapacity,\ldots).$$
+
+A Contract can define a narrower Resource Budget inside the project/Hive envelope.
+
+### 17.2 Cluster support and resource survival
+
+Clusters exist only relative to one Swarm task or problem statement.
+
+For problem $q$, let:
+
+$$C_{d,q,t}$$
+
+be the Cluster of contributions that support Decision $d$ at time $t$.
+
+Cluster support measures **independent convergence**, not truth.
+
+The Project Profile defines:
+
+$$Support_P(C_{d,q,t})$$
+
+using contribution independence, evidence, provenance, and other applicable factors.
+
+Repeated or strongly correlated contributions do not automatically increase effective support. Therefore:
+
+$$MoreContributions(C)
+ot\Rightarrow MoreEvidence(C)$$
+
+and:
+
+$$GreaterSupport(C)
+ot\Rightarrow True(d).$$
+
+Cluster support is used for **resource allocation and trajectory survival**.
+
+For trajectory $\tau$:
+
+$$Allocation(\tau,t)=Rate_P(Support,Evidence,Progress,Novelty,DeliveryValue,Divergence,ResourceCost,ResourceEnvelope).$$
+
+The Project Profile defines the rating function and thresholds.
+
+An active trajectory can receive increased, maintained, reduced, or zero allocation.
+
+Zero allocation deactivates exploration but does not delete its results:
+
+$$Allocation(\tau,t)=0
+ot\Rightarrow Delete(\tau).$$
+
+Discovered Decisions, evidence, alternatives, and outliers remain addressable.
+
+### 17.3 Waste and overthinking
+
+Waste is not synonymous with overhead. Required verification, governance, communication, or setup can consume resources without being waste.
+
+Waste occurs when an operation produces neither required process effect nor reusable progress, evidence, knowledge, or Product value. Polling loops, repeated context replay, unnecessary status messages, redundant branch reasoning, and reasoning about deterministic facts are candidate waste categories when the project can establish that they add no required effect.
+
+Overthinking is a reasoning-specific waste mode. Before assigning further reasoning work to a Swarm, the Hive should determine whether deterministic algebra, an existing Decision, recorded evidence, or a previously preserved outcome already resolves the question.
+
+### 17.4 Contention and divergence
+
+Different trajectories are not divergent merely because they differ.
+
+Two trajectories contend only when they address the same scoped problem and cannot coexist in one valid solution:
+
+$$Contend(\tau_1,\tau_2,q)\Rightarrow SameProblem(\tau_1,\tau_2,q)\land\neg CoexistFeasibly(\tau_1,\tau_2,q).$$
+
+Difference without incompatibility does not require reconciliation.
+
+#### 17.4.1 Divergence as reconciliation difficulty
+
+Divergence is the engineering difficulty of reconciling contending trajectories.
+
+It is not defined by:
+
+- textual distance;
+- semantic embedding distance;
+- number of disagreeing agents;
+- majority size.
+
+Reconciliation is a direct exploration problem, consistent with Section 10.4.
+
+Let:
+
+$$\mathcal{R}_{rec}(\tau_1,\tau_2,t)$$
+
+be the valid reconciliation candidates discovered so far.
+
+Each candidate $r$ has a Resource Cost vector:
+
+$$RC(r)=(money,time,compute,humanEffort,WPRework,physicalRework,coordination,scheduleExposure,\ldots).$$
+
+The observed divergence is therefore determined from the explored reconciliation space rather than from an assumed inverse operation.
+
+The proposal does not assume a universal scalar distance.
+
+#### 17.4.2 Divergence health
+
+The Project Profile defines a health function:
+
+$$Health_P(\tau_1,\tau_2,t)$$
+
+using factors such as:
+
+- explored reconciliation cost;
+- persistence of incompatibility;
+- progress;
+- independent support;
+- evidence;
+- expected Product value;
+- consumed Resource Cost;
+- available Resource Envelope.
+
+Persistent strong support on both sides does not justify unlimited continued expenditure.
+
+When divergence becomes unhealthy, active allocation is reduced according to the Project Profile.
+
+#### 17.4.3 Back-off
+
+Back-off controls **future resource expenditure**, not preservation of engineering knowledge.
+
+Conceptually:
+
+$$UnhealthyDivergence(\tau,t)\Rightarrow Allocation(\tau,t+\Delta t)<Allocation(\tau,t).$$
+
+A Project Profile can define exponential or another project-appropriate back-off function.
+
+Repeated failure to produce useful progress can eventually result in:
+
+$$Allocation(\tau,t)=0.$$
+
+The trajectory is then inactive but remains addressable.
+
+#### 17.4.4 Post-mortem and exploratory restart
+
+When a trajectory is deactivated because of unhealthy divergence, the Hive preserves:
+
+- relevant Decisions;
+- rejected and surviving alternatives;
+- evidence;
+- outliers;
+- reconciliation attempts;
+- causes of failure;
+- Resource Cost.
+
+A post-mortem can update the known Solution Space and create a new exploration trajectory.
+
+This is an **exploration restart**. It does not erase the earlier trajectory.
+
+It is also distinct from Contract identity: a Contract is not restarted merely because its execution encounters divergence.
+
+## 18. Derived no-sphere theorem
+
+### Theorem NS-1 - No authority or Evidence sphere
+
+Assume:
+
+1. Decision and Evidence are Proposition roles.
+2. Proposition relations are typed and context-qualified.
+3. Every canonical relation has a derived converse available for reverse traceability.
+4. Converse traversal does not create a second semantic fact.
+5. Structural reachability does not establish semantic justification.
+6. Decisions have direct effect only inside their valid local engineering context.
+7. Evidence directly supports Propositions only where its Evidence relation is valid locally.
+8. Cross-Scale effects require an applicable Scaling or boundary mechanism.
+9. Downward Decision effects are materialized through Exchange Items.
+10. Upward Evidence effects are materialized through Feedback Exchange Items.
+11. Receiving Engineering Layers perform local interpretation.
+12. Evidence support, evidential closure, and Decision authority do not automatically compose through relation paths.
+
+Then neither forward nor reverse graph traversal can make a local Decision or local Evidence Proposition directly authoritative or evidentially sufficient at an incompatible foreign Engineering Layer.
+
+A local Decision can influence another Scale through:
+
+$$Decision_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow Decision_j$$
+
+when a receiving Decision is required.
+
+Local Evidence can influence a broader Scale through:
+
+$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow Decision_i$$
+
+when a receiving Decision is required.
+
+The corresponding graph can be traversed in reverse for traceability.
+
+For example, from a Decision the Hive can trace toward the Feedback Exchange Item and ultimately toward the Evidence that caused the feedback.
+
+Such reverse traversal answers what source information contributed to this local Decision.
+
+It does not make the receiving Decision authoritative over the source Evidence and does not make the originating Evidence directly sufficient for the receiving Decision.
+
+Therefore:
+
+$$Reachable(d_i,L_j)\not\Rightarrow Binding(d_i,L_j)$$
+
+and:
+
+$$Reachable(e_j,L_i)\not\Rightarrow EvidenceClosure_i(e_j).$$
+
+Likewise:
+
+$$ReverseReachable(d_i,e_j)\not\Rightarrow Supports_i(e_j,d_i)$$
+
+unless that local support relation is independently valid.
+
+The model therefore supports full bidirectional traceability without creating bidirectional semantic authority.
+
+Information can propagate through many Engineering Layers while Decisions, Evidence support, evidential closure, and authority remain local.
+
+**Derived property:** Decisions and Evidence remain local semantic Propositions. Their engineering effects cross Scale boundaries only through explicit materialized exchanges and renewed local interpretation. Forward and reverse graph traversal preserve traceability but do not create semantic inheritance.
+
+# Part V - Conformance and Project Profile
+
+## 19. Conformance
+
+Conformance is evaluated against the common proposal plus the applicable Project Profile revision.
+
+A conformant implementation MUST:
+
+- preserve Proposition and Engineering Object distinction;
+- validate relation use before semantic justification;
+- preserve unresolved required information explicitly;
+- enforce scale/bridge rules;
+- enforce Human ingress and Decision authority rules;
+- preserve all discovered outcomes while controlling active resource allocation;
+- separate Decision authority from Exchange Item communication;
+- enforce Contract accountability, Assignment and Obligation semantics, Work Product schemas, information boundaries, and Acceptance rules;
+- apply the Check Cascade so that a higher-cost check does not bypass a failing or missing cheaper checking capability;
+- satisfy required verification independence topology;
+- preserve revision/time history;
+- keep project-specific lifecycle/support-process predicates in the Project Profile unless the common model explicitly defines them.
+
+A conformance claim MUST identify the model version, Project Profile revision, checker/review method, and evidence set.
+
+## 20. Project Profile
+
+The Project Profile defines at least the parameters that are required by the project:
+
+- Product boundaries and engineering magnification layers;
+- Proposition roles and Engineering Object families;
+- relation vocabulary, signatures, converse labels, validators, and semantic composition rules;
+- scale compatibility and permitted bridges;
+- Contract parties, authority, human Decision scopes, enforcement, and Contract resource models;
+- Work Product schemas, semantic-role constraints, required validators, information-exposure policies, and acceptance rules;
+- required Instrumental Checks, Low-profile Assessments, High-profile Assessments, escalation conditions, and instrumentation-improvement rules;
+- Product API representations and Team API communication rules;
+- Trade Space representation, trajectory rating, cluster independence, outlier policy, repair-cost model, deactivation and post-mortem criteria;
+- Resource Envelope dimensions, measurement rules, invention allocations, and waste classification;
+- validation/verification independence topology;
+- Evidence rules, UNKNOWN materiality, Gap and Future Action policy;
+- supporting-process predicates such as Configuration Management, Change Management, baseline, release, deployment, production, risk, and quality rules;
+- lifecycle labels for Decisions, Engineering Objects, Work Products, Contracts, and other project elements;
+- external-party communication constraints and permitted formats;
+- integration/composition strategies and their validation requirements.
+
+## 21. Formal model audit
+
+Each Foundation Axiom has a defined Intent, Statement, Boundary, and Validation argument. A release audit SHOULD test at least the following countermodels:
+
+- **AX-1:** Arbitrary graph path used as valid engineering trace
+- **AX-2:** Hidden or fabricated completion replaces unresolved information
+- **AX-3:** Local Decision/evidence becomes remote authority without a bridge
+- **AX-4:** Universal human approval or unauthorized Hive commitment
+- **AX-5:** Low-support discoveries are deleted or active search consumes unlimited resources
+
+The audit also checks term uniqueness, Proposition/Engineering Object separation, Work Product information boundaries, Project Profile scoping, relation-role typing, revision/time qualification, and conformance-test evidence. It also checks Check Cascade gating: no higher-cost check proceeds while a cheaper required check is failing or absent, and lower-cost checking capability is improved when a more expensive assessment discovers a condition that can be established reliably at lower Resource Cost.
+
+Additional incompleteness and deferred-closure invariants are:
+
+- **Truthful incompleteness incentive** - Explicit Orphans are preferred over fabricated or semantically invalid traceability. Delusive Traceability receives a stronger governance penalty than exposed incompleteness.
+- **Commit UNKNOWN boundary** - No required owned UNKNOWN or material foreign UNKNOWN remains unresolved when a Decision becomes binding.
+- **Future Action completeness** - A Future Action identifies responsible party, trigger, expected outcome, required artifacts, method/reference, DoR, and DoD.
+- **Deferred Baseline truthfulness** - A Baseline with an authorized Known Gap records the Gap and its Future Action explicitly. Unavailable engineering values are not fabricated.
+- **Temporal closure** - Artifacts produced through a Future Action enter a later controlled engineering state and do not rewrite the earlier state in which the Gap was unresolved.
+
+Additional exploration invariants are:
+
+- **Cluster independence** - Cluster support accounts for contribution independence; correlated repetition does not become independent evidence.
+- **Support is not truth** - Cluster support affects resource survival but does not establish semantic correctness.
+- **Contention locality** - Divergence is evaluated only between trajectories addressing the same scoped problem and requiring incompatible resolutions.
+- **Explored divergence** - Reconciliation difficulty is derived from directly explored valid reconciliation alternatives, not textual distance or an inverse operation.
+- **Knowledge survival** - Zero active allocation never deletes discovered Decisions, evidence, outliers, or trajectory history.
+
+Additional Evidence-locality and traceability invariants are:
+
+- **Evidence Proposition typing** - Every Evidence item used semantically is a Proposition playing an Evidence role in the applicable context: $E_{\kappa}\subseteq P$.
+- **Evidence relation typing** - Every Evidence support relation satisfies its Evidence-source and Proposition-target signature.
+- **Converse consistency** - Every converse relation is derived from the canonical relation and is not stored as an independent semantic fact: $r^{\smile}(y,x)\iff r(x,y)$.
+- **Bidirectional traceability** - Applicable relations support bounded forward and converse traversal. Forward and reverse navigation do not imply semantic composition.
+- **Local Evidence support** - Evidence can directly support a Decision or other Proposition only in a context where the applicable Evidence relation is valid.
+- **Feedback materialization** - Upward Evidence effects cross an Engineering Layer boundary through a Feedback Exchange Item.
+- **Feedback provenance** - A Feedback Exchange Item can be traced back to the Evidence that produced it without requiring the complete Evidence contents to be redistributed.
+- **Nearest affected Scale** - Upward feedback stops at the nearest Engineering Layer capable of resolving the condition correctly.
+- **Local evidential closure** - Foreign Evidence does not automatically establish evidential closure in the receiving Engineering Layer.
+- **Evidence retrieval without inheritance** - Source Evidence can be referenced or explicitly retrieved without automatically acquiring a local support relation.
+- **Work Product separation** - A Work Product can carry or reference Evidence and Feedback Exchange Items but does not become interchangeable with a Feedback Exchange Item.
+- **No automatic Evidence composition** - A structural path does not become an Evidence support relation without an explicit valid semantic composition rule.
+- **No Evidence-volume authority** - Quantity, repetition, detail, or verbosity of Evidence does not establish authority, relevance, support, or sufficiency.
+- **No Evidence sphere** - Broad potential relevance of Evidence does not create direct Evidence applicability across Engineering Layers.
+- **Traceability is not reversibility of engineering semantics** - Converse graph traversal is a structural operation. It does not imply that causality, authority, change propagation, repair, or another engineering operation is semantically invertible.
+
+# Part VI - References and supporting material
+
+## 22. Language and terminology references
+
+The following references define the proposal's language and terminology foundation:
+
+1. ASD-STE100, Simplified Technical English, Issue 9, January 2025. https://www.asd-ste100.org/
+2. BCP 14: RFC 2119 and RFC 8174. https://www.rfc-editor.org/info/bcp14/
+3. ISO 24495-1:2023, Plain language - Part 1: Governing principles and guidelines. https://www.iso.org/standard/78907.html
+4. ISO 704:2022, Terminology work - Principles and methods. https://www.iso.org/standard/79077.html
+5. ISO/IEC Directives, Part 2, Principles and rules for the structure and drafting of ISO and IEC documents. https://www.iso.org/directives-and-policies.html
+
+ASD-STE100 applies to project-authored prose throughout the proposal. BCP 14 applies only to technical normative keywords as defined in Section 4.2.
+
+## 23. Formal-knowledge representation references
+
+The proposal uses the following specifications as design references, not normative dependencies:
+
+1. OpenMath Standard 2.0r2 and Content Dictionaries - semantic representation of mathematical objects, symbols, Commented Mathematical Properties, and Formal Mathematical Properties. https://openmath.org/standard/om20-2019-07-01/
+2. TPTP Language - annotated formula roles including axiom, hypothesis, definition, assumption, lemma, theorem, corollary, conjecture, and type. https://tptp.org/UserDocs/TPTPLanguage/TPTPLanguage.shtml
+3. OMDoc - document/theory-level distinction among axioms, definitions, assertions/theorems, proofs, and related mathematical statements. https://www.omdoc.org/
+4. SMT-LIB 2.7 - rigorous common languages and background theories for solver interaction. https://smt-lib.org/language.shtml
+
+The proposal adopts the distinction between expression syntax and statement role. It does not require serialization in OpenMath, TPTP, OMDoc, or SMT-LIB.
+
+## 24. Supporting AI architecture references
+
+The following sources are illustrative/supportive only:
+
+- OpenAI Agents SDK, agent orchestration, manager/agents-as-tools and handoff patterns. https://openai.github.io/openai-agents-python/multi_agent/
+- CrewAI Crews, role-bearing agents, tasks, processes, manager and memory concepts. https://docs.crewai.com/en/concepts/crews
+- AutoGen/ConversableAgent message-based agent communication. https://microsoft.github.io/FLAML/docs/reference/autogen/agentchat/conversable_agent/
+- Tree of Thoughts: Deliberate Problem Solving with Large Language Models, NeurIPS 2023. https://papers.nips.cc/paper/2023/hash/271db9922b8d1f4dd7aaef84ed5ac703-Abstract-Conference.html
+- Graph of Thoughts: Solving Elaborate Problems with Large Language Models, AAAI 2024. https://ojs.aaai.org/index.php/AAAI/article/view/29720
+
+## 25. Supporting engineering references
+
+Engineering standards and frameworks remain supportive/non-normative in this common proposal unless a Project Profile makes them applicable. Examples include Automotive SPICE, APQP, ISO 26262-family standards, INCOSE requirements guidance, NASA systems/software engineering guidance, and project-specific V-model processes.
+
+## 26. Project supporting material
+
+The following project material informed this revision:
+
+- `harness-hive-dialogue-recap.md` - non-normative recap used to restore the state-centric Hive architecture, bounded traversal, trade-space, trajectory, cluster, repair-cost, and non-actor design direction. Later accepted decisions in this proposal take precedence where the recap is older.
+- `resource_consumption_recap.md` - decision recap for context/input, orchestration, polling waste, and root/sub-agent resource use.
+- `session_resource_analysis.xlsx` - supporting workbook containing summary, category, phase, waste, support, agent, sub-agent, timing, session, and daily pivots.
+
+# Compilation status
+
+Draft 0.23 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+
+**Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
+
+**Formal-restoration status.** Draft 0.23 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, and Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability, and the derived no-sphere theorem. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+
+**Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
+
+**Reshuffling locality invariant.** A downstream finding becomes Reshuffling only when it cannot be absorbed within the affected local Engineering Layer and requires vertical Decision rework. Propagation stops at the nearest Engineering Layer capable of resolving the finding correctly.
+
+## Open backlog
+
+- **3D concept illustration:** add a dedicated 3D model showing Engineering Layers, Scale, Magnification, Decision Blast Radius, Extent, and cross-layer information propagation. The figure must explain the concept itself rather than merely provide an example hierarchy.
+- **Scale formalization:** recover and rework the mathematical model for Scale comparison, Magnification comparison/compatibility, Scale-compatible relations and operations, cross-Scale propagation, Decision Blast Radius, and Extent assessment. The recovered algebra must preserve the locality and no-sphere semantics established in Section 9.
+- **Minimal-repair formalization:** model minimal repair cost as an outcome of direct Solution Space exploration by the affected and adjacent engineering contexts. It cannot be computed as an inverse operation of the proposed change because feasible repairs, local absorption, alternative Decisions, and cross-Scale consequences must be discovered rather than algebraically reversed.
