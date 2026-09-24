@@ -353,9 +353,9 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Confidence** | Time-varying operational health indicator produced by the Hive for an active task, exploration, trajectory, or scoped Decision context. It summarizes the Hive's current weighted assessment of whether the ongoing exploration/development process is trending toward a useful outcome under the available information and Resource Envelope. Confidence is not truth, probability, precision, Evidence, authority, Decision, Acceptance, Back-off, or a property of a Work Product. |
 | **Conformance Evaluation** | Formal check of implementation/state against this model plus the applicable Project Profile. |
 | **Contract** | Durable governed record that defines a Product target, required Work Product, Issuer, Assignment, Resource Envelope, execution topology, Acceptance rules, enforcement, and the information required to preserve execution and fulfilment history. |
-| **Decision** | Rationale-bearing Proposition that preserves or directs a possible course of exploration or behavior. A Decision is not an Engineering Object. |
-| **Decision Blast Radius** | Calculated propagation reach of a candidate Decision over the currently available engineering state before that Decision is committed. Decision Blast Radius supports feasibility and engineering-economy assessment and does not itself change Engineering State. |
-| **Decision Extent** | Propagation reach already materialized by a committed Decision in the engineering state at a stated time. |
+| **Decision** | Rationale-bearing Proposition node kind that preserves or directs a possible course of exploration or behavior. In lifecycle-specific text, the same Decision is stated as **Decision Candidate** while commitment remains open and as **Decision** after commitment. Both terms refer to the same Proposition node identity. |
+| **Decision Blast Radius** | Calculated propagation reach of a **Decision Candidate** over the currently available engineering state before commitment. Decision Blast Radius supports feasibility and engineering-economy assessment and does not itself change Engineering State. |
+| **Decision Extent** | Propagation reach already materialized by a **Decision** in the Engineering State at a stated time. |
 | **Deprecation** | Ordinary forward engineering evolution in which later engineering supersedes, replaces, or makes earlier materialized engineering obsolete while continuing Product development from that history. |
 | **Delusive Traceability** | Apparently complete traceability created through semantically invalid, fabricated, or unjustified relations. |
 | **Engineering Layer** | Domain-local engineering context associated with one major Scale position and the corresponding Magnification level. An Engineering Layer can contain an execution sub-scale used to arrange local execution topology and gates without changing its major Scale position. |
@@ -436,9 +436,9 @@ Mathematical symbols are part of the proposal dictionary. This table is authorit
 | $\beta$ | Engineering branch or historical lineage identifier. |
 | $X^\beta_t$ | Engineering State on branch $\beta$ at observation point $t$. |
 | $\rho_{(\beta,t)\rightarrow(\beta',t')}$ | Partial revision mapping from $X^\beta_t$ to $X^{\beta'}_{t'}$. |
-| $D$ | Set of Decisions in the stated context. |
+| $D$ | Set of Decisions in the stated context; lifecycle qualification is stated where material. |
 | $D^*$ | Same bounded Decision set compared across trajectories. |
-| $d$ | One Decision. |
+| $d$ | One Decision node. Where pre-commit lifecycle qualification is material, the same node is written $d^{candidate}$. |
 | $d_0$ | Committed Decision targeted by a Rollback. |
 | $D_L$ | Decisions belonging to Engineering Layer $L$. |
 | $C$ | Contract. |
@@ -957,7 +957,7 @@ A Human input can become, as applicable, a Question, Request, Clarification, can
 
 Therefore:
 
-$$HumanOrigin(x)\not\Rightarrow DecisionRole(x).$$
+$$HumanOrigin(x)\not\Rightarrow DecisionKind(x,\kappa).$$
 
 Human provenance does not replace semantic typing.
 
@@ -1153,7 +1153,7 @@ $$\mathcal S_{\kappa'}.$$
 
 For a Human response to create Binding, Decision semantics and applicable authority must both hold:
 
-$$Binding(d,\sigma,t)\Rightarrow DecisionRole(d,\kappa)\land AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\land ApplicableDecisionConditionsSatisfied(d,\kappa).$$
+$$Binding(d,\sigma,t)\Rightarrow DecisionKind(d,\kappa)\land AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\land ApplicableDecisionConditionsSatisfied(d,\kappa).$$
 
 The common model does not introduce a generic `HumanOverride` primitive. A Human can cause a major change through ordinary governed concepts such as Human ingress, Decision, Contract revision, Assignment, Work Product, Product transition, and successor Engineering State.
 
@@ -1569,7 +1569,7 @@ Engineering State and its governed relations provide the common semantic referen
 
 ### 6.2 Proposition and Engineering Object
 
-A Proposition is the core semantic element. It can represent a claim, need, candidate structure, Decision, interface intent, expected behavior, constraint, question, request, gap statement, or another addressable semantic unit.
+A Proposition is the core addressable semantic graph node. It can represent a claim, need, candidate structure, Decision, interface intent, expected behavior, constraint, question, request, gap statement, or another addressable semantic unit.
 
 An Engineering Object is a materialized project entity such as a requirement record, document, model element, source file, binary, simulation result, test artifact, physical part, assembly, configuration record, or other tool/physical item.
 
@@ -1577,13 +1577,13 @@ Materialization is many-to-many:
 
 $$Materializes\subseteq\mathbb P\times\mathbb O.$$
 
-A Decision is a Proposition role and is not an Engineering Object. A Decision can later materialize into an ADR, plan, change request, Product definition, Exchange Item, or another Engineering Object.
+A Decision is a Proposition node kind. It can materialize into an ADR, plan, change request, Product definition, Exchange Item, or another Engineering Object.
 
-Decision, Evidence, Question, Request, constraint, expected behavior, interface intent, Gap statement, and other semantic roles specialize Proposition semantics without creating separate semantic universes.
+Evidence, Question, Request, constraint, expected behavior, interface intent, Gap statement, and other semantic roles specialize Proposition semantics without creating separate semantic universes.
 
 For an engineering context $\kappa$, let:
 
-$$D_{\kappa}=\{p\in\mathbb P\mid DecisionRole(p,\kappa)\}$$
+$$D_{\kappa}=\{p\in\mathbb P\mid DecisionKind(p,\kappa)\}$$
 
 and:
 
@@ -1597,7 +1597,7 @@ and:
 
 $$E_{\kappa}\subseteq\mathbb P.$$
 
-A Decision and an Evidence item are therefore Propositions playing different semantic roles.
+A Decision is a Proposition node of Decision kind. An Evidence item is a Proposition playing the Evidence role.
 
 Evidence inherits the common Proposition algebra, including semantic identity, Scope, revision and temporal qualification, provenance, materialization, typed relations, converse relations, image and inverse-image operations, bounded forward and reverse traversal, and historical addressability.
 
@@ -1615,13 +1615,29 @@ Projects can add roles through the Project Profile. Exchange Item is not another
 
 ### 6.4 Decision
 
-A Decision is a rationale-bearing Proposition that preserves or directs a possible course of Hive exploration or behavior. Agreement is a relation to a Decision, not the definition of a Decision.
+A Decision is a rationale-bearing Proposition node kind that preserves or directs a possible course of Hive exploration or behavior. Agreement is a relation to a Decision, not the definition of a Decision.
 
 $$DecisionSupport(x,d)$$
 
 $$AgreesWith(x,d).$$
 
-A Decision can be contested, supported by an outlier, committed, deactivated, deprecated, or superseded. Suggested lifecycle labels are project-configurable; the common requirement is that deactivation does not delete historical knowledge.
+#### 6.4.1 Lifecycle
+
+The common Decision lifecycle has two states.
+
+While commitment remains open, the Decision is stated as a **Decision Candidate**.
+
+After commitment, the same Decision is stated as a **Decision**.
+
+Thus:
+
+**Decision Candidate → Decision**
+
+Commitment changes the lifecycle qualification while preserving the same Proposition node identity.
+
+Decision rationale, provenance, Evidence, relations, revisions, exploration results, and historical addressability remain associated with that identity.
+
+An implementation represents one Decision node across this lifecycle.
 
 ### 6.5 Exchange Item
 
@@ -2989,17 +3005,17 @@ Contract topology itself does not determine which case applies.
 
 ### 9.16 Decision Blast Radius
 
-Decision Blast Radius is calculated for a **candidate Decision before commitment**.
+Decision Blast Radius is calculated for a **Decision Candidate before commitment**.
 
-For candidate Decision $d$ evaluated against current Engineering State $X_t$:
+For Decision Candidate $d^{candidate}$ evaluated against current Engineering State $X_t$:
 
-$$BR(d,X_t)$$
+$$BR(d^{candidate},X_t)$$
 
 is the calculated reach of the change through the engineering state available to the Decision exploration.
 
 Decision Blast Radius answers:
 
-> **If this candidate Decision were applied to the current engineering state, how far would the change propagate?**
+> **If this Decision Candidate were applied to the current engineering state, how far would the change propagate?**
 
 The calculation can discover affected Decisions, Engineering Layers, Exchange Items, Work Products, Contracts, verification, integration, Product state, physical realization, or other material engineering consequences.
 
@@ -3009,17 +3025,17 @@ It is not commitment.
 
 Therefore:
 
-$$Calculated(BR(d,X_t))\not\Rightarrow Committed(d).$$
+$$Calculated(BR(d^{candidate},X_t))\not\Rightarrow Committed(d).$$
 
 ### 9.17 Decision Blast Radius, feasibility, and economy
 
-Calculating Decision Blast Radius is part of deciding whether the candidate Decision is viable.
+Calculating Decision Blast Radius is part of deciding whether the Decision Candidate is viable.
 
 The calculated propagation can expose an empty feasible Solution Space, inability of an affected Engineering Layer to accommodate the change, excessive Work Product rework, reverification or reintegration, unavailable capability, Resource Envelope violation, physical or supplier consequences, unacceptable engineering or economic impact, or another reason not to commit the candidate.
 
 Conceptually:
 
-$$CandidateDecision(d)\rightarrow CalculateBlastRadius(d,X_t)\rightarrow AssessFeasibilityAndEconomy(d).$$
+$$CalculateBlastRadius(d^{candidate},X_t)\rightarrow AssessFeasibilityAndEconomy(d^{candidate}).$$
 
 The resulting assessment can lead to commitment, revision, further exploration, deferral, or rejection of the candidate.
 
@@ -3059,7 +3075,7 @@ Decision Blast Radius and Decision Extent measure the same kind of propagation r
 
 Decision Blast Radius is calculated from the pre-commit candidate state:
 
-$$BR(d,X_{precommit}).$$
+$$BR(d^{candidate},X_{precommit}).$$
 
 Decision Extent is observed from committed engineering state:
 
@@ -3069,19 +3085,19 @@ They need not be equal.
 
 It is possible that:
 
-$$DecisionExtent(d,t)<BR(d,X_{precommit})$$
+$$DecisionExtent(d,t)<BR(d^{candidate},X_{precommit})$$
 
 because downstream Engineering Layers absorb the change earlier than the initial calculation indicated.
 
 It is also possible that:
 
-$$DecisionExtent(d,t)>BR(d,X_{precommit})$$
+$$DecisionExtent(d,t)>BR(d^{candidate},X_{precommit})$$
 
 because subsequent engineering exposes consequences not represented in the state used for the original Blast Radius calculation.
 
 Therefore:
 
-$$DecisionExtent(d,t)\lessgtr BR(d,X_{precommit})$$
+$$DecisionExtent(d,t)\lessgtr BR(d^{candidate},X_{precommit})$$
 
 is legitimate.
 
@@ -3109,13 +3125,13 @@ Neither property is inferred from the other.
 
 ### 9.21 Nearest affected Engineering Layer
 
-Propagation stops at the nearest Engineering Layer in the affected domain that can accommodate the candidate Decision within its local Solution Space and applicable domain-local propagation boundary.
+Propagation stops at the nearest Engineering Layer in the affected domain that can accommodate the Decision Candidate within its local Solution Space and applicable domain-local propagation boundary.
 
-For candidate Decision $d$ and affected Engineering Layer $L$, let $X'$ be the prospective Engineering State produced by local accommodation of that Decision.
+For Decision Candidate $d^{candidate}$ and affected Engineering Layer $L$, let $X'$ be the prospective Engineering State produced by local accommodation of that Decision.
 
 Local accommodation requires:
 
-$$CanAccommodate(d,L,X')\Rightarrow\mathcal F(X')\neq\varnothing.$$
+$$CanAccommodate(d^{candidate},L,X')\Rightarrow\mathcal F(X')\neq\varnothing.$$
 
 The calculated local propagation must also remain inside the applicable single-domain extent established by the Project Profile.
 
@@ -3134,7 +3150,7 @@ Each affected domain evaluates the change in its own Solution Space and determin
 
 For:
 
-$$AffectedDomains(d)$$
+$$AffectedDomains(d^{candidate})$$
 
 the applicable domain contexts are consulted individually.
 
@@ -3292,13 +3308,13 @@ If finer or coarser information does not exist, the traversal terminates unless 
 
 #### 9.24.6 Decision Blast Radius
 
-A candidate Decision is shown at its originating Engineering Layer.
+A Decision Candidate is shown at its originating Engineering Layer.
 
 Its **Decision Blast Radius** is represented by a topology-constrained calculated reach over the currently available engineering state.
 
 Decision Blast Radius answers:
 
-> **If this candidate Decision were applied to the current engineering state, how far would the change propagate?**
+> **If this Decision Candidate were applied to the current engineering state, how far would the change propagate?**
 
 The visual representation must not be a geometric sphere.
 
@@ -3306,7 +3322,7 @@ Propagation can follow only valid same-Scale relations and adjacent-Layer transf
 
 The Blast Radius representation must distinguish candidate calculation from committed state.
 
-$$Calculated(BR(d,X_t))\not\Rightarrow Committed(d).$$
+$$Calculated(BR(d^{candidate},X_t))\not\Rightarrow Committed(d).$$
 
 A calculated Blast Radius can terminate before commitment when the candidate is infeasible or economically unacceptable.
 
@@ -3322,7 +3338,7 @@ Decision Extent uses the same topology as Decision Blast Radius but represents o
 
 The two regions need not coincide:
 
-$$DecisionExtent(d,t)\lessgtr BR(d,X_{precommit}).$$
+$$DecisionExtent(d,t)\lessgtr BR(d^{candidate},X_{precommit}).$$
 
 The figure must therefore visually distinguish calculated Blast Radius from materialized Decision Extent.
 
@@ -3330,9 +3346,9 @@ The figure must therefore visually distinguish calculated Blast Radius from mate
 
 Propagation terminates visually at an Engineering Layer when that Layer can accommodate the effect inside its local Solution Space and applicable domain-local propagation boundary.
 
-The termination point represents local accommodation of candidate Decision $d$ in the prospective Engineering State:
+The termination point represents local accommodation of Decision Candidate $d^{candidate}$ in the prospective Engineering State:
 
-$$CanAccommodate(d,L,X').$$
+$$CanAccommodate(d^{candidate},L,X').$$
 
 It does not imply that the Decision has universal authority over every Layer traversed before that point.
 
@@ -3374,7 +3390,7 @@ Adjacent-Layer Exchange Item and Feedback Exchange Item propagation appear along
 
 A prohibited jump over an existing Engineering Layer and a prohibited diagonal cross-domain/cross-Scale relation are shown only as explicitly rejected examples, never as ordinary topology.
 
-A candidate Decision has a **calculated Decision Blast Radius** shown as a non-committed topology-constrained region.
+A Decision Candidate has a **calculated Decision Blast Radius** shown as a non-committed topology-constrained region.
 
 A committed Decision has a **Decision Extent** shown as the region actually materialized at the illustrated time.
 
@@ -7102,7 +7118,7 @@ The registry contains reusable common-model identifiers. Project Profile extensi
 | Identifier | Type / signature | Meaning | Defining section | Formal role |
 |---|---|---|---|---|
 | $Materializes$ | $\mathbb P\times\mathbb O$ relation | Connects a Proposition with an Engineering Object carrying or realizing it | §6.2 | relation |
-| $DecisionRole(p,\kappa)$ | predicate | Proposition $p$ has Decision role in context $\kappa$ | §6.2 | predicate |
+| $DecisionKind(p,\kappa)$ | predicate | Proposition node $p$ has Decision kind in context $\kappa$ | §6.2 | predicate |
 | $EvidenceRole(p,\kappa)$ | predicate | Proposition $p$ has Evidence role in context $\kappa$ | §6.2 / §12 | predicate |
 | $ProductRole(x,\kappa)$ | predicate | $x$ plays Product role | §6.7 | predicate |
 | $WorkProductRole(x,C)$ | predicate | $x$ plays Work Product role for $C$ | §6.7 | predicate |
@@ -7120,10 +7136,10 @@ The registry contains reusable common-model identifiers. Project Profile extensi
 | $Fulfilled(C)$ | predicate | Contract fulfilment established | §6.8 / §11 | predicate |
 | $ProductTargetSatisfied(C)$ | predicate | Contract Product target satisfied | §6.8 | predicate |
 | $ProductStateTransition(P)$ | predicate | Applicable Product-state transition established | §6.7 | predicate |
-| $BR(d,X)$ | function | Decision Blast Radius evaluated against Engineering State $X$ | §9.16 | function |
+| $BR(d^{candidate},X)$ | function | Decision Blast Radius for Decision Candidate $d^{candidate}$ evaluated against Engineering State $X$ | §9.16 | function |
 | $DecisionExtent(d,t)$ | function | Actual materialized propagation of committed Decision | §9.18 | function |
-| $CanAccommodate(d,L,X')$ | predicate | Layer $L$ can accommodate candidate Decision $d$ in prospective State $X'$ | §9.21 | predicate |
-| $AffectedDomains(d)$ | function/set-valued mapping | Domains affected by candidate Decision | §9.22 | function |
+| $CanAccommodate(d^{candidate},L,X')$ | predicate | Layer $L$ can accommodate Decision Candidate $d^{candidate}$ in prospective State $X'$ | §9.21 | predicate |
+| $AffectedDomains(d^{candidate})$ | function/set-valued mapping | Domains affected by Decision Candidate $d^{candidate}$ | §9.22 | function |
 | $\Phi_A(X)$ | partial transformation | Human input $A$ applied to Engineering State $X$ | §5.5 | function |
 | $Composable(A,B,X)$ | predicate | Ordered Human inputs compose over State $X$ | §5.5 | predicate |
 | $PrerequisiteSpec(C)$ | function/set-valued mapping | Contract readiness prerequisites | §11.1 | function |
