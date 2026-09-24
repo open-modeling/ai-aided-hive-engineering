@@ -26,7 +26,6 @@ fi
 if find "$ROOT/core" -type f ! -name 'README.md' | grep -q .; then
   mkdir -p "$TREE/core"
   cp -a "$ROOT/core/." "$TREE/core/"
-  rm -f "$TREE/core/README.md"
 fi
 
 (
