@@ -3797,72 +3797,537 @@ Examples include temporary resource unavailability, an unfinished dependency, un
 
 **DISCONTINUED.** The Contract has ended without successful fulfilment under that Contract identity.
 
-#### 11.1.5 FSM transition semantics
+#### 11.1.5 Formal Contract lifecycle FSM
 
-Contract lifecycle transitions are guarded transitions:
+For Contract definition revision $C^k$, let the common lifecycle state set be:
 
-$$Transition(C,S_i,S_j,event,guard).$$
+$$Q_C=\{DEFINED,ASSIGNED,READY,EXECUTING,BLOCKED,SUBMITTED,UNDER\_ACCEPTANCE,REWORK\_REQUIRED,REASSESSMENT\_REQUIRED,FULFILLED,DISCONTINUED\}.$$
 
-A transition occurs only when its applicable guard is satisfied.
+The lifecycle machine is:
 
-The common transition relation includes:
+$$FSM_C=(Q_C,E_C,G_C,\delta_C)$$
 
-| From | To | Typical trigger / guard |
-|---|---|---|
-| `DEFINED` | `ASSIGNED` | valid single Executor Assignment established |
-| `ASSIGNED` | `READY` | all current readiness prerequisites satisfied |
-| `READY` | `EXECUTING` | governed execution starts |
-| `READY` | `ASSIGNED` | material revision invalidates one or more readiness prerequisites while Assignment remains valid |
-| `READY` | `DEFINED` | material revision invalidates Assignment itself |
-| `EXECUTING` | `BLOCKED` | temporary blocking condition prevents continuation |
-| `BLOCKED` | `EXECUTING` | blocker resolved and execution conditions again hold |
-| `BLOCKED` | `ASSIGNED` | Contract revision invalidates readiness but retains valid Assignment |
-| `BLOCKED` | `DEFINED` | Assignment becomes invalid or absent |
-| `EXECUTING` | `SUBMITTED` | Executor conformity passed and explicit submission performed |
-| `EXECUTING` | `REASSESSMENT_REQUIRED` | inability, critical divergence, resource failure, material premise failure, or comparable condition |
-| `SUBMITTED` | `UNDER_ACCEPTANCE` | independent assessment begins |
-| `UNDER_ACCEPTANCE` | `FULFILLED` | Acceptance succeeds |
-| `UNDER_ACCEPTANCE` | `REWORK_REQUIRED` | result is correctable under current Contract basis |
-| `UNDER_ACCEPTANCE` | `REASSESSMENT_REQUIRED` | Acceptance exposes a material Contract-basis problem |
-| `REWORK_REQUIRED` | `EXECUTING` | governed rework starts |
-| `REASSESSMENT_REQUIRED` | `DEFINED` | successor revision requires new Assignment |
-| `REASSESSMENT_REQUIRED` | `ASSIGNED` | Assignment remains valid but readiness must be re-established |
-| `REASSESSMENT_REQUIRED` | `READY` | revised Contract basis is valid and all readiness predicates already hold |
-| `REASSESSMENT_REQUIRED` | `EXECUTING` | justified continuation where revised execution basis is immediately executable |
-| `REASSESSMENT_REQUIRED` | `DISCONTINUED` | current Contract will not continue |
-| any non-terminal state | `DISCONTINUED` | applicable authorized discontinuation condition |
+where:
 
-`FULFILLED` and `DISCONTINUED` are terminal for that Contract identity. Further work occurs through an applicable successor Contract or another project process.
+- $Q_C$ is the state set;
+- $E_C$ is the set of recognized lifecycle events;
+- $G_C$ is the applicable guard set;
+- $\delta_C$ is a partial guarded transition function.
 
-#### 11.1.6 Revision-driven backward transition
+For ordered lifecycle event $e_n$:
 
-A lifecycle state does not survive a material Contract revision merely because it was valid immediately before the revision.
+$$q_{n+1}=\delta_C(q_n,e_n,C^k,S_t)$$
 
-For:
+when the applicable transition exists and its guard succeeds.
 
-$$C^k\rightarrow C^{k+1}$$
+If no applicable transition exists:
 
-the lifecycle predicates of $C^{k+1}$ are re-evaluated.
+$$\delta_C(q_n,e_n,C^k,S_t)\uparrow.$$
+
+An undefined transition does not permit the Hive to invent a successor lifecycle state.
+
+##### 11.1.5.1 Lifecycle events are ordered
+
+Contract lifecycle events form a temporal sequence:
+
+$$\Sigma_C=\langle e_0,e_1,\ldots,e_n\rangle.$$
+
+The FSM evaluates them in their canonical event order.
+
+Lifecycle processing is not assumed commutative:
+
+$$\delta_C(\delta_C(q,e_a),e_b)\neq\delta_C(\delta_C(q,e_b),e_a)$$
+
+in general.
+
+For example, loss of a readiness prerequisite before execution starts can produce a different lifecycle path from loss of the same resource after execution has started.
+
+Event order is therefore part of Contract history.
+
+#### 11.1.6 Common lifecycle guards
+
+##### 11.1.6.1 Assignment-valid guard
 
 Define:
 
-$$EarliestValidState(C^{k+1})$$
+$$G_A(C^k,t)$$
 
-as the earliest lifecycle state whose entry predicates and all preceding required predicates are satisfied by the revised Contract.
+as:
+
+$$ValidAssignment(C^k,t)\land |Executor(C^k)|=1\land SatisfiesExecutionPolicy(Executor(C^k),C^k,profile).$$
 
 Then:
 
-$$State(C^{k+1})=EarliestValidState(C^{k+1})$$
+$$ASSIGNED(C^k,t)\Rightarrow G_A(C^k,t).$$
 
-unless another explicit transition rule requires a later governance state such as `REASSESSMENT_REQUIRED`.
+##### 11.1.6.2 Readiness guard
 
-This permits legitimate backward movement. For example:
+Define:
+
+$$G_R(C^k,t)=G_A(C^k,t)\land\bigwedge_{p\in PrerequisiteSpec(C^k)}Evaluate(p,S_t)=TRUE.$$
+
+Then:
+
+$$READY(C^k,t)\Rightarrow G_R(C^k,t).$$
+
+`UNKNOWN` does not evaluate as `TRUE`.
+
+##### 11.1.6.3 Execution-entry guard
+
+Execution requires:
+
+$$G_E(C^k,t)=G_R(C^k,t)\land StartExecution(C^k,t).$$
+
+Therefore:
+
+$$READY\rightarrow EXECUTING$$
+
+only when $G_E$ holds.
+
+##### 11.1.6.4 Temporary-block guard
+
+Define:
+
+$$G_B(C^k,t)=TemporaryContinuationBlock(C^k,t)\land CurrentContractBasisPotentiallyValid(C^k,t).$$
+
+Then:
+
+$$EXECUTING\rightarrow BLOCKED$$
+
+when $G_B$ holds.
+
+A condition that invalidates the Contract basis is not merely a blocker.
+
+##### 11.1.6.5 Reassessment guard
+
+Define $G_X(C^k,t)$ to include applicable conditions such as:
+
+$$ReportInability(C)$$
+
+$$CriticalUnhealthyExecution(C)$$
+
+$$MaterialContractBasisInvalid(C)$$
+
+$$MaterialAcceptanceBasisInvalid(C)$$
+
+$$UnrecoverableResourceCondition(C)$$
+
+$$InvalidExecutionTopology(C)$$
+
+or another Project Profile-defined critical condition.
+
+Then:
+
+$$G_X(C^k,t)\Rightarrow REASSESSMENT\_REQUIRED$$
+
+from applicable active states.
+
+##### 11.1.6.6 Submission guard
+
+Submission requires:
+
+$$G_S(C^k,w^r,t)=EXECUTING(C^k,t)\land ExecutorConformityPassed(w^r,C^k)\land ExplicitSubmit(w^r,C^k,t).$$
+
+Therefore:
+
+$$EXECUTING\rightarrow SUBMITTED.$$
+
+Repository presence, visibility, or acknowledgement does not satisfy $G_S$.
+
+##### 11.1.6.7 Acceptance-entry guard
+
+$$G_U(C^k,w^r,t)=Submitted(w^r,C^k)\land BeginIndependentAcceptance(w^r,C^k,t).$$
+
+Therefore:
+
+$$SUBMITTED\rightarrow UNDER\_ACCEPTANCE.$$
+
+##### 11.1.6.8 Fulfilment guard
+
+`FULFILLED` is governed by the Contract's explicit fulfilment predicate:
+
+$$G_F(C^k,t)=FulfilmentPredicateSatisfied(C^k,t).$$
+
+For an ordinary Contract this includes the required Work Product Acceptance.
+
+For a Product Delivery Contract it additionally includes Product target satisfaction as defined in Section 6.8.
+
+Therefore:
+
+$$Accepted(w,C)\not\Rightarrow FULFILLED(C)$$
+
+universally.
+
+Instead:
+
+$$G_F(C,t)\Rightarrow FULFILLED(C).$$
+
+#### 11.1.7 Runtime transition relation
+
+The common same-definition-revision runtime transitions are:
+
+| From | To | Required event / guard |
+|---|---|---|
+| `DEFINED` | `ASSIGNED` | $G_A$ becomes true |
+| `ASSIGNED` | `READY` | $G_R$ becomes true |
+| `ASSIGNED` | `DEFINED` | $G_A$ becomes false |
+| `READY` | `EXECUTING` | $G_E$ |
+| `READY` | `ASSIGNED` | $G_A\land\neg G_R$ - readiness lost while Assignment remains valid |
+| `READY` | `DEFINED` | $\neg G_A$ |
+| `EXECUTING` | `BLOCKED` | $G_B$ |
+| `EXECUTING` | `SUBMITTED` | $G_S$ |
+| `EXECUTING` | `REASSESSMENT_REQUIRED` | $G_X$ |
+| `BLOCKED` | `EXECUTING` | blocker cleared, $G_R$, and execution resumes |
+| `BLOCKED` | `ASSIGNED` | temporary block resolved but readiness remains false and $G_A$ remains true |
+| `BLOCKED` | `DEFINED` | Assignment becomes invalid |
+| `BLOCKED` | `REASSESSMENT_REQUIRED` | blocker is reclassified as a material Contract-basis problem |
+| `SUBMITTED` | `UNDER_ACCEPTANCE` | $G_U$ |
+| `SUBMITTED` | `REASSESSMENT_REQUIRED` | submitted basis becomes materially invalid before Acceptance begins |
+| `UNDER_ACCEPTANCE` | `FULFILLED` | Acceptance disposition permits fulfilment and $G_F$ holds |
+| `UNDER_ACCEPTANCE` | `REWORK_REQUIRED` | Acceptance disposition = `REWORK_REQUIRED` |
+| `UNDER_ACCEPTANCE` | `REASSESSMENT_REQUIRED` | Acceptance disposition = `REASSESSMENT_REQUIRED` |
+| `REWORK_REQUIRED` | `EXECUTING` | execution basis remains valid, $G_R$, and governed rework starts |
+| `REWORK_REQUIRED` | `ASSIGNED` | rework remains required, Assignment valid, but readiness is not satisfied |
+| `REWORK_REQUIRED` | `DEFINED` | Assignment becomes invalid |
+| `REWORK_REQUIRED` | `REASSESSMENT_REQUIRED` | ordinary rework is no longer sufficient |
+| `REASSESSMENT_REQUIRED` | `DEFINED` | reassessment/revision leaves no valid executable Assignment |
+| `REASSESSMENT_REQUIRED` | `ASSIGNED` | valid Assignment exists but readiness is not satisfied |
+| `REASSESSMENT_REQUIRED` | `READY` | Contract basis valid and all readiness predicates hold |
+| `REASSESSMENT_REQUIRED` | `EXECUTING` | Contract basis valid, $G_R$, and governed continuation explicitly resumes |
+| `REASSESSMENT_REQUIRED` | `REWORK_REQUIRED` | reassessment concludes that ordinary rework under the valid Contract basis is sufficient |
+| any non-terminal state | `DISCONTINUED` | valid discontinuation condition |
+| `FULFILLED` | - | terminal for this Contract identity |
+| `DISCONTINUED` | - | terminal for this Contract identity |
+
+This table is the normative common transition relation.
+
+The Contract lifecycle figure in Section 11.1.12 is derived from this relation.
+
+##### 11.1.7.1 Readiness loss is not necessarily Contract revision
+
+A runtime readiness condition can change without changing the Contract definition.
+
+For example:
+
+$$READY(C^k,t_1)$$
+
+and later:
+
+$$\neg ResourceAvailable(r,C^k,t_2)$$
+
+can produce:
+
+$$READY(C^k)\rightarrow ASSIGNED(C^k)$$
+
+while remaining on the same definition revision.
+
+Therefore:
+
+$$ReadinessLoss\not\Rightarrow ContractDefinitionRevision.$$
+
+##### 11.1.7.2 Blocking and readiness loss differ
+
+`BLOCKED` means that execution had already begun and cannot temporarily continue.
+
+Therefore:
+
+$$READY\land\neg G_R\Rightarrow ASSIGNED$$
+
+rather than:
+
+$$READY\rightarrow BLOCKED.$$
+
+By contrast:
+
+$$EXECUTING\land TemporaryContinuationBlock\Rightarrow BLOCKED.$$
+
+This keeps `BLOCKED` as an execution-state condition rather than a generic synonym for not ready.
+
+##### 11.1.7.3 BLOCKED is recoverable only while the Contract basis remains viable
+
+If the blocker exposes a fundamental Contract problem:
+
+$$BLOCKED\land G_X\Rightarrow REASSESSMENT\_REQUIRED.$$
+
+The model must not repeatedly classify a fundamental infeasibility as a temporary blocker merely to keep execution alive.
+
+##### 11.1.7.4 Rework re-entry is guarded
+
+Acceptance disposition `REWORK_REQUIRED` does not imply immediate execution.
+
+Before rework restarts, Assignment and readiness are re-evaluated.
+
+Thus:
+
+$$REWORK\_REQUIRED\land G_R\land StartRework\Rightarrow EXECUTING.$$
+
+But:
+
+$$REWORK\_REQUIRED\land G_A\land\neg G_R\Rightarrow ASSIGNED$$
+
+once re-entry is initiated.
+
+And:
+
+$$REWORK\_REQUIRED\land\neg G_A\Rightarrow DEFINED.$$
+
+This prevents rework from bypassing readiness.
+
+#### 11.1.8 Definition-revision transition relation
+
+Runtime transition and Contract-definition revision are different operations.
+
+Define:
+
+$$\delta_{run}$$
+
+for lifecycle evolution under one $C^k$, and:
+
+$$\delta_{rev}$$
+
+for the effect of:
+
+$$C^k\rightarrow C^{k+1}.$$
+
+Therefore:
+
+$$\delta_{run}\neq\delta_{rev}.$$
+
+##### 11.1.8.1 Revision re-entry basis
+
+For successor definition revision $C^{k+1}$, define:
+
+$$BaseReentry(C^{k+1},t)=\begin{cases}
+DEFINED,&\neg G_A\\
+ASSIGNED,&G_A\land\neg G_R\\
+READY,&G_R.
+\end{cases}$$
+
+A definition revision by itself does not silently start execution.
+
+Thus:
+
+$$BaseReentry\notin\{EXECUTING,SUBMITTED,UNDER\_ACCEPTANCE,FULFILLED\}.$$
+
+An explicit continuation or resume event can subsequently move `READY` to `EXECUTING`.
+
+This makes definition revision and execution restart separately observable.
+
+##### 11.1.8.2 Revision from DEFINED, ASSIGNED or READY
+
+For:
+
+$$q\in\{DEFINED,ASSIGNED,READY\}$$
+
+a material revision produces:
+
+$$(C^k,q)\rightarrow(C^{k+1},BaseReentry(C^{k+1})).$$
+
+Hence:
 
 $$READY(C^k)\rightarrow ASSIGNED(C^{k+1})$$
 
-when a material revision preserves the Executor but introduces a new unsatisfied readiness prerequisite.
+when Assignment remains valid but the revised Contract introduces an unsatisfied readiness prerequisite.
 
-#### 11.1.7 Human intervention and backward transition
+Likewise:
+
+$$READY(C^k)\rightarrow DEFINED(C^{k+1})$$
+
+when Assignment validity is lost.
+
+A revision can also move an earlier state forward:
+
+$$DEFINED(C^k)\rightarrow READY(C^{k+1})$$
+
+when the revised Contract establishes a valid Assignment and all readiness predicates already hold.
+
+The FSM is therefore not directionally monotonic across revisions.
+
+##### 11.1.8.3 Revision during active execution
+
+A material definition revision while the Contract is `EXECUTING` terminates execution under the old definition revision as an active continuation basis.
+
+The old execution history remains attached to $C^k$.
+
+The new definition revision is re-entered through:
+
+$$BaseReentry(C^{k+1},t).$$
+
+Execution under $C^{k+1}$ requires a subsequent governed continuation:
+
+$$READY(C^{k+1})\rightarrow EXECUTING(C^{k+1}).$$
+
+Therefore:
+
+$$Revision\neq AutomaticExecutionContinuation.$$
+
+Where the Project Profile requires explicit reassessment before re-entry, the transition can instead be:
+
+$$EXECUTING(C^k)\rightarrow REASSESSMENT\_REQUIRED(C^{k+1})$$
+
+followed by the ordinary reassessment exit rules.
+
+##### 11.1.8.4 Revision during submission or Acceptance
+
+Submission and Acceptance are revision-specific.
+
+Suppose:
+
+$$Submitted(w^r,C^k).$$
+
+If:
+
+$$C^k\rightarrow C^{k+1}$$
+
+and the revision is material to that submission or Acceptance basis:
+
+$$MaterialToAcceptance(C^k,C^{k+1},w^r),$$
+
+then:
+
+$$Submitted(w^r,C^k)\not\Rightarrow Submitted(w^r,C^{k+1})$$
+
+and:
+
+$$AcceptedAgainst(w^r,C^k)\not\Rightarrow AcceptedAgainst(w^r,C^{k+1}).$$
+
+The new definition revision re-enters through its applicable Contract lifecycle basis.
+
+A non-material revision can preserve unaffected Acceptance work only when the Project Profile explicitly establishes that non-materiality.
+
+No Acceptance status transfers merely through revision ancestry.
+
+##### 11.1.8.5 Revision from REWORK_REQUIRED
+
+If Contract semantics change while rework is required:
+
+$$REWORK\_REQUIRED(C^k)\land Revision(C^k,C^{k+1}),$$
+
+the old rework disposition remains historical.
+
+The new revision is not assumed to inherit it.
+
+Instead:
+
+$$State(C^{k+1})=BaseReentry(C^{k+1},t)$$
+
+unless explicit reassessment remains required.
+
+This prevents obsolete rework instructions from becoming obligations under a materially changed Contract.
+
+##### 11.1.8.6 Terminal states do not revise in place
+
+`FULFILLED` and `DISCONTINUED` remain terminal for the Contract identity.
+
+Therefore:
+
+$$FULFILLED(C)\not\rightarrow Revision(C)$$
+
+as ordinary continuation, and:
+
+$$DISCONTINUED(C)\not\rightarrow Revision(C).$$
+
+New materially governed work after either terminal state is represented through:
+
+$$Succeeds(C_2,C_1)$$
+
+or another applicable external process.
+
+This preserves the terminal-state semantics already established.
+
+#### 11.1.9 Unsupported transition invariant
+
+A lifecycle transition is valid only when it belongs to the common transition relation or an explicitly permitted Project Profile extension that does not contradict the common model.
+
+Therefore:
+
+$$Transition(C,q_i,q_j)\Rightarrow(q_i,q_j)\in E_C$$
+
+for common transitions.
+
+Examples of invalid shortcuts include:
+
+$$DEFINED\not\rightarrow EXECUTING$$
+
+without Assignment and readiness;
+
+$$ASSIGNED\not\rightarrow SUBMITTED;$$
+
+$$SUBMITTED\not\rightarrow FULFILLED$$
+
+without independent Acceptance and the Contract fulfilment predicate; and:
+
+$$REWORK\_REQUIRED\not\rightarrow FULFILLED$$
+
+without a successor Work Product submission and Acceptance.
+
+#### 11.1.10 No hidden same-state iteration
+
+An event that does not change lifecycle state can still be recorded in Contract history.
+
+It is not represented as an artificial FSM self-transition merely to show activity.
+
+Thus:
+
+$$ObservedEvent(C,t)\land State(C,t^-)=State(C,t^+)$$
+
+does not require:
+
+$$Transition(q,q).$$
+
+Examples include additional Evidence received while `EXECUTING`, progress inside `EXECUTING`, waiting during `UNDER_ACCEPTANCE`, or new diagnostic information while `BLOCKED`.
+
+This retains the existing principle that activity does not equal lifecycle progress.
+
+#### 11.1.11 Discontinuation
+
+Discontinuation remains a governed terminal event.
+
+Let:
+
+$$G_D(C,t)$$
+
+be the applicable discontinuation guard.
+
+Possible Project Profile-defined bases include explicit authorized cancellation, demonstrated infeasibility, permanent resource withdrawal, unrecoverable external dependency, replacement by successor Contract, or another governed reason.
+
+Then:
+
+$$q\rightarrow DISCONTINUED$$
+
+for non-terminal $q$ only when $G_D$ holds.
+
+Discontinuation preserves the Contract definition revisions, lifecycle observations, Work Products, Evidence, Acceptance attempts, and event history.
+
+#### 11.1.12 Event and transition audit
+
+Every lifecycle transition record preserves at minimum:
+
+$$LifecycleEvent=(cid,definitionRevision,fromState,toState,eventType,guardResult,time,provenance).$$
+
+Where a definition revision participates, the event additionally references:
+
+$$C^k\rightarrow C^{k+1}.$$
+
+This allows the Hive to distinguish:
+
+$$READY(C^k)\rightarrow ASSIGNED(C^k)$$
+
+caused by runtime prerequisite loss from:
+
+$$READY(C^k)\rightarrow ASSIGNED(C^{k+1})$$
+
+caused by Contract revision.
+
+The visible state names are the same. The causal semantics are not.
+
+##### 11.1.12.1 Contract lifecycle figure
+
+![Contract lifecycle FSM](../assets/images/Hive_Swarm_Contract_Lifecycle_FSM_0.31.png)
+
+**Figure - Contract lifecycle FSM.** Contract definition revision and runtime lifecycle transition are orthogonal. The figure is derived from the normative transition relation in Section 11.1.7 and introduces no additional lifecycle semantics. It distinguishes normal forward runtime transitions, recovery/backward/reassessment runtime transitions, definition-revision re-entry, and the common discontinuation family. The representative revision regression $READY(C^k)\rightarrow ASSIGNED(C^{k+1})$ is distinct from runtime readiness regression $READY(C^k)\rightarrow ASSIGNED(C^k)$.
+
+#### 11.1.13 Human intervention and lifecycle effect
 
 Human Arbitrary Input, Human Voluntary Choice, or Human Prescriptive Choice does not bypass the Contract authority and revision rules.
 
@@ -3870,11 +4335,9 @@ Human input itself does not directly mutate the Contract FSM. However, when Huma
 
 $$HumanInput\rightarrow GovernedContractRevision\rightarrow ReevaluateLifecyclePredicates.$$
 
-::: {custom-style="Illustration"}
-**Illustration - Human intervention and readiness.** A Contract is `READY`. A Human with applicable authority changes the required Product target and adds a mandatory physical qualification test. The current Executor remains valid, but the required test facility is not yet available. Then $READY(C^k)\rightarrow ASSIGNED(C^{k+1})$ because Assignment remains valid but readiness no longer holds. When the qualification resource becomes available, $ASSIGNED(C^{k+1})\rightarrow READY(C^{k+1})$. If the same Human change also requires an Executor type that the current Executor cannot satisfy, $READY(C^k)\rightarrow DEFINED(C^{k+1})$ until a new valid Assignment is established. The same rule applies to non-Human changes; the cause of revision does not change the FSM semantics.
-:::
+The re-entry rules in Section 11.1.8 then apply.
 
-#### 11.1.8 Dependency-driven readiness
+#### 11.1.14 Dependency-driven readiness
 
 Dependencies are explicit readiness conditions where applicable.
 
@@ -3896,7 +4359,7 @@ The common model does not require every dependency to wait for full fulfilment. 
 
 External activities can be represented in the same readiness logic without being forced into internal Contract semantics.
 
-#### 11.1.9 Resource-driven readiness
+#### 11.1.15 Resource-driven readiness
 
 Resource Envelope declaration and resource availability are distinct.
 
@@ -3910,13 +4373,13 @@ $$RequiredResource(r,C)\land\neg ResourceAvailable(r,C,t)\Rightarrow\neg READY(C
 
 This applies to computational and physical resources.
 
-#### 11.1.10 Revision is not lifecycle state
+#### 11.1.16 Revision is not lifecycle state
 
 Revision remains orthogonal to state:
 
 $$Revision(C)\neq ContractState(C).$$
 
-A revision can cause a lifecycle transition, including a backward transition, but the revision itself is not the transition state.
+A revision can cause lifecycle re-entry or reassessment, but the revision itself is not a lifecycle state.
 
 Earlier Contract revisions remain historically addressable.
 
@@ -4245,7 +4708,17 @@ $$UNDER\_ACCEPTANCE\rightarrow FULFILLED.$$
 
 For the required coherent Work Product:
 
-$$Accepted(w^r,C^k)\Rightarrow Fulfilled(C^k).$$
+$$Accepted(w^r,C^k)$$
+
+establishes Work Product Acceptance against that Contract revision. Contract fulfilment occurs only when the applicable fulfilment predicate also holds:
+
+$$G_F(C^k,t)\Rightarrow Fulfilled(C^k).$$
+
+For an ordinary Contract, Work Product Acceptance can satisfy the required fulfilment predicate. For a Product Delivery Contract, Product target satisfaction is an additional condition. Therefore:
+
+$$Accepted(w,C)\not\Rightarrow Fulfilled(C)$$
+
+universally.
 
 Successful Acceptance establishes that the submitted result satisfies the applicable Contract Acceptance rules. It does not by itself imply release, deployment, production, baselining, or another project-specific lifecycle transition.
 
@@ -4427,27 +4900,17 @@ $$DEFINED\rightarrow ASSIGNED\rightarrow READY\rightarrow EXECUTING\rightarrow S
 
 But the actual model is a guarded graph, not a one-way pipeline.
 
-Examples include:
+The normative guarded transition relation is defined in Section 11.1.7. It distinguishes same-revision runtime regression from definition-revision re-entry. For example:
 
-$$READY\rightarrow ASSIGNED$$
+$$READY(C^k)\rightarrow ASSIGNED(C^k)$$
 
-after a material revision introduces an unsatisfied readiness prerequisite;
+can occur when a runtime readiness prerequisite is lost while Assignment remains valid, whereas:
 
-$$READY\rightarrow DEFINED$$
+$$READY(C^k)\rightarrow ASSIGNED(C^{k+1})$$
 
-when Assignment is invalidated;
+can occur when a material Contract revision preserves Assignment but introduces an unsatisfied readiness prerequisite.
 
-$$EXECUTING\rightarrow BLOCKED\rightarrow EXECUTING;$$
-
-$$UNDER\_ACCEPTANCE\rightarrow REWORK\_REQUIRED\rightarrow EXECUTING;$$
-
-and:
-
-$$REASSESSMENT\_REQUIRED\rightarrow\{DEFINED,ASSIGNED,READY,EXECUTING,DISCONTINUED\}$$
-
-according to the revised Contract predicates.
-
-Every transition preserves history. There is no same-state transition used to hide iteration.
+The model also includes recoverable execution blocking, guarded rework re-entry, reassessment, explicit discontinuation, and revision-specific submission/Acceptance. Every transition preserves history. There is no same-state transition used to hide iteration.
 
 #### 11.6.17 Product boundary
 
@@ -5771,7 +6234,12 @@ The Project Profile defines at least the parameters that are required by the pro
 - Contract-execution health indicators, divergence thresholds, and back-off behavior;
 - Agent deactivation, Contract-role Actor deactivation, reassignment, recovery, and termination policies.
 - readiness prerequisite kinds, including external-work, dependent-Contract, computational-resource, physical-resource, legal/commercial, Product-state, and synchronization conditions;
-- Contract lifecycle transition guards and materiality conditions for revision-driven backward transitions;
+- Contract lifecycle transition guards and materiality conditions for runtime regression and definition-revision re-entry;
+- lifecycle event ordering where several observations occur at the same timestamp;
+- temporary-block classification and reassessment thresholds;
+- readiness evaluation frequency and resumption policy after `BLOCKED`;
+- Acceptance materiality across Contract revisions;
+- discontinuation guards and additional lifecycle audit/event metadata;
 - blocker categories and conditions requiring `REASSESSMENT_REQUIRED`;
 - Work Product preparation/submission protocol and revision handling;
 - Acceptance dispositions, permitted Acceptance delegation, and rules for reuse of unaffected validation or Evidence;
@@ -5988,6 +6456,20 @@ ot\Rightarrow ProductStateTransition(p)$.
 
 Additional Contract lifecycle invariants are:
 
+- **FSM source of truth** - The guarded transition relation is normative; the lifecycle figure is derived from it.
+- **Partial transition function** - Unsupported transitions remain undefined rather than being guessed.
+- **Event ordering matters** - Lifecycle events are temporally ordered and are not assumed commutative.
+- **Runtime and revision transitions differ** - $\delta_{run}\neq\delta_{rev}$.
+- **Readiness can regress without Contract revision** - $READY(C^k)\rightarrow ASSIGNED(C^k)$ is valid when a runtime prerequisite becomes unsatisfied.
+- **Revision-driven regression remains explicit** - $READY(C^k)\rightarrow ASSIGNED(C^{k+1})$ is a different historical event.
+- **Blocking is execution-local** - `BLOCKED` means temporarily interrupted execution, not generic unreadiness.
+- **Fundamental blocker escalation** - $BLOCKED\land G_X\Rightarrow REASSESSMENT\_REQUIRED$.
+- **Rework does not bypass readiness** - Assignment and readiness are re-evaluated before rework execution resumes.
+- **Fulfilment uses the Contract fulfilment predicate** - Work Product Acceptance alone is not universally sufficient for Product Delivery Contracts.
+- **Definition revision does not automatically resume execution** - revision re-enters through `DEFINED`, `ASSIGNED`, or `READY` unless explicit reassessment is required.
+- **Terminal state means terminal Contract identity** - further governed work uses a successor Contract rather than silently reopening `FULFILLED` or `DISCONTINUED`.
+- **No hidden self-loop** - activity can be recorded without inventing lifecycle progress.
+- **Visual/formal consistency** - every figure edge or transition family corresponds to the normative relation.
 - **FSM completeness** - Every common Contract state has explicit entry semantics and permitted transition families.
 - **Guarded transitions** - Contract lifecycle transitions occur only when their applicable transition guards hold.
 - **Backward transitions are valid** - Lifecycle progress is not assumed monotonic.
@@ -6096,11 +6578,11 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.30 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.31 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.30 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.31 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records, and a derived lifecycle figure. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
 **Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
 
@@ -6108,7 +6590,6 @@ Draft 0.30 retains the structural rewrite introduced in Draft 0.9 and corrects t
 
 ## Open backlog
 
-- **Contract lifecycle FSM formalization and figure:** complete the Contract lifecycle transition model with exhaustive transition guards, revision-driven backward transitions, dependency/resource readiness semantics, and countermodel audit. The proposal must include a dedicated visual FSM diagram showing all common Contract states and permitted transition families, including forward execution, blocking/recovery, rework, reassessment, backward transitions after material Contract revision, fulfilment, and discontinuation. The diagram must be derived from the formal transition relation and must not introduce additional lifecycle semantics.
 - **3D concept illustration:** add a dedicated 3D model showing Engineering Layers, Scale, Magnification, Decision Blast Radius, Extent, and cross-layer information propagation. The figure must explain the concept itself rather than merely provide an example hierarchy.
 - **Scale formalization:** recover and rework the mathematical model for Scale comparison, Magnification comparison/compatibility, Scale-compatible relations and operations, cross-Scale propagation, Decision Blast Radius, and Extent assessment. The recovered algebra must preserve the locality and no-sphere semantics established in Section 9.
 - **Minimal-repair formalization:** model minimal repair cost as an outcome of direct Solution Space exploration by the affected and adjacent engineering contexts. It cannot be computed as an inverse operation of the proposed change because feasible repairs, local absorption, alternative Decisions, and cross-Scale consequences must be discovered rather than algebraically reversed.
