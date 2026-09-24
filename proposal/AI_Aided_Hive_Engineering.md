@@ -1,7 +1,8 @@
 ---
-title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.39"
-date: "23 September 2026"
+title: "AI Aided Hive Engineering Proposal"
+subtitle: "Formal Proposal - Draft 0.40"
+author: "Julia (Ilya) Lebedev <ilya@lebedev.net>"
+date: "24 September 2026"
 ---
 
 **Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Magnification/Decision Blast Radius/Decision Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/Rollback, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, Engineering State/computation-boundary revisions, Contract decomposition/execution-topology/authority-locality revisions, and Formal Symbol and Predicate Audit revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
@@ -1112,7 +1113,7 @@ $$\mathcal S_{\kappa'}.$$
 
 For a Human response to create Binding, Decision semantics and applicable authority must both hold:
 
-$$Bind(d,\sigma,t)\Rightarrow DecisionRole(d,\kappa)\land AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\land ApplicableDecisionConditionsSatisfied(d,\kappa).$$
+$$Binding(d,\sigma,t)\Rightarrow DecisionRole(d,\kappa)\land AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\land ApplicableDecisionConditionsSatisfied(d,\kappa).$$
 
 The common model does not introduce a generic `HumanOverride` primitive. A Human can cause a major change through ordinary governed concepts such as Human ingress, Decision, Contract revision, Assignment, Work Product, Product transition, and successor Engineering State.
 
@@ -2183,7 +2184,6 @@ Later discovery can add previously unknown structure while preserving prior Stat
 
 $$Trace_{t_0}\subseteq Trace_{t_1}.$$
 
-#### 8.1.1 Revision-aware relation instances
 #### 8.1.1 Revision-aware relation instances
 
 A relation instance is qualified by the revisions of its endpoints and by the context in which it applies.
@@ -6323,9 +6323,9 @@ A failed Future Action preserves the Gap and triggers applicable reassessment or
 
 ### 14.5 Commitment and Acceptance boundary
 
-A Decision does not become binding while a required owned UNKNOWN or material foreign UNKNOWN remains unresolved:
+A Decision does not become binding while a required owned UNKNOWN or material foreign UNKNOWN remains unresolved. For the applicable Scope $\sigma$, time $t$, and engineering context $\kappa$:
 
-$$Bind(d,\kappa)\Rightarrow\neg OwnedUnknownRequired(d,\kappa)\land\neg MaterialForeignUnknownRequired(d,\kappa).$$
+$$Binding(d,\sigma,t)\Rightarrow\neg OwnedUnknownRequired(d,\kappa)\land\neg MaterialForeignUnknownRequired(d,\kappa).$$
 
 A Known Gap can cross a Baseline, commitment, or Acceptance boundary only when the applicable Contract or Project Profile explicitly permits that disposition.
 
@@ -6715,9 +6715,9 @@ $$Confidence_H(d,q,t).$$
 
 This means that the current exploration around Decision $d$ appears more or less likely to contribute to a positive resolution of task $q$. It is not a property of Decision $d$.
 
-Therefore:
+Therefore, for applicable Scope $\sigma$:
 
-$$HighConfidence_H(d,q,t)\not\Rightarrow Binding(d)$$
+$$HighConfidence_H(d,q,t)\not\Rightarrow Binding(d,\sigma,t)$$
 
 $$HighConfidence_H(d,q,t)\not\Rightarrow AuthorityValid(d)$$
 
@@ -6882,9 +6882,9 @@ Such reverse traversal answers what source information contributed to this local
 
 It does not make the receiving Decision authoritative over the source Evidence and does not make the originating Evidence directly sufficient for the receiving Decision.
 
-Therefore:
+Therefore, let $\sigma_j$ be the applicable receiving Scope at Engineering Layer $L_j$. Then:
 
-$$Reachable(d_i,L_j)\not\Rightarrow Binding(d_i,L_j)$$
+$$Reachable(d_i,L_j)\not\Rightarrow Binding(d_i,\sigma_j,t)$$
 
 and:
 
@@ -6998,215 +6998,64 @@ Technical Product interfaces remain engineering content. The Project Profile can
 
 ## 21. Formal model audit
 
-Each Foundation Axiom has a defined Intent, Statement, Boundary, and Validation argument. A release audit SHOULD test at least the following countermodels:
+### 21.1 Audit role
 
-- **AX-1:** Arbitrary graph path used as valid engineering trace
-- **AX-2:** Hidden or fabricated completion replaces unresolved information
-- **AX-3:** Local Decision, Evidence, or Human participation becomes remote semantic or authority influence through a skipped Engineering Layer, diagonal cross-domain relation, or other invalid Scale transition
-- **AX-4:** Universal human approval or unauthorized Hive commitment
-- **AX-5:** Low-support discoveries are deleted or active search consumes unlimited resources
+The Formal Model Audit tests the proposal against its defining sections.
 
-The audit also checks term uniqueness, Proposition/Engineering Object separation, Work Product information boundaries, Project Profile scoping, relation-role typing, revision/time qualification, and conformance-test evidence. It also checks Check Cascade gating: no higher-cost check proceeds while a cheaper required check is failing or absent, and lower-cost checking capability is improved when a more expensive assessment discovers a condition that can be established reliably at lower Resource Cost.
+It does not create a parallel source of engineering semantics.
 
-Additional incompleteness and deferred-closure invariants are:
+Definitions, axioms, derived properties, Contract rules, relation semantics, and other engineering rules remain authoritative in the sections where they are defined.
 
-- **Truthful incompleteness incentive** - Explicit Orphans are preferred over fabricated or semantically invalid traceability. Delusive Traceability receives a stronger governance penalty than exposed incompleteness.
-- **Commit UNKNOWN boundary** - No required owned UNKNOWN or material foreign UNKNOWN remains unresolved when a Decision becomes binding.
-- **Future Action completeness** - A Future Action identifies responsible party, trigger, expected outcome, required artifacts, method/reference, DoR, and DoD.
-- **Deferred Baseline truthfulness** - A Baseline with an authorized Known Gap records the Gap and its Future Action explicitly. Unavailable engineering values are not fabricated.
-- **Temporal closure** - Artifacts produced through a Future Action enter a later controlled engineering state and do not rewrite the earlier state in which the Gap was unresolved.
+An audit check therefore identifies:
 
-Additional exploration invariants are:
+1. the property being tested;
+2. its defining section;
+3. the countermodel or invalid condition being sought;
+4. the observed result.
 
-- **Cluster independence** - Cluster support accounts for contribution independence; correlated repetition does not become independent evidence.
-- **Support is not truth** - Cluster support affects resource survival but does not establish semantic correctness.
-- **Contention locality** - Divergence is evaluated only between trajectories addressing the same scoped problem and requiring incompatible resolutions.
-- **Explored divergence** - Reconciliation difficulty is derived from directly explored valid reconciliation alternatives, not textual distance or an inverse operation.
-- **Knowledge survival** - Zero active allocation never deletes discovered Decisions, evidence, outliers, or trajectory history.
+Where audit wording conflicts with a defining rule, the defining rule governs and the audit check is corrected.
 
-Additional Evidence-locality and traceability invariants are:
+### 21.2 Foundation countermodels
 
-- **Evidence Proposition typing** - Every Evidence item used semantically is a Proposition playing an Evidence role in the applicable context: $E_{\kappa}\subseteq\mathbb P$.
-- **Evidence relation typing** - Every Evidence support relation satisfies its Evidence-source and Proposition-target signature.
-- **Converse consistency** - Every converse relation is derived from the canonical relation and is not stored as an independent semantic fact: $r^{\smile}(y,x)\iff r(x,y)$.
-- **Bidirectional traceability** - Applicable relations support bounded forward and converse traversal. Forward and reverse navigation do not imply semantic composition.
-- **Local Evidence support** - Evidence can directly support a Decision or other Proposition only in a context where the applicable Evidence relation is valid.
-- **Feedback materialization** - Upward Evidence effects cross an Engineering Layer boundary through a Feedback Exchange Item.
-- **Feedback provenance** - A Feedback Exchange Item can be traced back to the Evidence that produced it without requiring the complete Evidence contents to be redistributed.
-- **Nearest affected Scale** - Upward feedback stops at the nearest Engineering Layer capable of resolving the condition correctly.
-- **Local evidential closure** - Foreign Evidence does not automatically establish evidential closure in the receiving Engineering Layer.
-- **Evidence retrieval without inheritance** - Source Evidence can be referenced or explicitly retrieved without automatically acquiring a local support relation.
-- **Work Product separation** - A Work Product can carry or reference Evidence and Feedback Exchange Items but does not become interchangeable with a Feedback Exchange Item.
-- **No automatic Evidence composition** - A structural path does not become an Evidence support relation without an explicit valid semantic composition rule.
-- **No Evidence-volume authority** - Quantity, repetition, detail, or verbosity of Evidence does not establish authority, relevance, support, or sufficiency.
-- **No Evidence sphere** - Broad potential relevance of Evidence does not create direct Evidence applicability across Engineering Layers.
-- **Traceability is not reversibility of engineering semantics** - Converse graph traversal is a structural operation. It does not imply that causality, authority, change propagation, Rollback, or another engineering operation is semantically invertible.
+Each Foundation Axiom includes its own Intent, Statement, Boundary, and Validation argument.
 
-Additional computation-boundary invariants are:
+A release audit tests at least the following countermodels:
 
-- **Engineering-State boundary** - Temporary computational material enters Engineering State through a defined common-model or Project Profile concept.
-- **State-Projection boundedness** - Computation operates on a purpose-bounded State Projection of one Engineering State.
-- **Deterministic-first computation** - Applicable mechanically decidable information is established before unresolved semantic reasoning.
-- **Defined-concept retention** - Preserved computational results are recorded through existing engineering concepts rather than one universal change container.
-- **Historical qualification** - Retained information carries its actual temporal, lifecycle, and applicability status.
-- **Operation-specific governance** - Decision commitment, Evidence use, Contract transition, Work Product Acceptance, Product materialization, Rollback, and other governed effects follow their dedicated rules.
-- **State-relative reassessment** - A material change in a result's validity dependencies triggers reassessment against the later Engineering State.
-- **Historical preservation** - Reassessment retains the original result and its provenance in their original temporal context.
-- **Participant transience** - Engineering continuity depends on retained Engineering State and provenance.
-- **Implementation batching neutrality** - Implementation transactions, patches, commits, or deltas carry common-model information without defining additional engineering semantics.
+| Axiom | Countermodel |
+|---|---|
+| **AX-1 – Semantic legitimacy** | A structural graph path is accepted as engineering justification without the applicable semantic validators. |
+| **AX-2 – Truthful incompleteness** | Missing engineering information is replaced by fabricated completion or false traceability. |
+| **AX-3 – Scale locality** | Decision, Evidence, authority, or semantic effect bypasses an applicable Engineering Layer or uses a diagonal cross-domain/Scale shortcut. |
+| **AX-4 – Delegated autonomy** | Human approval becomes universally required, or the Hive commits an operation outside its applicable authority. |
+| **AX-5 – Resource-rated exploration** | Low-support discoveries are deleted, or active exploration consumes resources without Resource Envelope control. |
+| **AX-6 – Concurrent non-deterministic Product evolution** | Product engineering is treated as one deterministic sequential trajectory, or Product materialization is assumed to grow monotonically. |
 
-Additional Human authority and input-transformation invariants are:
+### 21.3 Cross-cutting audit index
 
-- **Explicit authority source** - Every authoritative effect has an applicable explicit authority source.
-- **No inferred authority** - Title, seniority, Confidence, expertise, social cues, and organizational visibility do not establish authority.
-- **Operation-specific authority** - Authority for one governed operation does not imply authority for another.
-- **Scope/time qualification** - Authority outside its valid Scope, time, or context cannot establish the governed effect.
-- **Authority is not feasibility** - $Authority\not\Rightarrow Feasibility$.
-- **Authority is not Evidence** - Authority does not establish Evidence sufficiency or correctness.
-- **Human origin is not authority** - $HumanOrigin\not\Rightarrow Authority$.
-- **HPC request is not authorization** - A requested Human prescription becomes binding only when the responding Human has applicable authority.
-- **Role separation** - Issuer, Executor, Acceptance delegate, Decision authority, originator, and Work Product producer remain distinct roles.
-- **Multi-layer Human locality** - One Human participating at several Engineering Layers does not create cross-layer authority.
-- **Contract-boundary locality** - Authority does not propagate through parent/child, dependency, integration, shared-Hive, or Team API relations.
-- **Delegation is explicit** - Delegation is bounded by operation, Scope, time, and delegable authority.
-- **Delegation is not Assignment** - Authority delegation does not make an Actor Executor unless Contract Assignment also establishes that role.
-- **Authority and transformation are separate** - $Authorized(A)\not\Rightarrow Feasible(\Phi_A(\mathcal S))$.
-- **Human input is order-sensitive** - $A+B\neq B+A$ in general.
-- **Human input is not generally reversible** - $B+A-A\neq B$ in general.
-- **Retraction is not inverse** - $R_A\neq\Phi_A^{-1}$ in general.
-- **Input composition can be partial** - $\neg Composable(A,B,X_t)\Rightarrow\Phi_B(\Phi_A(X_t))\uparrow$.
-- **Undefined successor means undefined Decision Space** - non-composable Human inputs do not permit the Hive to fabricate a successor Decision Space.
-- **Defined composition can eliminate feasibility** - $Composable(A,B,X_t)\land\mathcal F(X_{AB})=\varnothing$ is a valid explicit Engineering State.
-- **Empty feasible space is an engineering-state result** - authorized inputs can compose into an engineering state with no feasible continuation.
-- **Authority cannot manufacture feasibility** - authorized Human choice does not imply a non-empty feasible region.
-- **Input history is ordered** - a permutation of Human inputs does not generally preserve successor engineering state.
-- **Supersession is not historical reversal** - superseding an input changes active continuation without restoring a fictional state in which the input never occurred.
-- **Human intervention preserves history** - Human-caused successor states do not destructively replace earlier engineering states.
+Cross-cutting audit areas reference their defining sections instead of restating those rules.
 
-Additional Contract decomposition, execution-topology, and authority-locality invariants are:
+| Audit area | Primary audit focus | Defining model |
+|---|---|---|
+| **Engineering State and computation** | State Projection boundedness, temporary computation boundary, state-relative reassessment, historical preservation | §§5.4, 6.1 |
+| **Human authority and input** | Explicit authority, operation/Scope/time qualification, ordered transformations, partial composition, history preservation | §5.5 |
+| **Semantic algebra and revision** | Proposition/Object separation, relation typing, converse consistency, revision mapping, scoped supersession | §§5.3, 7, 8.1 |
+| **Data reliability and checking** | Independent validity dimensions, Check Cascade order, cheaper-check improvement, re-entry after findings | §§8.3–8.5 |
+| **Scale and Magnification** | same-Scale direct relations, adjacent-Layer transfer, no diagonal propagation, Magnification traversal | §9 |
+| **Decision propagation** | Blast Radius before commitment, Decision Extent after materialization, locality and Brittleness distinction | §§9.16–9.22 |
+| **Product and Work Product** | role/state separation, many-to-many relation, Acceptance locality, Product Delivery specialization, integration independence | §§6.7–6.11 |
+| **Contracts and execution topology** | one accountable Assignment, readiness guards, lifecycle transitions, revision/runtime separation, authority locality | §11 |
+| **Integration** | input qualification, readiness convergence, integration verification, contribution traceability | §§11.3–11.4 |
+| **Evidence and feedback** | Evidence typing, local support, converse traceability, Feedback Exchange Item propagation, Evidence retrieval | §12 |
+| **UNKNOWN, Gap, Future Action** | explicit incompleteness, commitment boundary, deferred closure, temporal preservation | §14 |
+| **Rollback and Reshuffling** | Rollback Closure, current-materialization subtraction, single-Layer locality, preservation of parallel engineering | §10.4 and applicable propagation rules |
+| **Execution resources and Confidence** | allocation, divergence/back-off, participant deactivation, Confidence boundaries and drift | §17 |
+| **Formal identifiers** | symbol uniqueness, signature consistency, Project Profile suffixes, source integrity | §4.4 and §21.4 |
 
-- **Single Executor cardinality** - Every executable Contract state has exactly one accountable Assignment: $\exists!a:\ Assignment(C,a)$.
-- **Decomposition does not inherit Assignment** - Child Contracts require their own valid Assignments; parent Assignment does not propagate automatically.
-- **Execution-policy compliance** - Every Assignment satisfies the execution policy applicable to that Contract type.
-- **Independent execution** - Development and independent verification/testing cannot share an Executor where the applicable policy prohibits it.
-- **Contract execution is Solution Exploration** - $Execution(C)\subseteq\mathcal{X}$, so the general convergence/divergence and resource-survival rules apply.
-- **Rework is exploration** - A rework request reopens affected Solution Exploration; it does not prescribe an algebraic inverse fix.
-- **Integration failure is convergence Evidence** - Repeated integration or verification failure contributes to Contract-execution health assessment.
-- **No unlimited rework** - Persistent unhealthy rework leads to back-off rather than unlimited resource expenditure.
-- **Agent deactivation** - Persistently unproductive internal participants can be removed from the active trajectory without deleting useful history.
-- **Executor deactivation requires reassignment** - An executable Contract cannot silently continue after its Executor is deactivated.
-- **Post-mortem before blind repetition** - Recovery from unhealthy divergence changes execution conditions, resources, responsibility, engineering state, or another relevant factor rather than merely repeating the failed trajectory.
-- **Contract continuity** - Exploration restart does not rewrite Contract or failure history.
-- **Contract decomposition is not Hive decomposition** - Splitting execution responsibilities does not require one Hive per Contract.
-- **Hive/Agent boundary** - Lightweight internal Agents do not become Contract Executors merely through participation.
-- **Upper-layer Actor/Hive boundary** - Upper-layer Actors operate through the governed Hive boundary rather than relying on direct control of transient Agents.
-- **Multi-layer Human is not implicit authority** - One Human operating at multiple Engineering Layers does not create cross-layer authority or legitimize undocumented Decisions.
-- **Execution topology is not authority topology** - Parent/child, dependency, integration, verification, shared-Hive, or Team API relations do not create authority unless explicitly defined.
-- **Mandatory integration qualification** - Every Work Product is checked for integration readiness before integration.
-- **Rework after integrated verification** - Integrated-result failure can require source Work Product rework and subsequent reverification.
-- **Integrator rework request is not design authority** - The Integrator can reject or request correction without inheriting originating Decision authority.
-- **Contribution traceability is not authority** - Integration ancestry supports forward and converse traceability without authority inheritance.
-- **Team API scope** - Team API governs cross-Actor/cross-Hive engineering communication and does not prescribe technical Product interfaces.
-Additional Product / Work Product invariants are:
+A release audit can add project-specific checks through the Project Profile.
 
-- **Product establishes Hive scope** - Product is the primary engineering subject and intent around which Product-oriented Hive operation is organized.
-- **Product is not complete specification** - $ProductDefined(P)\not\Rightarrow FullySpecified(P)$.
-- **Product is broader than Contract topology** - $ProductScope(P)\not\equiv ContractTopology(P)$.
-- **Product intent does not imply capability** - $ProductIntent(P)\not\Rightarrow HiveCapable(H,P)$.
-- **Conceivable does not imply developable** - $TechnicallyConceivable(x)\not\Rightarrow Developable_H(x,t)$.
-- **Capability limitation remains explicit** - $CapabilityLimit\not\Rightarrow SilentScopeReduction$.
-- **Development is capability- and technology-bounded** - developability depends on applicable Hive capability and enabling technology.
-- **Development Envelope is temporal** - changes in tools, suppliers, facilities, technologies, or capabilities can expand or reduce the Product region reachable by the Hive without changing Product identity.
-- **Role independence** - Product role and Work Product role do not imply each other.
-- **Role coincidence is permitted** - one entity can explicitly play both roles without collapsing their semantics.
-- **State independence** - Product state and Work Product state are distinct.
-- **Contract duality** - Product target and required Work Product are separate Contract elements.
-- **Acceptance locality** - Work Product Acceptance is Contract-relative and does not establish universal Product Acceptance.
-- **Acceptance is not Product mutation** - $Accepted(w,C)\not\Rightarrow ProductStateTransition(P)$.
-- **Product Delivery specialization** - Product target satisfaction is an additional Contract-fulfilment condition where the Contract requires Product Delivery.
-- **Many-to-many mapping** - Product decomposition and Work Product decomposition are not assumed to be isomorphic.
-- **Integration independence** - Work Product integration and Product integration are distinct operations.
-- **Rework independence** - Work Product rework and Product rework are not universally equivalent.
-- **Historical Acceptance preservation** - later Product change does not rewrite a historical Work Product Acceptance event.
-- **Impact-controlled invalidation** - Product change affects a Work Product only through an applicable materiality/impact relation.
-- **Supporting-process independence** - release, deployment, production, baseline, certification, and similar Product/Work Product states remain Project Profile-defined and do not follow automatically from Contract Acceptance.
+Those checks can specialize open project parameters but retain the common-model semantics of their defining sections.
 
-Additional Contract lifecycle invariants are:
-
-- **FSM source of truth** - The guarded transition relation is normative.
-- **Partial transition function** - Unsupported transitions remain undefined rather than being guessed.
-- **Event ordering matters** - Lifecycle events are temporally ordered and are not assumed commutative.
-- **Runtime and revision transitions differ** - $\delta_{run}\neq\delta_{rev}$.
-- **Readiness can regress without Contract revision** - $READY(C^k)\rightarrow ASSIGNED(C^k)$ is valid when a runtime prerequisite becomes unsatisfied.
-- **Revision-driven regression remains explicit** - $READY(C^k)\rightarrow ASSIGNED(C^{k+1})$ is a different historical event.
-- **Blocking is execution-local** - `BLOCKED` means temporarily interrupted execution, not generic unreadiness.
-- **Fundamental blocker escalation** - $BLOCKED\land G_X\Rightarrow REASSESSMENT\_REQUIRED$.
-- **Rework does not bypass readiness** - Assignment and readiness are re-evaluated before rework execution resumes.
-- **Fulfilment uses the Contract fulfilment predicate** - Work Product Acceptance alone is not universally sufficient for Product Delivery Contracts.
-- **Definition revision does not automatically resume execution** - revision re-enters through `DEFINED`, `ASSIGNED`, or `READY` unless explicit reassessment is required.
-- **Terminal state means terminal Contract identity** - further governed work uses a successor Contract rather than silently reopening `FULFILLED` or `DISCONTINUED`.
-- **No hidden self-loop** - activity can be recorded without inventing lifecycle progress.
-- **FSM completeness** - Every common Contract state has explicit entry semantics and permitted transition families.
-- **Guarded transitions** - Contract lifecycle transitions occur only when their applicable transition guards hold.
-- **Backward transitions are valid** - Lifecycle progress is not assumed monotonic.
-- **Revision re-evaluates lifecycle** - Material Contract revision re-evaluates Assignment, readiness, and other state predicates.
-- **Human input is not an FSM bypass** - Human intervention affects Contract state only through governed Contract revision.
-- **Readiness includes external dependencies** - Required external work and dependent Contracts can gate `READY`.
-- **Readiness includes actual resources** - Authorized Resource Envelope does not prove current computational or physical resource availability.
-- **Submission is explicit** - Repository presence or mere visibility does not establish submission.
-- **Acknowledgement is not Acceptance** - Receipt acknowledgement does not fulfil the Contract.
-- **Executor conformity is not independent Acceptance** - Executor self-assessment and independent Acceptance remain distinct stages.
-- **Acceptance is revision-specific** - Acceptance applies to the exact submitted Work Product and applicable Contract revisions.
-- **Failed Acceptance preserves history** - Failed submissions, conformity records, Evidence, and rationale remain addressable.
-- **Rework creates a successor Work Product revision** - An assessed submission revision is not rewritten in place.
-- **Contract/Acceptance failure affects Confidence** - Material failures participate in the subsequent Confidence update but do not prescribe a fixed numerical response.
-- **Confidence remains distinct from lifecycle** - $Confidence\neq ContractState$ and $Confidence\neq AcceptanceDisposition$.
-- **Repeated failure affects execution health** - Repeated Acceptance/rework failure contributes to Contract convergence/divergence assessment.
-- **Third-party substitution can create new obligations** - A change from internal realization to external supply requires reassessment of Contract topology and can introduce external Contract readiness dependencies.
-- **Successor Contract is not restart** - Successor identity preserves ancestry rather than rewriting the earlier Contract.
-- **Fulfilment remains separate from supporting-process states** - Contract fulfilment does not imply release, deployment, production, or baselining.
-
-- **No `Conf` abbreviation** - Formal notation uses `Confidence` to avoid collision with Configuration terminology.
-- **Confidence is an operational indicator** - Confidence describes the current health/trend of autonomous exploration or development rather than a semantic property of engineering content.
-- **Confidence is not a Work Product property** - $Confidence\not\subseteq WorkProductProperties$.
-- **Confidence is not a Proposition role** - $Confidence\not\subseteq PropositionRoles$.
-- **Confidence is not probability or precision** - $Confidence\neq Probability$ and $Confidence\neq Precision$.
-- **Confidence is not Truth, Evidence, Authority, Decision, Acceptance, or Back-off** - Confidence cannot substitute for any of these common-model concepts.
-- **Confidence drifts in time** - Confidence can increase, decrease, or fluctuate as Solution Exploration evolves; historical values remain associated with the state in which they were produced.
-- **Solution-continuity alignment** - Material changes in task/exploration context require reassessment of how the Confidence series is interpreted.
-- **Process synthesis** - Confidence can combine progress, convergence/divergence, Evidence trends, validation, rework, Resource Cost, remaining Resource Envelope, and historical resolution information.
-- **Outcome indication is not outcome proof** - Confidence can indicate whether a positive task outcome currently appears likely without establishing a probability or validity claim.
-- **Evidence-processing indication** - Confidence can summarize likely process outcome inferred from Evidence trends and historical resolutions but cannot accept or dismiss Evidence.
-- **No single-threshold Evidence rejection** - $Confidence<\theta\not\Rightarrow DismissEvidence$.
-- **No single-threshold Human escalation** - $Confidence<\theta\not\Rightarrow HumanAlert$ as a universal rule.
-- **Operator visibility** - Confidence can be mapped to traffic-light or similar Human-facing operational indicators without acquiring Decision or validator semantics.
-- **Evidence-supported automation** - Confidence can participate in automated operational policy when the Project Profile defines the policy and supporting Evidence justifies its use.
-- **Stochastic exploration permitted** - Confidence and exploration policy can use bounded Monte-Carlo, pseudo-random, or other stochastic mechanisms to preserve exploration diversity.
-- **Randomness remains bounded** - Stochastic exploration remains constrained by actual progress information, Resource Envelope, authority, Contract, and canonical-state governance.
-- **Low Confidence does not kill a trajectory by definition** - Unlikely trajectories can remain intentionally explorable.
-- **Post-mortem learnability** - Confidence history can be compared with actual outcomes and used to tune subsequent operational behaviour.
-
-- **Stable Contract identity** - Ordinary revision preserves `cid`.
-- **Successor identity differs** - $Succeeds(C_2,C_1)\Rightarrow cid(C_2)\neq cid(C_1)$.
-- **Definition/lifecycle separation** - Contract definition revision and lifecycle transition are distinct operations.
-- **Immutable definition revision** - A later revision does not mutate $C^k$.
-- **Runtime observation is not revision** - Environmental/resource/dependency change alone does not revise governed Contract semantics.
-- **Single accountable Executor in the definition** - An executable Contract definition has exactly one valid Assignment.
-- **Participants are not Executors** - Supplementary participation does not alter accountability.
-- **Obligation is Contract semantics** - No separate universal Obligation object is required.
-- **Requirement/result separation** - $WPReq(C^k)\neq SubmittedWP(C^k)$.
-- **Product/Work Product separation in Contract definition** - Product target and Work Product Requirement remain separate fields.
-- **Dependency/prerequisite separation** - A known dependency does not automatically gate readiness.
-- **External dependency honesty** - External legal, supplier, physical, or regulatory work need not be misrepresented as an internal Hive Contract.
-- **Budget/availability separation** - $Budgeted\not\Rightarrow Available$.
-- **Acceptance specification/result separation** - Acceptance rules belong to definition; Acceptance disposition belongs to lifecycle/history.
-- **History is append-only** - Later fulfilment, failure, rework, revision, or discontinuation does not erase prior Contract events.
-- **History is not reasoning replay** - Contract history references Engineering State instead of duplicating private computation.
-- **Project Profile revision qualification** - Contract semantics are interpreted against their applicable Project Profile revision.
-- **Confidence is runtime observation** - Confidence does not become a Contract-definition property.
-
-
-### Formal Vocabulary Registry
+### 21.4 Formal Vocabulary Registry
 
 The registry contains reusable common-model identifiers. Project Profile extension identifiers and explicitly local helper variables remain defined in their owning section.
 
@@ -7254,29 +7103,22 @@ The registry contains reusable common-model identifiers. Project Profile extensi
 
 The registry is the common reference for reusable named predicates, relations, and functions. New reusable formal identifiers are added here when introduced.
 
-### Additional formal-identifier invariants
+### 21.5 Formal-source checks
 
-**Symbol uniqueness** – reusable mathematical symbols have one dictionary meaning.
+The release audit applies the following model-integrity checks.
 
-**Predicate signature consistency** – reusable predicates and functions use the signature defined in the Formal Vocabulary Registry.
+| Check | Required condition |
+|---|---|
+| **Symbol uniqueness** | Each reusable mathematical symbol has one §4.4 dictionary meaning. |
+| **Predicate/function signature** | Reusable predicates and functions use the signature in §21.4. |
+| **Product/Proposition notation** | $P$ denotes Product, $p$ denotes Proposition, and $\mathbb P$ denotes the Proposition set. |
+| **Engineering State notation** | Engineering State uses $X_t$. |
+| **Projection/revision notation** | $\Pi_q(X_t)$ denotes State Projection and $\rho$ denotes revision mapping. |
+| **Project Profile notation** | $PP$ identifies Project Profile semantics; $P$ remains reserved for Product. |
+| **Integration readiness** | $W^{ready}_{C_I}\subseteq W_I$, with full readiness exactly when $W^{ready}_{C_I}=W_I$. |
+| **Formal-source integrity** | Mathematical source renders the intended operators and contains no control-character corruption of TeX expressions. |
 
-**Product/Proposition separation** – $P$ denotes Product; $p$ denotes Proposition; $\mathbb P$ denotes the Proposition set.
-
-**State notation consistency** – Engineering State uses $X_t$; legacy $S_t$ state notation is absent.
-
-**Projection/revision separation** – $\Pi_q(X_t)$ denotes State Projection; $\rho$ denotes revision mapping.
-
-**Project Profile suffix consistency** – $P$ is not used as shorthand for Project Profile; reusable Project Profile-defined functions use $PP$.
-
-**Integration-set consistency** –
-
-$$W^{ready}_{C_I}\subseteq W_I$$
-
-and full integration readiness is:
-
-$$W^{ready}_{C_I}=W_I.$$
-
-**Formal-source integrity** – rendered mathematical operators match their intended TeX expressions; control-character corruption is a release-blocking formal defect.
+These checks validate representation consistency. Their engineering semantics remain defined in the referenced proposal sections.
 
 # Part VI - References and supporting material
 
@@ -7325,23 +7167,19 @@ The following project material informed this revision:
 - `resource_consumption_recap.md` - decision recap for context/input, orchestration, polling waste, and root/sub-agent resource use.
 - `session_resource_analysis.xlsx` - supporting workbook containing summary, category, phase, waste, support, agent, sub-agent, timing, session, and daily pivots.
 
-# Compilation status
+# Draft status
 
-Draft 0.39 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+**Current draft:** Draft 0.40.
 
-**Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
+The proposal body is the source of the current engineering model.
 
-**Formal-restoration status.** Draft 0.39 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/Rollback model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Engineering State/computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also formalizes project-wide interval Scale positioning, Magnification traversal, same-Scale direct relation locality, adjacent-layer propagation, Decision Blast Radius, Decision Extent, and execution sub-scale topology. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records. It now also includes the derived three-dimensional Scale/Magnification topology figure specified by Section 9.24. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
-
-**Rollback invariant.** Rollback completely cancels one committed Decision on one Engineering Layer. The Rollback Closure identifies the same-Layer Decision-Contract-Work Product continuation that cannot remain valid after cancellation. Successful Rollback removes the corresponding active materialization from the current Materialized Product State while preserving compatible parallel engineering and all historical engineering knowledge.
-
-**Reshuffling locality invariant.** A downstream finding becomes Reshuffling only when it cannot be absorbed within the affected local Engineering Layer and requires vertical Decision rework. Propagation stops at the nearest Engineering Layer capable of resolving the finding correctly.
+Earlier drafts remain the historical record of previous proposal states. This status section therefore tracks unresolved work rather than restating accepted semantics.
 
 ## Open backlog
 
-- **Traceability delta clarification:** formalize the traceability-specific relationship between Scale positions, including the meaningful ratio/delta semantics noted during Scale review, without changing the accepted interval-Scale model until the traceability algebra is reviewed separately.
+- **Traceability delta clarification:** formalize the traceability-specific relationship between Scale positions, including meaningful interval/delta semantics, without changing the accepted interval-Scale model until the traceability algebra is reviewed separately.
 - **Engineering Economy consolidation:** consolidate the economic objective, Resource Cost, Rollback Cost, exploration versus materialization cost, Decision ordering under concurrency, Decision Blast Radius/Decision Extent economics, over-commitment, resource depletion, and staged resource expenditure.
-- **Contract realization phases:** recover and formalize progression from lightweight Solution Exploration through planning, Work Product materialization, integration, and where applicable physical-world realization. This is a global Contract model concern.
-- **Traceability dimensions:** refine operational/metadata and materialized engineering dimensions of the existing Product graph while preserving the common relation algebra.
-- **Project Profile language formalization:** formalize the Project Profile as a domain-specific language rather than an open-ended parameter ledger. Define its syntax, mathematical/semantic types, declarations, references, composition, inheritance/override rules, validation, versioning/migration, Profile-to-Profile compatibility, extension points, and conformance semantics while preserving the common-model boundary.
-- **Proposal structural compaction:** reduce repeated formal prose, duplicated invariants, excessive section depth, and implementation-oriented detail while retaining accepted engineering semantics and required mathematics.
+- **Contract realization phases:** formalize progression from lightweight Solution Exploration through planning, Work Product materialization, integration, and where applicable physical-world realization.
+- **Traceability dimensions:** refine operational/metadata and materialized engineering dimensions of the common Product graph while preserving one relation algebra.
+- **Project Profile language formalization:** formalize Project Profile as a domain-specific language with semantic types, declarations, references, composition, inheritance/override, validation, versioning/migration, compatibility, extension points, and conformance semantics.
+- **Proposal structural compaction:** continue removing duplicated semantics, unnecessary section depth, and implementation-oriented detail after each bounded compaction package is reviewed.
