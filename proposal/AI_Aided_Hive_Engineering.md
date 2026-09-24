@@ -127,113 +127,134 @@ The proposal is organized around five complementary concerns:
 
 The remaining parts of the proposal formalize these concerns while leaving implementation technology and project-specific engineering practice open.
 
-# Part II - Language Foundation
+# Part II - Language and Meaning Profile
 
-## 4. Language Foundation
+## 4. Language and Meaning Profile
 
-### 4.1 Intent
+### 4.1 Governing baseline
 
-The Language Foundation keeps proposal terminology and technical communication consistent, concise, and reviewable without defining a new controlled language.
+This proposal applies the relevant governance provisions of **AI DevMode Standards (ADS) 5.0.0-rc.1** and **Part I - Language & Meaning Core (LMC)**.
 
-#### 4.1.1 Controlled English
+The applicable Language & Meaning Core provides the common rules for:
 
-ASD-STE100 is the primary controlled-English basis for project-authored textual content. Applicable ISO plain-language, terminology, and technical-drafting guidance supplements it.
+- external language standards;
+- normative meaning;
+- terminology and meaning control;
+- information construction;
+- protected-source handling;
+- Language & Meaning conformance.
 
-#### 4.1.2 Normative Language
+This section provides the proposal-specific language and meaning profile required by the formal Hive engineering model.
 
-BCP 14 provides the semantics of normative keywords when the proposal intentionally states technical requirements.
+#### 4.1.1 External language standards
 
-Normative wording remains distinct from ordinary descriptive or explanatory text.
+External language and information standards apply through the project profile established by LMC-01.
 
-#### 4.1.3 Terminology
+This includes BCP 14 normative keyword semantics, ASD-STE100 Issue 9 controlled-English rules, and the complementary terminology, plain-language, drafting, information-development, and conformity guidance identified by LMC-01.
 
-The proposal uses controlled terminology. A concept has one preferred term unless the proposal explicitly defines distinct terms for distinct meanings.
+Each external standard remains authoritative for its own content.
 
-Definitions remain concise, distinct, and cross-consistent.
+#### 4.1.2 Terminology and meaning
 
-#### 4.1.4 Goals
+Common project terminology and meaning follow LMC-02.
 
-The Language Foundation has four goals:
+Common terms retain the meanings established by the applicable common terminology source.
 
-- maintain one preferred term for one concept;
-- keep definitions concise and cross-consistent;
-- separate Illustrations visibly from proposal content;
-- use normative keywords only when technical requirement semantics are intended.
+Proposal-specific terminology extends that vocabulary with concepts required by the Hive engineering model.
 
-### 4.2 Norms
+The proposal dictionary in §4.4 defines proposal-specific concepts and the reusable mathematical symbols of the common model.
 
-| Norm | Role in this proposal | Applicability |
-|---|---|---|
-| **ASD-STE100 Issue 9** | Core controlled-English basis | Applies to project-authored textual content. A conformance claim requires evidence from the project-designated checker or review process. |
-| **ISO 24495-1** | Plain-language guidance | Supplements ASD-STE100 where reader-oriented clarity and comprehension are relevant. |
-| **ISO 704** | Terminology guidance | Supports concept definition, preferred terms, terminology consistency, and definition quality. |
-| **ISO/IEC Directives, Part 2** | Technical-drafting guidance | Supports organization and drafting of technical and normative content. |
-| **BCP 14 – RFC 2119 and RFC 8174** | Normative keyword semantics | Applies to technical normative statements as defined in §4.3.4. |
+Changes to common terminology follow the governance of the applicable common terminology source.
 
-### 4.3 Applicability
+#### 4.1.3 Language and Meaning conformance
 
-#### 4.3.1 Project-authored Text
+A Language & Meaning conformance claim for this proposal follows LMC-04.
 
-Project-authored textual content uses the controlled-English principles defined by ASD-STE100 and the supplementary language guidance identified in §4.2.
+The conformance record identifies:
 
-This applies to definitions, descriptions, rationale, constraints, explanations, and other textual statements written specifically for this proposal.
+- proposal revision;
+- applicable LMC revision;
+- designated checker or review authority;
+- review method;
+- evidence locations;
+- terminology sources;
+- unresolved deviations or blockers;
+- final result.
 
-Normative textual statements follow §4.3.4.
+An ASD-STE100 conformance claim requires evidence from the project-designated checker or review process.
 
-Mathematical content follows §4.3.5.
+Language & Meaning conformance evaluates the proposal as technical information.
 
-#### 4.3.2 Illustrations
+Engineering-model Conformance Evaluation in §4.3.3 evaluates an implementation, engineering state, process configuration, or another subject against the engineering model and applicable Project Profile.
 
-Illustrations explain, demonstrate, or contextualize proposal concepts without becoming part of the formal model.
+### 4.2 Proposal-specific applicability
 
-An Illustration can contain representative engineering situations, examples, example values, possible implementations, or explanatory scenarios.
+The proposal applies the content classification established by LMC-03.
 
-Illustrations do not establish definitions, axioms, relation semantics, Project Profile defaults, Contract obligations, conformance criteria, or other normative properties.
+Project-authored prose follows the applicable Language & Meaning Core.
 
-Illustrations are visually separated from proposal content and explicitly identified as **Illustration**.
+Protected and imported content follows the applicable source-protection rules.
 
-#### 4.3.3 Protected Source Text
+Mathematical notation, formal expressions, identifiers, and machine-readable syntax follow the semantics of their defining formalism.
 
-Citations, quotations, imported requirements, legal text, contractual text, identifiers, URLs, externally defined terminology, and other protected source material remain unchanged unless transformation is explicitly required.
+Each region of mixed content follows the rule applicable to its information type.
 
-The presence of imported text does not automatically make its terminology, wording, or normative force part of this proposal.
+The following clauses define proposal-specific treatment required by the formal engineering model.
 
-Where imported material conflicts with proposal terminology, the original material remains intact and its relation to the proposal is stated separately.
+#### 4.2.1 Illustrations
 
-#### 4.3.4 BCP 14 Scope
+Illustrations provide explanation, demonstration, and context for proposal concepts.
 
-BCP 14 provides unambiguous normative keyword semantics where explicit conformance force adds useful meaning.
+An Illustration can contain:
 
-Its use in this proposal is intentionally sparse.
+- representative engineering situations;
+- examples;
+- example values;
+- possible implementations;
+- explanatory scenarios.
 
-Definitions, mathematical statements, axioms, assumptions, invariants, derived properties, and explanatory architecture normally express their meaning through their formal role and context. They do not require uppercase normative keywords merely to strengthen prose.
+Definitions, axioms, relation semantics, Project Profile defaults, Contract obligations, conformance criteria, and other formal properties are established by their designated proposal clauses.
 
-Uppercase BCP 14 keywords are reserved for clauses where the distinction between requirement, permission, and recommendation materially affects interpretation or conformance.
+Illustrations are visually separated from formal proposal content and explicitly identified as **Illustration**.
 
-Lowercase words such as *must*, *should*, and *may* retain their ordinary English meaning unless BCP 14 semantics are explicitly intended.
+#### 4.2.2 Normative provisions
 
-Quoted or imported material retains the normative semantics of its source.
+Project-authored normative prose uses BCP 14 with the semantics established by LMC-01.
 
-#### 4.3.5 Mathematical Content
+Uppercase `MUST`, `MUST NOT`, `SHOULD`, `SHOULD NOT`, and `MAY` identify normative requirement levels where those distinctions are material to interpretation or conformance.
+
+Definitions, mathematical statements, axioms, assumptions, lemmas, theorems, derived properties, conjectures, and explanatory architecture carry meaning through their declared formal role.
+
+A separate normative provision uses the applicable BCP 14 keyword where requirement level is material.
+
+Quoted and imported normative material retains the normative semantics of its source.
+
+#### 4.2.3 Mathematical content
 
 Mathematical content expresses the formal structure of the proposal through definitions, relations, predicates, sets, functions, equations, invariants, and derived properties.
 
 Mathematical statements use consistent notation and preserve the distinction between:
 
-- **Definition** – introduces the meaning of a mathematical object or term;
-- **Axiom** – establishes a foundational proposition accepted by the model;
-- **Assumption** – states a condition under which a result applies;
-- **Lemma** – establishes an intermediate result used by another formal statement;
-- **Theorem or Derived Property** – follows from definitions, axioms, assumptions, or previously established results;
-- **Conjecture** – states a proposition that has not yet been established.
+- **Definition** - introduces the meaning of a mathematical object or term;
+- **Axiom** - establishes a foundational proposition accepted by the model;
+- **Assumption** - states a condition under which a result applies;
+- **Lemma** - establishes an intermediate result used by another formal statement;
+- **Theorem or Derived Property** - follows from definitions, axioms, assumptions, or previously established results;
+- **Conjecture** - states a proposition whose establishment remains open.
 
-Structural mathematical operations do not acquire engineering semantics unless those semantics are explicitly defined.
+Engineering semantics are assigned to structural mathematical operations through explicit definitions.
 
-Mathematical notation in the Markdown master uses a representation that preserves clean source evolution and can be converted accurately into native mathematical notation in derived Word and PDF representations.
+Mathematical notation in the Markdown master uses a representation that preserves clean source evolution and supports accurate conversion into native mathematical notation in derived Word and PDF representations.
 
-**Mathematical expression style.** Mathematics is the primary formal language of this proposal. Sets, relations, mappings, order, algebra, topology, and temporal qualification are preferred when they express the engineering concept directly. Computer-science notation is useful where it contributes engineering meaning to computation or execution boundaries. It is not required when ordinary mathematical structure already expresses the concept.
+**Mathematical expression style.** Mathematics is the primary formal language of this proposal. Sets, relations, mappings, order, algebra, topology, and temporal qualification are preferred when they express the engineering concept directly. Computer-science notation is used where it contributes engineering meaning to computation or execution boundaries. Ordinary mathematical structure remains preferred where it already expresses the concept.
 
-The proposal distinguishes mathematical structure, engineering semantics assigned to that structure, and implementation mechanisms. An implementation can realize the mathematical model through software structures without making those structures part of the common formal model.
+The proposal distinguishes:
+
+- mathematical structure;
+- engineering semantics assigned to that structure;
+- implementation mechanisms.
+
+An implementation can realize the mathematical model through software structures while the common formal model remains expressed through its defined mathematical and engineering semantics.
 
 ##### Formal identifier control
 
@@ -241,13 +262,19 @@ Reusable mathematical symbols are defined in the §4.4 mathematical-symbol dicti
 
 Reusable common-model relations, predicates, and functions are defined in the Formal Vocabulary Registry in §21.
 
-A section can introduce a local variable or local helper expression when its meaning is declared at the point of use. A local identifier remains local to that formal construction.
+A section can introduce a local variable or local helper expression when its meaning is declared at the point of use.
+
+A local identifier remains scoped to that formal construction.
 
 Project Profile-defined operators are identified explicitly as Project Profile extensions.
 
-The same reusable identifier carries one mathematical type and one semantic meaning throughout the common model.
+Each reusable identifier carries one mathematical type and one semantic meaning throughout the common model.
 
-### Dimension-bounded set terminology
+### 4.3 Proposal-specific interpretation
+
+The following clauses define proposal-specific concepts required by the formal Hive engineering model.
+
+#### 4.3.1 Dimension-bounded set terminology
 
 The proposal uses **Universe**, **Space**, **State**, and **State Projection** as successively bounded concepts.
 
@@ -269,31 +296,44 @@ State
 \supseteq
 StateProjection.$$
 
-`Unbounded` in this terminology refers to unapplied bounding dimensions. Mathematical cardinality is independent of this usage.
+`Unbounded` in this terminology refers to unapplied bounding dimensions.
 
-The dimensions therefore have distinct origins:
+Mathematical cardinality is independent of this usage.
+
+The dimensions have distinct origins:
 
 - Universe - theoretical domain;
 - Space - material and contextual bounds;
 - State - observation time;
 - State Projection - purpose of one bounded operation.
 
-#### 4.3.6 Project Profile
+#### 4.3.2 Project Profile
 
-The Project Profile supplies formal project-specific values where the common proposal deliberately leaves parameters open.
+The Project Profile supplies formal project-specific values where the common proposal leaves parameters open.
 
-A Project Profile can define project-specific terminology, relation vocabularies, validation rules, authority structures, engineering topology, resource models, lifecycle predicates, independence requirements, construction strategies, and other parameters identified by the proposal.
+A Project Profile can define:
 
-Project Profile content specializes the common model. It does not modify the common foundation.
+- project-specific terminology;
+- relation vocabularies;
+- validation rules;
+- authority structures;
+- engineering topology;
+- resource models;
+- lifecycle predicates;
+- independence requirements;
+- construction strategies;
+- other parameters identified by the proposal.
 
-#### 4.3.7 Conformance Evaluation
+Project Profile content specializes the common model within its defined project context.
+
+#### 4.3.3 Conformance Evaluation
 
 Conformance Evaluation determines whether an implementation, engineering state, process configuration, or other evaluated subject satisfies:
 
 - the common requirements of this proposal; and
 - the applicable Project Profile.
 
-Conformance Evaluation does not introduce new engineering rules. It evaluates the subject against rules already established by the proposal and the applicable Project Profile.
+Conformance Evaluation applies the engineering rules established by the proposal and the applicable Project Profile to the evaluated subject.
 
 ### 4.4 Dictionary
 
@@ -7122,17 +7162,19 @@ These checks validate representation consistency. Their engineering semantics re
 
 # Part VI - References and supporting material
 
-## 22. Language and terminology references
+## 22. Language and meaning references
 
-The following references define the proposal's language and terminology foundation:
+The applicable ADS language and meaning basis for this proposal is:
 
-1. ASD-STE100, Simplified Technical English, Issue 9, January 2025. https://www.asd-ste100.org/
-2. BCP 14: RFC 2119 and RFC 8174. https://www.rfc-editor.org/info/bcp14/
-3. ISO 24495-1:2023, Plain language - Part 1: Governing principles and guidelines. https://www.iso.org/standard/78907.html
-4. ISO 704:2022, Terminology work - Principles and methods. https://www.iso.org/standard/79077.html
-5. ISO/IEC Directives, Part 2, Principles and rules for the structure and drafting of ISO and IEC documents. https://www.iso.org/directives-and-policies.html
+1. **ADS-00 - Governance and Bootstrap**, version 5.0.0-rc.1, for the governance provisions applicable to the Language & Meaning Core.
+2. **LMC-01 - External Language Standards Profile**, version 5.0.0-rc.1.
+3. **LMC-02 - Project Terminology and Meaning Control**, version 5.0.0-rc.1.
+4. **LMC-03 - Information Construction and Applicability**, version 5.0.0-rc.1.
+5. **LMC-04 - Language and Meaning Conformance**, version 5.0.0-rc.1.
 
-ASD-STE100 applies to project-authored prose throughout the proposal. BCP 14 applies only to technical normative keywords as defined in Section 4.2.
+External language, terminology, drafting, information-development, and conformity standards apply through LMC-01 and remain authoritative for their own content.
+
+The proposal-specific profile in §4 extends this common basis with the language and meaning rules required by the formal Hive engineering model.
 
 ## 23. Formal-knowledge representation references
 
