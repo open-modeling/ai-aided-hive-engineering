@@ -7,7 +7,7 @@ BUILD="$ROOT/$($META paths.build)"
 OUT="$BUILD/$($META build.pdf.filename)"
 mkdir -p "$BUILD"
 
-"$ROOT/scripts/validate" --proposal-only
+"$ROOT/scripts/validate" --proposal-only >&2
 TMP_MD="$BUILD/.proposal-build.md"
 # STATIC_TOC is a source marker; Pandoc generates the release TOC.
 sed '/^\[\[STATIC_TOC\]\]$/d' "$SOURCE" > "$TMP_MD"
