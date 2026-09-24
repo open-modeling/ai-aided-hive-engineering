@@ -1,10 +1,10 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.15"
+subtitle: "Formal Proposal - Draft 0.16"
 date: "16 September 2026"
 ---
 
-**Status.** Accepted Abstract, Part I Section 3, and Language Foundation revisions integrated. The formal model is otherwise unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
+**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, and Scale/Scaling/Magnification/Extent revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
 
 **Normative basis.** Approved project discussion and accepted changes through Draft 0.8, aligned with the project dialogue recap and resource-consumption analysis where those sources do not conflict with later decisions.
 
@@ -259,12 +259,13 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Conformance Evaluation** | Formal check of implementation/state against this model plus the applicable Project Profile. |
 | **Contract** | Durable governed record that defines a Product target, required Work Product, Issuer, Assignment, Resource Envelope, execution topology, Acceptance rules, enforcement, and the information required to preserve execution and fulfilment history. |
 | **Decision** | Rationale-bearing Proposition that preserves or directs a possible course of exploration or behavior. A Decision is not an Engineering Object. |
-| **Engineering Layer** | Project-defined magnification range that yields a coherent Product view at that scale. |
+| **Engineering Layer** | Project-defined bounded Scale and Magnification context within which engineering elements can be reasoned about as one coherent Product view. |
 | **Engineering Object** | Materialized project entity with tool, repository, physical, or document identity. It can carry or materialize one or more Propositions. |
 | **Evidence** | Recorded information used by a defined validator or argument to support a Proposition. Evidence is scope- and role-specific. |
 | **Exchange Item** | Boundary-relative information object used to communicate Propositions, Product interfaces, results, feedback, or other materialized information. |
 | **Executor** | Actor responsible for fulfilment of an assigned Contract, including delivery of the required Work Product or explicit reporting that fulfilment cannot be completed. A Human can be an Executor when assigned responsibility for a Contract result. |
 | **Exploration** | Bounded computational attempt to extend, test, compare, or refine the current Solution Space. |
+| **Extent** | Measurable reach of a Decision effect within its current Scale and Magnification. Significant Extent usually has severe economic effect and can question the rationality of the originating Decision. |
 | **Extremum Exploration** | Exploration intended to discover a different local extremum or challenge whether a materially better region exists outside the current search neighborhood. |
 | **Future Action** | Contracted resolution of a Known Gap with an identified Party, Outcome, Method, Definition of Ready, and Definition of Done. |
 | **Gap** | Explicitly known missing relation, evidence, content, capability, or result required for a stated purpose. |
@@ -279,7 +280,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Justification** | Valid relation/evidence structure that satisfies the applicable validators for using a Proposition as a decision, trace, or commitment basis. |
 | **Known Gap** | Gap whose existence and scope are known and recorded. |
 | **Local Optimum / Local Extremum** | Best/extreme candidate relative to a declared neighborhood or currently explored region, not the entire theoretical Solution Space. |
-| **Magnification** | Engineering scale of a Proposition, Engineering Object, Decision, Exchange Item, Work Product, or Product view. |
+| **Magnification** | Resolution at which an engineering subject is examined or represented. Magnification defines the admissible detail for reasoning at an Engineering Layer; it is a view of a Scale, not the Scale itself. |
 | **Micro-agent** | Short-lived, specialized, low-Resource-Cost Agent used for one narrow exploration or validation operation. |
 | **Obligation** | Responsibility of an Executor for the complete result of an assigned Contract. The Executor delivers the required result or explicitly reports inability to fulfil the Contract to the authoritative party or parties. Obligation is Contract semantics, not necessarily a separate stored object. |
 | **Outlier** | Discovered outcome or trajectory with low current cluster support. It remains recorded even when active allocation is zero. |
@@ -293,6 +294,8 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Reshuffling** | Reopening or reallocating previously active solution commitments because a change propagates beyond its original local problem. Reshuffling cost measures resulting review, rework, reverification, and coordination. |
 | **Resource Cost** | Multi-dimensional consumption caused by an operation, exploration, Contract, trajectory, or change. |
 | **Resource Envelope** | Declared availability/limits for relevant resource dimensions such as context, model calls, compute, wall time, money, human effort, energy, equipment, and external capacity. It is not a universal scalar. |
+| **Scale** | Project-relative position of an engineering subject or representation in an ordered topology of size, decomposition, or abstraction. Scale supports comparison of elements by relative level and approximate order of magnitude; it does not require one universal numeric scale. |
+| **Scaling** | Project-defined transition between different Scales. Scaling prevents direct semantic or operational linkage between elements that belong to incompatible engineering orders and requires information to be reconciled and materialized at the receiving Scale. |
 | **Solution Space** | Addressable set of currently known candidate states, constraints, outcomes, and their relations for a scoped problem. |
 | **Swarm** | Population of specialized computational participants assigned by the Hive to one bounded task. Swarm contributions can form Clusters supporting Decisions. |
 | **Team API** | Project-defined set of Work Products and communications used to coordinate Product evolution among parties. |
@@ -649,21 +652,260 @@ $$Exists(x,SolutionSpace)\not\Rightarrow PermittedIn(x,WP,C).$$
 
 This protects formal structure, semantic role, intellectual property, security, safety information, supplier data, and other project-defined boundaries.
 
-## 9. Scale and magnification topology
+## 9. Scale, Scaling, Magnification, and Extent
 
-Magnification and extent are separate.
+Engineering elements differ both in their position within Product decomposition or abstraction and in the resolution used to reason about them.
 
-$$M(x)\approx M(\ell)$$
+The proposal separates **Scale**, **Magnification**, and **Extent**, and uses **Scaling** to govern movement of information between different engineering orders.
 
-for objects operating at engineering layer $\ell$, while the extent of a Decision, Exchange Item, or Work Product can differ substantially.
+### 9.1 Scale
 
-A Decision whose blast approaches the extent of an entire layer is not automatically invalid. It is economically suspicious because it can cause large reshuffling and rework. Such a point is a natural place for additional economic assessment or human intervention.
+Scale identifies the relative engineering order of a subject or representation within the Project Profile.
 
-Engineering layer and Contract execution sub-layer are different coordinates. A single engineering layer can contain arbitrary Contract staging while still producing one coherent Product view at its magnification.
+A project can distinguish, for example, a Product, subsystem, component, subcomponent, implementation element, or another project-specific progression. The proposal does not prescribe one universal hierarchy.
 
-::: {custom-style="Illustration"}
-**Illustration - one possible scale profile.** A project can define a progression such as Product need -> use case -> system specification -> architecture -> component specification -> implementation. In that profile, a Use Case can contain interaction steps and desired outcomes but not detailed algorithms. Another project can define different scale frames and permitted bridges. The illustration does not define universal engineering levels.
-:::
+Scale is comparative. Elements can occupy the same approximate engineering order, or one can belong to a broader or finer order than another.
+
+A relation that is meaningful at one Scale does not automatically remain meaningful at another Scale.
+
+The existence of a graph path does not authorize an engineering operation that bypasses intermediate engineering orders.
+
+Direct linkage across incompatible Scales is not permitted merely because both elements are available in the same Solution Space.
+
+### 9.2 Magnification and comparison
+
+Magnification identifies the resolution at which an engineering subject is examined.
+
+The Project Profile defines a set of admissible Magnification bands:
+
+$$\mathcal{M}_P$$
+
+and assigns an applicable Magnification to an engineering element:
+
+$$\mu(x)\in\mathcal{M}_P$$
+
+The Project Profile defines the comparison relation between Magnification bands.
+
+For two engineering elements $x$ and $y$:
+
+$$SameMagnification(x,y)\iff\mu(x)=\mu(y)$$
+
+$$FinerThan(x,y)\iff\mu(x)>_M\mu(y)$$
+
+$$CoarserThan(x,y)\iff\mu(x)<_M\mu(y)$$
+
+where $>_M$ and $<_M$ are project-defined Magnification relations.
+
+These relations express engineering resolution. They do not necessarily represent physical size, numerical magnitude, organizational hierarchy, or Contract depth.
+
+Magnification comparison therefore provides at least:
+
+- same engineering resolution;
+- finer engineering resolution;
+- coarser engineering resolution.
+
+A Project Profile can define a partial order when engineering domains do not admit one universal linear ordering.
+
+Scale answers:
+
+> **At what engineering order does this element belong?**
+
+Magnification answers:
+
+> **At what resolution is this element being examined?**
+
+An element can remain at the same Scale while its Magnification changes for investigation.
+
+Increased Magnification does not transfer authority from the element's local engineering context to another Scale.
+
+### 9.3 Direct-link restriction
+
+A Hive operation does not directly operate, bind, constrain, integrate, or establish a semantic relation between elements whose Scale or Magnification is incompatible for that operation.
+
+For a direct engineering relation $r$:
+
+$$Direct_r(x,y)\Rightarrow ScaleCompatible_r(x,y)\land MagnificationCompatible_r(x,y)$$
+
+Compatibility is relation-specific and is defined by the Project Profile.
+
+When two elements belong to incompatible engineering orders, the proposal does not create a direct semantic edge between them. Their interaction uses Scaling.
+
+This prevents a higher-level Product context from directly operating implementation details several engineering orders below it.
+
+It also prevents detailed implementation information from acquiring direct authority over broader Product contexts.
+
+Examples of prohibited shortcuts include:
+
+- Product-level reasoning directly operating a Hall-effect sensor implementation inside an ABS component;
+- UX research directly constraining application source code;
+- customer-level intent directly binding implementation artifacts without the intermediate engineering interpretation required by the project.
+
+The restriction applies even when all involved elements are visible to the same Hive.
+
+Visibility does not imply direct bindability.
+
+### 9.4 Scaling
+
+Scaling transfers relevant information between different engineering orders without creating a direct semantic relation between the original source and destination elements.
+
+A Scaling transition contains three conceptual activities:
+
+1. identify information that is relevant beyond the originating Scale;
+2. materialize that information for the applicable boundary;
+3. interpret it locally at the receiving Scale.
+
+The receiving Scale establishes its own local engineering meaning from the received information.
+
+Scaling therefore does not mean automatic inheritance of:
+
+- Decisions;
+- authority;
+- evidence closure;
+- implementation detail;
+- semantic relations.
+
+#### 9.4.1 Downward Decision propagation
+
+A Decision at one Scale does not directly become a Decision at another Scale.
+
+The propagation pattern is:
+
+$$Decision_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow Decision_j$$
+
+The Exchange Item materializes the information required by the receiving Scale.
+
+The receiving context interprets that information and establishes its own Decision where a Decision is required.
+
+The original Decision remains associated with its originating engineering context. It does not become invisible authority over lower Scales.
+
+#### 9.4.2 Upward evidence and feedback propagation
+
+Evidence found at a finer Scale does not directly establish a Decision or evidential closure at a broader Scale.
+
+The propagation pattern is:
+
+$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow Decision_i$$
+
+The receiving Scale assesses the feedback and determines whether its local Decision or Solution Space must change.
+
+Where evidential closure is required, the receiving Scale produces or records evidence appropriate to its own context.
+
+Foreign evidence can inform local reasoning. It does not automatically inherit evidential closure into another Scale.
+
+#### 9.4.3 Nearest affected Scale
+
+Bottom-up propagation stops at the nearest affected Scale that can resolve the effect correctly.
+
+Higher Scales remain undisturbed when the receiving Scale can absorb the change within its local Solution Space and authority.
+
+Further propagation occurs only when the affected Scale cannot resolve the change locally.
+
+This limits unnecessary Decision rework, Work Product rework, reverification, and coordination.
+
+### 9.5 Scaling and Decision blast
+
+Decision blast remains local to the engineering context in which the Decision exists.
+
+Scaling allows the **effects** of a Decision to cross a Scale boundary, but the Decision itself does not become a cross-layer authority edge.
+
+A cross-Scale effect therefore requires:
+
+- materialized boundary information;
+- interpretation at the receiving Scale;
+- local reasoning;
+- a local Decision when the received information changes the local solution.
+
+This prevents Decision Blast Radius from becoming an uncontrolled sphere in which one Decision directly affects unrelated engineering orders.
+
+A broader Decision constrains the next relevant Scale instead of directly manipulating arbitrary implementation details several orders below it.
+
+A finer-scale finding propagates upward only through explicit feedback and local reassessment.
+
+When a Decision effect cannot be absorbed locally, or its Extent becomes economically significant, the affected context materializes the condition as Feedback or another applicable Exchange Item.
+
+The receiving authoritative context reassesses the Decision before further propagation.
+
+### 9.6 Decision Extent
+
+Extent measures how far the effect of a Decision propagates within its local engineering context.
+
+Extent is derived from **Decision Blast Radius** and makes the consequences of a Decision visible before they become hidden rework, refactoring, reverification, reintegration, or coordination cost.
+
+Extent is evaluated within the current Scale and Magnification.
+
+A significant Extent usually has a severe economic effect. Growth of Extent therefore questions whether the originating Decision remains rational under the current Product state, Resource Envelope, and available alternatives.
+
+When Extent becomes material, the Hive does not silently continue propagation.
+
+The affected region is exposed and the Decision is reassessed by the Actor that has authority for the affected context.
+
+Depending on the applicable authority model, that Actor can be:
+
+- an authorized Hive participant;
+- a Human;
+- another Contract-authorized Actor.
+
+The reassessment can result in:
+
+- confirmation of the Decision;
+- clarification or narrowing of the Decision;
+- revision of the Decision;
+- supersession of the Decision;
+- additional exploration;
+- additional evidence collection;
+- feedback to the adjacent Scale when the effect cannot be resolved locally.
+
+Extent remains local to its Scale.
+
+Increasing Extent does not give the originating Decision authority over another Scale.
+
+### 9.7 Engineering Layer and execution sub-layer
+
+An Engineering Layer defines a bounded Scale and Magnification context in which the project maintains one coherent Product view.
+
+An execution sub-layer defines Contract execution topology inside that Engineering Layer.
+
+Contract decomposition, parallel execution, verification Contracts, or an Integrator Contract do not create a new Scale merely because they introduce additional execution depth.
+
+Execution depth and engineering Scale are independent properties.
+
+Several Contracts can therefore operate at different execution sub-layers while remaining at the same Scale and Magnification.
+
+### 9.8 Scale-compatible engineering operations
+
+Engineering operations that directly combine, integrate, trace, constrain, or establish semantic closure between elements operate only on compatible Scale and Magnification unless the Project Profile explicitly defines an applicable Scaling boundary.
+
+For example:
+
+$$Integrate(x,y)\Rightarrow ScaleCompatible(x,y)\land MagnificationCompatible(x,y)$$
+
+Different-Scale inputs require an explicit Scaling or other project-defined transformation before they become valid inputs to the same local engineering operation.
+
+The transformation preserves the applicable:
+
+- semantic rules;
+- traceability;
+- validation;
+- evidence;
+- information boundaries.
+
+Scaling is an explicit reconciliation mechanism. It is not permission to recursively copy information across Product decomposition.
+
+Scale compatibility and Extent answer different questions.
+
+Scale and Magnification determine whether engineering elements can participate directly in the same engineering operation.
+
+Extent determines how far the consequences of a Decision spread within that compatible local context.
+
+A Decision can remain fully Scale-compatible while its Extent becomes economically unacceptable.
+
+### 9.9 Scale and Extent rules
+
+> **Scale locality:** an engineering element can directly operate on, constrain, integrate with, or establish semantic closure for another element only when the applicable relation permits their Scale and Magnification combination. Cross-order effects use Scaling and local interpretation.
+
+> **Extent control:** Decision Extent is evaluated during exploration and propagation. Significant Extent triggers economic assessment and authoritative reassessment before further commitment or propagation.
+
+These rules preserve the **no-sphere** property: Decisions create local reasoning and local effects; cross-Scale consequences pass through explicit materialization, interpretation, and renewed authority.
 
 ## 10. Decisions, trade space, exploration, and human intervention
 
@@ -756,240 +998,3 @@ The Hive cannot both fulfill and validate the same Contract role. Production, te
 The Project Profile defines the required independence topology. It can require separate roles inside one Hive, separate Hive instances using the same model, separate departments, separate enterprises, different model providers, different infrastructure, or another topology.
 
 Conformance uses a predicate rather than a universal scalar independence order:
-
-$$SatisfiesIndependence(actual,required,profile).$$
-
-### 11.6 Acceptance
-
-Acceptance is the Contract-governed assessment of fulfilment and Work Product conformance. It is distinct from Assignment, Obligation, execution, release, deployment, production, and baselining.
-
-Acceptance has two sequential stages with different responsibility and evidential meaning. Stage 1 establishes the Executor's own conformity claim and submission state. Stage 2 independently evaluates that claim and produces the Contract Acceptance disposition. Passing Stage 1 is therefore a prerequisite for normal Stage 2 assessment, but it is not independent Acceptance.
-
-#### 11.6.1 Executor conformity assessment
-
-Before submission, the Executor performs the applicable checks against the Contract and prepares the Work Product for assessment. The Executor records the conformity result, Known Gaps, identified non-conformities, relevant evidence, and any condition that prevents a complete fulfilment claim.
-
-This stage is a self-assessment by the Executor. It establishes what the Executor claims to have fulfilled and with what evidence. It does not bind the Issuer to accept the result. When conformity cannot be established, the Executor reports that condition explicitly instead of presenting a partial or known-invalid result as conformant.
-
-#### 11.6.2 Independent Acceptance assessment
-
-After submission, the Issuer performs an independent assessment of Contract fulfilment and Work Product conformance, or delegates that assessment when the Contract permits delegation. The independent assessment considers the submitted Work Product, the Executor conformity record, applicable evidence, Known Gaps, and the Contract Acceptance rules. It does not treat the Executor's conformity claim as proof by itself.
-
-This stage produces the Contract Acceptance disposition. The disposition and its rationale are recorded in Contract history. Failed Acceptance does not erase the submitted Work Product, conformity record, evidence, Contract state, or earlier Decisions; these records remain available for correction, governance, and post-mortem analysis.
-
-Successful Acceptance establishes that the submitted result satisfies the applicable Contract Acceptance rules. It does not by itself imply release, deployment, production, baselining, or another project-specific lifecycle transition.
-
-### 11.7 Product API and Team API
-
-A Product API is an Exchange Item of a project-appropriate kind that materializes an interface Decision. Its representation depends on the Product nature.
-
-A Team API is the set of Work Products and communications used by parties to evolve the Product. Hive-Human communication is native to the model. External-party communication can require a Project Profile communication Contract and can be limited to formats such as PDF, spreadsheet, email, supplier portal, or another external boundary representation.
-
-### 11.8 Blast containment
-
-A Decision has direct effect only inside its local Contract and bounded Hive/Team context. Other parties are affected only when an Exchange Item that they consume changes.
-
-$$Affected(Team,d)\Leftrightarrow\exists e\in UpdatedExchangeItems(d):Consumes(Team,e).$$
-
-If a team does not consume a changed Exchange Item, that team is outside the native blast area for that Decision.
-
-## 12. Evidence and validation locality
-
-Evidence is developed locally for the claim and engineering layer that requires it. Foreign evidence can inform local evidence generation but does not automatically close a higher- or lower-scale claim.
-
-$$ForeignEvidence\rightarrow LocalEvidenceActivity\rightarrow LocalEvidenceObject\rightarrow LocalJustification.$$
-
-This prevents evidence laundering across scale or authority boundaries.
-
-Verification and validation methods remain Project Profile and domain-method concerns. Test existence alone does not prove the tested claim. Applicable observability, reachability, representativeness, independence, and acceptance rules determine evidence value.
-
-## 13. Maturity, prescriptiveness, and brittleness
-
-Maturity in this proposal is not a separate Acceptance state. It describes deliberate prescriptiveness and design-space reduction at a specific authority boundary.
-
-A mature high-level Proposition can remain coarse when lower-level freedom is intentional. A detailed prescription can also be mature when the authority has evidence and reason to constrain that dimension.
-
-Brittleness is separate from prescriptiveness. Let $\Delta_P(p)$ be the declared Revision Envelope for Proposition $p$. A project can define:
-
-$$Brittle(p,\Delta,\Theta)$$
-
-when a change inside the expected revision environment creates repair cost above threshold $\Theta$ or violates another Project Profile brittleness rule.
-
-## 14. UNKNOWNs, Gaps, and Future Actions
-
-UNKNOWN and Gap are explicit semantic states, not missing text placeholders.
-
-A known gap with a valid contracted Future Action can remain in an accepted Work Product when the Contract acceptance rule allows it. A Future Action contains at least:
-
-$$FA=(Party,Outcome,Method,DoR,DoD).$$
-
-A foreign unknown does not automatically trigger unlimited recursive investigation. Materiality to current commitment determines whether it blocks progression.
-
-## 15. Recursive Y/V architectural model
-
-The recursive Y/V model reconciles negotiable and fixed-horizon sources at every engineering magnification.
-
-The left branch contains sources that can be negotiated within the current horizon, such as Product requests, UX findings, business choices, or lower-cost design alternatives. The right branch contains sources treated as fixed at that horizon, such as applicable law, established natural constraints, already committed high-cost manufacturing, or other non-negotiable obligations.
-
-The center reconciles contradictions and produces a feasible region. Engineering realization then generates evidence, deficiencies, and Product feedback that can reopen the appropriate negotiable side.
-
-The same pattern can recur at Product, system, subsystem, component, implementation, manufacturing, deployment, or another Project Profile layer.
-
-## 16. Supporting processes over Solution Space
-
-Configuration Management, Change Management, Problem Resolution, Quality Assurance, Risk Management, Measurement, release management, production control, and similar disciplines operate over Solution Space entries and Engineering Objects.
-
-They are supporting processes, not universal semantic primitives. A Baseline, for example, exists only where Configuration Management establishes it. A production batch can be accepted without becoming a Baseline. Software can pass acceptance testing before deployment, while production deployment performs only project-defined sanity checks.
-
-Supporting-process predicates remain Project Profile parameters unless a Contract or applicable external norm makes them obligatory.
-
-## 17. Swarm exploration, divergence, waste, and resource control
-
-### 17.1 Resource Envelope
-
-The proposal does not use the phrase `bounded resources` as an undefined scalar. A Resource Envelope is a vector of declared availability or limits:
-
-$$R=(context,modelCalls,compute,wallTime,money,humanEffort,energy,equipment,externalCapacity,\ldots).$$
-
-A Contract can define a narrower Resource Budget inside the project/Hive envelope.
-
-### 17.2 Resource survival
-
-Candidate trajectories are rated using project-defined functions. Relevant inputs can include independent support, evidence strength, novelty, progress, Product/Contract value, repair cost, divergence persistence, and Resource Cost.
-
-A Swarm can form one or more Clusters around candidate Decisions for its assigned task. Cluster support is evidence of independent convergence, not semantic truth. Decisions preserve or direct trajectories through the Trade Space. Resource-survival rules can therefore consider Cluster support when rating a trajectory without equating majority support with correctness.
-
-A trajectory can be strengthened, maintained, reduced, or deactivated. Deactivation stops active expenditure; it does not delete discovered outcomes.
-
-### 17.3 Waste and overthinking
-
-Waste is not synonymous with overhead. Required verification, governance, communication, or setup can consume resources without being waste.
-
-Waste occurs when an operation produces neither required process effect nor reusable progress, evidence, knowledge, or Product value. Polling loops, repeated context replay, unnecessary status messages, redundant branch reasoning, and reasoning about deterministic facts are candidate waste categories when the project can establish that they add no required effect.
-
-Overthinking is a reasoning-specific waste mode. Before assigning further reasoning work to a Swarm, the Hive should determine whether deterministic algebra, an existing Decision, recorded evidence, or a previously preserved outcome already resolves the question.
-
-### 17.4 Divergence and post-mortem
-
-Divergence is measured as reconciliation/repair difficulty, not semantic-text distance alone. The project can use a vector such as:
-
-$$Repair=(money,time,hiveUtilization,WPRework,physicalRework,scheduleExposure,\ldots).$$
-
-Persistent incompatible trajectories can lose active resource allocation. A post-mortem preserves useful findings and can reactivate an outlier or create a new trajectory.
-
-Contract divergence is different. A Contract is not restarted. At critical divergence, Human intervention can occur. If the Contract remains inside its Resource Budget and authority envelope, the Hive can revise or re-create the execution topology after post-mortem analysis while preserving the historical Contract state.
-
-## 18. Derived no-sphere theorem
-
-**Theorem NS-1 - No authority/evidence sphere.** Assume AX-1 through AX-4, local Decision blast, Exchange Item boundary materialization, and local evidence generation. Then a Decision at one engineering layer cannot directly establish a binding or evidenced Proposition at a non-local layer merely through graph reachability.
-
-Every traversed boundary requires the Project Profile's allowed bridge, materialized information, local interpretation, and applicable evidence/authority checks.
-
-The theorem allows information to cross boundaries while preventing authority and evidential closure from propagating automatically.
-
-# Part V - Conformance and Project Profile
-
-## 19. Conformance
-
-Conformance is evaluated against the common proposal plus the applicable Project Profile revision.
-
-A conformant implementation MUST:
-
-- preserve Proposition and Engineering Object distinction;
-- validate relation use before semantic justification;
-- preserve unresolved required information explicitly;
-- enforce scale/bridge rules;
-- enforce Human ingress and Decision authority rules;
-- preserve all discovered outcomes while controlling active resource allocation;
-- separate Decision authority from Exchange Item communication;
-- enforce Contract accountability, Assignment and Obligation semantics, Work Product schemas, information boundaries, and Acceptance rules;
-- satisfy required verification independence topology;
-- preserve revision/time history;
-- keep project-specific lifecycle/support-process predicates in the Project Profile unless the common model explicitly defines them.
-
-A conformance claim MUST identify the model version, Project Profile revision, checker/review method, and evidence set.
-
-## 20. Project Profile
-
-The Project Profile defines at least the parameters that are required by the project:
-
-- Product boundaries and engineering magnification layers;
-- Proposition roles and Engineering Object families;
-- relation vocabulary, signatures, converse labels, validators, and semantic composition rules;
-- scale compatibility and permitted bridges;
-- Contract parties, authority, human Decision scopes, enforcement, and Contract resource models;
-- Work Product schemas, semantic-role constraints, required validators, information-exposure policies, and acceptance rules;
-- Product API representations and Team API communication rules;
-- Trade Space representation, trajectory rating, cluster independence, outlier policy, repair-cost model, deactivation and post-mortem criteria;
-- Resource Envelope dimensions, measurement rules, invention allocations, and waste classification;
-- validation/verification independence topology;
-- Evidence rules, UNKNOWN materiality, Gap and Future Action policy;
-- supporting-process predicates such as Configuration Management, Change Management, baseline, release, deployment, production, risk, and quality rules;
-- lifecycle labels for Decisions, Engineering Objects, Work Products, Contracts, and other project elements;
-- external-party communication constraints and permitted formats;
-- integration/composition strategies and their validation requirements.
-
-## 21. Formal model audit
-
-Each Foundation Axiom has a defined Intent, Statement, Boundary, and Validation argument. A release audit SHOULD test at least the following countermodels:
-
-- **AX-1:** Arbitrary graph path used as valid engineering trace
-- **AX-2:** Hidden or fabricated completion replaces unresolved information
-- **AX-3:** Local Decision/evidence becomes remote authority without a bridge
-- **AX-4:** Universal human approval or unauthorized Hive commitment
-- **AX-5:** Low-support discoveries are deleted or active search consumes unlimited resources
-
-The audit also checks term uniqueness, Proposition/Engineering Object separation, Work Product information boundaries, Project Profile scoping, relation-role typing, revision/time qualification, and conformance-test evidence.
-
-# Part VI - References and supporting material
-
-## 22. Language and terminology references
-
-The following references define the proposal's language and terminology foundation:
-
-1. ASD-STE100, Simplified Technical English, Issue 9, January 2025. https://www.asd-ste100.org/
-2. BCP 14: RFC 2119 and RFC 8174. https://www.rfc-editor.org/info/bcp14/
-3. ISO 24495-1:2023, Plain language - Part 1: Governing principles and guidelines. https://www.iso.org/standard/78907.html
-4. ISO 704:2022, Terminology work - Principles and methods. https://www.iso.org/standard/79077.html
-5. ISO/IEC Directives, Part 2, Principles and rules for the structure and drafting of ISO and IEC documents. https://www.iso.org/directives-and-policies.html
-
-ASD-STE100 applies to project-authored prose throughout the proposal. BCP 14 applies only to technical normative keywords as defined in Section 4.2.
-
-## 23. Formal-knowledge representation references
-
-The proposal uses the following specifications as design references, not normative dependencies:
-
-1. OpenMath Standard 2.0r2 and Content Dictionaries - semantic representation of mathematical objects, symbols, Commented Mathematical Properties, and Formal Mathematical Properties. https://openmath.org/standard/om20-2019-07-01/
-2. TPTP Language - annotated formula roles including axiom, hypothesis, definition, assumption, lemma, theorem, corollary, conjecture, and type. https://tptp.org/UserDocs/TPTPLanguage/TPTPLanguage.shtml
-3. OMDoc - document/theory-level distinction among axioms, definitions, assertions/theorems, proofs, and related mathematical statements. https://www.omdoc.org/
-4. SMT-LIB 2.7 - rigorous common languages and background theories for solver interaction. https://smt-lib.org/language.shtml
-
-The proposal adopts the distinction between expression syntax and statement role. It does not require serialization in OpenMath, TPTP, OMDoc, or SMT-LIB.
-
-## 24. Supporting AI architecture references
-
-The following sources are illustrative/supportive only:
-
-- OpenAI Agents SDK, agent orchestration, manager/agents-as-tools and handoff patterns. https://openai.github.io/openai-agents-python/multi_agent/
-- CrewAI Crews, role-bearing agents, tasks, processes, manager and memory concepts. https://docs.crewai.com/en/concepts/crews
-- AutoGen/ConversableAgent message-based agent communication. https://microsoft.github.io/FLAML/docs/reference/autogen/agentchat/conversable_agent/
-- Tree of Thoughts: Deliberate Problem Solving with Large Language Models, NeurIPS 2023. https://papers.nips.cc/paper/2023/hash/271db9922b8d1f4dd7aaef84ed5ac703-Abstract-Conference.html
-- Graph of Thoughts: Solving Elaborate Problems with Large Language Models, AAAI 2024. https://ojs.aaai.org/index.php/AAAI/article/view/29720
-
-## 25. Supporting engineering references
-
-Engineering standards and frameworks remain supportive/non-normative in this common proposal unless a Project Profile makes them applicable. Examples include Automotive SPICE, APQP, ISO 26262-family standards, INCOSE requirements guidance, NASA systems/software engineering guidance, and project-specific V-model processes.
-
-## 26. Project supporting material
-
-The following project material informed this revision:
-
-- `harness-hive-dialogue-recap.md` - non-normative recap used to restore the state-centric Hive architecture, bounded traversal, trade-space, trajectory, cluster, repair-cost, and non-actor design direction. Later accepted decisions in this proposal take precedence where the recap is older.
-- `resource_consumption_recap.md` - decision recap for context/input, orchestration, polling waste, and root/sub-agent resource use.
-- `session_resource_analysis.xlsx` - supporting workbook containing summary, category, phase, waste, support, agent, sub-agent, timing, session, and daily pivots.
-
-# Compilation status
-
-Draft 0.10 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
-
-**Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
