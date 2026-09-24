@@ -54,28 +54,15 @@ entries=[p for p in raw.iterdir() if p.name not in {'__MACOSX'}]
 source=entries[0] if len(entries)==1 and entries[0].is_dir() else raw
 out.mkdir(parents=True,exist_ok=True)
 
-# Normalize release-version tokens out of core path names while preserving content.
-def clean_name(name:str)->str:
-    stem, dot, suffix = name.partition('.')
-    # Work on the whole basename, including multi-suffix names, then tidy separators.
-    n=name.replace('v'+version,'').replace(version,'')
-    n=re.sub(r'([_-]){2,}', r'\1', n)
-    n=re.sub(r'[_-]+(?=\.)', '', n)
-    n=n.strip('_-')
-    if not n:
-        raise SystemExit(f'filename became empty while normalizing: {name}')
-    return n
-
+# Preserve internal archive filenames. If the archive has one release-versioned
+# top-level directory, it is flattened so versioning remains in Git metadata/tags.
 for src in sorted(source.rglob('*')):
     rel=src.relative_to(source)
-    parts=[clean_name(part) for part in rel.parts]
-    dst=out.joinpath(*parts)
+    dst=out/rel
     if src.is_dir():
         dst.mkdir(parents=True,exist_ok=True)
     elif src.is_file():
         dst.parent.mkdir(parents=True,exist_ok=True)
-        if dst.exists():
-            raise SystemExit(f'core filename collision after normalization: {dst}')
         shutil.copy2(src,dst)
 PY
 
@@ -94,7 +81,7 @@ mkdir -p core
 cp -a "$TMP/core/." core/
 git add core
 git commit -m "Import AI DevMode Standards $VERSION" \
-  -m "Import the supplied core standards archive as the repository foundation.\n\nArchive: $EXPECTED_NAME\nSHA-256: $EXPECTED_SHA\n\nRelease-version tokens are removed from filenames inside core/; file contents are preserved." >/dev/null
+  -m "Import the supplied core standards archive as the repository foundation.\n\nArchive: $EXPECTED_NAME\nSHA-256: $EXPECTED_SHA\n\nA single release-versioned archive root is flattened when present; internal core filenames and file contents are preserved." >/dev/null
 CORE_COMMIT="$(git rev-parse HEAD)"
 git tag -f -a "$CORE_TAG" "$CORE_COMMIT" -m "AI DevMode Standards $VERSION" >/dev/null
 
