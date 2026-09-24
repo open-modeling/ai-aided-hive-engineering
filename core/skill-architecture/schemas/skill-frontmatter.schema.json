@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/skill-frontmatter.schema.json",
+  "title": "Agent Skill canonical frontmatter",
+  "description": "Cross-host canonical SKILL.md frontmatter for ADS 5 release candidates.",
+  "x-ads-schema-version": "5.0.0-rc.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "description"
+  ],
+  "properties": {
+    "name": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/skillName"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1024
+    }
+  }
+}

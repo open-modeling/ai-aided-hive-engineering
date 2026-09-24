@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/skill-message-envelope.schema.json",
+  "title": "ADS addressed skill message envelope",
+  "description": "Structured role-to-skill and skill-to-skill request envelope with explicit resolution state.",
+  "x-ads-schema-version": "5.0.0-rc.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "message_type",
+    "dispatch_state",
+    "target_skill_uri",
+    "capability_id",
+    "expected_outcome_ids",
+    "intent",
+    "payload_schema_uri",
+    "payload"
+  ],
+  "properties": {
+    "message_type": {
+      "enum": [
+        "role-to-skill",
+        "skill-to-skill"
+      ]
+    },
+    "dispatch_state": {
+      "enum": [
+        "request",
+        "resolved"
+      ]
+    },
+    "source_role": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_skill_uri": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/skillUri"
+    },
+    "source_skill_version": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/semanticVersion"
+    },
+    "target_skill_uri": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/skillUri"
+    },
+    "requested_target_version": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/semanticVersion"
+    },
+    "resolved_target_version": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/semanticVersion"
+    },
+    "capability_id": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/localContractId"
+    },
+    "expected_outcome_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/localContractId"
+      }
+    },
+    "intent": {
+      "type": "string",
+      "minLength": 1
+    },
+    "payload_schema_uri": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/absoluteUri"
+    },
+    "payload": {}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "message_type": {
+            "const": "role-to-skill"
+          }
+        },
+        "required": [
+          "message_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "source_role"
+        ],
+        "not": {
+          "anyOf": [
+            {
+              "required": [
+                "source_skill_uri"
+              ]
+            },
+            {
+              "required": [
+                "source_skill_version"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "message_type": {
+            "const": "skill-to-skill"
+          }
+        },
+        "required": [
+          "message_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "source_skill_uri",
+          "source_skill_version"
+        ],
+        "not": {
+          "required": [
+            "source_role"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dispatch_state": {
+            "const": "resolved"
+          }
+        },
+        "required": [
+          "dispatch_state"
+        ]
+      },
+      "then": {
+        "required": [
+          "resolved_target_version"
+        ]
+      }
+    }
+  ]
+}

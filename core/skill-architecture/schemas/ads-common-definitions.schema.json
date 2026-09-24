@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json",
+  "title": "ADS common definitions",
+  "description": "Reusable ADS 5 release-candidate definitions for skill identity, versioning, classifications, lifecycle states, and conformance tokens.",
+  "x-ads-schema-version": "5.0.0-rc.1",
+  "$defs": {
+    "semanticVersion": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(?:-((?:0|[1-9][0-9]*|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*)(?:\\.(?:0|[1-9][0-9]*|[0-9A-Za-z-]*[A-Za-z-][0-9A-Za-z-]*))*))?(?:\\+([0-9A-Za-z-]+(?:\\.[0-9A-Za-z-]+)*))?$"
+    },
+    "publisherNamespace": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^(?!.*--)[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"
+    },
+    "skillName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^(?!synced$)(?!.*--)[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"
+    },
+    "skillUri": {
+      "type": "string",
+      "minLength": 9,
+      "maxLength": 135,
+      "pattern": "^skill:(?![^.]*--)[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?\\.(?!synced$)(?!.*--)[a-z0-9](?:[a-z0-9-]{0,62}[a-z0-9])?$"
+    },
+    "absoluteUri": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:"
+    },
+    "localContractId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64,
+      "pattern": "^(?!.*--)[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+    },
+    "lifecycleClassification": {
+      "enum": [
+        "stateful",
+        "stateless"
+      ]
+    },
+    "configurationClassification": {
+      "enum": [
+        "configurable",
+        "non-configurable"
+      ]
+    },
+    "lifecycleState": {
+      "enum": [
+        "UNINITIALIZED",
+        "READY",
+        "STALE",
+        "BLOCKED"
+      ]
+    },
+    "passFail": {
+      "enum": [
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "passFailNa": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "N/A"
+      ]
+    },
+    "conformanceResult": {
+      "enum": [
+        "PASS",
+        "PASS WITH SHOULD DEVIATIONS",
+        "FAIL"
+      ]
+    },
+    "revisionToken": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "integer",
+          "minimum": 0
+        }
+      ]
+    }
+  }
+}

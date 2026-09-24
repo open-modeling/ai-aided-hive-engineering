@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/stateful-runtime-envelope.schema.json",
+  "title": "ADS stateful runtime envelope",
+  "description": "Reusable project-local envelope for stateful skill runtime state.",
+  "x-ads-schema-version": "5.0.0-rc.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "skill_uri",
+    "skill_version",
+    "project_scope",
+    "lifecycle_state",
+    "revision",
+    "state"
+  ],
+  "properties": {
+    "skill_uri": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/skillUri"
+    },
+    "skill_version": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/semanticVersion"
+    },
+    "project_scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lifecycle_state": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/lifecycleState"
+    },
+    "revision": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/revisionToken"
+    },
+    "readiness_evidence": {
+      "type": "object"
+    },
+    "state": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "lifecycle_state": {
+            "const": "READY"
+          }
+        },
+        "required": [
+          "lifecycle_state"
+        ]
+      },
+      "then": {
+        "required": [
+          "readiness_evidence"
+        ]
+      }
+    }
+  ]
+}

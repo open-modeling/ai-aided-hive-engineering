@@ -1,0 +1,952 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/skill-conformance-record.schema.json",
+  "title": "ADS skill conformance record",
+  "description": "Machine-readable ADS 5 release-candidate conformance evidence with cross-field PASS constraints.",
+  "x-ads-schema-version": "5.0.0-rc.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "skill_name",
+    "skill_uri",
+    "skill_version",
+    "canonical_package",
+    "ads_suite_version",
+    "lifecycle_classification",
+    "configuration_classification",
+    "persists_project_data",
+    "language_meaning_results",
+    "schema_results",
+    "skill_api_results",
+    "host_results",
+    "project_local_persistence",
+    "changelog_results",
+    "gates",
+    "should_deviations",
+    "blocking_findings",
+    "result"
+  ],
+  "properties": {
+    "skill_name": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/skillName"
+    },
+    "skill_uri": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/skillUri"
+    },
+    "skill_version": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/semanticVersion"
+    },
+    "canonical_package": {
+      "type": "string",
+      "minLength": 1
+    },
+    "ads_suite_version": {
+      "const": "5.0.0-rc.1"
+    },
+    "lifecycle_classification": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/lifecycleClassification"
+    },
+    "configuration_classification": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/configurationClassification"
+    },
+    "persists_project_data": {
+      "type": "boolean"
+    },
+    "schema_results": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metaschema_validation",
+        "offline_resolution",
+        "adversarial_self_tests"
+      ],
+      "properties": {
+        "metaschema_validation": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "offline_resolution": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "adversarial_self_tests": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        }
+      }
+    },
+    "skill_api_results": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_validation",
+        "identity_consistency",
+        "applicability_consistency",
+        "capability_implementation",
+        "outcome_linkage",
+        "communication_addressing"
+      ],
+      "properties": {
+        "schema_validation": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "identity_consistency": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "applicability_consistency": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "capability_implementation": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "outcome_linkage": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "communication_addressing": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        }
+      }
+    },
+    "host_results": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "codex",
+        "claude_code"
+      ],
+      "properties": {
+        "codex": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "claude_code": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        }
+      }
+    },
+    "project_local_persistence": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFailNa"
+    },
+    "changelog_results": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "candidate_entry",
+        "serving_codex",
+        "serving_claude_code"
+      ],
+      "properties": {
+        "candidate_entry": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "serving_codex": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "serving_claude_code": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5",
+        "G6",
+        "G7",
+        "G8",
+        "G9",
+        "G10",
+        "G11",
+        "G12",
+        "G13",
+        "G14",
+        "G15",
+        "G16"
+      ],
+      "properties": {
+        "G1": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G2": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G3": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G4": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G5": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G6": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G10": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G11": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G12": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G13": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G14": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G15": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G16": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFail"
+        },
+        "G7": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFailNa"
+        },
+        "G8": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFailNa"
+        },
+        "G9": {
+          "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/passFailNa"
+        }
+      }
+    },
+    "should_deviations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "blocking_findings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "result": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/conformanceResult"
+    },
+    "language_meaning_results": {
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/language-core/language-meaning-conformance.schema.json"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "configuration_classification": {
+            "const": "configurable"
+          }
+        },
+        "required": [
+          "configuration_classification"
+        ]
+      },
+      "then": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G7": {
+                "enum": [
+                  "PASS",
+                  "FAIL"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G7": {
+                "const": "N/A"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "lifecycle_classification": {
+            "const": "stateful"
+          }
+        },
+        "required": [
+          "lifecycle_classification"
+        ]
+      },
+      "then": {
+        "properties": {
+          "persists_project_data": {
+            "const": true
+          },
+          "gates": {
+            "properties": {
+              "G8": {
+                "enum": [
+                  "PASS",
+                  "FAIL"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G8": {
+                "const": "N/A"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "persists_project_data": {
+            "const": true
+          }
+        },
+        "required": [
+          "persists_project_data"
+        ]
+      },
+      "then": {
+        "properties": {
+          "project_local_persistence": {
+            "enum": [
+              "PASS",
+              "FAIL"
+            ]
+          },
+          "gates": {
+            "properties": {
+              "G9": {
+                "enum": [
+                  "PASS",
+                  "FAIL"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "project_local_persistence": {
+            "const": "N/A"
+          },
+          "gates": {
+            "properties": {
+              "G9": {
+                "const": "N/A"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G4": {
+                "const": "PASS"
+              }
+            },
+            "required": [
+              "G4"
+            ]
+          }
+        },
+        "required": [
+          "gates"
+        ]
+      },
+      "then": {
+        "properties": {
+          "schema_results": {
+            "properties": {
+              "metaschema_validation": {
+                "const": "PASS"
+              },
+              "offline_resolution": {
+                "const": "PASS"
+              },
+              "adversarial_self_tests": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G13": {
+                "const": "PASS"
+              }
+            },
+            "required": [
+              "G13"
+            ]
+          }
+        },
+        "required": [
+          "gates"
+        ]
+      },
+      "then": {
+        "properties": {
+          "host_results": {
+            "properties": {
+              "codex": {
+                "const": "PASS"
+              },
+              "claude_code": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G15": {
+                "const": "PASS"
+              }
+            },
+            "required": [
+              "G15"
+            ]
+          }
+        },
+        "required": [
+          "gates"
+        ]
+      },
+      "then": {
+        "properties": {
+          "changelog_results": {
+            "properties": {
+              "candidate_entry": {
+                "const": "PASS"
+              },
+              "serving_codex": {
+                "const": "PASS"
+              },
+              "serving_claude_code": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G16": {
+                "const": "PASS"
+              }
+            },
+            "required": [
+              "G16"
+            ]
+          }
+        },
+        "required": [
+          "gates"
+        ]
+      },
+      "then": {
+        "properties": {
+          "skill_api_results": {
+            "properties": {
+              "schema_validation": {
+                "const": "PASS"
+              },
+              "identity_consistency": {
+                "const": "PASS"
+              },
+              "applicability_consistency": {
+                "const": "PASS"
+              },
+              "capability_implementation": {
+                "const": "PASS"
+              },
+              "outcome_linkage": {
+                "const": "PASS"
+              },
+              "communication_addressing": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "PASS"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G1": {
+                "const": "PASS"
+              },
+              "G2": {
+                "const": "PASS"
+              },
+              "G3": {
+                "const": "PASS"
+              },
+              "G4": {
+                "const": "PASS"
+              },
+              "G5": {
+                "const": "PASS"
+              },
+              "G6": {
+                "const": "PASS"
+              },
+              "G10": {
+                "const": "PASS"
+              },
+              "G11": {
+                "const": "PASS"
+              },
+              "G12": {
+                "const": "PASS"
+              },
+              "G13": {
+                "const": "PASS"
+              },
+              "G14": {
+                "const": "PASS"
+              },
+              "G15": {
+                "const": "PASS"
+              },
+              "G16": {
+                "const": "PASS"
+              }
+            }
+          },
+          "schema_results": {
+            "properties": {
+              "metaschema_validation": {
+                "const": "PASS"
+              },
+              "offline_resolution": {
+                "const": "PASS"
+              },
+              "adversarial_self_tests": {
+                "const": "PASS"
+              }
+            }
+          },
+          "skill_api_results": {
+            "properties": {
+              "schema_validation": {
+                "const": "PASS"
+              },
+              "identity_consistency": {
+                "const": "PASS"
+              },
+              "applicability_consistency": {
+                "const": "PASS"
+              },
+              "capability_implementation": {
+                "const": "PASS"
+              },
+              "outcome_linkage": {
+                "const": "PASS"
+              },
+              "communication_addressing": {
+                "const": "PASS"
+              }
+            }
+          },
+          "host_results": {
+            "properties": {
+              "codex": {
+                "const": "PASS"
+              },
+              "claude_code": {
+                "const": "PASS"
+              }
+            }
+          },
+          "changelog_results": {
+            "properties": {
+              "candidate_entry": {
+                "const": "PASS"
+              },
+              "serving_codex": {
+                "const": "PASS"
+              },
+              "serving_claude_code": {
+                "const": "PASS"
+              }
+            }
+          },
+          "blocking_findings": {
+            "maxItems": 0
+          },
+          "should_deviations": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "PASS"
+          },
+          "configuration_classification": {
+            "const": "configurable"
+          }
+        },
+        "required": [
+          "result",
+          "configuration_classification"
+        ]
+      },
+      "then": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G7": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "PASS"
+          },
+          "lifecycle_classification": {
+            "const": "stateful"
+          }
+        },
+        "required": [
+          "result",
+          "lifecycle_classification"
+        ]
+      },
+      "then": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G8": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "PASS"
+          },
+          "persists_project_data": {
+            "const": true
+          }
+        },
+        "required": [
+          "result",
+          "persists_project_data"
+        ]
+      },
+      "then": {
+        "properties": {
+          "project_local_persistence": {
+            "const": "PASS"
+          },
+          "gates": {
+            "properties": {
+              "G9": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "PASS WITH SHOULD DEVIATIONS"
+          }
+        },
+        "required": [
+          "result"
+        ]
+      },
+      "then": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G1": {
+                "const": "PASS"
+              },
+              "G2": {
+                "const": "PASS"
+              },
+              "G3": {
+                "const": "PASS"
+              },
+              "G4": {
+                "const": "PASS"
+              },
+              "G5": {
+                "const": "PASS"
+              },
+              "G6": {
+                "const": "PASS"
+              },
+              "G10": {
+                "const": "PASS"
+              },
+              "G11": {
+                "const": "PASS"
+              },
+              "G12": {
+                "const": "PASS"
+              },
+              "G13": {
+                "const": "PASS"
+              },
+              "G14": {
+                "const": "PASS"
+              },
+              "G15": {
+                "const": "PASS"
+              },
+              "G16": {
+                "const": "PASS"
+              }
+            }
+          },
+          "schema_results": {
+            "properties": {
+              "metaschema_validation": {
+                "const": "PASS"
+              },
+              "offline_resolution": {
+                "const": "PASS"
+              },
+              "adversarial_self_tests": {
+                "const": "PASS"
+              }
+            }
+          },
+          "skill_api_results": {
+            "properties": {
+              "schema_validation": {
+                "const": "PASS"
+              },
+              "identity_consistency": {
+                "const": "PASS"
+              },
+              "applicability_consistency": {
+                "const": "PASS"
+              },
+              "capability_implementation": {
+                "const": "PASS"
+              },
+              "outcome_linkage": {
+                "const": "PASS"
+              },
+              "communication_addressing": {
+                "const": "PASS"
+              }
+            }
+          },
+          "host_results": {
+            "properties": {
+              "codex": {
+                "const": "PASS"
+              },
+              "claude_code": {
+                "const": "PASS"
+              }
+            }
+          },
+          "changelog_results": {
+            "properties": {
+              "candidate_entry": {
+                "const": "PASS"
+              },
+              "serving_codex": {
+                "const": "PASS"
+              },
+              "serving_claude_code": {
+                "const": "PASS"
+              }
+            }
+          },
+          "blocking_findings": {
+            "maxItems": 0
+          },
+          "should_deviations": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "PASS WITH SHOULD DEVIATIONS"
+          },
+          "configuration_classification": {
+            "const": "configurable"
+          }
+        },
+        "required": [
+          "result",
+          "configuration_classification"
+        ]
+      },
+      "then": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G7": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "PASS WITH SHOULD DEVIATIONS"
+          },
+          "lifecycle_classification": {
+            "const": "stateful"
+          }
+        },
+        "required": [
+          "result",
+          "lifecycle_classification"
+        ]
+      },
+      "then": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G8": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "PASS WITH SHOULD DEVIATIONS"
+          },
+          "persists_project_data": {
+            "const": true
+          }
+        },
+        "required": [
+          "result",
+          "persists_project_data"
+        ]
+      },
+      "then": {
+        "properties": {
+          "project_local_persistence": {
+            "const": "PASS"
+          },
+          "gates": {
+            "properties": {
+              "G9": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "gates": {
+            "properties": {
+              "G2": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "language_meaning_results": {
+            "properties": {
+              "result": {
+                "const": "PASS"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

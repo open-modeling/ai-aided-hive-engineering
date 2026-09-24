@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/language-core/language-meaning-conformance.schema.json",
+  "title": "Language and Meaning conformance record",
+  "description": "Reusable project evidence for Language & Meaning Core conformance.",
+  "x-ads-schema-version": "5.0.0-rc.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_id",
+    "artifact_version",
+    "lmc_version",
+    "review_method",
+    "review_authority",
+    "evidence",
+    "bcp14",
+    "asd_ste100_issue9",
+    "project_terminology",
+    "meaning_control",
+    "protected_content",
+    "result"
+  ],
+  "properties": {
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "artifact_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lmc_version": {
+      "const": "5.0.0-rc.1"
+    },
+    "review_method": {
+      "enum": [
+        "designated-checker",
+        "designated-review",
+        "combined"
+      ]
+    },
+    "review_authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "bcp14": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "N/A"
+      ]
+    },
+    "asd_ste100_issue9": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "N/A"
+      ]
+    },
+    "project_terminology": {
+      "enum": [
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "meaning_control": {
+      "enum": [
+        "PASS",
+        "FAIL"
+      ]
+    },
+    "protected_content": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "N/A"
+      ]
+    },
+    "result": {
+      "enum": [
+        "PASS",
+        "FAIL"
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "PASS"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "project_terminology": {
+            "const": "PASS"
+          },
+          "meaning_control": {
+            "const": "PASS"
+          },
+          "bcp14": {
+            "enum": [
+              "PASS",
+              "N/A"
+            ]
+          },
+          "asd_ste100_issue9": {
+            "enum": [
+              "PASS",
+              "N/A"
+            ]
+          },
+          "protected_content": {
+            "enum": [
+              "PASS",
+              "N/A"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
