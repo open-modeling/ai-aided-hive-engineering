@@ -1,7 +1,7 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.26"
-date: "17 September 2026"
+subtitle: "Formal Proposal - Draft 0.27"
+date: "18 September 2026"
 ---
 
 **Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Scaling/Magnification/Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/repair exploration, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, Candidate Delta/canonical-state computation-boundary revisions, and Contract decomposition/execution-topology/authority-locality revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
@@ -940,11 +940,45 @@ Exchange Item atomicity is boundary-relative. Feedback can target an internal lo
 
 ### 6.6 Work Product
 
-A Work Product is a complete obligatory Contract result. It has its own schema, permitted information boundary, applicable checks under Section 8.5, required validation, supplementary information, and Acceptance rule. A lower-level Work Product does not automatically become content of an upper Work Product merely because it exists.
+A Work Product is the Contract-required result offered as complete for the applicable Contract scope.
+
+The Work Product role does not itself prove conformity or Acceptance:
+
+$$WorkProduct(w,C)\not\Rightarrow Conformant(w,C)$$
+
+$$WorkProduct(w,C)\not\Rightarrow Accepted(w,C).$$
+
+Intermediate engineering material is not automatically a Work Product. Candidate Deltas, partial models, exploratory artifacts, simulations, temporary computations, internal drafts, and incomplete Engineering Objects retain their applicable roles until intentionally prepared as the complete Contract result.
+
+$$InternalEngineeringMaterial\not\Rightarrow WorkProduct.$$
+
+A Work Product has its own schema, permitted information boundary, applicable checks under Section 8.5, required validation, supplementary information, and Acceptance rule. A lower-level Work Product does not automatically become content of an upper Work Product merely because it exists.
 
 $$IsWorkProduct(w,C)\Rightarrow ConformsToSchema(w,C).$$
 
 A Work Product can become an input to another Contract while remaining the complete result of its source Contract.
+
+#### 6.6.1 Work Product revision qualification
+
+For Work Product revision $w^r$ and Contract revision $C^k$:
+
+$$Submitted(w^r,C^k)$$
+
+and:
+
+$$Accepted(w^r,C^k)$$
+
+apply to those exact revisions.
+
+Therefore:
+
+$$Accepted(w^r,C^k)\not\Rightarrow Accepted(w^{r+1},C^k)$$
+
+and:
+
+$$Accepted(w^r,C^k)\not\Rightarrow Accepted(w^r,C^{k+1}).$$
+
+Unaffected Evidence or validation can be reused only where the applicable Project Profile establishes that the changed revision does not invalidate it.
 
 ### 6.7 Product
 
@@ -2094,6 +2128,212 @@ A Contract therefore bounds exploration through its Product target, required Wor
 
 Contract execution does not escape the general exploration rules merely because it is obligatory work. Resource use, trajectory survival, convergence, divergence, back-off, deactivation, preservation, and post-mortem rules apply to Contract-governed execution.
 
+#### 11.1.2 Contract lifecycle
+
+A Contract is a durable, revision-qualified governance record.
+
+Its lifecycle is represented as a finite-state machine:
+
+$$ContractState(C)\in\{DEFINED,ASSIGNED,READY,EXECUTING,BLOCKED,SUBMITTED,UNDER\_ACCEPTANCE,REWORK\_REQUIRED,REASSESSMENT\_REQUIRED,FULFILLED,DISCONTINUED\}.$$
+
+The lifecycle is not strictly monotonic. Forward progress is normal, but material changes can invalidate already satisfied lifecycle predicates and move a successor Contract revision to an earlier state.
+
+#### 11.1.3 State-entry predicates
+
+Each state has explicit entry conditions.
+
+**DEFINED.** A Contract is `DEFINED` when a valid Contract identity and sufficient governed semantics exist to preserve it, but a valid executable Assignment is not yet established.
+
+**ASSIGNED.** A Contract is `ASSIGNED` when exactly one valid Executor has been established:
+
+$$|Executor(C)|=1$$
+
+and:
+
+$$SatisfiesExecutionPolicy(Executor(C),C,profile).$$
+
+Assignment does not establish readiness.
+
+**READY.** A Contract is `READY` only when all currently applicable execution prerequisites are satisfied.
+
+Let:
+
+$$ReadyPrerequisites(C)$$
+
+be the Project Profile- and Contract-defined prerequisite set.
+
+It can include, without limitation:
+
+- completion of external work;
+- completion of an external Contract;
+- completion or required state of dependent internal Contracts;
+- availability of required Work Products;
+- availability of required Evidence;
+- availability of computational resources;
+- availability of physical resources;
+- availability of test facilities;
+- availability of manufacturing capability;
+- availability of external services;
+- required personnel or Human participation;
+- authority prerequisites;
+- legal or commercial prerequisites;
+- environmental or physical conditions;
+- required Product state;
+- dependency synchronization conditions.
+
+Then:
+
+$$READY(C)\iff ASSIGNED(C)\land\forall p\in ReadyPrerequisites(C):Satisfied(p).$$
+
+This makes readiness explicitly dependent on the broader execution environment rather than only on internal Contract state.
+
+**EXECUTING.** A `READY` Contract can enter `EXECUTING` when execution begins:
+
+$$READY\rightarrow EXECUTING.$$
+
+Execution remains bounded Solution Exploration and remains subject to Resource Envelope, Contract policy, Evidence, authority, convergence/divergence, and validation rules.
+
+**BLOCKED.** A Contract is `BLOCKED` when continued execution is temporarily impossible while the current Contract basis remains potentially valid.
+
+$$BLOCKED(C)\Rightarrow RecordedBlocker(C).$$
+
+Examples include temporary resource unavailability, an unfinished dependency, unavailable external input, temporary physical access failure, or a temporarily unresolved required condition.
+
+**SUBMITTED.** A Contract enters `SUBMITTED` only after explicit submission of a prepared Work Product revision.
+
+**UNDER_ACCEPTANCE.** The submitted result enters independent Acceptance assessment.
+
+**REWORK_REQUIRED.** The submitted result is not acceptable, but the current Contract basis remains valid and correction can continue through normal execution.
+
+**REASSESSMENT_REQUIRED.** The current Contract basis itself requires reconsideration before ordinary execution can continue.
+
+**FULFILLED.** The required Work Product has satisfied the applicable independent Acceptance rules.
+
+**DISCONTINUED.** The Contract has ended without successful fulfilment under that Contract identity.
+
+#### 11.1.4 FSM transition semantics
+
+Contract lifecycle transitions are guarded transitions:
+
+$$Transition(C,S_i,S_j,event,guard).$$
+
+A transition occurs only when its applicable guard is satisfied.
+
+The common transition relation includes:
+
+| From | To | Typical trigger / guard |
+|---|---|---|
+| `DEFINED` | `ASSIGNED` | valid single Executor Assignment established |
+| `ASSIGNED` | `READY` | all current readiness prerequisites satisfied |
+| `READY` | `EXECUTING` | governed execution starts |
+| `READY` | `ASSIGNED` | material revision invalidates one or more readiness prerequisites while Assignment remains valid |
+| `READY` | `DEFINED` | material revision invalidates Assignment itself |
+| `EXECUTING` | `BLOCKED` | temporary blocking condition prevents continuation |
+| `BLOCKED` | `EXECUTING` | blocker resolved and execution conditions again hold |
+| `BLOCKED` | `ASSIGNED` | Contract revision invalidates readiness but retains valid Assignment |
+| `BLOCKED` | `DEFINED` | Assignment becomes invalid or absent |
+| `EXECUTING` | `SUBMITTED` | Executor conformity passed and explicit submission performed |
+| `EXECUTING` | `REASSESSMENT_REQUIRED` | inability, critical divergence, resource failure, material premise failure, or comparable condition |
+| `SUBMITTED` | `UNDER_ACCEPTANCE` | independent assessment begins |
+| `UNDER_ACCEPTANCE` | `FULFILLED` | Acceptance succeeds |
+| `UNDER_ACCEPTANCE` | `REWORK_REQUIRED` | result is correctable under current Contract basis |
+| `UNDER_ACCEPTANCE` | `REASSESSMENT_REQUIRED` | Acceptance exposes a material Contract-basis problem |
+| `REWORK_REQUIRED` | `EXECUTING` | governed rework starts |
+| `REASSESSMENT_REQUIRED` | `DEFINED` | successor revision requires new Assignment |
+| `REASSESSMENT_REQUIRED` | `ASSIGNED` | Assignment remains valid but readiness must be re-established |
+| `REASSESSMENT_REQUIRED` | `READY` | revised Contract basis is valid and all readiness predicates already hold |
+| `REASSESSMENT_REQUIRED` | `EXECUTING` | justified continuation where revised execution basis is immediately executable |
+| `REASSESSMENT_REQUIRED` | `DISCONTINUED` | current Contract will not continue |
+| any non-terminal state | `DISCONTINUED` | applicable authorized discontinuation condition |
+
+`FULFILLED` and `DISCONTINUED` are terminal for that Contract identity. Further work occurs through an applicable successor Contract or another project process.
+
+#### 11.1.5 Revision-driven backward transition
+
+A lifecycle state does not survive a material Contract revision merely because it was valid immediately before the revision.
+
+For:
+
+$$C^k\rightarrow C^{k+1}$$
+
+the lifecycle predicates of $C^{k+1}$ are re-evaluated.
+
+Define:
+
+$$EarliestValidState(C^{k+1})$$
+
+as the earliest lifecycle state whose entry predicates and all preceding required predicates are satisfied by the revised Contract.
+
+Then:
+
+$$State(C^{k+1})=EarliestValidState(C^{k+1})$$
+
+unless another explicit transition rule requires a later governance state such as `REASSESSMENT_REQUIRED`.
+
+This permits legitimate backward movement. For example:
+
+$$READY(C^k)\rightarrow ASSIGNED(C^{k+1})$$
+
+when a material revision preserves the Executor but introduces a new unsatisfied readiness prerequisite.
+
+#### 11.1.6 Human intervention and backward transition
+
+Human Arbitrary Input, Human Voluntary Choice, or Human Prescriptive Choice does not bypass the Contract authority and revision rules.
+
+Human input itself does not directly mutate the Contract FSM. However, when Human input is legitimately incorporated and materially revises the Contract:
+
+$$HumanInput\rightarrow GovernedContractRevision\rightarrow ReevaluateLifecyclePredicates.$$
+
+::: {custom-style="Illustration"}
+**Illustration - Human intervention and readiness.** A Contract is `READY`. A Human with applicable authority changes the required Product target and adds a mandatory physical qualification test. The current Executor remains valid, but the required test facility is not yet available. Then $READY(C^k)\rightarrow ASSIGNED(C^{k+1})$ because Assignment remains valid but readiness no longer holds. When the qualification resource becomes available, $ASSIGNED(C^{k+1})\rightarrow READY(C^{k+1})$. If the same Human change also requires an Executor type that the current Executor cannot satisfy, $READY(C^k)\rightarrow DEFINED(C^{k+1})$ until a new valid Assignment is established. The same rule applies to non-Human changes; the cause of revision does not change the FSM semantics.
+:::
+
+#### 11.1.7 Dependency-driven readiness
+
+Dependencies are explicit readiness conditions where applicable.
+
+For dependent Contracts $C_a$ and $C_b$:
+
+$$DependsForReadiness(C_a,C_b,s_b)$$
+
+means that $C_a$ can become `READY` only when $C_b$ reaches required state $s_b$.
+
+For example, a project can require:
+
+$$State(C_b)=FULFILLED$$
+
+before:
+
+$$State(C_a)=READY.$$
+
+The common model does not require every dependency to wait for full fulfilment. A Project Profile can require another state or a particular accepted Work Product.
+
+External activities can be represented in the same readiness logic without being forced into internal Contract semantics.
+
+#### 11.1.8 Resource-driven readiness
+
+Resource Envelope declaration and resource availability are distinct.
+
+A Contract can have an authorized budget but still lack the actual resource needed to begin execution. Therefore:
+
+$$ResourceBudgeted(r,C)\not\Rightarrow ResourceAvailable(r,C,t).$$
+
+Where resource $r$ is a readiness prerequisite:
+
+$$RequiredResource(r,C)\land\neg ResourceAvailable(r,C,t)\Rightarrow\neg READY(C).$$
+
+This applies to computational and physical resources.
+
+#### 11.1.9 Revision is not lifecycle state
+
+Revision remains orthogonal to state:
+
+$$Revision(C)\neq ContractState(C).$$
+
+A revision can cause a lifecycle transition, including a backward transition, but the revision itself is not the transition state.
+
+Earlier Contract revisions remain historically addressable.
+
 ### 11.2 Contract decomposition
 
 A Contract can be decomposed when fulfilment requires separable execution responsibilities.
@@ -2338,25 +2578,290 @@ The required separation can be implemented through different Actors, Hive instan
 
 ### 11.6 Acceptance
 
-Acceptance is the Contract-governed assessment of fulfilment and Work Product conformance. It is distinct from Assignment, Obligation, execution, release, deployment, production, and baselining.
+Acceptance remains the Contract-governed independent assessment of fulfilment and Work Product conformance.
 
-Both Acceptance stages use the Check Cascade defined in Section 8.5. A more expensive applicable assessment does not proceed while a cheaper applicable check is failing. Independent Acceptance repeats or independently establishes the required evidence according to the Contract; independence does not convert every check into a High-profile Assessment.
+It has two sequential stages:
 
-Acceptance has two sequential stages with different responsibility and evidential meaning. Stage 1 establishes the Executor's own conformity claim and submission state. Stage 2 independently evaluates that claim and produces the Contract Acceptance disposition. Passing Stage 1 is therefore a prerequisite for normal Stage 2 assessment, but it is not independent Acceptance.
+$$ExecutorConformity\rightarrow Submission\rightarrow IndependentAcceptance.$$
 
-#### 11.6.1 Executor conformity assessment
+Executor self-check is not independent Acceptance. Independent Acceptance is performed by the Issuer or explicitly permitted delegate.
 
-Before submission, the Executor performs the applicable checks against the Contract and prepares the Work Product for assessment. The Executor records the conformity result, Known Gaps, identified non-conformities, relevant evidence, and any condition that prevents a complete fulfilment claim.
+#### 11.6.1 Executor conformity
 
-This stage is a self-assessment by the Executor. It establishes what the Executor claims to have fulfilled and with what evidence. It does not bind the Issuer to accept the result. When conformity cannot be established, the Executor reports that condition explicitly instead of presenting a partial or known-invalid result as conformant.
+Before submission, the Executor performs the applicable checks and records:
 
-#### 11.6.2 Independent Acceptance assessment
+- conformance results;
+- relevant Evidence;
+- Known Gaps;
+- permitted deferred conditions;
+- non-conformities;
+- revision information.
 
-After submission, the Issuer performs an independent assessment of Contract fulfilment and Work Product conformance, or delegates that assessment when the Contract permits delegation. The independent assessment considers the submitted Work Product, the Executor conformity record, applicable evidence, Known Gaps, and the Contract Acceptance rules. It does not treat the Executor's conformity claim as proof by itself.
+If conformity cannot legitimately be established:
 
-This stage produces the Contract Acceptance disposition. The disposition and its rationale are recorded in Contract history. Failed Acceptance does not erase the submitted Work Product, conformity record, evidence, Contract state, or earlier Decisions; these records remain available for correction, governance, and post-mortem analysis.
+$$\neg ExecutorConformityPassed(w,C)\Rightarrow\neg NormalSubmit(w,C).$$
+
+The Contract continues execution, becomes blocked, or enters reassessment according to the cause.
+
+#### 11.6.2 Submission
+
+Submission is explicit:
+
+$$Submit(w^r,C^k,t).$$
+
+Neither visibility nor repository presence implies submission:
+
+$$RepositoryPresence(w)\not\Rightarrow Submitted(w,C)$$
+
+$$VisibleToIssuer(w)\not\Rightarrow Submitted(w,C).$$
+
+A normal submission transitions the Contract from `EXECUTING` to `SUBMITTED`.
+
+The submitted Work Product revision remains historically addressable as the subject of that Acceptance attempt. Later correction creates a successor Work Product revision rather than rewriting the submitted revision.
+
+#### 11.6.3 Acknowledgement
+
+Acknowledgement is neither submission nor Acceptance:
+
+$$Acknowledged(w,C)\not\Rightarrow Accepted(w,C)$$
+
+$$Acknowledged(w,C)\not\Rightarrow Fulfilled(C).$$
+
+#### 11.6.4 Independent Acceptance
+
+The normal transition is:
+
+$$SUBMITTED\rightarrow UNDER\_ACCEPTANCE.$$
+
+Acceptance assesses the exact submitted Work Product revision against the applicable Contract revision.
+
+The Executor conformity record is Evidence or input to the assessment. It is not proof.
+
+The independent assessment considers the submitted Work Product, applicable Evidence, Known Gaps and their dispositions, Acceptance rules, required verification independence, applicable Check Cascade results, and Contract fulfilment.
+
+#### 11.6.5 Acceptance dispositions
+
+The common Acceptance dispositions are:
+
+$$AcceptanceDisposition\in\{ACCEPTED,REWORK\_REQUIRED,REASSESSMENT\_REQUIRED\}.$$
+
+`ACCEPTED` means Contract fulfilment has been established.
+
+`REWORK_REQUIRED` means ordinary correction remains appropriate under the current Contract basis.
+
+`REASSESSMENT_REQUIRED` means the underlying Contract basis must be reconsidered.
+
+#### 11.6.6 Successful Acceptance
+
+Successful Acceptance produces:
+
+$$UNDER\_ACCEPTANCE\rightarrow FULFILLED.$$
+
+For the required coherent Work Product:
+
+$$Accepted(w^r,C^k)\Rightarrow Fulfilled(C^k).$$
 
 Successful Acceptance establishes that the submitted result satisfies the applicable Contract Acceptance rules. It does not by itself imply release, deployment, production, baselining, or another project-specific lifecycle transition.
+
+#### 11.6.7 Rework
+
+Failed Acceptance of $w^r$ does not mutate that revision.
+
+Instead:
+
+$$w^r\rightarrow w^{r+1}.$$
+
+The lifecycle proceeds:
+
+$$UNDER\_ACCEPTANCE\rightarrow REWORK\_REQUIRED\rightarrow EXECUTING\rightarrow SUBMITTED.$$
+
+Applicable checks are repeated or explicitly reused where unaffected.
+
+#### 11.6.8 Acceptance failure and Contract failure
+
+A failed Acceptance attempt does not by itself mean permanent Contract failure:
+
+$$\neg Accepted(w^r,C)\not\Rightarrow Discontinued(C).$$
+
+However, Acceptance failure is a Contract-execution observation. Repeated or material Acceptance failure contributes to the health analysis in Section 17.
+
+#### 11.6.9 Contract and Acceptance failures affect Confidence
+
+Contract and Acceptance failures are mandatory inputs to the next relevant Confidence update.
+
+Let:
+
+$$FailureObservation(C,t)$$
+
+include events such as:
+
+- Executor conformity failure;
+- Work Product rejection;
+- Acceptance failure;
+- repeated rework;
+- Contract blocking;
+- missed dependency;
+- unavailable critical resources;
+- integration failure;
+- verification failure;
+- reported inability to fulfil;
+- transition to `REASSESSMENT_REQUIRED`.
+
+Then:
+
+$$FailureObservation(C,t)\Rightarrow IncludeInConfidenceUpdate(C,t+\Delta t).$$
+
+Acceptance failure specifically contributes to the validation/rework history used by the Confidence model:
+
+$$AcceptanceFailure\rightarrow ConfidenceObservation.$$
+
+It is not necessary that every failure mechanically lowers Confidence by a fixed amount. A failed test can remove substantial uncertainty and expose a clear repair path.
+
+Therefore:
+
+$$Failure\not\Rightarrow FixedConfidenceDecrease.$$
+
+But a material Contract or Acceptance failure must not be ignored when updating Confidence:
+
+$$MaterialFailure\Rightarrow ConfidenceAffected.$$
+
+This preserves the distinction:
+
+$$Confidence\neq ContractState$$
+
+and:
+
+$$Confidence\neq AcceptanceDisposition.$$
+
+#### 11.6.10 Repeated failure
+
+Repeated Acceptance failure contributes to execution divergence:
+
+$$RepeatedAcceptanceFailure\rightarrow ExecutionHealthInput.$$
+
+This can subsequently contribute to lower Confidence, back-off, Executor or Agent deactivation, reassessment, Contract revision, successor Contract, or discontinuation.
+
+These are independent mechanisms. No single implication is automatic.
+
+#### 11.6.11 Discontinuation
+
+A Contract can terminate unsuccessfully as:
+
+$$DISCONTINUED.$$
+
+Its full history remains addressable:
+
+$$Discontinued(C)\not\Rightarrow DeleteHistory(C).$$
+
+Discontinuation can follow from infeasibility, authority decision, exhausted or withdrawn resources, replacement by a successor Contract, unrecoverable external dependency, cancellation, or another Project Profile-defined reason.
+
+#### 11.6.12 Successor Contract
+
+When the execution model changes so materially that the existing Contract no longer represents the same governed obligation, a successor Contract can be established:
+
+$$Succeeds(C_2,C_1).$$
+
+The original Contract remains historical. Successor creation is not a restart or rewrite.
+
+#### 11.6.13 Illustration - in-house Product replaced by third-party Product
+
+::: {custom-style="Illustration"}
+Consider an initial Contract $C_{internal}$ whose Product target is an internally developed component. Its execution model assumes internal design, internal implementation or manufacturing, internal verification capability, internally controlled change authority, and internal access to engineering Evidence.
+
+During exploration the Hive determines that purchasing a third-party component is economically or technically preferable.
+
+This is not merely a different implementation trajectory inside the same Contract if the change materially alters responsibility, authority, dependencies, Evidence availability, or fulfilment obligations.
+
+A successor engineering Contract can therefore be established:
+
+$$Succeeds(C_{thirdparty},C_{internal}).$$
+
+The successor Product target now depends on an external supplier. That change can create additional prerequisite obligations outside the original engineering Contract, for example an external legal/commercial Contract $C_{legal}$ covering project-specific matters such as procurement obligation, delivery terms, price/payment terms, warranties, licensing, intellectual-property rights, permitted use, data rights, confidentiality, liability, compliance representations, change-notification duties, support/service obligations, product discontinuation or obsolescence, required supplier Evidence, acceptance and rejection rights, or applicable regulatory or export conditions.
+
+These matters are illustrative. The common proposal does not prescribe commercial law or supplier-contract content.
+
+What is normative to the governance model is that the external dependency must not be hidden.
+
+If legal/commercial fulfilment is required before engineering execution can legitimately continue:
+
+$$DependsForReadiness(C_{thirdparty},C_{legal},s)$$
+
+for the applicable required state $s$.
+
+For example:
+
+$$Fulfilled(C_{legal})\Rightarrow LegalPrerequisiteSatisfied(C_{thirdparty}).$$
+
+Until that condition holds:
+
+$$\neg READY(C_{thirdparty}).$$
+
+A Decision to replace internal realization with a third-party Product therefore changes the Solution Space and can create new external Contract dependencies that did not exist in the in-house trajectory:
+
+$$ChangeToThirdPartySolution\not\Rightarrow PreserveOriginalObligationSet.$$
+
+The Hive must reassess Contract topology, Evidence availability, authority, Resource Envelope, readiness prerequisites, and Acceptance rules.
+:::
+
+#### 11.6.14 Contract revision during Acceptance
+
+If:
+
+$$C^k\rightarrow C^{k+1}$$
+
+during submission or Acceptance, materiality to the Acceptance basis is assessed.
+
+Where material:
+
+$$MaterialToAcceptance(C^k,C^{k+1},w^r)\Rightarrow ReassessSubmissionOrAcceptance.$$
+
+Acceptance under the old basis does not automatically transfer.
+
+#### 11.6.15 Work Product FSM
+
+The Work Product submission FSM is:
+
+$$PREPARED\rightarrow SUBMITTED\rightarrow UNDER\_ACCEPTANCE\rightarrow ACCEPTED$$
+
+or:
+
+$$UNDER\_ACCEPTANCE\rightarrow NOT\_ACCEPTED.$$
+
+A failed revision remains historical:
+
+$$NOT\_ACCEPTED(w^r)\rightarrow Prepare(w^{r+1})$$
+
+rather than mutation of $w^r$.
+
+#### 11.6.16 Contract FSM summary
+
+The principal success path is:
+
+$$DEFINED\rightarrow ASSIGNED\rightarrow READY\rightarrow EXECUTING\rightarrow SUBMITTED\rightarrow UNDER\_ACCEPTANCE\rightarrow FULFILLED.$$
+
+But the actual model is a guarded graph, not a one-way pipeline.
+
+Examples include:
+
+$$READY\rightarrow ASSIGNED$$
+
+after a material revision introduces an unsatisfied readiness prerequisite;
+
+$$READY\rightarrow DEFINED$$
+
+when Assignment is invalidated;
+
+$$EXECUTING\rightarrow BLOCKED\rightarrow EXECUTING;$$
+
+$$UNDER\_ACCEPTANCE\rightarrow REWORK\_REQUIRED\rightarrow EXECUTING;$$
+
+and:
+
+$$REASSESSMENT\_REQUIRED\rightarrow\{DEFINED,ASSIGNED,READY,EXECUTING,DISCONTINUED\}$$
+
+according to the revised Contract predicates.
+
+Every transition preserves history. There is no same-state transition used to hide iteration.
 
 ### 11.7 Team API
 
@@ -3608,6 +4113,13 @@ The Project Profile defines at least the parameters that are required by the pro
 - integration-input verification and rework rules;
 - Contract-execution health indicators, divergence thresholds, and back-off behavior;
 - Agent deactivation, Contract-role Actor deactivation, reassignment, recovery, and termination policies.
+- readiness prerequisite kinds, including external-work, dependent-Contract, computational-resource, physical-resource, legal/commercial, Product-state, and synchronization conditions;
+- Contract lifecycle transition guards and materiality conditions for revision-driven backward transitions;
+- blocker categories and conditions requiring `REASSESSMENT_REQUIRED`;
+- Work Product preparation/submission protocol and revision handling;
+- Acceptance dispositions, permitted Acceptance delegation, and rules for reuse of unaffected validation or Evidence;
+- successor-Contract and external Contract dependency rules;
+- Confidence response model for material Contract and Acceptance failures.
 - Confidence representation, observation window, trend calculation, and update frequency;
 - Confidence inputs from convergence/divergence, Evidence trends, Decision progression, validation outcomes, Resource Cost, remaining Resource Envelope, and historical resolution;
 - permitted stochastic/Monte-Carlo/pseudo-random Confidence and exploration-diversity mechanisms;
@@ -3706,6 +4218,28 @@ Additional Contract decomposition, execution-topology, and authority-locality in
 - **Integrator rework request is not design authority** - The Integrator can reject or request correction without inheriting originating Decision authority.
 - **Contribution traceability is not authority** - Integration ancestry supports forward and converse traceability without authority inheritance.
 - **Team API scope** - Team API governs cross-Actor/cross-Hive engineering communication and does not prescribe technical Product interfaces.
+Additional Contract lifecycle invariants are:
+
+- **FSM completeness** - Every common Contract state has explicit entry semantics and permitted transition families.
+- **Guarded transitions** - Contract lifecycle transitions occur only when their applicable transition guards hold.
+- **Backward transitions are valid** - Lifecycle progress is not assumed monotonic.
+- **Revision re-evaluates lifecycle** - Material Contract revision re-evaluates Assignment, readiness, and other state predicates.
+- **Human input is not an FSM bypass** - Human intervention affects Contract state only through governed Contract revision.
+- **Readiness includes external dependencies** - Required external work and dependent Contracts can gate `READY`.
+- **Readiness includes actual resources** - Authorized Resource Envelope does not prove current computational or physical resource availability.
+- **Submission is explicit** - Repository presence or mere visibility does not establish submission.
+- **Acknowledgement is not Acceptance** - Receipt acknowledgement does not fulfil the Contract.
+- **Executor conformity is not independent Acceptance** - Executor self-assessment and independent Acceptance remain distinct stages.
+- **Acceptance is revision-specific** - Acceptance applies to the exact submitted Work Product and applicable Contract revisions.
+- **Failed Acceptance preserves history** - Failed submissions, conformity records, Evidence, and rationale remain addressable.
+- **Rework creates a successor Work Product revision** - An assessed submission revision is not rewritten in place.
+- **Contract/Acceptance failure affects Confidence** - Material failures participate in the subsequent Confidence update but do not prescribe a fixed numerical response.
+- **Confidence remains distinct from lifecycle** - $Confidence\neq ContractState$ and $Confidence\neq AcceptanceDisposition$.
+- **Repeated failure affects execution health** - Repeated Acceptance/rework failure contributes to Contract convergence/divergence assessment.
+- **Third-party substitution can create new obligations** - A change from internal realization to external supply requires reassessment of Contract topology and can introduce external Contract readiness dependencies.
+- **Successor Contract is not restart** - Successor identity preserves ancestry rather than rewriting the earlier Contract.
+- **Fulfilment remains separate from supporting-process states** - Contract fulfilment does not imply release, deployment, production, or baselining.
+
 - **No `Conf` abbreviation** - Formal notation uses `Confidence` to avoid collision with Configuration terminology.
 - **Confidence is an operational indicator** - Confidence describes the current health/trend of autonomous exploration or development rather than a semantic property of engineering content.
 - **Confidence is not a Work Product property** - $Confidence\not\subseteq WorkProductProperties$.
@@ -3775,11 +4309,11 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.26 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.27 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.26 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, and Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, plus the Confidence model as a task-local drifting operational health indicator connected to exploration convergence/divergence, Evidence trends, bounded resources, operator visibility, stochastic diversity, and post-mortem learning without acquiring truth, probability, authority, Evidence, Decision, Admission, Acceptance, Back-off, or Work Product semantics. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.27 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
 **Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
 
@@ -3787,6 +4321,7 @@ Draft 0.26 retains the structural rewrite introduced in Draft 0.9 and corrects t
 
 ## Open backlog
 
+- **Contract lifecycle FSM formalization and figure:** complete the Contract lifecycle transition model with exhaustive transition guards, revision-driven backward transitions, dependency/resource readiness semantics, and countermodel audit. The proposal must include a dedicated visual FSM diagram showing all common Contract states and permitted transition families, including forward execution, blocking/recovery, rework, reassessment, backward transitions after material Contract revision, fulfilment, and discontinuation. The diagram must be derived from the formal transition relation and must not introduce additional lifecycle semantics.
 - **3D concept illustration:** add a dedicated 3D model showing Engineering Layers, Scale, Magnification, Decision Blast Radius, Extent, and cross-layer information propagation. The figure must explain the concept itself rather than merely provide an example hierarchy.
 - **Scale formalization:** recover and rework the mathematical model for Scale comparison, Magnification comparison/compatibility, Scale-compatible relations and operations, cross-Scale propagation, Decision Blast Radius, and Extent assessment. The recovered algebra must preserve the locality and no-sphere semantics established in Section 9.
 - **Minimal-repair formalization:** model minimal repair cost as an outcome of direct Solution Space exploration by the affected and adjacent engineering contexts. It cannot be computed as an inverse operation of the proposed change because feasible repairs, local absorption, alternative Decisions, and cross-Scale consequences must be discovered rather than algebraically reversed.
