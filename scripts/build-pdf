@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+META="$ROOT/scripts/project_meta.py"
+SOURCE="$ROOT/$($META proposal.source)"
+BUILD="$ROOT/$($META paths.build)"
+OUT="$BUILD/$($META build.pdf.filename)"
+mkdir -p "$BUILD"
+
+"$ROOT/scripts/validate" --proposal-only
+TMP_MD="$BUILD/.proposal-build.md"
+# STATIC_TOC is a source marker; Pandoc generates the release TOC.
+sed '/^\[\[STATIC_TOC\]\]$/d' "$SOURCE" > "$TMP_MD"
+
+TITLE="$($META proposal.title)"
+VERSION="$($META proposal.version)"
+DATE="$($META proposal.date)"
+AUTHOR="$($META repository.author)"
+PAPERSIZE="$($META build.pdf.papersize)"
+FONTSIZE="$($META build.pdf.font_size)"
+TOC_DEPTH="$($META build.pdf.toc_depth)"
+ENGINE="$($META build.pdf.engine)"
+
+pandoc "$TMP_MD" \
+  --from='markdown+tex_math_dollars+fenced_divs+pipe_tables' \
+  --pdf-engine="$ENGINE" \
+  --resource-path="$ROOT/proposal:$ROOT/assets/images:$ROOT" \
+  --toc --toc-depth="$TOC_DEPTH" \
+  -V papersize="$PAPERSIZE" \
+  -V fontsize="$FONTSIZE" \
+  -V geometry:margin=22mm \
+  -V colorlinks=true \
+  -M title="$TITLE" \
+  -M author="$AUTHOR" \
+  -M date="$DATE" \
+  -M subject="Draft $VERSION" \
+  -o "$OUT"
+rm -f "$TMP_MD"
+printf '%s\n' "$OUT"

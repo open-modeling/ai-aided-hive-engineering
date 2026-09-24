@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import re
+import subprocess
+import sys
+import tomllib
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+META = tomllib.loads((ROOT / "project.toml").read_text(encoding="utf-8"))
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--proposal-only", action="store_true", help="validate proposal/build inputs without requiring the imported core")
+args = parser.parse_args()
+
+errors: list[str] = []
+proposal = ROOT / META["proposal"]["source"]
+if not proposal.is_file():
+    errors.append(f"missing proposal source: {proposal.relative_to(ROOT)}")
+else:
+    text = proposal.read_text(encoding="utf-8")
+    front = re.match(r"\A---\s*\n(.*?)\n---\s*\n", text, re.S)
+    if not front:
+        errors.append("proposal has no YAML front matter")
+    else:
+        fm = front.group(1)
+        expected = {
+            "title": META["proposal"]["title"],
+            "author": META["repository"]["author"],
+        }
+        for key, value in expected.items():
+            m = re.search(rf'^\s*{re.escape(key)}:\s*["\']?(.*?)["\']?\s*$', fm, re.M)
+            if not m or m.group(1).strip('"\'') != value:
+                errors.append(f"proposal front matter {key!r} does not match project.toml")
+        subtitle = re.search(r'^\s*subtitle:\s*["\']?(.*?)["\']?\s*$', fm, re.M)
+        if subtitle and META["proposal"]["version"] not in subtitle.group(1):
+            errors.append("proposal subtitle version does not match project.toml")
+
+    # Markdown image references excluding remote URLs/data URIs.
+    for target in re.findall(r'!\[[^\]]*\]\(([^)\s]+)', text):
+        if re.match(r'^[a-zA-Z][a-zA-Z0-9+.-]*:', target):
+            continue
+        candidate = (proposal.parent / target).resolve()
+        if not candidate.exists():
+            errors.append(f"missing referenced image: {target}")
+
+# Repository structure policy.
+try:
+    tracked = subprocess.check_output(["git", "ls-files"], cwd=ROOT, text=True).splitlines()
+except Exception:
+    tracked = []
+for path in tracked:
+    low = path.lower()
+    if low.startswith("audit/"):
+        errors.append(f"audit content is outside repository scope: {path}")
+    if low.startswith("history/"):
+        errors.append(f"history snapshots must stay in Git history/tags, not history/: {path}")
+    if low.endswith((".pdf", ".docx")):
+        errors.append(f"compiled document is tracked: {path}")
+
+if not args.proposal_only and META["core"].get("required", False):
+    core = ROOT / "core"
+    core_files = [p for p in core.rglob("*") if p.is_file() and p.name != "README.md"] if core.exists() else []
+    if not core_files:
+        errors.append("core standards import is missing")
+    version = META["core"]["version"]
+    forbidden = {version, "v" + version}
+    for p in core_files:
+        if any(token in p.name for token in forbidden):
+            errors.append(f"core filename contains release version: {p.relative_to(ROOT)}")
+
+if errors:
+    for error in errors:
+        print(f"ERROR: {error}", file=sys.stderr)
+    raise SystemExit(1)
+print("validation passed")

@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+META="$ROOT/scripts/project_meta.py"
+"$ROOT/scripts/validate"
+PDF="$($ROOT/scripts/build-pdf)"
+BUILD="$ROOT/$($META paths.build)"
+DIST="$ROOT/$($META paths.dist)"
+BASE="$($META release.base_name)"
+ARCHIVE="$DIST/$($META release.archive)"
+TREE="$BUILD/release/$BASE"
+rm -rf "$TREE"
+mkdir -p "$TREE/images" "$DIST"
+
+cp "$ROOT/$($META proposal.source)" "$TREE/AI_Aided_Hive_Engineering.md"
+cp "$PDF" "$TREE/$(basename "$PDF")"
+cp "$ROOT/project.toml" "$ROOT/CITATION.cff" "$ROOT/LICENSE" "$ROOT/README.md" "$TREE/"
+
+find "$ROOT/assets/images" -maxdepth 1 -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.svg' -o -iname '*.webp' \) -exec cp {} "$TREE/images/" \;
+
+if find "$ROOT/data/supplementary" -type f ! -name 'README.md' | grep -q .; then
+  mkdir -p "$TREE/data/supplementary"
+  find "$ROOT/data/supplementary" -type f ! -name 'README.md' -exec cp {} "$TREE/data/supplementary/" \;
+fi
+
+if find "$ROOT/core" -type f ! -name 'README.md' | grep -q .; then
+  mkdir -p "$TREE/core"
+  cp -a "$ROOT/core/." "$TREE/core/"
+  rm -f "$TREE/core/README.md"
+fi
+
+(
+  cd "$TREE"
+  find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+)
+rm -f "$ARCHIVE"
+(
+  cd "$(dirname "$TREE")"
+  zip -q -r "$ARCHIVE" "$BASE"
+)
+printf '%s\n' "$ARCHIVE"
