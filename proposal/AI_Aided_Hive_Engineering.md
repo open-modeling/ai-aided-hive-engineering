@@ -1,10 +1,10 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.37"
+subtitle: "Formal Proposal - Draft 0.38"
 date: "23 September 2026"
 ---
 
-**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Magnification/Decision Blast Radius/Decision Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/Rollback, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, Candidate Delta/canonical-state computation-boundary revisions, and Contract decomposition/execution-topology/authority-locality revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
+**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Magnification/Decision Blast Radius/Decision Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/Rollback, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, Engineering State/computation-boundary revisions, and Contract decomposition/execution-topology/authority-locality revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
 
 **Normative basis.** Approved project discussion and accepted changes through Draft 0.8, aligned with the project dialogue recap and resource-consumption analysis where those sources do not conflict with later decisions.
 
@@ -44,7 +44,7 @@ The intended result is faster and more stable engineering delivery through lower
 | Authority | Often coupled to agent role or workflow | Usually implicit in reasoning control | Explicit in Contract, Decision scope, relation semantics, and Project Profile |
 | Truth | Often selected/summarized by orchestrator | Often selected by self-evaluation or search score | Never owned by an agent; accepted through formal validators, evidence, and obligations |
 | Search | Task/workflow execution | Deliberate reasoning-space search | Trade-space exploration with persistent outcomes and resource-rated active trajectories |
-| Communication cost risk | Repeated delegation, messaging, status polling, history replay | Repeated long reasoning and branch evaluation | Small semantic projections and small candidate deltas by default |
+| Communication cost risk | Repeated delegation, messaging, status polling, history replay | Repeated long reasoning and branch evaluation | Small bounded State Projections and explicit engineering results by default |
 | Failure handling | Retry, handoff, escalation | Backtrack, reflect, branch | Preserve outcome, update trajectory rating, post-mortem, reallocate resources |
 | Engineering traceability | Added by application | Usually outside the reasoning method | Native part of the state and relation algebra |
 | Cross-layer authority | Workflow-dependent | Usually not modeled | Explicitly blocked unless materialized and locally reconciled |
@@ -234,6 +234,37 @@ Mathematical notation in the Markdown master uses a representation that preserve
 
 The proposal distinguishes mathematical structure, engineering semantics assigned to that structure, and implementation mechanisms. An implementation can realize the mathematical model through software structures without making those structures part of the common formal model.
 
+##### Dimension-bounded set terminology
+
+The proposal uses **Universe**, **Space**, **State**, and **State Projection** as successively bounded concepts.
+
+A **Universe** establishes the theoretical domain before Product-, project-, material-, contextual-, or temporal bounds are applied.
+
+A **Space** applies material and contextual bounds to a Universe.
+
+A **State** applies a temporal bound within a Space.
+
+A **State Projection** applies an operation-specific information bound to one State.
+
+Conceptually:
+
+$$Universe
+\supseteq
+Space
+\supseteq
+State
+\supseteq
+StateProjection.$$
+
+`Unbounded` in this terminology refers to unapplied bounding dimensions. Mathematical cardinality is independent of this usage.
+
+The dimensions therefore have distinct origins:
+
+- Universe - theoretical domain;
+- Space - material and contextual bounds;
+- State - observation time;
+- State Projection - purpose of one bounded operation.
+
 #### 4.3.6 Project Profile
 
 The Project Profile supplies formal project-specific values where the common proposal deliberately leaves parameters open.
@@ -266,7 +297,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Baseline** | Configuration Management reference state created only when the applicable Configuration Management process defines it. |
 | **Binding** | Scoped and time-qualified prescriptive force of an obligatory Decision. Binding applies to Decisions, not Work Products or Exchange Items. |
 | **Cluster** | Set of sufficiently independent contributions within a Swarm that support one Decision for one task/problem statement. A Decision can then preserve or direct a trajectory. |
-| **Confidence** | Time-varying operational health indicator produced by the Hive for an active task, exploration, trajectory, or scoped Decision context. It summarizes the Hive's current weighted assessment of whether the ongoing exploration/development process is trending toward a useful outcome under the available information and Resource Envelope. Confidence is not truth, probability, precision, Evidence, authority, Decision, Admission, Acceptance, Back-off, or a property of a Work Product. |
+| **Confidence** | Time-varying operational health indicator produced by the Hive for an active task, exploration, trajectory, or scoped Decision context. It summarizes the Hive's current weighted assessment of whether the ongoing exploration/development process is trending toward a useful outcome under the available information and Resource Envelope. Confidence is not truth, probability, precision, Evidence, authority, Decision, Acceptance, Back-off, or a property of a Work Product. |
 | **Conformance Evaluation** | Formal check of implementation/state against this model plus the applicable Project Profile. |
 | **Contract** | Durable governed record that defines a Product target, required Work Product, Issuer, Assignment, Resource Envelope, execution topology, Acceptance rules, enforcement, and the information required to preserve execution and fulfilment history. |
 | **Decision** | Rationale-bearing Proposition that preserves or directs a possible course of exploration or behavior. A Decision is not an Engineering Object. |
@@ -275,13 +306,16 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Deprecation** | Ordinary forward engineering evolution in which later engineering supersedes, replaces, or makes earlier materialized engineering obsolete while continuing Product development from that history. |
 | **Delusive Traceability** | Apparently complete traceability created through semantically invalid, fabricated, or unjustified relations. |
 | **Engineering Layer** | Domain-local engineering context associated with one major Scale position and the corresponding Magnification level. An Engineering Layer can contain an execution sub-scale used to arrange local execution topology and gates without changing its major Scale position. |
-| **Engineering State** | Temporally addressable governed engineering state at a stated time. Engineering State contains the applicable Product Evolution History, active Materialized Product State, Solution Space, Contracts, Decisions, Evidence, Work Products, relations, Gaps, and other governed engineering information. |
+| **Engineering Universe** | Theoretical domain of engineering elements, relations, configurations, and outcomes expressible by the common model before Product-, project-, material-, contextual-, or temporal bounds are applied. |
+| **Engineering Space** | Materially and contextually bounded subset of the Engineering Universe applicable to one Product or engineering context. Its bounds can include Product scope, engineering domains, Project Profile, physical constraints, available capability, enabling technology, applicable external constraints, and other non-temporal engineering dimensions. |
+| **Engineering State** | Temporally bounded subset of an Engineering Space containing the governed engineering elements and relations addressable at one observation point together with their applicable identity, revision, Scope, lifecycle or status, provenance, temporal qualification, and applicability. |
 | **Engineering Object** | Materialized project entity with tool, repository, physical, or document identity. It can carry or materialize one or more Propositions. |
 | **Evidence** | Recorded information used by a defined validator or argument to support a Proposition. Evidence is scope- and role-specific. |
 | **Exchange Item** | Boundary-relative information object used to communicate Propositions, Product interfaces, results, feedback, or other materialized information. |
 | **Executor** | Actor responsible for fulfilment of an assigned Contract, including delivery of the required Work Product or explicit reporting that fulfilment cannot be completed. A Human can be an Executor when assigned responsibility for a Contract result. |
 | **Exploration** | Bounded computational attempt to extend, test, compare, or refine the current Solution Space. |
 | **Extremum Exploration** | Exploration intended to discover a different local extremum or challenge whether a materially better region exists outside the current search neighborhood. |
+| **Feasible Region** | Subset of a Solution Space satisfying the constraints applicable under a stated Engineering State and engineering context. |
 | **Future Action** | Explicit deferred engineering activity that resolves or closes a Known Gap after its required prerequisites become available. It identifies the responsible party, trigger, expected result, required artifacts, execution method or reference, readiness conditions, and completion conditions. |
 | **Gap** | Explicitly known missing relation, evidence, content, capability, or result required for a stated purpose. |
 | **Hive** | Complete execution model that maintains engineering state, governance, Contracts, resources, and execution topology and commands Swarms assigned to bounded tasks. |
@@ -298,7 +332,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Known Gap** | Gap whose existence and scope are known and recorded. |
 | **Local Optimum / Local Extremum** | Best/extreme candidate relative to a declared neighborhood or currently explored region, not the entire theoretical Solution Space. |
 | **Low-profile Assessment** | Bounded, semi-instrumented semantic assessment using explicit checklists, questions, local rules, or similar structures. |
-| **Materialized Product State** | Product state currently materialized or realized at the stated time. Materialized Product State can grow, contract, or replace previously materialized content. |
+| **Materialized Product State** | Product content materially realized at a stated observation point. |
 | **Magnification** | Function on Scale used in two related senses: the Scale position at which an engineering element belongs, and bounded traversal of the underlying graph data model toward an existing coarser or finer engineering representation. Magnification does not create missing engineering content. |
 | **Micro-agent** | Short-lived, specialized, low-Resource-Cost Agent used for one narrow exploration or validation operation. |
 | **Obligation** | Responsibility of an Executor for the complete result of an assigned Contract. The Executor delivers the required result or explicitly reports inability to fulfil the Contract to the authoritative party or parties. Obligation is Contract semantics, not necessarily a separate stored object. |
@@ -306,7 +340,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Overthinking** | Reasoning expenditure whose expected information or decision value is lower than its Resource Cost, or reasoning applied to a result that deterministic state/algebra can establish directly. |
 | **Product** | Coherent engineered subject and primary top-level scope/intent of Hive operation. The Product identifies what the Hive is working to establish, evolve, analyze, verify, realize, or deliver and bounds the corresponding engineering context. Actual Product development is bounded by available Hive capabilities, enabling technology, authority, and resources. |
 | **Product Delivery** | Specialization of Contract fulfilment in which fulfilment requires satisfaction of an explicit Product target state in addition to Acceptance of the required Work Product. |
-| **Product Evolution History** | Accumulated temporally addressable engineering history of the Product, including Decisions, Evidence, Contracts, Work Products, exploration outcomes, supersession, deprecation, Rollback, Gaps, and other retained engineering information. Product Evolution History grows monotonically with time. |
+| **Product Evolution History** | Temporally ordered governed history of Product engineering, including Decisions, Evidence, Contracts, Work Products, exploration outcomes, supersession, deprecation, Rollback, Gaps, and other retained engineering information. |
 | **Project Profile** | Formal project input that defines open parameters such as relation vocabulary, scale topology, Work Product schemas, validators, authority, resource models, lifecycle predicates, and validation independence. |
 | **Proposition** | Core addressable semantic element of the solution model. It is not an Engineering Object by default. It can later be materialized, carried, or realized by Engineering Objects. |
 | **Relation** | Typed semantic or structural association between addressable elements, qualified by scope, revision, time, and Project Profile semantics. |
@@ -319,10 +353,12 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Rollback Cost** | Resource Cost attributable to exploration, realization, verification, integration consequences, or other engineering work caused by a Rollback. Its complete economy semantics are deferred to the Engineering Economy backlog package. |
 | **Scale of measurement** | Established measurement-theory classification defining which comparisons and algebraic operations are meaningful for a measured property. Common scales of measurement are nominal, ordinal, interval, and ratio. The proposal uses these established meanings and does not redefine them. |
 | **Scale** | Project-wide engineering instance of an interval scale used to position Engineering Layers by engineering order of magnitude. Ordering and distance between Scale positions are meaningful, and the coordinate origin is arbitrary. The occupied Scale range can extend toward both coarser and finer engineering orders as Product engineering evolves. |
-| **Solution Space** | Addressable set of currently known candidate states, constraints, outcomes, and their relations for a scoped problem. |
+| **Solution Universe** | Theoretical domain of possible solution configurations for an applicable class of engineering problem before the material and contextual bounds of a particular Product or problem are applied. |
+| **Solution Space** | Materially and contextually bounded subset of a Solution Universe for a stated Product or engineering problem. Its bounds can include Product intent, Product boundary, physical constraints, available capability, enabling technology, and applicable external constraints. |
+| **State Projection** | Purpose-bounded subset of one Engineering State selected for a stated computation, query, analysis, Contract, Decision, traversal, or other engineering operation while preserving the applicable qualifications of the selected engineering information. |
 | **Swarm** | Population of specialized computational participants assigned by the Hive to one bounded task. Swarm contributions can form Clusters supporting Decisions. |
 | **Team API** | Governed cross-Actor or cross-Hive communication boundary used to coordinate Product evolution and Contract execution through applicable Work Products, Exchange Items, and communication Propositions. |
-| **Trade Space** | Project-visible candidate region used to compare alternatives for one problem under current constraints, evidence, and authority. |
+| **Trade Space** | Project-visible subset of a Solution Space represented for comparison or exploration for one bounded engineering problem at a stated observation point. |
 | **Trajectory** | Temporally ordered path of exploration outcomes and Decisions through a Trade Space. |
 | **UNKNOWN** | Required information whose value, validity, applicability, or result has not been established. |
 | **Waste** | Resource consumption that creates neither required governance/validation effect nor reusable progress, evidence, knowledge, or Product value for the active objective. |
@@ -363,14 +399,20 @@ Mathematical symbols are part of the proposal dictionary. This table is authorit
 | $\mathbf W_a,\mathbf W_b$ | Ordered materialized Work Product sequences of compared trajectories. |
 | $L$ | Engineering Layer. |
 | $L_R$ | Engineering Layer of Rollback Contract $C_R$. |
-| $X_t$ | Engineering State at time $t$. |
+| $X_t$ | Engineering State at observation point $t$. |
 | $X_0$ | Common initial Engineering State used when comparing trajectories. |
-| $K_t$ | Product Evolution History accumulated by time $t$. |
-| $P^{mat}_t$ | Active Materialized Product State at time $t$. |
+| $K_t$ | Product Evolution History accumulated by observation point $t$. |
+| $P^{mat}_t$ | Materialized Product State at observation point $t$. |
 | $P^{mat}_a,P^{mat}_b$ | Materialized Product States reached by compared trajectories. |
 | $R_t(C_R)$ | Subset of $P^{mat}_t$ removed from active materialization by successful Rollback Contract $C_R$. |
-| $\mathcal S_t$ | Solution Space applicable at time $t$. |
-| $\Omega$ | Theoretical Solution Universe. |
+| $\mathcal U_E$ | Engineering Universe. |
+| $\mathcal E_\kappa$ | Engineering Space applicable to engineering context $\kappa$. |
+| $\Omega$ | Solution Universe. |
+| $\mathcal S_\kappa$ | Solution Space applicable to engineering context $\kappa$. |
+| $\mathcal F(X_t)$ | Feasible Region under Engineering State $X_t$. |
+| $q$ | Bounded engineering problem or query. |
+| $\Pi_q(X_t)$ | State Projection of $X_t$ selected for problem $q$. |
+| $T(q,t)$ | Trade Space for problem $q$ at observation point $t$. |
 | $\sigma$ | Scope. |
 | $\kappa$ | Engineering context. |
 | $\tau$ | Engineering trajectory. |
@@ -379,9 +421,9 @@ Mathematical symbols are part of the proposal dictionary. This table is authorit
 | $\pi_a,\pi_b$ | Two Decision commitment orderings. |
 | $\Gamma_R(C_R)$ | Rollback Closure of Rollback Contract $C_R$. |
 | $\mathcal D_C(t)$ | Contract-dependency relation applicable at time $t$. |
-| $G$ | Graph projection of addressable engineering elements and relation instances. |
-| $V_G$ | Vertex set of graph projection $G$. |
-| $E_G$ | Edge/relation-instance set of graph projection $G$. |
+| $G$ | Graph-structured State Projection of addressable engineering elements and relation instances. |
+| $V_G$ | Vertex set of graph-structured State Projection $G$. |
+| $E_G$ | Edge/relation-instance set of graph-structured State Projection $G$. |
 | $r$ | Typed relation family. |
 | $S_r,T_r$ | Source and target sets of relation $r$. |
 | $x,y,z$ | Locally typed arbitrary elements. |
@@ -466,7 +508,7 @@ $$r\circ s=\{(x,z)\mid\exists y:(x,y)\in s\land(y,z)\in r\}.$$
 
 Structural composition creates a path relation. It does not create semantic entailment unless the Project Profile defines a sound semantic composition rule for the relation family.
 
-A graph $G=(V,E)$ is a projection of addressable elements and relation instances for navigation and analysis. Graph reachability is therefore weaker than semantic justification:
+A graph $G=(V,E)$ is a graph-structured State Projection of addressable elements and relation instances used for navigation and analysis. Graph reachability is therefore weaker than semantic justification:
 
 $$Reachable_G(a,b)\not\Rightarrow Justifies(a,b).$$
 
@@ -476,47 +518,62 @@ $$V_r(e,\kappa)\in\{\top,\bot,?\},$$
 
 where $\kappa$ contains the applicable scope, revision, time, Project Profile, authority, and other relation-specific context.
 
-### 5.4 Computational algebra
+### 5.4 Engineering State and computation boundary
 
-The Hive separates **canonical engineering state** from the temporary computation used to propose changes to that state.
+For bounded engineering problem:
 
-Let:
+$$q,$$
 
-$$S_t$$
+at observation point:
 
-be the canonical engineering state at revision/time $t$.
+$$t,$$
 
-For a bounded engineering problem $q$, computation starts from a projection of that state:
+the applicable computational input is the State Projection:
 
-$$\Pi_q(S_t)\subseteq S_t.$$
+$$\Pi_q(X_t)\subseteq X_t.$$
 
-The projection contains the semantic state required for the problem under the applicable Scope, Scale, Magnification, Contract, authority, revision, and Project Profile rules.
+The projection selects the governed engineering information required for the problem according to the applicable:
 
-A projection is a computational view. It is not an independent canonical engineering state.
+- Scope;
+- Scale;
+- Magnification;
+- Contract context;
+- authority;
+- revision;
+- Project Profile;
+- information boundary.
 
-Therefore, for canonical elements selected into the projection:
+The selected information retains its semantic identity and applicable qualification from:
 
-$$x\in\Pi_q(S_t)\Rightarrow x\in S_t,$$
+$$X_t.$$
 
-while temporary structures introduced during computation do not thereby become members of $S_t$.
+Computation can derive, compare, simulate, optimize, infer, or explore additional information from that projection.
 
-The computational sequence is:
+Intermediate hypotheses, reasoning branches, simulation states, model outputs, temporary relations, candidate structures, and other intermediate results constitute **temporary computational material**.
 
-$$S_t\rightarrow\Pi_q(S_t)\rightarrow DeterministicOps\rightarrow BoundedSemanticComputation\rightarrow\Delta_q\rightarrow Admission\rightarrow S_{t+1}.$$
+Information selected for engineering retention is recorded using the common-model concept corresponding to its meaning.
 
-where $\Delta_q$ is a Candidate Delta.
+A prospective Decision is represented as a Proposition with the applicable Decision status.
 
-The sequence establishes a strict boundary:
+Potential Evidence is represented through the Evidence role.
 
-$$Computation\neq CanonicalMutation.$$
+An unresolved finding is represented as an UNKNOWN or Gap.
 
-A participant can compute, infer, explore, simulate, compare, or propose a change without being able to apply that change directly to canonical engineering state.
+Required future engineering activity is represented through the applicable Request, Future Action, or Contract mechanism.
+
+Material engineering output is represented as an Engineering Object and can become a Work Product according to the Work Product definition.
+
+A relation is recorded through the applicable typed relation family.
+
+The computation boundary therefore maps retained results into the existing engineering ontology rather than through an additional universal change entity.
 
 #### 5.4.1 Deterministic operations before semantic computation
 
-The Hive applies deterministic operations before assigning unresolved work to semantic reasoning.
+A State Projection can contain properties whose values follow directly from explicit engineering information and the formal algebra.
 
-For projection $\Pi_q(S_t)$, the deterministic stage can establish properties such as:
+Applicable deterministic operations are performed before unresolved semantic reasoning where this reduces Resource Cost.
+
+Such operations can establish:
 
 - set membership;
 - relation domain and range;
@@ -528,292 +585,164 @@ For projection $\Pi_q(S_t)$, the deterministic stage can establish properties su
 - supersession status;
 - schema conformance;
 - known dependency structure;
-- declared Scale and Magnification compatibility;
+- Scale and Magnification compatibility;
 - other mechanically decidable Project Profile rules.
 
-Let:
+Semantic computation addresses engineering questions remaining unresolved after the applicable deterministic operations.
 
-$$K_q=DeterministicOps(\Pi_q(S_t))$$
+The applicable engineering method can additionally require semantic assessment of a mechanically established property.
 
-be the mechanically established state available to the computation.
+#### 5.4.2 Temporary computational material
 
-Only properties that remain unresolved after applicable deterministic operations enter semantic computation.
+Temporary computational material supports one bounded computation.
 
-Therefore:
+Its engineering persistence is determined by whether a resulting item carries continuing engineering value.
 
-$$DeterministicallyResolvable(x)\Rightarrow\neg RequireSemanticReasoning(x)$$
+Selected results enter Product Evolution History through their corresponding common-model concepts and retain their actual disposition.
 
-unless the Project Profile explicitly requires an additional semantic assessment for that property.
+Such dispositions can include:
 
-The purpose is not to prohibit semantic reasoning. The purpose is to prevent expensive or probabilistic reasoning from being used to rediscover facts that the explicit engineering state and algebra already establish.
+- prospective;
+- committed;
+- accepted;
+- rejected;
+- deferred;
+- superseded;
+- deprecated;
+- cancelled;
+- unresolved;
+- non-selected.
 
-#### 5.4.2 Bounded semantic computation
+This preserves useful engineering discovery while retaining the semantic distinction between exploration, Decision commitment, Evidence, Contract state, Work Product Acceptance, and Product materialization.
 
-Semantic computation operates on the bounded problem projection and the deterministic results established from it.
-
-Conceptually:
-
-$$C_q=SemanticCompute(\Pi_q(S_t),K_q,R_q)$$
-
-where $R_q$ is the applicable Resource Envelope for the computation.
-
-$C_q$ is temporary computational state.
-
-It can contain:
-
-- intermediate hypotheses;
-- reasoning branches;
-- model outputs;
-- simulation results not yet admitted;
-- candidate relations;
-- candidate Decisions;
-- candidate Evidence;
-- candidate UNKNOWNs or Gaps;
-- rejected alternatives;
-- other temporary structures required by the computation.
-
-Temporary computational state is not canonical merely because it exists.
-
-Therefore:
-
-$$x\in C_q\not\Rightarrow x\in S_t$$
-
-and:
-
-$$Generated(x)\not\Rightarrow Canonical(x).$$
-
-Only the engineering information selected for preservation or proposed canonical change crosses the computation boundary.
-
-This prevents intermediate reasoning from becoming engineering state by accident.
-
-#### 5.4.3 Computational participants
-
-Agents, micro-agents, humans, simulations, solvers, tools, and other computational participants can contribute to bounded semantic computation.
-
-Persistent participant identity is not required for computation.
-
-The engineering state therefore does not depend on the continued existence of the participant that produced a candidate.
-
-What must survive where applicable is provenance sufficient to identify the origin and applicable context of the proposed result.
-
-A computational participant does not obtain canonical-state authority merely by producing an output.
-
-Therefore:
-
-$$Produces(a,\Delta_q)\not\Rightarrow CanApply(a,\Delta_q)$$
-
-and:
-
-$$Produces(a,p)\not\Rightarrow Canonical(p).$$
-
-The ability to generate a Candidate Delta and the authority to admit its effects are separate properties.
-
-This rule applies equally to highly capable models, deterministic tools, humans, and other contributors.
-
-#### 5.4.4 Candidate Delta
-
-A Candidate Delta is a proposed change to canonical engineering state.
-
-It is not a successor state and it is not engineering truth.
-
-For problem $q$:
-
-$$\Delta_q=(P_{cand},R_{cand},D_{cand},E_{cand},U_{cand},G_{cand},F_{cand},Req_{cand})$$
-
-where the components can contain proposed:
-
-- Propositions;
-- Relations;
-- Decisions;
-- Evidence;
-- UNKNOWNs;
-- Gaps;
-- Future Actions;
-- Requests or Work Product needs.
-
-The components are typed views within the common ontology.
-
-For example:
-
-$$D_{cand}\subseteq P_{cand}$$
-
-and:
-
-$$E_{cand}\subseteq P_{cand}$$
-
-where those candidate Propositions carry Decision and Evidence roles respectively.
-
-The tuple does not define Decisions and Evidence as ontologically separate from Propositions.
-
-A Candidate Delta can also propose revision, deactivation, supersession, relation change, materialization, or another state operation permitted by the common model and Project Profile.
-
-The Candidate Delta expresses: **This is the change proposed by the computation.** It does not express: **This change is already part of the Product state.**
-
-Therefore:
-
-$$Candidate(\Delta_q)\not\Rightarrow Admitted(\Delta_q)$$
-
-and:
-
-$$Candidate(p)\not\Rightarrow ActiveProposition(p).$$
-
-#### 5.4.5 Candidate Delta base state
-
-A Candidate Delta is evaluated relative to the canonical state from which its problem projection was derived.
-
-Let:
-
-$$Base(\Delta_q)=S_t$$
-
-identify that base state or its revision-qualified identity.
-
-The meaning of the Candidate Delta is therefore not independent from its base state.
-
-If canonical engineering state changes materially before the Candidate Delta is applied, prior validation cannot automatically be reused.
+#### 5.4.3 Engineering State evolution
 
 For:
 
-$$S_t\neq S_{t'}$$
+$$t_1<t_2,$$
 
-the model does not infer:
+consider:
 
-$$Admissible(\Delta_q,S_t)\Rightarrow Admissible(\Delta_q,S_{t'}).$$
+$$X_{t_1}$$
 
-Instead, the Hive determines whether the changed state affects the Candidate Delta.
+and:
 
-When the applicable state has changed:
+$$X_{t_2}.$$
 
-$$AffectedBy(\Delta_q,S_t\rightarrow S_{t'})\Rightarrow Revalidate(\Delta_q,S_{t'}).$$
+When the applicable Space-defining context remains:
 
-A Candidate Delta can therefore become stale without becoming historically invalid.
+$$\kappa,$$
 
-Its original computation and provenance remain addressable, while its applicability to the new canonical state must be reassessed.
+both satisfy:
 
-#### 5.4.6 Candidate Delta admission
+$$X_{t_1}\subseteq\mathcal E_\kappa$$
 
-A Candidate Delta reaches canonical engineering state only through explicit admission.
+and:
 
-Let:
+$$X_{t_2}\subseteq\mathcal E_\kappa.$$
 
-$$ApplicableValidators(\Delta_q,S_t,\kappa)$$
+Product Evolution History grows monotonically:
 
-be the validators required for the proposed change in engineering context $\kappa$.
+$$K_{t_1}\subseteq K_{t_2}.$$
 
-Admission requires every applicable blocking validator to permit the change.
+The historical increment:
 
-Conceptually, $Admissible(\Delta_q,S_t,\kappa)$ holds only when the Candidate Delta satisfies the applicable validation rules.
+$$K_{t_2}\setminus K_{t_1}$$
 
-These can include:
+contains the governed engineering history established between the observations.
 
-- structural validity;
-- relation typing;
-- semantic validity;
-- Scope and revision validity;
-- Scale and Magnification validity;
-- Evidence rules;
-- authority validity;
-- Contract admissibility;
-- Work Product information-boundary rules;
-- applicable Check Cascade results;
-- Project Profile conformance;
-- other domain-specific validators required by the affected state.
+It can include:
 
-This does not require every Candidate Delta to satisfy every validator defined by the project. Only applicable validators participate.
-
-Formally:
-
-$$Admissible(\Delta_q,S_t,\kappa)\Rightarrow\forall v\in ApplicableValidators(\Delta_q,S_t,\kappa):Pass(v).$$
-
-The Project Profile determines whether an unresolved validator blocks admission, creates an explicit UNKNOWN or Gap, requires escalation, or permits another defined disposition.
-
-Truthful incompleteness remains applicable during admission.
-
-The Hive does not fabricate a passing result merely to make a Candidate Delta admissible.
-
-#### 5.4.7 Controlled application
-
-Only an admitted Candidate Delta can apply its proposed engineering changes to canonical state.
-
-For an admitted delta:
-
-$$Admissible(\Delta_q,S_t,\kappa)\Rightarrow S_{t+1}=Apply(S_t,\Delta_q,\kappa).$$
-
-The application operation itself is controlled.
-
-It preserves the applicable:
-
-- identity rules;
-- revision history;
-- temporal history;
-- Scope;
+- new or revised Propositions;
+- Decision states;
+- Evidence;
+- relations;
+- Contracts and Contract events;
+- Engineering Objects;
+- Work Products;
+- Gaps;
+- UNKNOWNs;
+- Future Actions;
 - provenance;
-- relation semantics;
-- Contract state;
-- authority boundaries;
-- Scale and Magnification rules;
-- information boundaries.
+- Rollback information;
+- other governed engineering information.
 
-Application creates a successor state. It does not rewrite the previous canonical state.
+Each retained element carries its applicable temporal and lifecycle/status qualification.
 
-Therefore:
+The relation:
 
-$$Apply(S_t,\Delta_q)=S_{t+1}$$
+$$X_{t_1}\rightarrow X_{t_2}$$
 
-does not imply historical replacement of $S_t$.
+represents temporal Engineering State evolution.
 
-Instead:
+Concurrent engineering activities can contribute multiple governed events between these observation points.
 
-$$S_t\rightarrow S_{t+1}$$
+A material or contextual change of the Space-defining context can establish:
 
-is a revision-qualified state transition and $S_t$ remains addressable according to the historical-state rules.
+$$\kappa'$$
 
-#### 5.4.8 Rejected, deferred, and partially admissible candidates
+with:
 
-Failure to admit the proposed engineering change does not require deletion of the Candidate Delta.
+$$X_{t_2}\subseteq\mathcal E_{\kappa'}$$
 
-A Candidate Delta can be:
+and:
 
-- admitted;
-- rejected;
-- deferred;
-- returned for correction;
-- decomposed into independently admissible parts where the applicable semantics permit;
-- retained as an exploratory alternative;
-- converted into a Gap, UNKNOWN, Future Action, or another applicable state element.
+$$\mathcal E_{\kappa'}\neq\mathcal E_\kappa.$$
 
-The exact disposition is Project Profile and context dependent.
+Product Evolution History preserves the engineering history spanning that transition.
 
-The critical invariant is:
+#### 5.4.4 Operation-specific state effects
 
-$$\neg Admissible(\Delta_q)\not\Rightarrow ApplyProposedChange(\Delta_q)$$
+Different governed operations produce distinct Engineering State effects.
 
-while preservation of useful discovery remains possible:
+**Decision commitment** records the committed Decision together with its rationale, Evidence basis, applicable authority, and context in Product Evolution History. It can change constraints, the Feasible Region, Contract topology, and subsequent engineering choices.
 
-$$Discovered(\Delta_q)\Rightarrow PreserveApplicableKnowledge(\Delta_q).$$
+**Contract creation, revision, or lifecycle transition** changes the applicable Contract definition or Contract history according to Contract semantics.
 
-A rejected Candidate Delta can therefore remain valuable for post-mortem analysis, alternate trajectories, later revisions, or repeated engineering exploration without contaminating active Product state.
+**Work Product creation, submission, verification, or Acceptance** changes the applicable Work Product and Contract history according to Work Product and Acceptance semantics.
 
-#### 5.4.9 Candidate Delta is not a Work Product
+**Product realization** changes Materialized Product State according to the applicable engineering process.
 
-A Candidate Delta and a Work Product have different roles.
+**Rollback** changes Materialized Product State according to §10.4 and records the Rollback activity in Product Evolution History.
 
-A Candidate Delta is a proposal to evolve canonical engineering state.
+Each governed operation therefore contributes to Engineering State according to its own formal semantics.
 
-A Work Product is a complete Contract-required result governed by its schema and Acceptance rules.
+#### 5.4.5 State-relative reassessment
 
-A computation can propose a Work Product, propose changes to a Work Product, or identify the need for one through a Candidate Delta.
+A computational result is interpreted against the Engineering State from which its material inputs were selected.
 
-This does not make the Candidate Delta itself the required Work Product.
+Its applicability continues while the relevant:
 
-Therefore:
+- assumptions;
+- relations;
+- constraints;
+- Evidence conditions;
+- authority conditions;
+- Product state;
+- Contract basis;
+- validation dependencies
 
-$$CandidateDelta\neq WorkProduct$$
+remain materially equivalent.
 
-in general.
+A material change in one of these dependencies triggers reassessment of the affected validation against the later Engineering State.
 
-Likewise, admission of a Candidate Delta does not by itself mean that a Contract Work Product has been Accepted.
+The original result and provenance remain associated with their original temporal context.
 
-Canonical-state admission and Contract Acceptance remain separate operations.
+The reassessment establishes applicability in the later Engineering State.
+
+#### 5.4.6 Computational participants and implementation mechanisms
+
+Agents, micro-agents, Humans, simulations, solvers, and tools can perform bounded computation over State Projections.
+
+Engineering continuity is carried by the retained Engineering State and provenance.
+
+Provenance identifies the applicable computational source and context where origin is material.
+
+Decision authority, Contract authority, Acceptance authority, Evidence sufficiency, and Product-materialization authority follow their respective governance models.
+
+Implementation mechanisms can batch or transport engineering information through transactions, patches, commits, deltas, messages, database operations, or similar structures.
+
+The engineering semantics remain those of the common-model elements and relations carried by those mechanisms.
 
 ### 5.5 Human ingress and choice set
 
@@ -972,15 +901,19 @@ Human provenance does not replace semantic typing.
 
 #### 5.5.7 Human inputs as engineering-space transformations
 
-Authority qualification determines whether a Human input is permitted to act. After admission, its engineering effect is a transformation of the current engineering space.
+Authority qualification determines whether a Human input is permitted to act. When its applicable authority and semantic role are established, its engineering effect can transform the current engineering state.
 
-Let the current scoped Solution Space be:
+Let the current Engineering State be:
 
-$$\mathcal S_t.$$
+$$X_t.$$
 
-For admitted Human input $A$, define a potentially partial transformation:
+The corresponding feasible continuation is:
 
-$$\Phi_A:\mathcal S\rightharpoonup\mathcal S.$$
+$$\mathcal F(X_t)\subseteq\mathcal S_\kappa.$$
+
+For Human input $A$ with applicable authority, define a potentially partial transformation:
+
+$$\Phi_A:X\rightharpoonup X.$$
 
 The transformation can narrow or broaden the current space, add or relax constraints, add objectives, change Product intent, open or invalidate trajectories, alter Contract or capability assumptions, or otherwise produce a successor engineering universe.
 
@@ -992,17 +925,17 @@ $$AuthorizedInput(A)\Rightarrow EligibleToApply(\Phi_A)$$
 
 but:
 
-$$AuthorizedInput(A)\not\Rightarrow Feasible(\Phi_A(\mathcal S_t)).$$
+$$AuthorizedInput(A)\not\Rightarrow Feasible(\Phi_A(X_t)).$$
 
 #### 5.5.8 Sequential Human input algebra
 
 For readability define:
 
-$$\mathcal S+A\equiv\Phi_A(\mathcal S).$$
+$$X_t+A\equiv\Phi_A(X_t).$$
 
 Sequential inputs are evaluated from left to right:
 
-$$\mathcal S+A+B=\Phi_B(\Phi_A(\mathcal S)).$$
+$$X_t+A+B=\Phi_B(\Phi_A(X_t)).$$
 
 Human-input composition is not assumed commutative:
 
@@ -1016,7 +949,7 @@ The first input can change the context in which the second input is interpreted.
 
 Human input is therefore state-dependent:
 
-$$\Phi_A(\mathcal S_1)\neq\Phi_A(\mathcal S_2)$$
+$$\Phi_A(X_1)\neq\Phi_A(X_2)$$
 
 in general.
 
@@ -1030,7 +963,7 @@ $$\Phi_{\Sigma_H}=\Phi_{A_n}\circ\cdots\circ\Phi_{A_2}\circ\Phi_{A_1}.$$
 
 A permutation $\pi(\Sigma_H)$ does not generally preserve the resulting engineering state:
 
-$$\Phi_{\pi(\Sigma_H)}(\mathcal S_t)\neq\Phi_{\Sigma_H}(\mathcal S_t).$$
+$$\Phi_{\pi(\Sigma_H)}(X_t)\neq\Phi_{\Sigma_H}(X_t).$$
 
 The temporal order of Human inputs is therefore semantically material and remains part of historical state.
 
@@ -1068,7 +1001,7 @@ or restoration of the state that existed before $A$.
 
 #### 5.5.10 Composable Human inputs
 
-After authority admission, multiple Human inputs are evaluated through their engineering composition; no additional governance-dispute primitive is introduced.
+After applicable authority is established, multiple Human inputs are evaluated through their engineering composition; no additional governance-dispute primitive is introduced.
 
 Define:
 
@@ -1076,11 +1009,15 @@ $$Composable(A,B,\mathcal S).$$
 
 When:
 
-$$Composable(A,B,\mathcal S_t)$$
+$$Composable(A,B,X_t),$$
 
-and the resulting feasible region is non-empty:
+let:
 
-$$\mathcal F(\mathcal S_t+A+B)\neq\varnothing,$$
+$$X_{AB}=\Phi_B(\Phi_A(X_t)).$$
+
+The resulting feasible region is non-empty when:
+
+$$\mathcal F(X_{AB})\neq\varnothing,$$
 
 both inputs can participate in a valid successor engineering state. Their joint effect can narrow, broaden, restructure, or redirect the active Solution Space.
 
@@ -1088,11 +1025,11 @@ both inputs can participate in a valid successor engineering state. Their joint 
 
 The first failure mode occurs when the transformations cannot produce a sufficiently defined successor engineering state:
 
-$$\neg Composable(A,B,\mathcal S_t).$$
+$$\neg Composable(A,B,X_t).$$
 
 Using partial-function notation:
 
-$$\Phi_B(\Phi_A(\mathcal S_t))\uparrow.$$
+$$\Phi_B(\Phi_A(X_t))\uparrow.$$
 
 This is an input-composition failure. Authority qualification has already been resolved before transformation application.
 
@@ -1104,7 +1041,7 @@ denote the Decision candidate space derived from engineering state $\mathcal S$ 
 
 If the successor engineering state cannot be established:
 
-$$\neg Composable(A,B,\mathcal S_t)\Rightarrow\mathcal D_P(\mathcal S_t+A+B,\kappa)\uparrow.$$
+$$\neg Composable(A,B,X_t)\Rightarrow\mathcal D_P(\Phi_B(\Phi_A(X_t)),\kappa)\uparrow.$$
 
 The Hive preserves both inputs, provenance, authority qualification, previous engineering state, the failed composition attempt, and the reason composition could not be established. Truthful incompleteness applies. The Hive does not fabricate a Decision Space merely to continue.
 
@@ -1114,15 +1051,15 @@ A distinct failure mode occurs when the transformations compose successfully but
 
 Let:
 
-$$\mathcal S_{AB}=\Phi_B(\Phi_A(\mathcal S_t)).$$
+$$X_{AB}=\Phi_B(\Phi_A(X_t)).$$
 
 Then it is possible that:
 
-$$Composable(A,B,\mathcal S_t)\land\mathcal F(\mathcal S_{AB})=\varnothing.$$
+$$Composable(A,B,X_t)\land\mathcal F(X_{AB})=\varnothing.$$
 
 Here the successor engineering state is defined, and its Decision Space can be calculated, but no currently feasible continuation exists:
 
-$$\mathcal D_{feasible}(\mathcal S_{AB})=\varnothing.$$
+$$\mathcal D_{feasible}(X_{AB})=\varnothing.$$
 
 This differs fundamentally from non-composition. In the non-composable case the successor state and corresponding Decision Space are undefined; in the empty-feasible-space case they are defined and explicitly infeasible.
 
@@ -1138,9 +1075,17 @@ or that one ordering is composable while another is not.
 
 An empty feasible space means that autonomous commitment is unavailable:
 
-$$\mathcal F(\mathcal S_t)=\varnothing\Rightarrow\neg AutonomousCommitmentAvailable.$$
+$$\mathcal F(X_t)=\varnothing\Rightarrow\neg AutonomousCommitmentAvailable.$$
 
 Recovery can require revision or relaxation of an input, another Human input, Product-intent revision, capability or enabling-technology acquisition, Contract revision, Resource Envelope change, external capability, or another newly explored trajectory. Human authority still does not manufacture engineering feasibility.
+
+If a Human input changes a Space-defining material or contextual bound, the resulting state is evaluated under the resulting context:
+
+$$X_{t+1}\subseteq\mathcal E_{\kappa'}$$
+
+with corresponding:
+
+$$\mathcal S_{\kappa'}.$$
 
 #### 5.5.13 Binding and Contract lifecycle effect
 
@@ -1148,13 +1093,13 @@ For a Human response to create Binding, Decision semantics and applicable author
 
 $$Bind(d,\sigma,t)\Rightarrow DecisionRole(d)\land AuthorizedFor(a,Bind,d,\sigma,t)\land ApplicableDecisionConditionsSatisfied(d).$$
 
-The common model does not introduce a generic `HumanOverride` primitive. A Human can cause a major change through ordinary governed primitives such as Human ingress, Decision, Candidate Delta, Contract revision, Assignment, and successor engineering state.
+The common model does not introduce a generic `HumanOverride` primitive. A Human can cause a major change through ordinary governed concepts such as Human ingress, Decision, Contract revision, Assignment, Work Product, Product transition, and successor Engineering State.
 
 A Human input or authority change that materially revises a Contract feeds the existing revision-aware Contract FSM. It does not create a separate Human lifecycle.
 
 Human intervention never destructively rewrites prior engineering history:
 
-$$S_t\rightarrow S_{t+1}^{human}$$
+$$X_t\rightarrow X_{t+1}$$
 
 preserves $S_t$ as an addressable historical state.
 
@@ -1338,25 +1283,107 @@ $$P^{mat}_{t_2}\subset P^{mat}_{t_1}.$$
 
 Both are ordinary Product evolution.
 
-#### Solution Space
+#### Solution Universe, Solution Space, Feasible Region, and Trade Space
 
-Solution Space is also non-monotonic. Engineering exploration can expand $\mathcal S_t$, while Decisions, constraints, loss of capability, physical realization, or removal of Product content can restrict it. Both:
+The solution hierarchy is:
 
-$$\mathcal S_{t_1}\subset\mathcal S_{t_2}$$
+$$\mathcal F(X_t)\subseteq\mathcal S_\kappa\subseteq\Omega.$$
 
-and:
+The Solution Universe:
 
-$$\mathcal S_{t_2}\subset\mathcal S_{t_1}$$
+$$\Omega$$
 
-are valid forms of evolution.
+provides the theoretical solution domain.
 
-#### Engineering State
+The engineering context:
 
-Engineering State contains these distinct projections:
+$$\kappa$$
 
-$$X_t=\langle K_t,P^{mat}_t,\mathcal S_t,\ldots\rangle.$$
+establishes the material and contextual bounds of:
 
-Monotonicity of $K_t$ therefore does not imply monotonicity of materialization or Solution Space.
+$$\mathcal S_\kappa.$$
+
+Engineering State:
+
+$$X_t$$
+
+establishes the state-dependent constraints used to determine:
+
+$$\mathcal F(X_t).$$
+
+A Decision, Evidence result, Contract constraint, Human input, Product realization, or another governed state change can therefore change:
+
+$$\mathcal F(X_t).$$
+
+The Trade Space:
+
+$$T(q,t)$$
+
+contains the part of the applicable Solution Space currently represented for comparison or exploration for problem $q$.
+
+Exploration can enlarge or restructure:
+
+$$T(q,t)$$
+
+while the Space-defining bounds of:
+
+$$\mathcal S_\kappa$$
+
+remain stable.
+
+A material change of Product boundary, capability, enabling technology, physical constraints, or another Space-defining condition can establish a changed context:
+
+$$\kappa'$$
+
+and therefore:
+
+$$\mathcal S_{\kappa'}\neq\mathcal S_\kappa.$$
+
+#### Engineering Universe, Engineering Space, and Engineering State
+
+The engineering hierarchy is:
+
+$$X_t\subseteq\mathcal E_\kappa\subseteq\mathcal U_E.$$
+
+The Engineering Universe provides the theoretical engineering domain.
+
+Engineering context:
+
+$$\kappa$$
+
+establishes the material and contextual bounds of:
+
+$$\mathcal E_\kappa.$$
+
+Observation point:
+
+$$t$$
+
+establishes the temporal bound of:
+
+$$X_t.$$
+
+For two observations under the same Engineering Space:
+
+$$t_1<t_2,$$
+
+Product Evolution History satisfies:
+
+$$K_{t_1}\subseteq K_{t_2},$$
+
+while active Materialized Product State can grow:
+
+$$P^{mat}_{t_1}\subset P^{mat}_{t_2},$$
+
+or contract:
+
+$$P^{mat}_{t_2}\subset P^{mat}_{t_1}.$$
+
+A change in the material or contextual bounds can establish:
+
+$$\mathcal E_{\kappa'}\neq\mathcal E_\kappa.$$
+
+Product Evolution History preserves temporal continuity across the corresponding Engineering States.
 
 **Boundary.** AX-6 does not remove Contract prerequisites, integration gates, verification, Acceptance, authority, or other engineering constraints. It defines the global evolution model in which those constraints operate.
 
@@ -1366,41 +1393,117 @@ Monotonicity of $K_t$ therefore does not imply monotonicity of materialization o
 
 ## 6. Operational state, data structure, and roles
 
-### 6.1 Canonical semantic state
+### 6.1 Engineering Universe, Engineering Space, Engineering State, and State Projection
 
-The formal runtime is state-centric. Canonical engineering state contains semantic identities, relations, accepted state transitions, applicable Contracts and obligations, evidence records, Gaps, UNKNOWNs, and Project Profile context. Repositories, authoring tools, databases, model stores, and physical records are projections of that state, not the state itself.
+The formal engineering model uses four successively bounded sets:
 
-For an addressable universe $U_{b,t}$ identified by branch/universe $b$ and time $t$, a repository or tool projection is:
+$$\Pi_q(X_t)\subseteq X_t\subseteq\mathcal E_\kappa\subseteq\mathcal U_E.$$
 
-$$\pi_k:U_{b,t}\rightarrow R_k.$$
+#### Engineering Universe
 
-Different projections can represent the same Proposition or Engineering Object. File-system containment does not imply semantic containment.
+$$\mathcal U_E$$
 
-Canonical engineering state is the authoritative engineering state used as the basis for subsequent projections, Decisions, Contracts, validation, and Product evolution.
+is the theoretical domain of engineering elements, relations, configurations, and outcomes expressible by the common model.
 
-Temporary computation is external to that authority boundary until its proposed effects are admitted.
+Product-, project-, contextual-, material-, and temporal bounds select progressively narrower subsets from this domain.
 
-Conceptually:
+#### Engineering Space
 
-$$CanonicalState\;|\;Computation$$
+For engineering context:
 
-with only controlled operations crossing the boundary:
+$$\kappa,$$
 
-$$CanonicalState\rightarrow Projection\rightarrow Computation$$
+the Engineering Space:
+
+$$\mathcal E_\kappa$$
+
+contains the engineering domain established by the applicable material and contextual bounds.
+
+These bounds can include:
+
+- Product boundary;
+- engineering domains;
+- physical constraints;
+- capability;
+- enabling technology;
+- Project Profile;
+- applicable external constraints.
+
+A material change in these bounds can establish a changed context:
+
+$$\kappa'$$
 
 and:
 
-$$Computation\rightarrow CandidateDelta\rightarrow Admission\rightarrow CanonicalState.$$
+$$\mathcal E_{\kappa'}\neq\mathcal E_\kappa.$$
 
-There is no direct operation:
+#### Engineering State
 
-$$SemanticComputation\rightarrow CanonicalMutation$$
+At observation point:
 
-without Candidate Delta admission.
+$$t,$$
 
-This separation makes the model state-centric rather than agent-centric.
+Engineering State is:
 
-A Swarm can disappear after producing its result without losing the engineering state required for later work. A different participant can continue from the canonical state without replaying the original private reasoning process.
+$$X_t\subseteq\mathcal E_\kappa.$$
+
+$X_t$ contains the governed engineering elements and relations addressable at that observation point together with the qualifications required for their interpretation.
+
+These qualifications include, where applicable:
+
+- identity;
+- revision;
+- Scope;
+- lifecycle or status;
+- provenance;
+- temporal qualification;
+- authority applicability;
+- relation qualification;
+- Project Profile context.
+
+Engineering State includes both current and historical engineering information according to these qualifications.
+
+Product Evolution History:
+
+$$K_t\subseteq X_t$$
+
+contains the accumulated temporal history.
+
+Materialized Product State:
+
+$$P^{mat}_t\subseteq X_t$$
+
+identifies the currently realized Product content.
+
+#### State Projection
+
+For bounded operation or problem:
+
+$$q,$$
+
+the applicable State Projection is:
+
+$$\Pi_q(X_t)\subseteq X_t.$$
+
+It selects the portion of Engineering State required for that operation.
+
+The selected elements retain their applicable:
+
+- semantic identity;
+- Scope;
+- revision;
+- status;
+- temporal qualification;
+- provenance;
+- relations.
+
+A graph query, Contract-local context, Decision-impact context, Work Product context, Magnification traversal, tool context, or computational input can therefore be expressed as a State Projection.
+
+Repositories, authoring tools, model stores, databases, and runtime interfaces can expose State Projections.
+
+Engineering Objects and physical Product elements retain their own defined semantics when accessed through these projections.
+
+Engineering State and its governed relations provide the common semantic reference across those projections.
 
 ### 6.2 Proposition and Engineering Object
 
@@ -1474,7 +1577,7 @@ $$WorkProduct(w,C)\not\Rightarrow Conformant(w,C)$$
 
 $$WorkProduct(w,C)\not\Rightarrow Accepted(w,C).$$
 
-Intermediate engineering material is not automatically a Work Product. Candidate Deltas, partial models, exploratory artifacts, simulations, temporary computations, internal drafts, and incomplete Engineering Objects retain their applicable roles until intentionally prepared as the complete Contract result.
+Intermediate engineering material is not automatically a Work Product. Partial models, exploratory artifacts, simulations, computational results, internal drafts, and incomplete Engineering Objects retain their applicable roles until intentionally prepared as the complete Contract result.
 
 $$InternalEngineeringMaterial\not\Rightarrow WorkProduct.$$
 
@@ -2136,7 +2239,7 @@ Propagation beyond the stated Scope follows the applicable relation, Magnificati
 
 ### 8.2 Identity and provenance
 
-Semantic identity and material identity are separate. A Proposition can have several materializations and an Engineering Object can carry several Proposition revisions. Provenance records reconnect tool/repository projections and preserve the source of candidate deltas, evidence, human inputs, and external effects.
+Semantic identity and material identity are separate. A Proposition can have several materializations and an Engineering Object can carry several Proposition revisions. Provenance records reconnect State Projections with their governed engineering information and preserve the source of exploratory results, Evidence, Human inputs, materialized engineering results, and external effects.
 
 ### 8.3 Data reliability
 
@@ -2154,25 +2257,25 @@ The model distinguishes:
 A successful structural check does not imply successful semantic or evidence checks.
 
 
-The same reliability dimensions apply to Candidate Delta admission.
+The applicable reliability dimensions depend on the engineering concept and governed operation.
 
-A Candidate Delta does not become admissible merely because one validation dimension succeeds.
+A relation used for traceability follows relation typing and semantic validation.
 
-For example:
+Evidence used in justification follows Evidence relevance, provenance, sufficiency, independence, and other applicable Evidence rules.
 
-$$StructuralValid(\Delta)\not\Rightarrow SemanticValid(\Delta)$$
+Decision commitment follows the applicable Evidence, authority, Scope, Scale, UNKNOWN, and Decision rules.
 
-$$SemanticValid(\Delta)\not\Rightarrow AuthorityValid(\Delta)$$
+Contract transitions follow Contract guards and authority.
 
-$$EvidenceSufficient(\Delta)\not\Rightarrow ContractAdmissible(\Delta)$$
+Work Product Acceptance follows the Acceptance rules of the applicable Contract.
 
-and:
+Product materialization follows the applicable Product, Contract, integration, physical-realization, or supporting-process semantics.
 
-$$GeneratedByTrustedParticipant(\Delta)\not\Rightarrow Admissible(\Delta).$$
+Success in one validity dimension does not establish another validity dimension.
 
-Admission is therefore conjunctive over the validators applicable to the proposed effect, rather than based on producer identity or one global Confidence value.
+Likewise, successful validation for one governed operation does not establish permission for a different operation.
 
-Confidence is deliberately not another validity dimension. It can observe the evolution of these properties, but it cannot replace them.
+Confidence remains outside these validity dimensions. It can summarize process health but cannot substitute for any applicable engineering validator or authority rule.
 
 ### 8.3.1 Confidence boundary
 
@@ -2198,7 +2301,7 @@ $$Confidence\neq AuthorityValidity$$
 
 $$Confidence\neq ContractAdmissibility$$
 
-$$Confidence\neq Admission.$$
+Confidence does not authorize an Engineering State transition.
 
 ### 8.3.2 Confidence is not a correctness quantity
 
@@ -2240,7 +2343,7 @@ It is not a Proposition role:
 
 $$Confidence\not\subseteq PropositionRoles.$$
 
-It is not Evidence, Decision, Exchange Item, or Candidate Delta:
+It is not Evidence, Decision, Exchange Item, Work Product, or Product state:
 
 $$Confidence\neq Evidence$$
 
@@ -2747,7 +2850,7 @@ If exploration legitimately produces new element $y$:
 
 $$Explore(C,x)\rightarrow Create(y).$$
 
-The resulting element belongs to its applicable Engineering Layer and becomes part of canonical engineering state only through the ordinary Candidate Delta and Admission process.
+The resulting element belongs to its applicable Engineering Layer. It becomes governed Engineering State when it is intentionally recorded with the applicable semantic identity, provenance, status, Scope, and validation.
 
 Therefore:
 
@@ -3267,7 +3370,36 @@ The figure must not be interpreted as implying that Decision Blast Radius is a E
 
 ### 10.1 Trade space
 
-For problem $q$, the Trade Space $T(q,t)$ is the project-visible region of candidate outcomes that can currently be compared under applicable constraints, evidence, authority, and Product/Contract objectives.
+For bounded engineering problem:
+
+$$q,$$
+
+the Trade Space:
+
+$$T(q,t)$$
+
+is the project-visible subset of the applicable Solution Space represented for comparison or exploration at observation point $t$.
+
+The Trade Space can contain candidates with:
+
+- established feasibility;
+- established infeasibility;
+- unresolved feasibility;
+- pending evaluation.
+
+The currently feasible part represented inside the Trade Space is:
+
+$$\mathcal F(X_t)\cap T(q,t).$$
+
+Engineering exploration can enlarge or restructure:
+
+$$T(q,t)$$
+
+inside:
+
+$$\mathcal S_\kappa.$$
+
+A changed Space-defining context provides the corresponding Solution Space for subsequent Trade Spaces.
 
 A Trade Space can contain discrete alternatives and references to continuous optimization delegated to simulations, field tests, calibration systems, or external optimizers. Continuous parameter optimization is not automatically Hive global search.
 
@@ -3972,20 +4104,11 @@ Each Contract definition revision preserves at minimum:
 
 $$RevisionMeta(C^k)=(predecessor,createdAt,effectiveFrom,changeReason,provenance).$$
 
-A revision can additionally identify:
-
-- initiating Decision;
-- Human input;
-- Candidate Delta;
-- dependency change;
-- Product change;
-- authority change;
-- failure/reassessment event;
-- another causal source.
+A Contract definition revision can identify the governed source that caused the revision, including its initiating Decision, Human input, dependency change, Product-state change, authority change, failure or reassessment event, exploration result, or another addressable causal source.
 
 Revision metadata supports historical explanation.
 
-It does not replace the canonical relations to those source elements.
+It does not replace canonical relations to the source engineering information.
 
 ##### 11.1.1.23 Runtime lifecycle view
 
@@ -6638,7 +6761,7 @@ A possible policy is:
 
 $$NextTrajectory\sim Explore_P(S_t,Confidence_H,ProgressHistory,\xi_t,ResourceEnvelope).$$
 
-The stochastic component remains constrained by actual exploration state, observed progress, Resource Envelope, applicable authority, Contract, safety/project constraints, and canonical-state admission rules.
+The stochastic component remains constrained by actual exploration state, observed progress, Resource Envelope, applicable authority, Contract, safety/project constraints, and applicable Engineering State, authority, validation, and commitment rules.
 
 This permits occasional investigation of unlikely but potentially valuable directions without hard-coding a single path optimization strategy.
 
@@ -6690,7 +6813,7 @@ $$Confidence_H(q,t)<\theta_2\land ResourcePressure(q,t)\rightarrow RequestOperat
 
 Automated reliance on Confidence should be supported by Evidence showing that the chosen indicator and thresholds produce useful behaviour in the applicable environment.
 
-Confidence alone cannot create truth, authority, Decision Binding, Candidate Delta Admission, Acceptance, Evidence rejection, canonical-state mutation, or Back-off.
+Confidence alone cannot establish truth, authority, Decision Binding, Acceptance, Evidence rejection, Contract transition, Product materialization, Rollback, or Back-off.
 
 #### 17.6.11 Confidence and post-mortem learning
 
@@ -6877,7 +7000,7 @@ It cannot collapse Contract definition revision, lifecycle state, and historical
 
 It cannot redefine Product and Work Product as universally identical concepts.
 
-It cannot redefine Confidence as truth, probability, precision, Evidence, authority, Decision, Admission, Acceptance, Back-off, or Work Product content.
+It cannot redefine Confidence as truth, probability, precision, Evidence, authority, Decision, Acceptance, Back-off, or Work Product content.
 
 Technical Product interfaces remain engineering content. The Project Profile can configure their applicable engineering rules, but it does not make them part of the common governance model merely by naming them.
 
@@ -6929,20 +7052,16 @@ Additional Evidence-locality and traceability invariants are:
 
 Additional computation-boundary invariants are:
 
-- **Canonical-state boundary** - Temporary computation cannot mutate canonical engineering state directly.
-- **Projection boundedness** - Semantic computation operates on an explicitly bounded projection of canonical state rather than assuming unrestricted whole-project context.
-- **Deterministic-first computation** - Applicable mechanically decidable properties are established before unresolved semantic reasoning is assigned.
-- **Temporary-state separation** - Intermediate reasoning, hypotheses, and computational structures do not become canonical elements merely because they were generated.
-- **Candidate status** - A Candidate Delta is a proposal, not a successor state, accepted Proposition, Decision, Evidence closure, Work Product, or truth claim.
-- **Producer/admission separation** - Producing a Candidate Delta does not grant authority to apply it.
-- **Base-state qualification** - Every Candidate Delta is qualified by the canonical state or revision from which its problem projection was derived.
-- **Stale-delta reassessment** - A Candidate Delta affected by subsequent canonical-state change must be revalidated before application.
-- **Applicable-validator admission** - Canonical application requires successful disposition of every validator applicable to the proposed effect.
-- **Truthful admission failure** - Missing or failed validation remains explicit and is not replaced by fabricated closure.
-- **Controlled application** - An admitted Candidate Delta produces a revision-qualified successor state without destructively rewriting the previous state.
-- **Rejected-candidate preservation** - Failure of admission blocks the proposed canonical change but does not require deletion of useful exploratory knowledge.
-- **Candidate Delta / Work Product separation** - Candidate Delta admission and Contract Work Product Acceptance are distinct operations.
-- **Participant transience** - Persistence of the participant that produced a candidate is not required for persistence of admitted engineering state; required provenance survives independently.
+- **Engineering-State boundary** - Temporary computational material enters Engineering State through a defined common-model or Project Profile concept.
+- **State-Projection boundedness** - Computation operates on a purpose-bounded State Projection of one Engineering State.
+- **Deterministic-first computation** - Applicable mechanically decidable information is established before unresolved semantic reasoning.
+- **Defined-concept retention** - Preserved computational results are recorded through existing engineering concepts rather than one universal change container.
+- **Historical qualification** - Retained information carries its actual temporal, lifecycle, and applicability status.
+- **Operation-specific governance** - Decision commitment, Evidence use, Contract transition, Work Product Acceptance, Product materialization, Rollback, and other governed effects follow their dedicated rules.
+- **State-relative reassessment** - A material change in a result's validity dependencies triggers reassessment against the later Engineering State.
+- **Historical preservation** - Reassessment retains the original result and its provenance in their original temporal context.
+- **Participant transience** - Engineering continuity depends on retained Engineering State and provenance.
+- **Implementation batching neutrality** - Implementation transactions, patches, commits, or deltas carry common-model information without defining additional engineering semantics.
 
 Additional Human authority and input-transformation invariants are:
 
@@ -7066,7 +7185,7 @@ Additional Contract lifecycle invariants are:
 - **Confidence is not a Work Product property** - $Confidence\not\subseteq WorkProductProperties$.
 - **Confidence is not a Proposition role** - $Confidence\not\subseteq PropositionRoles$.
 - **Confidence is not probability or precision** - $Confidence\neq Probability$ and $Confidence\neq Precision$.
-- **Confidence is not Truth, Evidence, Authority, Decision, Admission, Acceptance, or Back-off** - Confidence cannot substitute for any of these common-model concepts.
+- **Confidence is not Truth, Evidence, Authority, Decision, Acceptance, or Back-off** - Confidence cannot substitute for any of these common-model concepts.
 - **Confidence drifts in time** - Confidence can increase, decrease, or fluctuate as Solution Exploration evolves; historical values remain associated with the state in which they were produced.
 - **Solution-continuity alignment** - Material changes in task/exploration context require reassessment of how the Confidence series is interpreted.
 - **Process synthesis** - Confidence can combine progress, convergence/divergence, Evidence trends, validation, rework, Resource Cost, remaining Resource Envelope, and historical resolution information.
@@ -7149,11 +7268,11 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.37 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.38 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.36 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/Rollback model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also formalizes project-wide interval Scale positioning, Magnification traversal, same-Scale direct relation locality, adjacent-layer propagation, Decision Blast Radius, Decision Extent, and execution sub-scale topology. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records. It now also includes the derived three-dimensional Scale/Magnification topology figure specified by Section 9.24. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.38 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/Rollback model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Engineering State/computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also formalizes project-wide interval Scale positioning, Magnification traversal, same-Scale direct relation locality, adjacent-layer propagation, Decision Blast Radius, Decision Extent, and execution sub-scale topology. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records. It now also includes the derived three-dimensional Scale/Magnification topology figure specified by Section 9.24. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
 **Rollback invariant.** Rollback completely cancels one committed Decision on one Engineering Layer. The Rollback Closure identifies the same-Layer Decision-Contract-Work Product continuation that cannot remain valid after cancellation. Successful Rollback removes the corresponding active materialization from the current Materialized Product State while preserving compatible parallel engineering and all historical engineering knowledge.
 
@@ -7165,6 +7284,6 @@ Draft 0.37 retains the structural rewrite introduced in Draft 0.9 and corrects t
 - **Engineering Economy consolidation:** consolidate the economic objective, Resource Cost, Rollback Cost, exploration versus materialization cost, Decision ordering under concurrency, Decision Blast Radius/Decision Extent economics, over-commitment, resource depletion, and staged resource expenditure.
 - **Contract realization phases:** recover and formalize progression from lightweight Solution Exploration through planning, Work Product materialization, integration, and where applicable physical-world realization. This is a global Contract model concern.
 - **Traceability dimensions:** refine operational/metadata and materialized engineering dimensions of the existing Product graph while preserving the common relation algebra.
-- **Formal Symbol and Predicate Audit:** normalize existing notation against the mathematical dictionary; remove symbol collisions; collect named predicates, relations, and functions into one appendix with mathematical type/signature, meaning, defining section, and formal role. Reassess Candidate Delta and Admission as part of that package.
+- **Formal Symbol and Predicate Audit:** normalize remaining legacy state, function, predicate, and relation notation against the mathematical dictionary; remove symbol collisions; collect named predicates, relations, and functions into one appendix with mathematical type/signature, meaning, defining section, and formal role.
 - **Project Profile language formalization:** formalize the Project Profile as a domain-specific language rather than an open-ended parameter ledger. Define its syntax, mathematical/semantic types, declarations, references, composition, inheritance/override rules, validation, versioning/migration, Profile-to-Profile compatibility, extension points, and conformance semantics while preserving the common-model boundary.
 - **Proposal structural compaction:** reduce repeated formal prose, duplicated invariants, excessive section depth, and implementation-oriented detail while retaining accepted engineering semantics and required mathematics.
