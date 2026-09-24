@@ -605,6 +605,37 @@ The common engine supports:
 
 Semantic composition is a separate Project Profile rule.
 
+#### 7.2.1 Bounded traversal
+
+There is no default engineering operation that traverses the complete graph.
+
+A traversal query explicitly supplies its control parameters:
+
+$$Q=(Start,Roles,Direction,ScalePolicy,Stop,Budget)$$
+
+and:
+
+$$Traverse(G,Q)\subseteq G$$
+
+where:
+
+- `Start` identifies the initial elements;
+- `Roles` identifies permitted relation families;
+- `Direction` selects forward, converse, or explicitly permitted bidirectional traversal;
+- `ScalePolicy` limits traversal according to Scale and Magnification rules;
+- `Stop` defines termination conditions;
+- `Budget` bounds Resource Cost.
+
+Mathematical converse allows traversal in either direction without creating a second semantic fact.
+
+A structural traversal result establishes reachability only:
+
+$$Reachable_Q(a,b)\not\Rightarrow Justifies(a,b).$$
+
+Semantic use of a discovered path still requires the applicable relation validators.
+
+Traversal therefore cannot be used as an implicit whole-project closure operation.
+
 ### 7.3 Relation vocabulary
 
 The common proposal defines the algebra, not a universal engineering dictionary of relation names. A project introduces relation kinds, source/target signatures, validators, converse display labels, semantic composition rules, and change-impact semantics through the Project Profile.
@@ -619,15 +650,75 @@ Cycle validity therefore depends on relation semantics and revision/time, not gr
 
 ### 8.1 Scope, revision, and time
 
-Every semantic use is qualified by the context required by its relation family. Typical qualifiers are scope, revision, branch/universe, time, Contract, engineering layer, Project Profile revision, and authority domain.
+Every semantic use is qualified by the context required by its relation family. Typical qualifiers are scope, revision, branch/universe, time, Contract, Engineering Layer, Project Profile revision, and authority domain.
+
+For an addressable engineering universe $U_{b,t}$, a Scope is an anchored subset:
+
+$$\sigma=(a,S_\sigma),\qquad S_\sigma\subseteq U_{b,t}$$
+
+where $a$ identifies the Scope anchor or governing context.
+
+Scopes in the same engineering universe support ordinary set operations:
+
+$$S_{\sigma_1}\cap S_{\sigma_2},\quad S_{\sigma_1}\cup S_{\sigma_2},\quad S_{\sigma_1}\setminus S_{\sigma_2},\quad S_{\sigma_1}\subseteq S_{\sigma_2}.$$
+
+A Scope does not need to be graph-connected.
 
 Atomic changes create successor addressable universes while preserving predecessors:
 
 $$U_{b,t}\rightarrow U_{b',t'}.$$
 
-Later field discovery can add previously unknown structure without rewriting the prior state. Historical trace can therefore expand:
+Comparison across different engineering universes uses an explicit revision mapping:
+
+$$\Pi_{(b,t)\rightarrow(b',t')}:U_{b,t}\rightharpoonup U_{b',t'}.$$
+
+The mapping is partial because an element can be introduced, removed from active continuation, split, merged, or otherwise lack a one-to-one successor.
+
+Name equality, repository path equality, or apparent structural similarity does not substitute for revision mapping.
+
+Later discovery can add previously unknown structure without rewriting prior state:
 
 $$Trace_{t_0}\subseteq Trace_{t_1}.$$
+
+where the later trace can contain additional structure while the historical universe remains addressable.
+
+#### 8.1.1 Revision-aware relation instances
+
+A relation instance is qualified by the revisions of its endpoints and by the context in which it applies.
+
+A conceptual relation record is:
+
+$$e=(p^i,r,q^j,\sigma,I,\kappa)$$
+
+where:
+
+- $p^i$ is the source Proposition revision;
+- $r$ is the relation family;
+- $q^j$ is the target Proposition revision;
+- $\sigma$ is the affected Scope;
+- $I$ is the applicability interval;
+- $\kappa$ contains relation-specific context such as authority, Contract, Engineering Layer, or Project Profile.
+
+Historical relation instances are preserved. A later relation does not destructively rewrite the earlier fact.
+
+#### 8.1.2 Scoped supersession
+
+Supersession is revision-, Scope-, and time-qualified.
+
+A conceptual form is:
+
+$$Supersedes(p_2^k,p_1^j,\sigma,t).$$
+
+This means that revision $p_2^k$ supersedes revision $p_1^j$ for the stated Scope from the applicable time onward.
+
+Supersession does not:
+
+- erase the superseded revision;
+- rewrite historical states;
+- automatically supersede unrelated dependent elements;
+- imply global replacement outside the declared Scope.
+
+Propagation beyond the stated Scope follows the applicable relation, Scaling, Decision, and Contract rules.
 
 ### 8.2 Identity and provenance
 
@@ -907,93 +998,3 @@ Magnification identifies the resolution at which an engineering subject is exami
 The Project Profile defines a set of admissible Magnification bands:
 
 $$\mathcal{M}_P$$
-
-and assigns an applicable Magnification to an engineering element:
-
-$$\mu(x)\in\mathcal{M}_P$$
-
-The Project Profile defines the comparison relation between Magnification bands.
-
-For two engineering elements $x$ and $y$:
-
-$$SameMagnification(x,y)\iff\mu(x)=\mu(y)$$
-
-$$FinerThan(x,y)\iff\mu(x)>_M\mu(y)$$
-
-$$CoarserThan(x,y)\iff\mu(x)<_M\mu(y)$$
-
-where $>_M$ and $<_M$ are project-defined Magnification relations.
-
-These relations express engineering resolution. They do not necessarily represent physical size, numerical magnitude, organizational hierarchy, or Contract depth.
-
-Magnification comparison therefore provides at least:
-
-- same engineering resolution;
-- finer engineering resolution;
-- coarser engineering resolution.
-
-A Project Profile can define a partial order when engineering domains do not admit one universal linear ordering.
-
-Scale answers:
-
-> **At what engineering order does this element belong?**
-
-Magnification answers:
-
-> **At what resolution is this element being examined?**
-
-An element can remain at the same Scale while its Magnification changes for investigation.
-
-Increased Magnification does not transfer authority from the element's local engineering context to another Scale.
-
-### 9.3 Direct-link restriction
-
-A Hive operation does not directly operate, bind, constrain, integrate, or establish a semantic relation between elements whose Scale or Magnification is incompatible for that operation.
-
-For a direct engineering relation $r$:
-
-$$Direct_r(x,y)\Rightarrow ScaleCompatible_r(x,y)\land MagnificationCompatible_r(x,y)$$
-
-Compatibility is relation-specific and is defined by the Project Profile.
-
-When two elements belong to incompatible engineering orders, the proposal does not create a direct semantic edge between them. Their interaction uses Scaling.
-
-This prevents a higher-level Product context from directly operating implementation details several engineering orders below it.
-
-It also prevents detailed implementation information from acquiring direct authority over broader Product contexts.
-
-Examples of prohibited shortcuts include:
-
-- Product-level reasoning directly operating a Hall-effect sensor implementation inside an ABS component;
-- UX research directly constraining application source code;
-- customer-level intent directly binding implementation artifacts without the intermediate engineering interpretation required by the project.
-
-The restriction applies even when all involved elements are visible to the same Hive.
-
-Visibility does not imply direct bindability.
-
-### 9.4 Scaling
-
-Scaling transfers relevant information between different engineering orders without creating a direct semantic relation between the original source and destination elements.
-
-A Scaling transition contains three conceptual activities:
-
-1. identify information that is relevant beyond the originating Scale;
-2. materialize that information for the applicable boundary;
-3. interpret it locally at the receiving Scale.
-
-The receiving Scale establishes its own local engineering meaning from the received information.
-
-Scaling therefore does not mean automatic inheritance of:
-
-- Decisions;
-- authority;
-- evidence closure;
-- implementation detail;
-- semantic relations.
-
-#### 9.4.1 Downward Decision propagation
-
-A Decision at one Scale does not directly become a Decision at another Scale.
-
-The propagation pattern is:
