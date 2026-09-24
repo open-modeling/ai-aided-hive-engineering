@@ -1,6 +1,6 @@
 ---
 title: "Hive/Swarm Engineering Governance"
-subtitle: "Formal Proposal - Draft 0.14"
+subtitle: "Formal Proposal - Draft 0.15"
 date: "16 September 2026"
 ---
 
@@ -249,21 +249,21 @@ The dictionary is intentionally compact. A term definition may reference another
 
 | Term | Definition |
 |---|---|
-| **Acceptance Obligation** | Contract obligation assigned to an actor to evaluate a fulfilment proposal or applicable Work Product. |
-| **Acceptor** | Actor that carries an Acceptance Obligation for a Contract. |
+| **Acceptance** | Contract-governed process that assesses Contract fulfilment and the resulting Work Product against the applicable Acceptance rules and records the resulting disposition. |
+| **Assignment** | Contract relation that identifies the Actor responsible for execution of that Contract. A valid Assignment establishes that Actor as the Executor in the Contract context. Assignment is part of the Contract state, not a separate Engineering Object. |
 | **Actor** | Human, Hive, external organization, or other authority-capable participant. Computational micro-agents are not Actors unless a Project Profile grants that role. |
 | **Agent** | Computational participant that performs a bounded operation. Agent identity does not create semantic authority. |
 | **Baseline** | Configuration Management reference state created only when the applicable Configuration Management process defines it. |
 | **Binding** | Scoped and time-qualified prescriptive force of an obligatory Decision. Binding applies to Decisions, not Work Products or Exchange Items. |
 | **Cluster** | Set of sufficiently independent contributions within a Swarm that support one Decision for one task/problem statement. A Decision can then preserve or direct a trajectory. |
 | **Conformance Evaluation** | Formal check of implementation/state against this model plus the applicable Project Profile. |
-| **Contract** | Governed execution agreement with one accountable Executor, one or more issuing parties, optional supplementary parties, obligations, a Product target, Work Product obligations, resource constraints, acceptance rules, and enforcement. |
+| **Contract** | Durable governed record that defines a Product target, required Work Product, Issuer, Assignment, Resource Envelope, execution topology, Acceptance rules, enforcement, and the information required to preserve execution and fulfilment history. |
 | **Decision** | Rationale-bearing Proposition that preserves or directs a possible course of exploration or behavior. A Decision is not an Engineering Object. |
 | **Engineering Layer** | Project-defined magnification range that yields a coherent Product view at that scale. |
 | **Engineering Object** | Materialized project entity with tool, repository, physical, or document identity. It can carry or materialize one or more Propositions. |
 | **Evidence** | Recorded information used by a defined validator or argument to support a Proposition. Evidence is scope- and role-specific. |
 | **Exchange Item** | Boundary-relative information object used to communicate Propositions, Product interfaces, results, feedback, or other materialized information. |
-| **Executor** | Single accountable Actor that controls current-level Contract fulfilment and immediate traceability quality. |
+| **Executor** | Actor responsible for fulfilment of an assigned Contract, including delivery of the required Work Product or explicit reporting that fulfilment cannot be completed. A Human can be an Executor when assigned responsibility for a Contract result. |
 | **Exploration** | Bounded computational attempt to extend, test, compare, or refine the current Solution Space. |
 | **Extremum Exploration** | Exploration intended to discover a different local extremum or challenge whether a materially better region exists outside the current search neighborhood. |
 | **Future Action** | Contracted resolution of a Known Gap with an identified Party, Outcome, Method, Definition of Ready, and Definition of Done. |
@@ -275,11 +275,13 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Human Voluntary Choice (HVC)** | Optional human choice made while autonomous Hive continuation remains possible. |
 | **Human Work Product (HWP)** | Work Product supplied by a Human or human organization. Human origin does not bypass validation. |
 | **Integrator** | Executor of an integration Contract that constructs a coherent same-scale Work Product from applicable partial Work Products and evidence. |
+| **Issuer** | Actor that, under applicable authority, creates or revises a Contract and assigns its execution. Originating an input, request, Choice, or human directive does not by itself make an Actor an Issuer. |
 | **Justification** | Valid relation/evidence structure that satisfies the applicable validators for using a Proposition as a decision, trace, or commitment basis. |
 | **Known Gap** | Gap whose existence and scope are known and recorded. |
 | **Local Optimum / Local Extremum** | Best/extreme candidate relative to a declared neighborhood or currently explored region, not the entire theoretical Solution Space. |
 | **Magnification** | Engineering scale of a Proposition, Engineering Object, Decision, Exchange Item, Work Product, or Product view. |
 | **Micro-agent** | Short-lived, specialized, low-Resource-Cost Agent used for one narrow exploration or validation operation. |
+| **Obligation** | Responsibility of an Executor for the complete result of an assigned Contract. The Executor delivers the required result or explicitly reports inability to fulfil the Contract to the authoritative party or parties. Obligation is Contract semantics, not necessarily a separate stored object. |
 | **Outlier** | Discovered outcome or trajectory with low current cluster support. It remains recorded even when active allocation is zero. |
 | **Overthinking** | Reasoning expenditure whose expected information or decision value is lower than its Resource Cost, or reasoning applied to a result that deterministic state/algebra can establish directly. |
 | **Product** | Coherent engineered subject whose state is created, evolved, verified, accepted, produced, or delivered. |
@@ -298,7 +300,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Trajectory** | Temporally ordered path of exploration outcomes and Decisions through a Trade Space. |
 | **UNKNOWN** | Required information whose value, validity, applicability, or result has not been established. |
 | **Waste** | Resource consumption that creates neither required governance/validation effect nor reusable progress, evidence, knowledge, or Product value for the active objective. |
-| **Work Product** | Complete obligatory Contract result prepared under a defined schema and acceptance rule. A Work Product can be an input to another Contract. |
+| **Work Product** | Complete required Contract result prepared under a defined schema and Acceptance rule. A Work Product can be an input to another Contract. |
 
 # Part III - Foundation
 
@@ -713,13 +715,17 @@ Human input is assessed before execution. Human authority does not create mathem
 
 ### 11.1 Contract structure
 
-A Contract has one accountable Executor and one or more issuing parties. Supplementary parties can be added when execution reveals new needs. Contract participation can therefore evolve by revision without erasing prior states.
+A Contract records **who** is responsible, **what** result is expected, and **when or under which dependencies** execution can proceed.
 
-A conceptual Contract tuple is:
+**Who** identifies the Issuer, Assignment and resulting Executor, supplementary parties where applicable, and any explicitly delegated Acceptance responsibility.
 
-$$C=(I_C,X_C,S_C,O_C,Target_C,WP_C,R_C,A_C,E_C,T_C),$$
+**What** identifies the Product target, required Work Product, Executor Obligation, Resource Envelope, Acceptance rules, and applicable enforcement.
 
-where $I_C$ is the issuing-party set, $X_C$ the single Executor, $S_C$ supplementary parties, $O_C$ obligations, $Target_C$ the Product target, $WP_C$ Work Product obligations, $R_C$ Contract resource constraints, $A_C$ acceptance rules, $E_C$ enforcement, and $T_C$ execution topology.
+**When and dependencies** identify prerequisites, expected dependencies, execution topology, and revision/time context required to determine when execution can start, continue, block, submit a result, or require reassessment.
+
+The Contract is durable and revision-qualified. Previous Contract states remain addressable so that later fulfilment, failure, discontinuation, reassignment, or post-mortem analysis does not rewrite execution history.
+
+A Contract becomes executable only when its Assignment is unambiguous for the applicable scope. Conflicting directives that would establish incompatible Assignments for the same scope require resolution under the applicable authority rules before execution proceeds. Human-originated input does not bypass this rule. The Human role and authority model is a prerequisite of safe execution and is defined separately from this Contract section.
 
 ### 11.2 Contract decomposition
 
@@ -753,17 +759,25 @@ Conformance uses a predicate rather than a universal scalar independence order:
 
 $$SatisfiesIndependence(actual,required,profile).$$
 
-### 11.6 Acceptance obligations
+### 11.6 Acceptance
 
-Acceptance is a Contract obligation, not a generic lifecycle state of every Proposition. Actors whose direct Work Products participate as inputs can receive Acceptance Obligations. Delegated/contracted third parties do not automatically participate in parent Contract acceptance; the parent Executor is responsible for accepting their Work Products into the parent execution.
+Acceptance is the Contract-governed assessment of fulfilment and Work Product conformance. It is distinct from Assignment, Obligation, execution, release, deployment, production, and baselining.
 
-The Executor controls immediate traceability quality and Known Gaps, and informs Acceptors through a fulfilment proposal.
+Acceptance has two sequential stages with different responsibility and evidential meaning. Stage 1 establishes the Executor's own conformity claim and submission state. Stage 2 independently evaluates that claim and produces the Contract Acceptance disposition. Passing Stage 1 is therefore a prerequisite for normal Stage 2 assessment, but it is not independent Acceptance.
 
-A conceptual fulfilment proposal is:
+#### 11.6.1 Executor conformity assessment
 
-$$FP_C=(WP_C,TraceSummary_C,KnownGaps_C,VerificationEvidence_C,Supplementary_C).$$
+Before submission, the Executor performs the applicable checks against the Contract and prepares the Work Product for assessment. The Executor records the conformity result, Known Gaps, identified non-conformities, relevant evidence, and any condition that prevents a complete fulfilment claim.
 
-Successful Contract completion occurs when the Contract acceptance rule is satisfied. Baseline, release, deployment, production, and other lifecycle predicates remain project-specific and are not implied by acceptance.
+This stage is a self-assessment by the Executor. It establishes what the Executor claims to have fulfilled and with what evidence. It does not bind the Issuer to accept the result. When conformity cannot be established, the Executor reports that condition explicitly instead of presenting a partial or known-invalid result as conformant.
+
+#### 11.6.2 Independent Acceptance assessment
+
+After submission, the Issuer performs an independent assessment of Contract fulfilment and Work Product conformance, or delegates that assessment when the Contract permits delegation. The independent assessment considers the submitted Work Product, the Executor conformity record, applicable evidence, Known Gaps, and the Contract Acceptance rules. It does not treat the Executor's conformity claim as proof by itself.
+
+This stage produces the Contract Acceptance disposition. The disposition and its rationale are recorded in Contract history. Failed Acceptance does not erase the submitted Work Product, conformity record, evidence, Contract state, or earlier Decisions; these records remain available for correction, governance, and post-mortem analysis.
+
+Successful Acceptance establishes that the submitted result satisfies the applicable Contract Acceptance rules. It does not by itself imply release, deployment, production, baselining, or another project-specific lifecycle transition.
 
 ### 11.7 Product API and Team API
 
@@ -888,7 +902,7 @@ A conformant implementation MUST:
 - enforce Human ingress and Decision authority rules;
 - preserve all discovered outcomes while controlling active resource allocation;
 - separate Decision authority from Exchange Item communication;
-- enforce Contract accountability, Work Product schemas, information boundaries, and acceptance obligations;
+- enforce Contract accountability, Assignment and Obligation semantics, Work Product schemas, information boundaries, and Acceptance rules;
 - satisfy required verification independence topology;
 - preserve revision/time history;
 - keep project-specific lifecycle/support-process predicates in the Project Profile unless the common model explicitly defines them.
