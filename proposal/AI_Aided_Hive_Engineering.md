@@ -1,10 +1,10 @@
 Hive/Swarm Engineering
 Governance
-Formal Proposal - Draft 0.5
-Status: working draft with accepted Change Proposals 1-5 integrated
+Formal Proposal - Draft 0.6
+Status: working draft with accepted Change Proposals 1-6 integrated
 Compilation date: 14 September 2026
 Normative basis: approved project discussion, resolved formal audit, and accepted Change
-Proposals 1-5.
+Proposals 1-6.
 Language basis: project-authored prose follows the external controlled-language foundation
 based on BCP 14 and ASD-STE100. This proposal does not redefine that foundation. Citations and
 imported source text remain unchanged.
@@ -28,7 +28,7 @@ does not prescribe one artifact taxonomy, one industry lifecycle, or one authori
 # 12. Gaps, UNKNOWNs and Future Actions
 # 13. Recursive Y/V architectural model
 # 14. Trade space, human intervention and delegated autonomy
-# 15. Baselines, supplementary products and Calibration
+# 15. Supporting processes over Solution Space
 # 16. Hive clusters, divergence, back-off and exploratory restart
 # 17. Derived no-sphere property
 # 18. Formal invariants and audit checks
@@ -37,8 +37,8 @@ does not prescribe one artifact taxonomy, one industry lifecycle, or one authori
 # 1. Purpose and optimization objective
 The objective is to provide a formal governance basis for autonomous hive/swarm engineering
 that can operate across heterogeneous product-development domains while preserving local
-autonomy, contractual clarity, traceability, bounded resource use, and reproducible solid
-product states.
+autonomy, contractual clarity, traceability, bounded resource use, and reproducible temporally
+addressable engineering states.
 The model is artifact-neutral. Engineering state can include requirements, models, source code,
 binaries, physical assemblies, analyses, contracts, and other addressable engineering objects.
 The model distinguishes internal Decisions, materialized Exchange Items, and contractual Work
@@ -69,6 +69,7 @@ can represent a system, model, source-code
 slice, physical assembly, analysis, evidence
 object, compound sub-project, or another
 recursively addressable engineering object.
+Term Meaning in this proposal
 Decision Materialized, rationale-bearing disposition
 used to preserve or direct Hive exploration or
 behavior. Agreement is represented
@@ -81,10 +82,13 @@ project- and product-specific; atomicity is
 boundary-relative.
 State Transition A Proposition subtype defining allowed state change;
 execution of the transition is a separate operation.
-Work Product Complete, acknowledged contractual result of
-one layer. It is composed of released
-Exchange Items and mandatory
-supplementary release information.
+Work Product Complete, structured contractual result of one
+layer. Its structure, semantic scope, validation
+obligations, supplementary information, and
+information-exposure boundary are defined
+by the Contract and project profile;
+acceptance does not imply release,
+deployment, production, or baselining.
 Contract Addressable execution agreement with one
 accountable Executor, one or more
 issuing/accepting parties, optional
@@ -101,13 +105,18 @@ gap is penalized.
 Future Action Contracted activity with responsible party, outcome,
 method/reference, DoR and DoD that resolves a
 known gap.
-Calibration Umbrella term for post-production/field-time binding
-and tuning, including parameters, feature flags, A/B
-configuration and user-scripted properties.
-Solid baseline Immutable published engineering state. Solidity is
-permanent provenance and is independent from
-later safety, recall, withdrawal or decommission
-status.
+Calibration Project-specific post-production/field-time
+activity over Solution Space entries, such as
+parameter tuning, feature flags, A/B
+configuration, or user-scripted properties. Its
+lifecycle and governance relations are
+Term Meaning in this proposal
+defined by the project profile.
+Baseline (project-specific) Configuration Management designation for a
+controlled reference configuration/state when
+the project uses baselines. It is not a universal
+Work Product state and is independent from
+Contract acceptance.
 Cluster A sufficiently strong coalition of actors within the
 hive assigned to one problem statement, supporting a
 common decision trajectory; not a truth vote.
@@ -160,12 +169,14 @@ of the Decision definition.
 ## 4.1 Decision, Exchange Item and Work Product roles
 An Exchange Item is an addressable materialized piece of engineering information used as a
 response or boundary communication and as explicit traceability material. A Work Product is a
-complete, acknowledged contractual result of one layer. It consists of released Exchange Items
-and mandatory supplementary release information.
+complete, structured contractual result of one layer. Its admissible structure, semantic scope,
+validation obligations, supplementary information, and information-exposure boundary are
+defined by the applicable Contract and project profile.
 Roles are boundary- and plane-dependent. The same underlying Proposition can be a Work
 Product for one Contract and an Exchange Item for another entitled recipient. A Work Product
-is never a bare Exchange Item at the same contractual plane; release or delivery records and
-other required supplementary information are part of the Work Product.
+is not reducible to an arbitrary Exchange Item collection at the same contractual plane; it must
+satisfy its own formal, semantic, validation, traceability, supplementary-information, and
+information-boundary rules.
 Communication interfaces do not introduce a separate ontology. They are revision-qualified
 sequences of Propositions exchanged back and forth between actors. The project profile defines
 the full Proposition-role vocabulary; Question, Request, Clarification, and Exchange Item are the
@@ -176,8 +187,9 @@ or external party without changing the core Proposition algebra.
 Decision lifecycle states include FOUND, ACTIVE, COMMITTED, DEACTIVATED, DEPRECATED,
 and SUPERSEDED. Deactivated, deprecated, and superseded Decisions remain addressable in
 the semi-latent exploratory space for post-mortem analysis and restart.
-Exchange Item lifecycle can include proposed, new, approved, deprecated, superseded, or
-project-defined equivalents. Exchange Items are the primary explicit vertical product-traceability objects.
+The core algebra does not prescribe a universal Exchange Item lifecycle. A project profile can
+attach revision-qualified state predicates such as proposed, approved, deprecated, superseded,
+or domain-specific equivalents. Exchange Items are the primary explicit vertical product-traceability objects.
 A repository, authoring tool, or set of repositories is a projection of engineering state. Different
 projections can duplicate the same Proposition. Proposition identity and provenance reconnect
 these projections.
@@ -223,8 +235,8 @@ Comparing scopes from different engineering states requires an explicit revision
 rather than name-based identity:
 ## 6.1 Revision-aware relations
 A relation instance may be represented as:
-where is affected scope, is applicability interval/baseline interval, and is role-specific context.
-Historical relation facts are not destructively rewritten.
+where is affected scope, is the applicability interval, and is role-specific context. Historical
+relation facts are not destructively rewritten.
 ## 6.2 Scoped supersession
 Supersession applies to a particular revision and dependent scope from a defined state/time
 onward. It does not erase the earlier node or globally supersede unrelated dependent subtrees.
@@ -377,14 +389,18 @@ The parent Contract can create both partial-production Contracts and a separate 
 Contract. These Contracts can occupy different execution sub-layers while remaining at the
 same engineering magnification.
 The Integrator operates in the vertical paradigm: it receives qualified inputs and produces one
-coherent Work Product for the parent fulfilment path. It may receive several Work Products
-from several parties as a side-effect of the parent Contract decomposition; this multiplicity does
-not create horizontal design authority for the Integrator.
-The coherent Work Product preserves ancestry to the child Work Products and their Exchange
-Items. The Integrator controls integration closure and product coherence, while design
-authority remains where the applicable Contracts and Decisions place it.
-Rework can iterate after integration or verification finds a defect. The new result is revision-qualified: feedback can cause a child Contract to produce a successor Work Product, followed by
-renewed integration and verification. This is temporal iteration across revisions, not a same-state circular dependency.
+coherent Work Product for the parent fulfilment path using the project-defined construction
+strategy. It may receive several Work Products from several parties as a side-effect of parent
+Contract decomposition; this multiplicity does not create horizontal design authority for the
+Integrator.
+The coherent Work Product preserves ancestry to contributing Work Products and Exchange
+Items. The Integrator controls coherent-product construction and applicable closure checks,
+while design authority remains where the applicable Contracts and Decisions place it. The core
+algebra does not prescribe aggregation, copying, embedding, model merge, compilation,
+physical assembly, or another construction strategy.
+Rework can iterate after coherent-product construction or verification finds a defect. Feedback
+can cause an affected Contract to produce a successor Work Product, followed by renewed
+construction and applicable verification. This is temporal iteration across revisions, not a same-state circular dependency.
 ## 9.6 Horizontal interfaces and whole-Hive coordination
 Horizontal coordination uses the same Proposition algebra as every other engineering
 exchange. Actors send Questions, Requests, Clarifications and materialized responses; there is
@@ -403,9 +419,9 @@ external party is not assumed; the applicable Contract or Team API defines a com
 profile appropriate to that party, often constrained to familiar exchanges such as spreadsheet
 files, PDF documents, email, portals, or other agreed media.
 A Product API can be agreed during a shared design-stage Contract and then exposed as the
-Exchange Item consumed by several production Contracts. When the resulting parts conform to
-that materialized design, the Integrator can combine their Work Products without acquiring
-horizontal authority over their local Decisions.
+Exchange Item consumed by several production Contracts. When the resulting parts satisfy that
+materialized design, the Integrator can construct the coherent parent Work Product according
+to the project-defined strategy without acquiring horizontal authority over local Decisions.
 Contract splitting therefore does not require splitting the Hive. One Hive can coordinate product
 evolution, horizontal communication, and traceability across several Contracts while
 preserving the Contract-role and validation-independence requirements defined elsewhere in
@@ -432,7 +448,30 @@ That participation does not grant general authority over the lower engineering l
 Authority does not propagate across Contract boundaries unless another explicit Contract or
 project authority rule establishes it. This preserves the no-sphere property while allowing
 practical cross-level acceptance participation.
-## 9.9 Enforcement and atomic joint commitment
+## 9.9 Work Product conformance and layer closure
+A Work Product is not a best-effort projection of everything known to the Hive. The applicable
+Contract and project profile define its admissible structure, allowed semantic content,
+validation obligations, traceability expectations, supplementary information, and information-exposure boundary.
+Existence in Solution Space does not grant permission to expose an object in a Work Product. A
+lower-layer artifact, internal rationale, supplier asset, proprietary source, personal data, or
+other accessible Proposition can contribute only through a project-authorized relation,
+projection, transformation, reference, extraction, or construction rule.
+Artifact roles constrain semantics. For example, when the project defines a Use-Case role as
+actor steps and desired outcomes, algorithmic realization content is a role violation. The same
+rule applies to other project-defined artifact roles: semantic admissibility follows the role
+definition, not document containment or author intent.
+The core algebra does not prescribe a universal integration strategy. Where a project uses an
+Integrate operation, similar magnification is a prerequisite rather than a derived compatibility
+label.
+If inputs are at different magnifications, the project must use an explicit project-defined
+operation appropriate to that boundary. Such an operation still has its own formal, semantic,
+validation, traceability, and information-policy checks; recursive copying is never a default
+closure rule.
+A layer is closure-ready only when its coherent Work Product satisfies the applicable Contract
+conformance and acceptance rules. Acceptance is a Contract obligation/result. It does not imply
+release, deployment, production, baselining, or any other project-specific lifecycle or
+supporting-process predicate.
+## 9.10 Enforcement and atomic joint commitment
 Enforcement can mean refusal of acceptance, failed gate, rework, escalation, deployment
 prevention, commercial or legal remedy, or another project-defined normative consequence.
 Legitimate mutual commitment is not encoded as a prerequisite cycle. A joint commitment
@@ -485,9 +524,9 @@ contracted Future Action.
 Foreign unknowns that do not affect cost, schedule, authority, legitimacy, feasibility, supply or
 other commitment-relevant predicates do not trigger recursive investigation.
 ## 12.2 Contracted Future Action
-A known gap may be baseline-compatible only when a contracted Future Action is explicit. The
-action is not an UNKNOWN; the resolution mechanism and expected outcome are known and
-enforceable.
+A known gap may be compatible with Contract closure only when a contracted Future Action or
+another project-authorized disposition is explicit. The action is not an UNKNOWN; the
+resolution mechanism and expected outcome are known and enforceable.
 # 13. Recursive Y/V architectural model
 The engineering decision core is architectural reconciliation. Each project scale may instantiate
 its own Y/V structure, recursively from product down to subsystem, component and finer layers.
@@ -519,6 +558,7 @@ otherwise continue. The selected proposition
 is assessed against the current solution space
 before commitment.
 HUMAN_PRESCRIPTIVE_CHOICE A required human choice when no Hive-
+Human intervention class Meaning
 committable solution remains or when the
 commitment is reserved to human authority.
 Binding applies only to qualifying Decisions,
@@ -553,23 +593,26 @@ Money and time are primary cross-domain indicators. Rapid cost/timeline expansio
 that a supposedly local change is leaving its minimum repair envelope. Similarly, a steep rise in
 hive utilization for a nominally local patch is evidence of unhealthy rework or mis-scoped
 architecture.
-# 15. Baselines, supplementary products and Calibration
-A candidate engineering state becomes a published baseline only after project closure
-conditions succeed. Publication creates an immutable solid historical state.
-Solidity is permanent provenance. A baseline may later be unsafe, recalled, withdrawn from
-new deployment, unsupported or decommissioned while remaining solid and serving as
-knowledge for products that still exist.
-Compensatory activities such as recall do not rewrite the baseline. Not every published instance
-can necessarily be repaired, and a decommissioned baseline remains a historical engineering
-state.
-## 15.1 Closure readiness
-Project closure also includes no hidden gaps relied upon by the baseline, no unresolved proof
-cycles, typed/valid relations, scale locality and satisfied/contracted obligations. A known gap
-may remain only through a valid contracted Future Action.
-## 15.2 Supplementary products and Calibration
-Supplementary Work Products may bind degrees of freedom intentionally left open by the
-baseline without mutating the baseline core. Calibration is the umbrella post-production/field-time activity for establishing such bindings, including field parameters, A/B choices, feature
-flags, user-scripted properties and deployment-specific tuning.
+# 15. Supporting processes over Solution Space
+Configuration Management, Change Management, Problem Resolution, Quality Assurance, Risk
+Management, Measurement, and comparable governance concepts are supporting processes.
+They operate over Solution Space, Contracts, Propositions, relations, revisions, and temporal
+engineering states; they do not define the universal lifecycle of a Work Product.
+Project-specific predicates such as baselined, released, deployed, produced, batch-accepted,
+recalled, withdrawn, or decommissioned are introduced only by the applicable project/process
+profile. The core algebra defines no universal implication among them and Contract acceptance.
+A baseline, when a project uses one, is a Configuration Management designation for a controlled
+reference configuration or state. Baselining is independent from Contract acceptance. A
+production batch, fielded physical asset, or deployment can be accepted without becoming a
+baseline; a baseline can exist without being a deployment or production instance.
+Supporting-process actions operate through revision-qualified relations and successor
+engineering states. They do not rewrite historical universes. A recall, change request,
+configuration status change, or later safety finding can alter active continuation or governance
+status while the earlier state remains addressable.
+Calibration, field tuning, deployment configuration, A/B settings, user-scripted properties, and
+similar post-production activities are project-specific processes over Solution Space entries.
+Their relation to Configuration Management, Change Management, acceptance, release,
+deployment, or production is defined by the project profile rather than by the core algebra.
 # 16. Hive clusters, divergence, back-off and exploratory restart
 Clusters exist only within the hive assigned to one explicit problem statement. Cluster analysis
 across disjoint problem statements is undefined.
@@ -617,6 +660,7 @@ without an explicit project rule.
 Scale locality Every accepted direct relation is scale-compatible for
 its role.
 Truthful gap handling No valid parent -> explicit orphan; hidden gaps are
+Invariant / audit Required condition
 penalized.
 Local blast Decision blast remains within one layer.
 Layer-wide extent requires economic
@@ -625,7 +669,8 @@ Local evidence Every layer records its own evidence artifact for local
 closure.
 Revision scope Supersession and temporal relations identify
 revision, scope and applicability interval.
-No unresolved proof cycle Proof cycles cannot close a baseline.
+No unresolved proof cycle Proof cycles cannot establish semantic or
+evidential closure.
 Contract enforceability Every Work Product is obligatory under a
 Contract. The Contract defines an enforceable
 consequence for failed obligations.
@@ -635,9 +680,10 @@ Brittleness qualification Every brittleness claim declares Revision Envelope
 and threshold/predicate.
 Commit unknown boundary No owned UNKNOWN or material foreign
 UNKNOWN remains at commitment.
-Baseline permanence Published baseline remains immutable/solid
-historically despite later
-recall/withdrawal/decommission.
+Historical addressability Supporting-process and project-specific state
+changes do not rewrite prior engineering
+universes; earlier qualified states remain
+addressable.
 Problem-local clusters Cluster/divergence analysis is performed only inside
 one problem statement.
 Bounded search Persistent unhealthy divergence leads to
@@ -645,14 +691,16 @@ back-off/decommission/post-mortem/restart.
 Decision survivability Deactivated, deprecated, superseded, and
 outlier Decisions remain addressable for
 post-mortem analysis and restart.
-Work Product acknowledgement A released Work Product becomes
-consumable only after entitled-recipient
-acknowledgement with required
-supplementary release information.
+Work Product conformance A fulfilment proposal uses a Work Product
+that satisfies its Contract/project formal,
+semantic, validation, traceability,
+supplementary-information, and
+information-exposure rules.
 Exchange Item budget Exchange Item production and rework stay
 within the applicable Contract resource
 envelope unless the Contract is changed.
 Projection identity Repository/tool projections preserve links to
+Invariant / audit Required condition
 underlying Proposition identity and
 provenance; storage location alone does not
 define semantics.
@@ -667,10 +715,11 @@ Verification independence A production Contract role does not validate
 its own Work Product; actual validation
 independence satisfies the project-required
 topology.
-Coherent layer Work Product Decomposed child results and verification
-outputs are integrated through an explicit
-Integrator responsibility into one coherent
-Work Product for the engineering layer.
+Coherent layer Work Product Decomposed results and verification outputs
+are constructed under explicit
+Integrator/coherence responsibility into one
+coherent Work Product using the project-defined strategy; an Integrate operation
+requires comparable magnification.
 Contract continuity Critical Contract divergence preserves
 history; recovery uses continuation, revision,
 re-creation, successor Contract, human
@@ -693,10 +742,28 @@ materialized as an Exchange Item; the
 algebra does not prescribe a software-specific
 representation.
 Vertical Integrator The Integrator can consume multiple Work
+Invariant / audit Required condition
 Products from multiple parties but produces
 a coherent Work Product vertically toward
 the parent Contract and gains no implicit
 horizontal design authority.
+Role semantic boundary Every project-defined artifact role restricts
+admissible semantics; content outside the
+role definition is a role violation unless the
+project profile explicitly permits it.
+Information-boundary conformance Existence or accessibility in Solution Space
+does not authorize disclosure in a Work
+Product; inclusion follows explicit
+Contract/project information policy.
+Acceptance/process separation Contract acceptance creates no universal
+release, deployment, production, baseline, or
+other supporting-process state transition.
+Project-specific construction The core algebra does not prescribe
+aggregation, embedding, copying, model
+merge, compilation, physical assembly, or
+another integration/construction strategy; the
+project profile defines applicable operations
+and checks.
 ## 18.1 Axiom non-reducibility status
 The five axioms survived the project countermodel audit: removing any one while retaining the
 other four permits a model that violates an explicitly documented project property (false traces;
@@ -711,18 +778,22 @@ not holes in the foundational model:
  Which sources are negotiable or non-negotiable at each project horizon.
  Contract parties, authority data, reserved human decisions and enforcement mechanisms.
  Obligation priorities, execution prerequisites and joint-commitment groups.
- Proposition quality predicates appropriate to each Work Product family.
+ Work Product schemas, semantic-role constraints, required validators, information-exposure policies, and Proposition quality predicates appropriate to each Work Product
+family.
  Trade-space representation and external simulation/Calibration interfaces.
  Money/time/hive-utilization cost models and materiality thresholds.
  Revision Envelopes and brittleness thresholds.
  Cluster power thresholds, divergence health function, back-off coefficients and
 decommission criteria.
- Baseline publication gates and the exact material-foreign-UNKNOWN policy.
+ Configuration Management and Change Management predicates and policies, including
+baseline rules when baselines are used, plus the exact material-foreign-UNKNOWN policy.
 Project evolution preserves historical Decisions and proofs as addressable temporal states.
 Explicit exploration results, evidence, directives, deprecation, or scoped supersession can
 change the active continuation without rewriting history.
  Engineering layer and execution sub-layer definitions, including permitted Contract
 decomposition depth and Integrator topology.
+Project-specific coherent-product construction/integration strategies, including admissible
+operations at each magnification boundary and their validation rules.
  Verification independence profile across role, Hive instance, model, organization,
 enterprise, provider, and infrastructure dimensions.
  Contract acceptance obligations, adjacent-layer participation, fulfilment proposal content,
@@ -771,17 +842,16 @@ Integration Verification: https://vda-qmc.de/wp-content/uploads/2023/12/Automoti
  AIAG Advanced Product Quality Planning (APQP), 3rd Edition overview:
 https://www.aiag.org/training-and-resources/manuals/details/APQP-3
 Compilation status
-This draft integrates accepted Change Proposals 1-5 into the formal model. CP4 establishes
+This draft integrates accepted Change Proposals 1-6 into the formal model. CP4 establishes
 Contract execution topology, decomposition, V-model verification, configurable validation
 independence, Integrator Contracts, coherent layer Work Products, acceptance obligations,
 immediate traceability control, Known Gap disclosure, and adjacent-layer authority locality.
-CP5 establishes representation-neutral communication and Product/Team API semantics:
-interfaces remain Proposition exchanges, Product API is materialized as an Exchange Item,
-Team API combines Work Products with communication, external-party communication is
-profile-controlled, cross-team Decision blast propagates only through consumed material
-updates, and the Integrator remains vertically scoped. It does not define a concrete skill
-architecture, implementation technology, universal relation semantics, or enterprise authority
-model.
-The next review should formalize layer closure and coherent Work Product completion: how
-design, implementation, verification evidence, Known Gaps, accepted child Work Products, and
-integration results combine into a solid layer result without requiring artifact-type uniformity.
+CP5 establishes representation-neutral communication and Product/Team API semantics. CP6
+establishes Work Product conformance and layer closure: magnification is a prerequisite to
+integration, construction strategy is project-specific, Work Products have explicit
+formal/semantic/validation/information boundaries, artifact-role semantics constrain content,
+and Contract acceptance is disjoint from Configuration Management and other project-specific
+lifecycle predicates. It does not define a concrete skill architecture, implementation technology,
+universal relation semantics, universal integration strategy, or enterprise authority model.
+Release challenge status: Draft 0.6 remains a working draft. Release readiness requires
+adversarial review of remaining ontology, authority, evidence, process-boundary, and project-profile assumptions.
