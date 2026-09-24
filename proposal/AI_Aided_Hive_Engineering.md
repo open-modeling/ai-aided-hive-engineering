@@ -4,7 +4,7 @@ subtitle: "Formal Proposal - Draft 0.30"
 date: "18 September 2026"
 ---
 
-**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Scaling/Magnification/Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/repair exploration, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, Candidate Delta/canonical-state computation-boundary revisions, and Contract decomposition/execution-topology/authority-locality revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
+**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Magnification/Decision Blast Radius/Decision Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/repair exploration, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, Candidate Delta/canonical-state computation-boundary revisions, and Contract decomposition/execution-topology/authority-locality revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
 
 **Normative basis.** Approved project discussion and accepted changes through Draft 0.8, aligned with the project dialogue recap and resource-consumption analysis where those sources do not conflict with later decisions.
 
@@ -262,14 +262,15 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Conformance Evaluation** | Formal check of implementation/state against this model plus the applicable Project Profile. |
 | **Contract** | Durable governed record that defines a Product target, required Work Product, Issuer, Assignment, Resource Envelope, execution topology, Acceptance rules, enforcement, and the information required to preserve execution and fulfilment history. |
 | **Decision** | Rationale-bearing Proposition that preserves or directs a possible course of exploration or behavior. A Decision is not an Engineering Object. |
+| **Decision Blast Radius** | Calculated propagation reach of a candidate Decision over the currently available engineering state before that Decision is committed. Decision Blast Radius supports feasibility and engineering-economy assessment and does not itself change canonical state. |
+| **Decision Extent** | Propagation reach already materialized by a committed Decision in the engineering state at a stated time. |
 | **Delusive Traceability** | Apparently complete traceability created through semantically invalid, fabricated, or unjustified relations. |
-| **Engineering Layer** | Project-defined bounded Scale and Magnification context within which engineering elements can be reasoned about as one coherent Product view. |
+| **Engineering Layer** | Domain-local engineering context associated with one major Scale position and the corresponding Magnification level. An Engineering Layer can contain an execution sub-scale used to arrange local execution topology and gates without changing its major Scale position. |
 | **Engineering Object** | Materialized project entity with tool, repository, physical, or document identity. It can carry or materialize one or more Propositions. |
 | **Evidence** | Recorded information used by a defined validator or argument to support a Proposition. Evidence is scope- and role-specific. |
 | **Exchange Item** | Boundary-relative information object used to communicate Propositions, Product interfaces, results, feedback, or other materialized information. |
 | **Executor** | Actor responsible for fulfilment of an assigned Contract, including delivery of the required Work Product or explicit reporting that fulfilment cannot be completed. A Human can be an Executor when assigned responsibility for a Contract result. |
 | **Exploration** | Bounded computational attempt to extend, test, compare, or refine the current Solution Space. |
-| **Extent** | Measurable reach of a Decision effect within its current Scale and Magnification. Significant Extent usually has severe economic effect and can question the rationality of the originating Decision. |
 | **Extremum Exploration** | Exploration intended to discover a different local extremum or challenge whether a materially better region exists outside the current search neighborhood. |
 | **Future Action** | Explicit deferred engineering activity that resolves or closes a Known Gap after its required prerequisites become available. It identifies the responsible party, trigger, expected result, required artifacts, execution method or reference, readiness conditions, and completion conditions. |
 | **Gap** | Explicitly known missing relation, evidence, content, capability, or result required for a stated purpose. |
@@ -287,7 +288,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Known Gap** | Gap whose existence and scope are known and recorded. |
 | **Local Optimum / Local Extremum** | Best/extreme candidate relative to a declared neighborhood or currently explored region, not the entire theoretical Solution Space. |
 | **Low-profile Assessment** | Bounded, semi-instrumented semantic assessment using explicit checklists, questions, local rules, or similar structures. |
-| **Magnification** | Resolution at which an engineering subject is examined or represented. Magnification defines the admissible detail for reasoning at an Engineering Layer; it is a view of a Scale, not the Scale itself. |
+| **Magnification** | Function on Scale used in two related senses: the Scale position at which an engineering element belongs, and bounded traversal of the underlying graph data model toward an existing coarser or finer engineering representation. Magnification does not create missing engineering content. |
 | **Micro-agent** | Short-lived, specialized, low-Resource-Cost Agent used for one narrow exploration or validation operation. |
 | **Obligation** | Responsibility of an Executor for the complete result of an assigned Contract. The Executor delivers the required result or explicitly reports inability to fulfil the Contract to the authoritative party or parties. Obligation is Contract semantics, not necessarily a separate stored object. |
 | **Outlier** | Discovered outcome or trajectory with low current cluster support. It remains recorded even when active allocation is zero. |
@@ -300,8 +301,8 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Reshuffling** | Primarily vertical Decision rework caused when an Engineering Layer committed downstream constraints without sufficient exploration to support delivery through affected downstream layers. A downstream finding becomes Reshuffling when it cannot be absorbed locally and requires Decision change at an adjacent or higher Engineering Layer. |
 | **Resource Cost** | Multi-dimensional consumption caused by an operation, exploration, Contract, trajectory, or change. |
 | **Resource Envelope** | Declared availability/limits for relevant resource dimensions such as context, model calls, compute, wall time, money, human effort, energy, equipment, and external capacity. It is not a universal scalar. |
-| **Scale** | Project-relative position of an engineering subject or representation in an ordered topology of size, decomposition, or abstraction. Scale supports comparison of elements by relative level and approximate order of magnitude; it does not require one universal numeric scale. |
-| **Scaling** | Project-defined transition between different Scales. Scaling prevents direct semantic or operational linkage between elements that belong to incompatible engineering orders and requires information to be reconciled and materialized at the receiving Scale. |
+| **Scale of measurement** | Established measurement-theory classification defining which comparisons and algebraic operations are meaningful for a measured property. Common scales of measurement are nominal, ordinal, interval, and ratio. The proposal uses these established meanings and does not redefine them. |
+| **Scale** | Project-wide engineering instance of an interval scale used to position Engineering Layers by engineering order of magnitude. Ordering and distance between Scale positions are meaningful, and the coordinate origin is arbitrary. The occupied Scale range can extend toward both coarser and finer engineering orders as Product engineering evolves. |
 | **Solution Space** | Addressable set of currently known candidate states, constraints, outcomes, and their relations for a scoped problem. |
 | **Swarm** | Population of specialized computational participants assigned by the Hive to one bounded task. Swarm contributions can form Clusters supporting Decisions. |
 | **Team API** | Governed cross-Actor or cross-Hive communication boundary used to coordinate Product evolution and Contract execution through applicable Work Products, Exchange Items, and communication Propositions. |
@@ -833,9 +834,9 @@ One Actor can carry several roles where the Project Profile and required indepen
 
 #### 5.5.4 Multi-layer and Contract-boundary locality
 
-A Human can participate in several Engineering Layers without creating an authority bridge:
+A Human can participate in several Engineering Layers without creating cross-layer authority:
 
-$$Participates(h,L_i)\land Participates(h,L_j)\not\Rightarrow AuthorityBridge(h,L_i,L_j).$$
+$$Participates(h,L_i)\land Participates(h,L_j)\not\Rightarrow AuthorityPropagation(h,L_i,L_j).$$
 
 Knowledge acquired in one Engineering Layer can inform reasoning but does not become an implicit Decision in another layer:
 
@@ -1103,17 +1104,29 @@ A project can classify the unresolved state as `ORPHAN`, `UNKNOWN`, `KNOWN_GAP`,
 
 ### 5.8 AX-3 - Scale locality
 
-**Intent.** Prevent information visibility from becoming cross-scale prescriptive authority or inherited evidence closure.
+**Intent.** Prevent visibility, graph reachability, Human participation, or engineering convenience from creating direct semantic, evidential, or authority relations across incompatible engineering orders.
 
-**Statement.** Direct semantic relations and Decisions operate within the applicable scale rule. Cross-scale effects require an explicit permitted bridge, materialized Exchange Item, or other Project Profile mechanism followed by local interpretation.
+**Statement.** Every direct engineering relation operates between elements at the same Scale position:
 
-$$DirectSemanticUse(x,y,\kappa)\Rightarrow ScaleValid(x,y,\kappa).$$
+$$DirectSemanticUse(x,y,\kappa)\Rightarrow Scale(x)=Scale(y).$$
 
-$$CrossScaleEffect\Rightarrow ExplicitBridge\land LocalInterpretation.$$
+A consequence moving between Engineering Layers is propagated only through the applicable adjacent Engineering Layer boundary, using an Exchange Item or Feedback Exchange Item followed by local interpretation.
 
-**Boundary.** AX-3 does not fix universal engineering levels. Magnification frames and allowed bridges are Project Profile parameters.
+$$CrossScaleEffect\Rightarrow AdjacentLayerTransfer\land LocalInterpretation.$$
 
-**Validation.** Remove AX-3 and a local Decision or evidence item can silently become authoritative over arbitrary remote layers, producing the authority/evidence sphere that the model is designed to prevent.
+A direct relation must not jump over an existing intermediate Engineering Layer.
+
+A cross-domain relation must not simultaneously change domain and Scale level.
+
+**Human locality.** One Human can participate in several Engineering Layers, but Human identity does not create a cross-layer authority, Evidence, support, or Decision path.
+
+$$Participates(h,L_i)\land Participates(h,L_j)\not\Rightarrow AuthorityPropagation(h,L_i,L_j).$$
+
+Each Human Decision remains subject to the engineering artifacts, authority, and semantic conditions applicable at its own Engineering Layer.
+
+**Boundary.** The proposal defines one project-wide Scale. The Project Profile defines Engineering Layers, their positions on that Scale, domain topology, Magnification traversal, and adjacent-layer transfer semantics.
+
+**Validation.** Without AX-3, a local Decision, Evidence item, or Human action can silently become authoritative at remote engineering levels and produce the authority/evidence sphere that the proposal is intended to prevent.
 
 ### 5.9 AX-4 - Delegated autonomy
 
@@ -1927,7 +1940,7 @@ Supersession does not:
 - automatically supersede unrelated dependent elements;
 - imply global replacement outside the declared Scope.
 
-Propagation beyond the stated Scope follows the applicable relation, Scaling, Decision, and Contract rules.
+Propagation beyond the stated Scope follows the applicable relation, Magnification traversal, Decision, and Contract rules.
 
 ### 8.2 Identity and provenance
 
@@ -2294,352 +2307,573 @@ Acceptance stage and check class remain separate dimensions:
 
 Independent Acceptance therefore does not justify bypassing Instrumental or Low-profile checks.
 
-## 9. Scale, Scaling, Magnification, and Extent
+## 9. Scale, Magnification, Decision Blast Radius, and Decision Extent
 
-Engineering elements differ both in their position within Product decomposition or abstraction and in the resolution used to reason about them.
+Scale provides a common engineering-order reference for Engineering Layers.
 
-The proposal separates **Scale**, **Magnification**, and **Extent**, and uses **Scaling** to govern movement of information between different engineering orders.
+Magnification uses that Scale to locate engineering information and to control bounded traversal of the underlying graph data model.
+
+Decision Blast Radius and Decision Extent use the same propagation geometry at different stages of a Decision lifecycle.
 
 ### 9.1 Scale
 
-Scale identifies the relative engineering order of a subject or representation within the Project Profile.
+The proposal uses one project-wide **interval Scale**.
 
-A project can distinguish, for example, a Product, subsystem, component, subcomponent, implementation element, or another project-specific progression. The proposal does not prescribe one universal hierarchy.
+Engineering Layers occupy positions on that Scale according to engineering order of magnitude.
 
-Scale is comparative. Elements can occupy the same approximate engineering order, or one can belong to a broader or finer order than another.
+The project defines what one major Scale interval means as an engineering order-of-magnitude step.
 
-A relation that is meaningful at one Scale does not automatically remain meaningful at another Scale.
+The occupied Scale range is not permanently anchored at either end. Product evolution can introduce Engineering Layers at both the coarser and finer ends while preserving the meaning of existing Scale distances.
 
-The existence of a graph path does not authorize an engineering operation that bypasses intermediate engineering orders.
+The general algebra of nominal, ordinal, interval, and ratio scales is not reproduced in this section.
 
-Direct linkage across incompatible Scales is not permitted merely because both elements are available in the same Solution Space.
-
-### 9.2 Magnification and comparison
-
-Magnification identifies the resolution at which an engineering subject is examined.
-
-The Project Profile defines a set of admissible Magnification bands:
-
-$$\mathcal{M}_P$$
-
-and assigns an applicable Magnification to an engineering element:
-
-$$\mu(x)\in\mathcal{M}_P$$
-
-The Project Profile defines the comparison relation between Magnification bands.
-
-For two engineering elements $x$ and $y$:
-
-$$SameMagnification(x,y)\iff\mu(x)=\mu(y)$$
-
-$$FinerThan(x,y)\iff\mu(x)>_M\mu(y)$$
-
-$$CoarserThan(x,y)\iff\mu(x)<_M\mu(y)$$
-
-where $>_M$ and $<_M$ are project-defined Magnification relations.
-
-These relations express engineering resolution. They do not necessarily represent physical size, numerical magnitude, organizational hierarchy, or Contract depth.
-
-Magnification comparison therefore provides at least:
-
-- same engineering resolution;
-- finer engineering resolution;
-- coarser engineering resolution.
-
-A Project Profile can define a partial order when engineering domains do not admit one universal linear ordering.
-
-Scale answers:
-
-> **At what engineering order does this element belong?**
-
-Magnification answers:
-
-> **At what resolution is this element being examined?**
-
-An element can remain at the same Scale while its Magnification changes for investigation.
-
-Increased Magnification does not transfer authority from the element's local engineering context to another Scale.
-
-### 9.3 Direct-link restriction
-
-A Hive operation does not directly operate, bind, constrain, integrate, or establish a semantic relation between elements whose Scale or Magnification is incompatible for that operation.
-
-For a direct engineering relation $r$:
-
-$$Direct_r(x,y)\Rightarrow ScaleCompatible_r(x,y)\land MagnificationCompatible_r(x,y)$$
-
-Compatibility is relation-specific and is defined by the Project Profile.
-
-When two elements belong to incompatible engineering orders, the proposal does not create a direct semantic edge between them. Their interaction uses Scaling.
-
-This prevents a higher-level Product context from directly operating implementation details several engineering orders below it.
-
-It also prevents detailed implementation information from acquiring direct authority over broader Product contexts.
-
-Examples of prohibited shortcuts include:
-
-- Product-level reasoning directly operating a Hall-effect sensor implementation inside an ABS component;
-- UX research directly constraining application source code;
-- customer-level intent directly binding implementation artifacts without the intermediate engineering interpretation required by the project.
-
-The restriction applies even when all involved elements are visible to the same Hive.
-
-Visibility does not imply direct bindability.
-
-### 9.4 Scaling
-
-Scaling transfers relevant information between different engineering orders without creating a direct semantic relation between the original source and destination elements.
-
-A Scaling transition contains three conceptual activities:
-
-1. identify information that is relevant beyond the originating Scale;
-2. materialize that information for the applicable boundary;
-3. interpret it locally at the receiving Scale.
-
-The receiving Scale establishes its own local engineering meaning from the received information.
-
-Scaling therefore does not mean automatic inheritance of:
-
-- Decisions;
-- authority;
-- evidence closure;
-- implementation detail;
-- semantic relations.
-
-#### 9.4.1 Downward Decision propagation
-
-A Decision at one Scale does not directly become a Decision at another Scale.
-
-The propagation pattern is:
-
-$$Decision_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow Decision_j$$
-
-The Exchange Item materializes the information required by the receiving Scale.
-
-The receiving context interprets that information and establishes its own Decision where a Decision is required.
-
-The original Decision remains associated with its originating engineering context. It does not become invisible authority over lower Scales.
-
-#### 9.4.2 Upward evidence and feedback propagation
-
-Evidence follows the same Scale-locality principle as Decisions.
-
-Evidence can directly participate in reasoning within the Engineering Layer in which its evidential relation is valid.
-
-For Evidence $e_j$ and Decision $d_j$ in Engineering Layer $L_j$:
-
-$$e_j\in E_j$$
-
-$$d_j\in D_j$$
-
-a valid local support relation can be:
-
-$$Supports_j(e_j,d_j).$$
-
-Its converse is:
-
-$$IsSupportedBy_j(d_j,e_j)$$
-
-and therefore:
-
-$$Supports_j(e_j,d_j)\iff IsSupportedBy_j(d_j,e_j).$$
-
-These are two traversal views of one canonical relation.
-
-No Exchange Item is required merely to relate Evidence and a Decision that belong to the same compatible local engineering context.
-
-Evidence locality changes at an Engineering Layer boundary.
-
-Evidence found at a finer Scale does not directly establish a Decision or evidential closure at a broader Scale.
-
-The established upward feedback pattern is:
-
-$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow Decision_i.$$
-
-The first transition means that the originating Engineering Layer uses its local Evidence to determine what information must be materialized as feedback for the receiving boundary.
-
-It does not mean that the complete Evidence Proposition, its complete materialization, or the complete local reasoning context is redistributed to the receiving Engineering Layer.
-
-The Feedback Exchange Item carries the information required for the receiving Scale to assess the condition.
-
-The receiving Scale interprets the Feedback Exchange Item in its own engineering context and determines whether its local Decision or Solution Space must change.
-
-Where evidential closure is required at the receiving Scale, that Scale establishes or records Evidence appropriate to its own context.
-
-Therefore:
-
-$$Evidence_j\not\Rightarrow EvidenceClosure_i$$
-
-and:
-
-$$PotentiallyRelevant(Evidence_j,L_i)\not\Rightarrow DirectDecisionInput_i(Evidence_j).$$
-
-Foreign Evidence can inform local reasoning. It does not automatically become local Evidence or inherit evidential closure into another Scale.
-
-##### Feedback traceability
-
-The relation between source Evidence and the Feedback Exchange Item remains traceable.
+### 9.2 Scale distance
 
 Let:
 
-$$ProducesFeedback\subseteq E_j\times FEI_{j\rightarrow i}.$$
+$$s(L)$$
 
-Then its converse is:
+be the Scale coordinate of Engineering Layer $L$.
 
-$$IsFeedbackFrom=ProducesFeedback^{\smile}.$$
+The meaningful comparison between Engineering Layers is the interval:
 
-Therefore:
+$$\Delta s(L_i,L_j)=s(L_j)-s(L_i).$$
 
-$$ProducesFeedback(e_j,f_{j\rightarrow i})\iff IsFeedbackFrom(f_{j\rightarrow i},e_j).$$
+The sign identifies the project-defined coarser/finer direction.
 
-This relation records provenance between the local Evidence and the resulting boundary feedback.
+The magnitude:
 
-It does not imply that the Feedback Exchange Item reproduces the Evidence contents.
+$$|\Delta s(L_i,L_j)|$$
 
-In particular:
+identifies engineering order-of-magnitude distance.
 
-$$IsFeedbackFrom(f,e)\not\Rightarrow Contents(e)\subseteq Contents(f).$$
+Because the Scale origin is arbitrary, translation of the coordinate origin does not alter engineering distance:
 
-The Feedback Exchange Item can preserve a reference to the originating Evidence when required for provenance or later retrieval without importing that Evidence into every receiving Decision context.
+$$s'(L)=s(L)+c$$
 
-#### 9.4.3 Nearest affected Scale
+and therefore:
 
-Bottom-up Evidence feedback stops at the nearest affected Engineering Layer that can resolve the condition correctly.
+$$\Delta s'(L_i,L_j)=\Delta s(L_i,L_j).$$
 
-If the receiving Engineering Layer can absorb the feedback within its local Solution Space and authority, propagation stops.
+Traceability-specific delta and related Scale-comparison semantics are intentionally outside this package and remain a separate formalization item.
 
-If the receiving Engineering Layer cannot resolve the condition locally, it determines the information relevant to the next boundary and produces a new Feedback Exchange Item.
+### 9.3 Engineering Layers and Scale assignment
 
-A feedback chain can therefore have the form:
-
-$$Evidence_k\rightarrow FeedbackExchangeItem_{k\rightarrow j}\rightarrow Decision_j$$
-
-followed, only when further propagation is necessary, by:
-
-$$Decision_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow Decision_i.$$
-
-The original Evidence does not acquire direct semantic reach over every Engineering Layer traversed by the resulting feedback loop.
-
-Each boundary produces a locally relevant materialization, and each receiving Engineering Layer performs its own interpretation.
-
-This limits unnecessary Decision rework, Work Product rework, reverification, and coordination.
-
-### 9.5 Scaling and Decision blast
-
-Decision blast remains local to the engineering context in which the Decision exists.
-
-Scaling allows the **effects** of a Decision to cross a Scale boundary, but the Decision itself does not become a cross-layer authority edge.
-
-A cross-Scale effect therefore requires:
-
-- materialized boundary information;
-- interpretation at the receiving Scale;
-- local reasoning;
-- a local Decision when the received information changes the local solution.
-
-This prevents Decision Blast Radius from becoming an uncontrolled sphere in which one Decision directly affects unrelated engineering orders.
-
-A broader Decision constrains the next relevant Scale instead of directly manipulating arbitrary implementation details several orders below it.
-
-A finer-scale finding propagates upward only through explicit feedback and local reassessment.
-
-When a Decision effect cannot be absorbed locally, or its Extent becomes economically significant, the affected context materializes the condition as Feedback or another applicable Exchange Item.
-
-The receiving authoritative context reassesses the Decision before further propagation.
-
-### 9.6 Decision Extent
-
-Extent measures how far the effect of a Decision propagates within its local engineering context.
-
-Extent is derived from **Decision Blast Radius** and makes the consequences of a Decision visible before they become hidden rework, refactoring, reverification, reintegration, or coordination cost.
-
-Extent is evaluated within the current Scale and Magnification.
-
-A significant Extent usually has a severe economic effect. Growth of Extent therefore questions whether the originating Decision remains rational under the current Product state, Resource Envelope, and available alternatives.
-
-When Extent becomes material, the Hive does not silently continue propagation.
-
-The affected region is exposed and the Decision is reassessed by the Actor that has authority for the affected context.
-
-Depending on the applicable authority model, that Actor can be:
-
-- an authorized Hive participant;
-- a Human;
-- another Contract-authorized Actor.
-
-The reassessment can result in:
-
-- confirmation of the Decision;
-- clarification or narrowing of the Decision;
-- revision of the Decision;
-- supersession of the Decision;
-- additional exploration;
-- additional evidence collection;
-- feedback to the adjacent Scale when the effect cannot be resolved locally.
-
-Extent remains local to its Scale.
-
-Increasing Extent does not give the originating Decision authority over another Scale.
-
-### 9.7 Engineering Layer and execution sub-layer
-
-An Engineering Layer defines a bounded Scale and Magnification context in which engineering elements can be reasoned about as one coherent Product view.
-
-An execution sub-layer describes execution topology inside that Engineering Layer.
-
-Contract decomposition, parallel execution, verification Contracts, Integrator Contracts, and other execution structures can introduce execution depth without introducing another Engineering Layer.
+Each scale-sensitive engineering element belongs to one Engineering Layer for the applicable semantic role.
 
 Therefore:
 
-$$ExecutionDepth\not\Rightarrow EngineeringScaleChange$$
+$$Layer(x)=L_i\Rightarrow Scale(x)=s(L_i).$$
 
-and:
+A semantic element does not directly belong to several major Scale positions.
+
+A materialized Engineering Object can contain representations belonging to several Engineering Layers, several Magnification levels, or a Magnification band.
+
+For example, one model repository or binary modeling artifact can physically contain Product-, system-, and component-level content.
+
+That does not make the materialized object one multi-level semantic element in the underlying graph data model.
+
+The graph represents the applicable Layer-local semantic elements separately and relates them through valid graph relations and traversal.
+
+Materialized-object structure and graph representation must therefore remain distinct.
+
+### 9.4 Direct relation locality
+
+A direct engineering relation is valid only between elements at the same Scale position.
+
+For direct semantic relation $r$:
+
+$$r(x,y)\Rightarrow Scale(x)=Scale(y).$$
+
+Therefore:
+
+$$Scale(x)\neq Scale(y)\Rightarrow\neg DirectEngineeringRelation(x,y).$$
+
+Equal Scale is necessary but not sufficient.
+
+Semantic validity, Scope, revision, Evidence, authority, Contract, information-boundary, and relation-specific validators remain independently applicable.
+
+### 9.5 Parallel engineering domains
+
+Engineering domains use the same project-wide Scale but do not need to contain Engineering Layers at every Magnification level.
+
+One domain can therefore have more or fewer Engineering Layers than another.
+
+A missing Layer is legitimate engineering structure and must not be synthesized merely to make two domain topologies structurally identical.
+
+Direct cross-domain relations are valid only between elements at the same Scale position:
+
+$$CrossDomainRelation(x_a,x_b)\Rightarrow Scale(x_a)=Scale(x_b).$$
+
+#### Illustration
+
+An architecture domain can contain Product, functional, system, and component Engineering Layers.
+
+A safety domain can contain HARA, FSR, and TSR Layers and have no Layer corresponding to the functional-decomposition level.
+
+Same-Scale architecture/safety Decisions can relate directly where their semantic validators permit it. Elements at different Scale positions cannot be related diagonally merely because they belong to the same Product.
+
+This illustration does not define mandatory Engineering Layers, names, Scale coordinates, or engineering processes.
+
+### 9.6 Magnification
+
+Magnification is a function on Scale.
+
+For engineering element $x$:
+
+$$M(x)=f(Scale(x)).$$
+
+Its first meaning is:
+
+> **At what engineering order-of-magnitude level does this element belong?**
+
+Because engineering domains use the same project-wide Scale, Magnification can compare elements belonging to different domains.
+
+For two elements $x$ and $y$:
+
+$$\Delta M(x,y)=M(y)-M(x).$$
+
+This expresses their relative distance in engineering order of magnitude.
+
+Magnification does not create another independent engineering topology.
+
+### 9.7 Magnification change and permitted Scale traversal
+
+The second meaning of Magnification is operational.
+
+Changing Magnification requests bounded traversal of the underlying graph data model toward a coarser or finer engineering representation.
+
+Conceptually:
+
+$$Magnify(x,m_t)=Project_{m_t}(Traverse(x,m_t,B))$$
+
+where $m_t$ is the target Magnification and $B$ is the applicable traversal budget.
+
+Magnification operates on engineering information that exists or is explicitly created through governed engineering activity.
+
+It does not manufacture missing detail.
+
+#### 9.7.1 Adjacent Engineering Layer rule
+
+A Scale transition can occur only between **adjacent Engineering Layers in the applicable domain topology**.
+
+Let:
+
+$$Adjacent_d(L_i,L_j)$$
+
+mean that no Engineering Layer of domain $d$ exists between $L_i$ and $L_j$ in the direction of traversal.
+
+Then:
+
+$$CrossScaleTransfer(L_i,L_j)\Rightarrow Adjacent_d(L_i,L_j).$$
+
+A domain can legitimately omit one or more intermediate Magnification levels.
+
+In that case two Engineering Layers can be adjacent in that domain topology even when their Scale distance is greater than one major interval.
+
+What is prohibited is jumping over an Engineering Layer that actually exists in the applicable domain.
+
+Thus:
+
+$$\exists L_k:\ s(L_i)<s(L_k)<s(L_j)\land L_k\in d\Rightarrow\neg DirectTransfer(L_i,L_j).$$
+
+The traversal must pass through $L_k$.
+
+#### 9.7.2 No diagonal propagation between parallel Product/domain topologies
+
+A single relation or transfer must not simultaneously change domain and Scale position.
+
+For different domains $d_a\neq d_b$:
+
+$$Domain(x)=d_a\land Domain(y)=d_b\land Scale(x)\neq Scale(y)\Rightarrow\neg DirectRelation(x,y).$$
+
+If an engineering consequence requires both Scale movement and cross-domain communication, these are separate operations.
+
+Scale movement occurs through adjacent Engineering Layers inside the applicable domain.
+
+Cross-domain interrelation occurs only where elements exist at the same Scale position.
+
+This prohibits diagonal shortcuts between parallel Product or engineering-domain topologies.
+
+### 9.8 Exchange Item and Feedback Exchange Item propagation
+
+A consequence crossing an Engineering Layer boundary is materialized through an Exchange Item or Feedback Exchange Item and interpreted at the receiving Layer.
+
+For downward or forward propagation:
+
+$$Decision_i\rightarrow ExchangeItem_i\rightarrow Transfer_{i\rightarrow j}\rightarrow ExchangeItem_j\rightarrow LocalInterpretation_j.$$
+
+Where a new local Decision is required:
+
+$$LocalInterpretation_j\rightarrow Decision_j.$$
+
+For upward feedback:
+
+$$Evidence_j\rightarrow FeedbackExchangeItem_j\rightarrow Transfer_{j\rightarrow i}\rightarrow FeedbackExchangeItem_i\rightarrow LocalInterpretation_i.$$
+
+The transfer preserves relevant information and provenance.
+
+It does not make the source Decision, Evidence, or authority directly operative at the receiving Engineering Layer.
+
+Every receiving Layer performs its own local interpretation.
+
+### 9.9 Human locality across Engineering Layers
+
+The Scale rules apply equally to Human-originated Decisions.
+
+A Human participating in multiple Engineering Layers does not create a direct semantic or authority path among them.
+
+$$Participates(h,L_i)\land Participates(h,L_j)\not\Rightarrow AuthorityPropagation(h,L_i,L_j).$$
+
+A Human Decision at $L_j$ must be supported by the applicable local engineering information and authority at $L_j$.
+
+Information known to the Human from another Engineering Layer can affect the receiving Layer only through the ordinary governed engineering mechanisms applicable to that Layer.
+
+Human identity cannot substitute for missing Layer artifacts, traceability, Exchange Items, Feedback Exchange Items, or local Decisions.
+
+### 9.10 Missing representations and terminal traversal
+
+If Magnification traversal does not find an applicable representation at the requested Magnification:
+
+$$Magnify(x,m_t)=\varnothing,$$
+
+the implementation must not invent one.
+
+The current element is terminal in that traversal direction relative to the currently available engineering state.
+
+Where another Magnification level is required for traceability:
+
+$$RequiredTrace(x,m_t)\land Magnify(x,m_t)=\varnothing\Rightarrow Gap(x,m_t).$$
+
+Truthful incompleteness applies.
+
+### 9.11 Exploration can extend the engineering state
+
+A Contract can explicitly authorize engineering work that creates previously absent coarser or finer engineering information.
+
+If exploration legitimately produces new element $y$:
+
+$$Explore(C,x)\rightarrow Create(y).$$
+
+The resulting element belongs to its applicable Engineering Layer and becomes part of canonical engineering state only through the ordinary Candidate Delta and Admission process.
+
+Therefore:
+
+$$MagnificationTraversal\neq SolutionSpaceExploration.$$
+
+And:
+
+$$RequestHigherMagnification\not\Rightarrow InventDetail.$$
+
+Magnification traverses.
+
+Engineering exploration can create.
+
+### 9.12 Magnification band
+
+A normal scale-sensitive semantic element belongs to one Engineering Layer and therefore one major Magnification level.
+
+Audit can nevertheless detect content spanning incompatible Magnification levels.
+
+Represent the observed range as:
+
+$$Band(x)=[m_{min},m_{max}].$$
+
+For a clean element:
+
+$$m_{min}=m_{max}.$$
+
+A non-zero band:
+
+$$m_{min}\neq m_{max}$$
+
+is an abnormal condition.
+
+It can indicate malformed import, faulty extraction, inappropriate aggregation, incorrect graph-node construction, legacy data problems, or another defect.
+
+A Magnification band is not a normal compatibility mechanism.
+
+Confirmed mixed-level content requires rework assessment.
+
+### 9.13 Magnification band, Brittleness, and Confidence
+
+A Magnification-band anomaly directly affects Brittleness assessment because mixed-level content makes local change more likely to create disproportionate propagation, rework, or invalid dependencies.
+
+Therefore:
+
+$$MagnificationBand(x,t)\Rightarrow ReassessBrittleness(x,t).$$
+
+Brittleness can in turn affect the applicable operational Confidence:
+
+$$Brittleness(x,t)\rightarrow ConfidenceUpdate(q,t).$$
+
+There is no universal direct rule:
+
+$$MagnificationBand(x,t)\Rightarrow PermanentConfidencePenalty.$$
+
+The condition is transient for Confidence.
+
+When the malformed element is repaired and the mixed-level condition no longer exists, it is no longer an active Confidence input.
+
+Its history remains available for post-mortem analysis and future Brittleness assessment.
+
+Thus the intended dependency is:
+
+$$MagnificationBand\rightarrow Brittleness\rightarrow Confidence$$
+
+where applicable, rather than a permanent direct Confidence penalty.
+
+### 9.14 Execution sub-scale
+
+A major Scale interval can contain a local execution sub-scale.
+
+For Engineering Layer $L_i$, let:
+
+$$\epsilon\in E_i$$
+
+represent a local execution sub-scale position.
+
+An execution position can therefore be represented as:
+
+$$(s(L_i),\epsilon).$$
+
+The major engineering Scale remains:
+
+$$s(L_i).$$
+
+The execution sub-scale can arrange parallel work, sequential implementation, local integration order, verification gates, implementation gates, and rework loops.
+
+Therefore:
+
+$$ExecutionDepth\not\Rightarrow MajorEngineeringScaleChange.$$
+
+But:
+
+$$ExecutionDepth\Rightarrow PossibleExecutionSubScaleDifference.$$
+
+The interval character of the major Scale leaves conceptual space for these finer local execution coordinates without introducing false major Engineering Layers.
+
+### 9.15 Contract topology does not define major Scale
+
+Contract hierarchy alone does not establish Scale.
+
+Therefore:
 
 $$ChildContract(C_c,C_p)\not\Rightarrow FinerScale(C_c,C_p).$$
 
-Several Contracts can operate at different execution sub-layers while remaining at the same Scale and Magnification.
+Parent, child, integration, and verification Contracts can operate at different execution sub-scale positions while remaining inside the same major Engineering Layer.
 
-Conversely, Contract nesting does not establish a cross-Scale engineering relationship. Thus:
+A Contract can also genuinely operate at another major Scale when its engineering content establishes that relationship.
 
-$$ContractTopology\neq ScaleTopology.$$
+Contract topology itself does not determine which case applies.
 
-Cross-Scale effects remain subject to the Scaling rules.
+### 9.16 Decision Blast Radius
 
-### 9.8 Scale-compatible engineering operations
+Decision Blast Radius is calculated for a **candidate Decision before commitment**.
 
-Engineering operations that directly combine, integrate, trace, constrain, or establish semantic closure between elements operate only on compatible Scale and Magnification unless the Project Profile explicitly defines an applicable Scaling boundary.
+For candidate Decision $d$ evaluated against current engineering state $S_t$:
 
-For example:
+$$BR(d,S_t)$$
 
-$$Integrate(x,y)\Rightarrow ScaleCompatible(x,y)\land MagnificationCompatible(x,y)$$
+is the calculated reach of the change through the engineering state available to the Decision exploration.
 
-Different-Scale inputs require an explicit Scaling or other project-defined transformation before they become valid inputs to the same local engineering operation.
+Decision Blast Radius answers:
 
-The transformation preserves the applicable:
+> **If this candidate Decision were applied to the current engineering state, how far would the change propagate?**
 
-- semantic rules;
-- traceability;
-- validation;
-- evidence;
-- information boundaries.
+The calculation can discover affected Decisions, Engineering Layers, Exchange Items, Work Products, Contracts, verification, integration, Product state, physical realization, or other material engineering consequences.
 
-Scaling is an explicit reconciliation mechanism. It is not permission to recursively copy information across Product decomposition.
+It is computation over a candidate state.
 
-Scale compatibility and Extent answer different questions.
+It is not commitment.
 
-Scale and Magnification determine whether engineering elements can participate directly in the same engineering operation.
+Therefore:
 
-Extent determines how far the consequences of a Decision spread within that compatible local context.
+$$Calculated(BR(d,S_t))\not\Rightarrow Committed(d).$$
 
-A Decision can remain fully Scale-compatible while its Extent becomes economically unacceptable.
+### 9.17 Decision Blast Radius, feasibility, and economy
 
-### 9.9 Scale and Extent rules
+Calculating Decision Blast Radius is part of deciding whether the candidate Decision is viable.
 
-> **Scale locality:** an engineering element can directly operate on, constrain, integrate with, or establish semantic closure for another element only when the applicable relation permits their Scale and Magnification combination. Cross-order effects use Scaling and local interpretation.
+The calculated propagation can expose an empty feasible Solution Space, inability of an affected Engineering Layer to accommodate the change, excessive Work Product rework, reverification or reintegration, unavailable capability, Resource Envelope violation, physical or supplier consequences, unacceptable engineering or economic impact, or another reason not to commit the candidate.
 
-> **Extent control:** Decision Extent is evaluated during exploration and propagation. Significant Extent triggers economic assessment and authoritative reassessment before further commitment or propagation.
+Conceptually:
 
-These rules preserve the **no-sphere** property: Decisions create local reasoning and local effects; cross-Scale consequences pass through explicit materialization, interpretation, and renewed authority.
+$$CandidateDecision(d)\rightarrow CalculateBlastRadius(d,S_t)\rightarrow AssessFeasibilityAndEconomy(d).$$
+
+The resulting assessment can lead to commitment, revision, further exploration, deferral, or rejection of the candidate.
+
+A large Decision Blast Radius does not automatically invalidate a candidate.
+
+A small Decision Blast Radius does not automatically justify it.
+
+Blast Radius exposes propagation structure so that the Hive can assess whether the change is technically and economically rational before commitment.
+
+### 9.18 Decision Extent
+
+Decision Extent applies to a **committed Decision**.
+
+For committed Decision $d$:
+
+$$DecisionExtent(d,t)$$
+
+records how far the Decision has actually propagated through materialized engineering state at time $t$.
+
+Decision Extent answers:
+
+> **How far has this committed Decision already propagated?**
+
+Decision Extent makes actual consequences visible before they become hidden rework, refactoring, reverification, reintegration, coordination, physical change, or other engineering cost.
+
+Decision Extent is temporal:
+
+$$DecisionExtent(d,t_1)\neq DecisionExtent(d,t_2)$$
+
+in general.
+
+As engineering proceeds, previously unknown effects can appear and the observed Decision Extent can grow.
+
+### 9.19 Decision Blast Radius and Decision Extent
+
+Decision Blast Radius and Decision Extent measure the same kind of propagation reach at different stages.
+
+Decision Blast Radius is calculated from the pre-commit candidate state:
+
+$$BR(d,S_{precommit}).$$
+
+Decision Extent is observed from committed engineering state:
+
+$$DecisionExtent(d,t).$$
+
+They need not be equal.
+
+It is possible that:
+
+$$DecisionExtent(d,t)<BR(d,S_{precommit})$$
+
+because downstream Engineering Layers absorb the change earlier than the initial calculation indicated.
+
+It is also possible that:
+
+$$DecisionExtent(d,t)>BR(d,S_{precommit})$$
+
+because subsequent engineering exposes consequences not represented in the state used for the original Blast Radius calculation.
+
+Therefore:
+
+$$DecisionExtent(d,t)\lessgtr BR(d,S_{precommit})$$
+
+is legitimate.
+
+A material deviation between calculated Blast Radius and observed Decision Extent is itself useful engineering information and can trigger reassessment.
+
+### 9.20 Decision Extent and Brittleness
+
+Decision Decision Extent and Brittleness answer different questions.
+
+**Decision Extent asks:**
+
+> **How far has this Decision propagated?**
+
+**Brittleness asks:**
+
+> **How severe is the engineering and economic consequence of a relatively small, subtle, local, or wrong-Magnification trigger?**
+
+A Decision can have large Decision Extent without being brittle when a broad change is expected to affect a broad region.
+
+It can have small Decision Extent but high Brittleness when a localized effect is disproportionately expensive.
+
+It can have both large Decision Extent and high Brittleness, which is a strong reason for Decision reassessment.
+
+Neither property is inferred from the other.
+
+### 9.21 Nearest affected Engineering Layer
+
+Propagation stops at the nearest Engineering Layer in the affected domain that can accommodate the change within its local Solution Space and applicable domain-local propagation boundary.
+
+For domain $d$, Layer $L$, and change $\Delta$:
+
+$$CanAccommodate(d,L,\Delta)$$
+
+requires:
+
+$$\mathcal F(\mathcal S_{d,L}[\Delta])\neq\varnothing.$$
+
+The calculated local propagation must also remain inside the applicable single-domain extent established by the Project Profile.
+
+The nearest affected Layer is therefore established from feasible change accommodation, not merely numerical Scale distance.
+
+If the Layer absorbs the change locally, propagation stops.
+
+If it cannot, the applicable information is materialized for the next adjacent Engineering Layer.
+
+### 9.22 Multi-domain change
+
+A Decision can affect several engineering domains.
+
+Each affected domain evaluates the change in its own Solution Space and determines its own accommodation locality.
+
+For:
+
+$$AffectedDomains(\Delta)$$
+
+the applicable domain contexts are consulted individually.
+
+One domain can absorb the change locally while another requires propagation to another Engineering Layer.
+
+There is no requirement that all affected domains reach the same Magnification level.
+
+Cross-domain coordination remains limited to same-Scale relations.
+
+A change requiring both domain transition and Scale transition is decomposed into valid same-Scale cross-domain relations and adjacent-layer domain-local propagation.
+
+### 9.23 Scale and Decision-propagation invariants
+
+> **One project-wide Scale:** the proposal uses one engineering interval Scale, not separate independent engineering Scale instances for different domains.
+
+> **Engineering order of magnitude:** major Scale intervals express engineering order-of-magnitude distance.
+
+> **Bidirectional growth:** new Engineering Layers can be added toward either the coarser or finer end without redefining existing Scale distances.
+
+> **Scale-local semantic elements:** a scale-sensitive graph element belongs to one Engineering Layer for the applicable role.
+
+> **Material object versus graph representation:** one materialized artifact can contain representations from several Engineering Layers or Magnification levels, while the underlying graph data model represents the corresponding semantic elements separately.
+
+> **Direct relation locality:** $r(x,y)\Rightarrow Scale(x)=Scale(y)$.
+
+> **Same-Scale cross-domain relations only:** direct relations between parallel domain or Product topologies cannot be diagonal.
+
+> **Adjacent-layer propagation only:** a Scale transition must not jump over an existing Engineering Layer.
+
+> **Sparse domain topology is valid:** where a domain has no intermediate Engineering Layer, its consecutive occupied Layers remain adjacent for propagation purposes.
+
+> **No Human shortcut:** a Human participating at multiple Engineering Layers does not create cross-layer authority, support, Evidence, or Decision semantics.
+
+> **Magnification derives from Scale:** it is not an independent engineering axis.
+
+> **Magnification traversal does not generate detail:** missing content remains missing unless governed exploration creates it.
+
+> **Magnification band is abnormal:** mixed Magnification levels inside one semantic element require rework assessment.
+
+> **Magnification-band effect is mediated through Brittleness:** $MagnificationBand\rightarrow Brittleness\rightarrow Confidence$ where applicable.
+
+> **Decision Blast Radius is calculated before commitment.**
+
+> **Decision Blast Radius calculation is non-mutating.**
+
+> **Decision Blast Radius participates in feasibility and change-economy assessment.**
+
+> **Decision Extent belongs to a committed Decision.**
+
+> **Decision Extent is temporal.**
+
+> **Decision Extent can be smaller or larger than the original Decision Blast Radius.**
+
+> **Nearest affected Engineering Layer is determined by feasible local accommodation and domain extent, not Scale distance alone.**
+
+> **Multi-domain change requires domain-local accommodation assessment.**
+
+> **Execution depth can use a local sub-scale without changing major engineering Scale.**
 
 ## 10. Decisions, trade space, exploration, and human intervention
 
@@ -2677,9 +2911,9 @@ If an outlier later gains evidence, novelty value, or post-mortem relevance, it 
 
 Reshuffling is primarily a **vertical change and Decision-rework process** that occurs when an Engineering Layer committed to a Product direction without exploring its Solution Space deeply enough to support delivery through the affected downstream layers.
 
-The originating layer effectively treated its current solution as if it were sufficient for complete Product delivery in one step. Downstream engineering then discovers constraints, incompatibilities, missing Decisions, excessive Extent, or other facts that the original exploration did not expose.
+The originating layer effectively treated its current solution as if it were sufficient for complete Product delivery in one step. Downstream engineering then discovers constraints, incompatibilities, missing Decisions, excessive Decision Extent, or other facts that the original exploration did not expose.
 
-These findings propagate upward through the applicable Scaling and Exchange Item mechanisms and can require the originating or intermediate layers to revise Decisions that were previously treated as stable.
+These findings propagate upward through the applicable adjacent-layer propagation and Exchange Item mechanisms and can require the originating or intermediate layers to revise Decisions that were previously treated as stable.
 
 Reshuffling can therefore include:
 
@@ -2752,7 +2986,7 @@ This exploration determines:
 - whether the change can be absorbed locally;
 - which Decisions require rework;
 - which Work Products are affected;
-- whether additional Scaling is required;
+- whether additional adjacent-layer propagation is required;
 - the actual Resource Cost of viable alternatives.
 
 #### 10.4.3 Repair candidate set
@@ -2803,17 +3037,17 @@ This preserves parallel work and minimizes Decision rework at higher Scales.
 
 If no adequate local repair is found, or every viable repair changes material boundary information, the affected context propagates the relevant feedback to the nearest adjacent context.
 
-This is the repair counterpart of the Scale/Extent rules in Section 9.
+This is the repair counterpart of the Scale/Decision Extent rules in Section 9.
 
-#### 10.4.6 Repair exploration and Extent
+#### 10.4.6 Repair exploration and Decision Extent
 
-Reshuffling is often discovered through downstream repair exploration. An apparently valid upstream Decision can reveal increasing Extent as adjacent Engineering Layers attempt to realize it.
+Reshuffling is often discovered through downstream repair exploration. An apparently valid upstream Decision can reveal increasing Decision Extent as adjacent Engineering Layers attempt to realize it.
 
 Decision Extent helps determine where repair exploration must occur.
 
-As exploration discovers additional affected engineering elements, the observed Extent can increase.
+As exploration discovers additional affected engineering elements, the observed Decision Extent can increase.
 
-Therefore Extent is not necessarily known completely when the change is first proposed.
+Therefore Decision Extent is not necessarily known completely when the change is first proposed.
 
 A repair investigation can reveal that an apparently local change has:
 
@@ -4482,7 +4716,7 @@ $$Participates(h,L_i)\land Participates(h,L_j)$$
 
 does not imply:
 
-$$AuthorityBridge(L_i,L_j)$$
+$$AuthorityPropagation(L_i,L_j)$$
 
 and does not imply:
 
@@ -5193,7 +5427,7 @@ A sequence of valid graph edges does not automatically create evidential closure
 
 This prevents Evidence laundering, accidental Evidence inheritance, implicit Evidence composition, uncontrolled cross-Scale Evidence reach, foreign-context pollution, and authority being inferred from Evidence volume or verbosity.
 
-### 12.9 Large-Extent Evidence and field feedback
+### 12.9 Broad-relevance Evidence and field feedback
 
 A single Evidence Proposition can have potentially broad Product relevance without having broad direct evidential applicability.
 
@@ -5273,7 +5507,7 @@ Maturity in this proposal is not an Acceptance state, completeness score, qualit
 
 It represents **deliberate prescriptiveness** at a defined engineering context: how much of the currently feasible solution freedom a Proposition removes.
 
-Maturity changes alter the Solution Space. They therefore also require reassessment of the affected Decision Blast Radius and Extent.
+Maturity changes alter the Solution Space. They therefore also require reassessment of the affected Decision Blast Radius and Decision Extent.
 
 ### 13.1 Prescriptiveness order
 
@@ -5331,7 +5565,7 @@ Therefore:
 
 $$MaturityChanged(p,\kappa)\Rightarrow ReassessBlastAndExtent(p,\kappa).$$
 
-This rule does not mean that every Maturity change necessarily produces a large Extent.
+This rule does not mean that every Maturity change necessarily produces a large Decision Extent.
 
 It means that the existing Decision Blast Radius cannot be assumed to remain valid after the feasible Solution Space changes.
 
@@ -5342,7 +5576,7 @@ An increase in prescriptiveness can:
 - require Decision rework;
 - change Exchange Items;
 - trigger Work Product rework or reverification;
-- propagate through subsequent Engineering Layers under the Scaling rules.The economic impact can therefore be much larger than the apparent size of the changed Proposition.
+- propagate through subsequent Engineering Layers under the adjacent-layer propagation rules. The economic impact can therefore be much larger than the apparent size of the changed Proposition.
 
 #### 13.3.1 Freezing a de-facto downstream solution
 
@@ -5354,7 +5588,7 @@ This does **not** make the pattern economically or architecturally desirable by 
 
 The upstream change still evolves the Solution Space and requires the affected downstream state, traceability, evidence, Decisions, and Work Products to be reassessed for consistency.
 
-The pattern can be legitimate when downstream engineering has, for a valid reason, performed engineering normally owned by an upstream context and the result is subsequently propagated upward through the applicable Scaling and authority rules.
+The pattern can be legitimate when downstream engineering has, for a valid reason, performed engineering normally owned by an upstream context and the result is subsequently propagated upward through the applicable adjacent-layer propagation and authority rules.
 
 Examples can include a lower-level feasibility discovery, supplier engineering result, manufacturing constraint, or implementation finding that causes the upstream context to adopt an already-developed solution.
 
@@ -5449,11 +5683,11 @@ A highly prescriptive solution can remain robust.
 
 A less prescriptive solution can still be brittle when a subtle or wrong-Scale detail produces severe consequences.
 
-### 13.8 Relationship to Extent
+### 13.8 Relationship to Decision Extent
 
-Extent and Brittleness answer different questions.
+Decision Extent and Brittleness answer different questions.
 
-**Extent** asks:
+**Decision Extent** asks:
 
 > How far does the effect of this Decision reach?
 
@@ -5463,9 +5697,9 @@ Extent and Brittleness answer different questions.
 
 A Decision can have:
 
-- large Extent without being brittle, when a broad change is expected to affect a broad region;
-- small Extent but high Brittleness, when a small local change causes severe cost inside that region;
-- both large Extent and high Brittleness, which is a strong signal that the Decision requires reassessment.
+- large Decision Extent without being brittle, when a broad change is expected to affect a broad region;
+- small Decision Extent but high Brittleness, when a small local change causes severe cost inside that region;
+- both large Decision Extent and high Brittleness, which is a strong signal that the Decision requires reassessment.
 
 Maturity changes can affect both dimensions and therefore require reassessment of each rather than assuming one from the other.
 
@@ -6112,7 +6346,7 @@ Assume:
 5. Structural reachability does not establish semantic justification.
 6. Decisions have direct effect only inside their valid local engineering context.
 7. Evidence directly supports Propositions only where its Evidence relation is valid locally.
-8. Cross-Scale effects require an applicable Scaling or boundary mechanism.
+8. Cross-Scale effects require applicable adjacent-layer materialization and local interpretation.
 9. Downward Decision effects are materialized through Exchange Items.
 10. Upward Evidence effects are materialized through Feedback Exchange Items.
 11. Receiving Engineering Layers perform local interpretation.
@@ -6166,7 +6400,7 @@ Execution topology does not create authority topology. Therefore:
 
 $$Reachable_{ContractTopology}(C_i,C_j)\not\Rightarrow Authority(C_i,C_j)$$
 
-$$SameHuman(h,L_i,L_j)\not\Rightarrow AuthorityBridge(L_i,L_j)$$
+$$SameHuman(h,L_i,L_j)\not\Rightarrow AuthorityPropagation(L_i,L_j)$$
 
 $$SameHive(C_i,C_j)\not\Rightarrow AuthorityCollapse(C_i,C_j)$$
 
@@ -6189,7 +6423,7 @@ A conformant implementation MUST:
 - preserve Proposition and Engineering Object distinction;
 - validate relation use before semantic justification;
 - preserve unresolved required information explicitly;
-- enforce scale/bridge rules;
+- enforce Scale locality, adjacent-layer propagation, and same-Scale cross-domain relation rules;
 - enforce Human ingress and Decision authority rules;
 - preserve all discovered outcomes while controlling active resource allocation;
 - separate Decision authority from Exchange Item communication;
@@ -6205,10 +6439,10 @@ A conformance claim MUST identify the model version, Project Profile revision, c
 
 The Project Profile defines at least the parameters that are required by the project:
 
-- Product boundaries and engineering magnification layers;
+- Product boundaries, Scale positions, and Engineering Layers;
 - Proposition roles and Engineering Object families;
 - relation vocabulary, signatures, converse labels, validators, and semantic composition rules;
-- scale compatibility and permitted bridges;
+- Scale positions, Engineering Layer topology, Magnification traversal, adjacent-layer transfer rules, and same-Scale cross-domain relation rules;
 - Contract parties, authority, human Decision scopes, enforcement, and Contract resource models;
 - Work Product schemas, semantic-role constraints, required validators, information-exposure policies, and acceptance rules;
 - required Instrumental Checks, Low-profile Assessments, High-profile Assessments, escalation conditions, and instrumentation-improvement rules;
@@ -6308,7 +6542,7 @@ Each Foundation Axiom has a defined Intent, Statement, Boundary, and Validation 
 
 - **AX-1:** Arbitrary graph path used as valid engineering trace
 - **AX-2:** Hidden or fabricated completion replaces unresolved information
-- **AX-3:** Local Decision/evidence becomes remote authority without a bridge
+- **AX-3:** Local Decision, Evidence, or Human participation becomes remote semantic or authority influence through a skipped Engineering Layer, diagonal cross-domain relation, or other invalid Scale transition
 - **AX-4:** Universal human approval or unauthorized Hive commitment
 - **AX-5:** Low-support discoveries are deleted or active search consumes unlimited resources
 
@@ -6376,7 +6610,7 @@ Additional Human authority and input-transformation invariants are:
 - **Human origin is not authority** - $HumanOrigin\not\Rightarrow Authority$.
 - **HPC request is not authorization** - A requested Human prescription becomes binding only when the responding Human has applicable authority.
 - **Role separation** - Issuer, Executor, Acceptance delegate, Decision authority, originator, and Work Product producer remain distinct roles.
-- **Multi-layer Human locality** - One Human participating at several Engineering Layers does not create an authority bridge.
+- **Multi-layer Human locality** - One Human participating at several Engineering Layers does not create cross-layer authority.
 - **Contract-boundary locality** - Authority does not propagate through parent/child, dependency, integration, shared-Hive, or Team API relations.
 - **Delegation is explicit** - Delegation is bounded by operation, Scope, time, and delegable authority.
 - **Delegation is not Assignment** - Authority delegation does not make an Actor Executor unless Contract Assignment also establishes that role.
@@ -6410,7 +6644,7 @@ Additional Contract decomposition, execution-topology, and authority-locality in
 - **Contract decomposition is not Hive decomposition** - Splitting execution responsibilities does not require one Hive per Contract.
 - **Hive/Agent boundary** - Lightweight internal Agents do not become Contract Executors merely through participation.
 - **Upper-layer Actor/Hive boundary** - Upper-layer Actors operate through the governed Hive boundary rather than relying on direct control of transient Agents.
-- **Multi-layer Human is not implicit authority** - One Human operating at multiple Engineering Layers does not create an authority bridge or legitimize undocumented Decisions.
+- **Multi-layer Human is not implicit authority** - One Human operating at multiple Engineering Layers does not create cross-layer authority or legitimize undocumented Decisions.
 - **Execution topology is not authority topology** - Parent/child, dependency, integration, verification, shared-Hive, or Team API relations do not create authority unless explicitly defined.
 - **Mandatory integration qualification** - Every Work Product is checked for integration readiness before integration.
 - **Rework after integrated verification** - Integrated-result failure can require source Work Product rework and subsequent reverification.
@@ -6570,11 +6804,11 @@ The following project material informed this revision:
 
 # Compilation status
 
-Draft 0.32 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
+Draft 0.33 retains the structural rewrite introduced in Draft 0.9 and corrects the Hive/Swarm/Hive Mind model. Hive is the complete execution model; Swarms are task-assigned populations commanded by the Hive; Clusters form from sufficiently independent Swarm contributions supporting Decisions; and Hive Mind is the distributed/federated intelligence paradigm, not a centralized reasoning-core component. The draft retains the formal definitions for Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration, Proposition, Engineering Object, and formal statement roles.
 
 **Terminology decision.** Hive, Swarm, and Hive Mind are related but distinct. Hive denotes the complete execution model. Swarm denotes task-assigned execution populations commanded by the Hive. Hive Mind denotes the distributed/federated intelligence paradigm under which the system behaves coherently as a whole while preserving individual actor traits, properties, and behaviours.
 
-**Formal-restoration status.** Draft 0.32 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
+**Formal-restoration status.** Draft 0.33 restores explicit Scope algebra, revision mapping, revision-aware relation records, scoped supersession, bounded traversal, the revised Maturity/Brittleness model, the Reshuffling/repair-exploration model, Cluster/divergence resource-survival rules, the UNKNOWN/Gap/Future Action model with truthful-incompleteness incentives and deferred Baseline closure, Evidence Proposition algebra with Feedback Exchange Item locality, converse/reverse traceability and the derived no-sphere theorem, the Candidate Delta/canonical-state computation boundary, Contract decomposition/execution-topology/authority-locality semantics including single-Executor cardinality, Contract-type execution policies, mandatory integration qualification, Team API scope, and Contract-execution divergence/back-off, the task-local drifting Confidence model, and the revision-aware Contract/Work Product lifecycle with explicit readiness prerequisites, guarded forward/backward FSM transitions, submission/Acceptance/rework/reassessment semantics, successor Contracts, and failure-to-Confidence coupling. It also formalizes Product as the primary Hive scope/intent anchor, separates Product and Work Product roles/states, defines Product Delivery as a specialization of Contract fulfilment, and introduces capability/enabling-technology-bounded Product Development Envelope semantics. It now also formalizes explicit operation-/Scope-/time-qualified authority and ordered Human-input transformations, including non-commutative composition, non-invertible retraction, non-composable input states, and the distinct case of a defined successor state with an empty feasible region. It now also formalizes the Contract as a stable identity with immutable definition revisions, a separate temporal runtime lifecycle projection, and append-only Contract event history, including typed Product target, Work Product Requirement, Assignment, execution-policy, resource, prerequisite, dependency, Acceptance, information-policy, topology, Project Profile, and revision metadata semantics. It now also formalizes project-wide interval Scale positioning, Magnification traversal, same-Scale direct relation locality, adjacent-layer propagation, Decision Blast Radius, Decision Extent, and execution sub-scale topology. It now also closes the Contract lifecycle FSM with a normative partial guarded transition function, explicit runtime-regression versus definition-revision re-entry semantics, guarded rework/reassessment/discontinuation behavior, transition-event audit records. Technical Product-interface semantics are not part of this common governance model and remain engineering work. Older formal structures that conflict with later accepted semantics remain retired and are reviewed separately before restoration.
 
 **Repair discovery invariant.** Repair cost is established from valid alternatives discovered through direct exploration of the affected and adjacent Solution Spaces. It is not derived by applying an inverse operation to the originating change.
 
@@ -6582,6 +6816,6 @@ Draft 0.32 retains the structural rewrite introduced in Draft 0.9 and corrects t
 
 ## Open backlog
 
-- **3D concept illustration:** add a dedicated 3D model showing Engineering Layers, Scale, Magnification, Decision Blast Radius, Extent, and cross-layer information propagation. The figure must explain the concept itself rather than merely provide an example hierarchy.
-- **Scale formalization:** recover and rework the mathematical model for Scale comparison, Magnification comparison/compatibility, Scale-compatible relations and operations, cross-Scale propagation, Decision Blast Radius, and Extent assessment. The recovered algebra must preserve the locality and no-sphere semantics established in Section 9.
+- **Traceability delta clarification:** formalize the traceability-specific relationship between Scale positions, including the meaningful ratio/delta semantics noted during Scale review, without changing the accepted interval-Scale model until the traceability algebra is reviewed separately.
+- **3D concept illustration:** add a dedicated 3D model showing Engineering Layers, Scale, Magnification, Decision Blast Radius, Decision Extent, adjacent-layer information propagation, and same-Scale cross-domain relations. The figure must explain the concept itself rather than merely provide an example hierarchy.
 - **Minimal-repair formalization:** model minimal repair cost as an outcome of direct Solution Space exploration by the affected and adjacent engineering contexts. It cannot be computed as an inverse operation of the proposed change because feasible repairs, local absorption, alternative Decisions, and cross-Scale consequences must be discovered rather than algebraically reversed.
