@@ -1,11 +1,10 @@
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Hive/Swarm Engineering Governance
-Formal Proposal - Draft 0.9
+Formal Proposal - Draft 0.10
 15 September 2026
-Status. Structural rewrite after Draft 0.8. The document separates a non-specialist proposal overview,
-the language foundation, the mathematical Foundation, the formal operational proposal, and
-conformance/profile material. ASD-STE100 conformance is not claimed without designated checker or
-review evidence.
+Status. Terminology correction and consolidation after Draft 0.9. The document separates a non-specialist proposal overview, the language foundation, the mathematical Foundation, the formal
+operational proposal, and conformance/profile material. ASD-STE100 conformance is not claimed
+without designated checker or review evidence.
 Normative basis. Approved project discussion and accepted changes through Draft 0.8, aligned with
 the project dialogue recap and resource-consumption analysis where those sources do not conflict with
 later decisions.
@@ -30,17 +29,21 @@ an engineering organization as a hierarchy of persistent AI workers. It also doe
 reasoning chains as the primary product of intelligence. The primary state is a semantic engineering
 model. Computational participants are temporary resources that read a small relevant projection of
 that state and return small candidate changes.
-A Hive is the problem-local semantic and governance computation that owns this engineering process.
-A Swarm is the transient set of specialized computational participants that the Hive allocates to current
-explorations. The Hive Mind is the reasoning core that selects a bounded semantic projection, creates
-narrow questions or requests, invokes low-cost specialized micro-agents or other engines, reconciles
-their candidate outputs, and updates the current solution model only after validation.
-Hive reasoning is therefore intentionally different from a long conversation among agents. A micro-agent should receive only the propositions, relations, constraints, evidence, and resource limits
-required for its narrow problem. It should return a compact candidate semantic delta. Large histories,
-full-project context, repeated polling, and persistent private agent memory are not the default
-coordination mechanism. This design targets low communication cost, low energy and compute
-consumption, low context replay, and reduced overthinking.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+A Hive is the complete execution model. It maintains the engineering state, governance, Contracts,
+resources, and execution topology, and commands Swarms assigned to bounded tasks. A Swarm is a
+task-assigned population of specialized computational participants. Swarm contributions form Clusters
+that support competing or complementary Decisions for the task. The Hive Mind is the
+distributed/federated intelligence paradigm under which the Hive appears to an external observer as
+one coherent intelligence while participating actors retain individual traits, properties, and behaviours.
+Hive reasoning is therefore intentionally different from a long conversation among agents. The Hive
+assigns bounded tasks to Swarms. A Swarm participant should receive only the Propositions, Relations,
+constraints, evidence, and resource limits required for its narrow contribution and should return a
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+compact candidate semantic delta. The Hive reconciles Cluster-supported Decisions into the active
+engineering state only after validation. Large histories, full-project context, repeated polling, and
+persistent private agent memory are not the default coordination mechanism. This design targets low
+communication cost, low energy and compute consumption, low context replay, and reduced
+overthinking.
 The proposal is engineering-oriented. It treats requirements, models, source code, physical parts, tests,
 contracts, evidence, human decisions, and external information as different materializations or roles
 around a common semantic state. It preserves the V-model and applicable engineering standards. It
@@ -56,56 +59,93 @@ The economic target is not a global mathematical optimum. The Hive seeks a satis
 Product outcome while controlling declared resource use, unnecessary reshuffling, rework, and waste.
 It can preserve many alternatives and outliers without continuously spending resources on all of them.
 # 2. Why a Hive/Swarm architecture
-## 2.1 Three orchestration paradigms
-Dimension Organization-mimetic harness Reasoning-mimetic harness Hive/Swarm proposal
-Primary unit Roles, agents, teams, tasks Reasoning steps and branches Semantic state, problem-local Hive,
-trajectories
-Coordination Delegation, handoffs, messages Chained or branched reasoning Typed relations and small candidate deltas
-State carrier Agent/session memory and task
-state
-Reasoning trace/search structure Canonical semantic state and provenance
-Specialization Specialist agents/tools Specialist reasoning stages Transient micro-agents, solvers, tools,
-humans
-Authority and
-truth
-Often coupled to role/workflow Often coupled to evaluator/search
-score
-Explicit validators, Contracts, scope,
-evidence, Project Profile
-Search Task/workflow execution Thought-space search Trade-space trajectories; all discoveries
-retained
-Communication
-risk
-Handoffs, polling, history replay Long branch/reasoning replay Small state projections and compact
-semantic deltas
-Failure handling Retry, handoff, escalation Backtrack, reflect, branch Preserve outcome, re-rate trajectory, post-mortem, reallocate
-Engineering
-traceability
-Added by application Usually external to method Native relation/state property
-Cross-layer
-authority
-Workflow-dependent Usually unmodeled Materialize Exchange Item; reconcile locally
+## 2.1 Three orchestration
+paradigms
+Property
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+Organization-mimetic agent harness
+Reasoning-mimetic harness
+Hive/Swarm proposal
+Primary abstraction
+Role-bearing agents, managers, teams, tasks
+Reasoning steps, thought chains, trees, graphs, planner-reflector loops
+Hive execution model, canonical semantic state, task-assigned Swarms, Clusters, Decisions, trajectories
+Persistent identity
+Common
+Often one reasoning process or persistent planner
+Not required for computation; provenance is retained instead
+Coordination
+Delegation, handoffs, messages, shared conversation
+Sequential or branching thought generation and evaluation
+Typed relations, bounded state projections, candidate semantic deltas
+State carrier
+Agent/session memory, task state, conversation
+Reasoning trace and search structure
+Addressable Proposition state and materialized Engineering Objects
+Specialized computation
+Specialist agents or tools
+Specialized reasoning stages
+Task-assigned Swarms of cheap specialized participants, solvers, simulations, tools, and humans
+Authority
+Often coupled to agent role or workflow
+Usually implicit in reasoning control
+Explicit in Contract, Decision scope, relation semantics, and Project Profile
+Truth
+Often selected/summarized by orchestrator
+Often selected by self-evaluation or search score
+Never owned by an agent; accepted through formal validators, evidence, and obligations
+Search
+Task/workflow execution
+Deliberate reasoning-space search
+Trade-space exploration with persistent outcomes and resource-rated active trajectories
+Communication cost risk
+Repeated delegation, messaging, status polling, history replay
+Repeated long reasoning and branch evaluation
+Small semantic projections and small candidate deltas by default
+Failure handling
+Retry, handoff, escalation
+Backtrack, reflect, branch
+Preserve outcome, update trajectory rating, post-mortem, reallocate resources
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+Engineering traceability
+Added by application
+Usually outside the reasoning method
+Native part of the state and relation algebra
+Cross-layer authority
+Workflow-dependent
+Usually not modeled
+Explicitly blocked unless materialized and locally reconciled
 Illustration - established patterns. Current agent frameworks commonly expose
 manager/worker, agents-as-tools, handoff, crew, task, process, memory, and conversation
-concepts. OpenAI Agents SDK and CrewAI are examples of this family. Tree of Thoughts and
-Graph of Thoughts are examples of deliberate reasoning-space search. These examples
-illustrate the comparison categories; they do not define proposal conformance.
-## 2.2 Project evidence for communication cost
+concepts. OpenAI Agents SDK and CrewAI are examples of this family. Tree of Thoughts
+and Graph of Thoughts are examples of deliberate reasoning-space search. These
+examples illustrate the comparison categories; they do not define proposal conformance.
+## 2.2 Project evidence for
+communication cost
 The project resource analysis is supporting evidence for the architecture choice, not proof of a
 universal law. Across 333 retained session files, the analysis measured 1.432 billion input tokens and
 ## 4.7 million output tokens. Direct polling/status activity accounted for 19.9% of input. Supporting
 orchestration accounted for another 10.5%. Root/orchestrator sessions carried 97.9% of input while
 sub-agents carried 2.1%.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
-Direct polling/status waste - 19.9% of archive input. Do not make repeated wait/list/status
-interactions a core coordination mechanism.
-wait_agent alone - 15.7%. Prefer state-change and semantic-completion conditions.
-Supporting orchestration - 10.5%. Reduce repeated messages, follow-up restatement, spawn
-overhead, and interruption.
-Root/orchestrator sessions - 97.9% of archive input. Reduce central context replay and long
-orchestration sessions.
-Sub-agents - 2.1%. In this archive, cheap specialists were not the dominant measured cost;
-coordination/context was.
+Observation
+Measured value
+Design implication
+Direct polling/status waste
+19.9% of archive input
+Do not use repeated wait/list/status interactions as a core coordination method
+wait_agent alone
+15.7% of archive input
+Prefer event/state change and semantic completion conditions
+Supporting orchestration
+10.5% of archive input
+Minimize messages, follow-up task restatement, spawn overhead, and interruption
+Root/orchestrator share
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+97.9% of archive input
+Reduce central context replay and long orchestration sessions
+Sub-agent share
+2.1% of archive input
+Cheap specialists are not the main measured cost; coordination/context is
 The measured archive does not contain exact model identifiers for all sub-agents and its phase timing
 includes explicit proxy values. The proposal therefore uses these data as a decision input, not as a
 universal performance benchmark.
@@ -117,8 +157,9 @@ The Hive represents the current engineering meaning as Propositions and typed Re
 models, code, assemblies, reports, and other Engineering Objects materialize or carry that meaning.
 For each active problem, the Hive selects only the relevant semantic projection. It does not load the
 entire project by default.
-The Hive Mind creates narrow explorations. A Swarm of specialized micro-agents, solvers, simulations,
-tools, humans, or external services can execute them.
+The Hive assigns bounded tasks to Swarms. A Swarm can use specialized micro-agents, solvers,
+simulations, tools, humans, or external services. Their contributions form Clusters supporting
+Decisions.
 Each exploration returns candidate Propositions, Relations, Decisions, evidence, UNKNOWNs, Gaps,
 Work Product requests, or other small semantic deltas.
 The Hive validates those candidates before they affect active state. Structural reachability never
@@ -138,10 +179,10 @@ Trade-space exploration preserves every discovered outcome. Active resource allo
 reduced to zero for weak trajectories without deleting their knowledge.
 The Hive stops expanding a trajectory when the expected value of more exploration does not justify its
 Resource Cost, or when the Contract objective is satisfied. Global optimality is not assumed.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Supporting processes such as Configuration Management, Change Management, Problem Resolution,
 Quality Assurance, Risk Management, and Measurement operate over the Solution Space. They are not
 core semantic primitives.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Historical state remains addressable. Later revisions supersede or extend prior state; they do not
 rewrite it.
 Part II - Language Foundation
@@ -180,8 +221,8 @@ The dictionary is intentionally compact. A term definition may reference another
 than repeating its semantics. Project-specific specializations belong in the Project Profile.
 Acceptance Obligation. Contract obligation assigned to an actor to evaluate a fulfilment proposal or
 applicable Work Product.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Acceptor. Actor that carries an Acceptance Obligation for a Contract.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Actor. Human, Hive, external organization, or other authority-capable participant. Computational
 micro-agents are not Actors unless a Project Profile grants that role.
 Agent. Computational participant that performs a bounded operation. Agent identity does not create
@@ -190,8 +231,8 @@ Baseline. Configuration Management reference state created only when the applica
 Management process defines it.
 Binding. Scoped and time-qualified prescriptive force of an obligatory Decision. Binding applies to
 Decisions, not Work Products or Exchange Items.
-Cluster. Set of sufficiently independent exploration contributions supporting one trajectory for one
-problem statement.
+Cluster. Set of sufficiently independent contributions within a Swarm that support one Decision for
+one task/problem statement. A Decision can then preserve or direct a trajectory.
 Conformance Evaluation. Formal check of implementation/state against this model plus the
 applicable Project Profile.
 Contract. Governed execution agreement with one accountable Executor, one or more issuing parties,
@@ -217,15 +258,16 @@ Future Action. Contracted resolution of a Known Gap with an identified Party, Ou
 Definition of Ready, and Definition of Done.
 Gap. Explicitly known missing relation, evidence, content, capability, or result required for a stated
 purpose.
-Hive. Persistent problem-local semantic and governance computation operating over canonical
-engineering state.
-Hive Mind. Hive reasoning core that selects bounded state projections, allocates narrow computations,
-reconciles candidates, and controls active exploration.
+Hive. Complete execution model that maintains engineering state, governance, Contracts, resources,
+and execution topology and commands Swarms assigned to bounded tasks.
+Hive Mind. Distributed/federated intelligence paradigm in which the Hive operates as one coherent
+intelligence for an external observer while participating actors retain individual traits, properties, and
+behaviours.
 Human Arbitrary Input (HAI). Exogenous human input that can arrive at any time and can preempt
 the current continuation without erasing history.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Human Prescriptive Choice (HPC). Human choice required when an obligatory Decision cannot be
 committed by the Hive.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Human Voluntary Choice (HVC). Optional human choice made while autonomous Hive continuation
 remains possible.
 Human Work Product (HWP). Work Product supplied by a Human or human organization. Human
@@ -237,9 +279,6 @@ Proposition as a decision, trace, or commitment basis.
 Known Gap. Gap whose existence and scope are known and recorded.
 Local Optimum / Local Extremum. Best/extreme candidate relative to a declared neighborhood or
 currently explored region, not the entire theoretical Solution Space.
-Global Optimum / Global Extremum. Best/extreme candidate over a declared complete Solution
-Space and objective. The Hive does not claim this property unless completeness and the objective are
-explicitly established.
 Magnification. Engineering scale of a Proposition, Engineering Object, Decision, Exchange Item, Work
 Product, or Product view.
 Micro-agent. Short-lived, specialized, low-Resource-Cost Agent used for one narrow exploration or
@@ -269,11 +308,11 @@ trajectory, or change.
 Resource Envelope. Declared availability/limits for relevant resource dimensions such as context,
 model calls, compute, wall time, money, human effort, energy, equipment, and external capacity. It is
 not a universal scalar.
-Resource Budget. Contract- or operation-scoped allocation drawn from a Resource Envelope.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Solution Space. Addressable set of currently known candidate states, constraints, outcomes, and their
 relations for a scoped problem.
-Swarm. Transient population of micro-agents and other computational engines allocated by a Hive.
+Swarm. Population of specialized computational participants assigned by the Hive to one bounded
+task. Swarm contributions can form Clusters supporting Decisions.
 Team API. Project-defined set of Work Products and communications used to coordinate Product
 evolution among parties.
 Trade Space. Project-visible candidate region used to compare alternatives for one problem under
@@ -281,9 +320,8 @@ current constraints, evidence, and authority.
 Trajectory. Temporally ordered path of exploration outcomes and Decisions through a Trade Space.
 UNKNOWN. Required information whose value, validity, applicability, or result has not been
 established.
-Waste / Wasteful. Waste is Resource consumption that creates neither required governance/validation
-effect nor reusable progress, evidence, knowledge, or Product value for the active objective. An
-operation is wasteful when the Project Profile classifies its consumption as Waste.
+Waste. Resource consumption that creates neither required governance/validation effect nor reusable
+progress, evidence, knowledge, or Product value for the active objective.
 Work Product. Complete obligatory Contract result prepared under a defined schema and acceptance
 rule. A Work Product can be an input to another Contract. # Part III - Foundation
 # 5. Foundation
@@ -313,9 +351,9 @@ statement roles. The proposal adopts that role separation without requiring any 
 format.
 Definition. Introduces a term, symbol, relation, function, or predicate meaning Can be used after
 introduction.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Axiom. Foundation statement accepted by this proposal and not derived from another proposal
 statement Basis for derived properties and conformance.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Assumption. Explicit scoped condition supplied by a problem or Project Profile Valid only in its
 declared scope; must not become a universal rule.
 Lemma. Derived intermediate result Used to simplify a later proof.
@@ -356,12 +394,11 @@ A relation validator has the generic form:
 V r
 ( e ,κ )∈{⊤,⊥,? },
 where κ contains the applicable scope, revision, time, Project Profile, authority, and other relation-specific context.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 ## 5.4 Computational algebra
-The Hive Mind uses deterministic algebra before allocating semantic reasoning.
+The Hive uses deterministic algebra before assigning semantic reasoning work to a Swarm.
 The computational sequence is:
-Pr o j e c t S t at e→Pr o j e c t i o n ( q)→S tr u c t u r alO p s→S e ma nt i c Qu e st i o n s.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
-S e ma n t i c Qu e st i o n s→C a n d i d a t e D e l t a→V ali d a t i o n→S u c c e ss o r S t a t e .
+Pr o j e c t S t at e→Pr o j e c t i o n ( q)→S tr u c t u r alO p s→S e ma nt i c Qu e st i o n s→C a n d i d at e D e l t a→V ali d at i o n→S u c c e ss o r S t at e .
 Projection(q) selects the semantic state needed for problem q. Structural operations compute
 deterministic facts such as reachability, relation type checks, revision lookup, set membership, known
 dependency closure, and declared scope intersection. Only unresolved semantic questions are sent to
@@ -395,17 +432,12 @@ Intent. Prevent a graph, document link, or path from becoming engineering truth 
 exists.
 Statement. A relation can support a justification or commitment only when every applicable validator
 for that relation is established in the current context.
-Define:
-V ali dr
-( κ )=T y p eV ali d∧S e ma nt i cV ali d∧S c al eV ali d∧S t at eV ali d .
-Then:
-U s e F o r J u st i f i c at i o n (r,κ ) ⇒ V ali dr
-( κ ) .
+U s e F o r J u st i f i c at i o n (r,κ ) ⇒ T y p eV ali d (r,κ )∧S e ma nt i cV ali d (r,κ )∧S c al eV ali d (r,κ )∧S t at eV ali d (r,κ ) .
 R e a c h a bl eG
 ( a ,b) ⇒ ̸J u st i f i e s( a ,b) .
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Boundary. AX-1 does not state that a Proposition is true merely because all relation validators pass. It
 states that invalid relations cannot be used as a justification path.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Validation. Remove AX-1 and an arbitrary edge can satisfy a trace requirement without semantic
 evidence. The resulting model admits false trace closure. The axiom is therefore necessary for the
 proposal’s trace semantics.
@@ -413,8 +445,7 @@ proposal’s trace semantics.
 Intent. Preserve missing information instead of hiding it behind a plausible but unsupported relation.
 Statement. When a required justification, evidence item, relation, or result cannot be established, the
 model records the unresolved state explicitly and does not fabricate completion.
-M issi n g R e q uir e d ( x ,κ )=R e q uir e d ( x ,κ )∧¬E st a blis h e d ( x ,κ ) .
-M issi n g R e q uir e d ( x ,κ ) ⇒ E x pli c it U n r e s ol v e d ( x ,κ ) .
+R e q uir e d ( x ,κ )∧¬E st a blis h e d ( x ,κ ) ⇒ E x pli c it U n r e s ol v e d ( x ,κ ) .
 A project can classify the unresolved state as ORPHAN, UNKNOWN, KNOWN_GAP, CONFLICT, or
 another Project Profile category. The category must preserve the fact that the required item is
 unresolved.
@@ -429,7 +460,7 @@ Statement. Direct semantic relations and Decisions operate within the applicable
 effects require an explicit permitted bridge, materialized Exchange Item, or other Project Profile
 mechanism followed by local interpretation.
 Dir e c t S e ma nt i c U s e ( x , y ,κ ) ⇒ S c al eV ali d ( x , y ,κ ) .
-C r o ss S c al e E f f e c t ⇒ E x pli c it Bri d g e∧Lo c al I nt e r p r e t at i o n .
+C r o ss S c al e E f f e c t ⇒ E x p li c it Bri d g e∧Lo c al I n t e r p r e t a t i o n .
 Boundary. AX-3 does not fix universal engineering levels. Magnification frames and allowed bridges
 are Project Profile parameters.
 Validation. Remove AX-3 and a local Decision or evidence item can silently become authoritative over
@@ -444,24 +475,19 @@ Decision is required, feasible choices exist, and none can be committed by the H
 HUMAN_PRESCRIPTIVE_CHOICE is required. If no feasible choice exists, human authority cannot make
 the solution feasible; the conflict remains explicit until the problem changes.
 H i v e S p a c e ( q) ≠⌀ ⇒ A u t o n omo u sC o nt i nu e ( q) .
-Define:
-N e e d s H PC ( q)=F e a si bl e ( q) ≠⌀∧H i v e S p a c e ( q)=⌀∧N e e d sO bli g at o r y D e c isi o n ( q) .
-Then:
-N e e d s H PC ( q) ⇒ H PC ( q)=R EQU I R E D .
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+F e a si bl e ( q) ≠⌀∧H i v e S p a c e ( q)=⌀∧N e e d sO bli g at o r y D e c isi o n ( q) ⇒ H PC ( q)=R EQU I R E D .
 F e a si bl e ( q)=⌀ ⇒ Pr e s e r v eC o n f li c t ( q) .
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Boundary. AX-4 does not block HAI, HVC, or HWP while autonomous continuation is possible.
 Validation. Remove AX-4 and either all commitments require human approval or the Hive can make
 commitments outside its authority. Both outcomes violate the delegated-autonomy objective.
 ## 5.10 AX-5 - Resource-rated exploration
 Intent. Preserve all discoveries while concentrating active resources on trajectories that justify
 continued expenditure.
-Statement. Every discovered outcome is retained with provenance and status:
+Every discovered outcome is retained with provenance and status:
 Dis c o v e r e d ( o ,q ,t ) ⇒ Pr e s e r v e ( o ,q ,t ) .
 Active resource allocation is separate from preservation:
-A ll o c a t i o n ( o ,t )=R a t e ( F e a t u r e s( o ,t ) ) .
-Features(o,t) can include progress, novelty, evidence, independence, repair cost, Product/Contract
-value, and Resource Cost/Envelope terms defined by the Project Profile.
+A ll o c at i o n ( o ,t )=R at e ( o , Pr o g r e ss,N o v e l t y , E v i d e n c e ,I n d e p e n d e n c e , R e p airC o st , D e li v e r y V al u e , R e s o u r c e E n v e l o p e) .
 A ll o c at i o n ( o ,t )=0 ⇒ ̸D e l e t e ( o) .
 The Hive seeks a satisfactory Contract/Product path under the declared Resource Envelope. It does not
 promise a global optimum unless a Contract explicitly requires and defines such an objective. Outliers
@@ -491,10 +517,10 @@ containment does not imply semantic containment.
 A Proposition is the core semantic element. It can represent a claim, need, candidate structure,
 Decision, interface intent, expected behavior, constraint, question, request, gap statement, or another
 addressable semantic unit.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 An Engineering Object is a materialized project entity such as a requirement record, document, model
 element, source file, binary, simulation result, test artifact, physical part, assembly, configuration
 record, or other tool/physical item.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Materialization is many-to-many:
 M a t e ri aliz e s⊆P×O .
 A Decision is a Proposition role and is not an Engineering Object. A Decision can later materialize into
@@ -518,8 +544,7 @@ source code, binary, simulation result, physical sample record, or another infor
 appropriate to the Product.
 A Product API is a design Decision materialized as one or more Exchange Items:
 D e si g n D e c isi o n( da pi)∧M at e ri aliz e s( da pi
-, ea pi) .
-I s E x c h a n g e I t e m( ea pi
+, ea pi)∧I s E x c h a n g e I t e m( ea pi
 ,b) .
 Exchange Item atomicity is boundary-relative. Feedback can target an internal locator of the Exchange
 Item when the representation supports it.
@@ -535,7 +560,7 @@ source Contract.
 A Product is the coherent engineered subject at a defined boundary. Product structure and Work
 Product structure are different. Contract decomposition can split execution without fragmenting the
 final Product view delivered by the layer.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 # 7. Operational algebra
 ## 7.1 Purpose of the algebra
 The operational algebra defines what the Hive can compute mechanically before semantic reasoning. It
@@ -578,7 +603,7 @@ T r a c et
 0⊆T r a c et
 1
 .
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 ## 8.2 Identity and provenance
 Semantic identity and material identity are separate. A Proposition can have several materializations
 and an Engineering Object can carry several Proposition revisions. Provenance records reconnect
@@ -611,12 +636,12 @@ place for additional economic assessment or human intervention.
 Engineering layer and Contract execution sub-layer are different coordinates. A single engineering
 layer can contain arbitrary Contract staging while still producing one coherent Product view at its
 magnification.
-Illustration - one possible scale profile. A project can define a progression such as Product
-need -> use case -> system specification -> architecture -> component specification ->
-implementation. In that profile, a Use Case can contain interaction steps and desired
-outcomes but not detailed algorithms. Another project can define different scale frames and
-permitted bridges. The illustration does not define universal engineering levels.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+Illustration - one possible scale profile. A project can define a progression such as
+Product need -> use case -> system specification -> architecture -> component specification
+-> implementation. In that profile, a Use Case can contain interaction steps and desired
+outcomes but not detailed algorithms. Another project can define different scale frames
+and permitted bridges. The illustration does not define universal engineering levels.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 # 10. Decisions, trade space, exploration, and human intervention
 ## 10.1 Trade space
 For problem q, the Trade Space T ( q ,t ) is the project-visible region of candidate outcomes that can
@@ -646,10 +671,7 @@ without reconstructing lost reasoning.
 ## 10.4 Reshuffling
 Reshuffling is the reopening or reallocation of previously active solution commitments due to
 propagated change. A project can represent reshuffling cost as a vector:
-RC ( Δ)=( c1
-,…, cn ) .
-The Project Profile can map the components to review, rework, reverification, coordination, schedule
-exposure, money, physical change, or other relevant costs.
+RC ( Δ)=(r e v i ew ,r ew o r k ,r e v e ri f i c at i o n , c o o r d i n at i o n ,s c h e d ul e ,mo n e y , p h y si c alC h a n g e ,…) .
 The common model does not force these dimensions into one scalar.
 ## 10.5 Human intervention geometry
 Let current Hive candidate set be B and human input normalized to set A. Human interaction can
@@ -657,7 +679,7 @@ create exact match, narrowing, broadening, equality, partial intersection, or di
 to B. The human-interaction class is orthogonal to this set geometry.
 Human input is assessed before execution. Human authority does not create mathematical or
 engineering feasibility.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 # 11. Contracts and Product delivery
 ## 11.1 Contract structure
 A Contract has one accountable Executor and one or more issuing parties. Supplementary parties can
@@ -706,10 +728,10 @@ Hive, separate Hive instances using the same model, separate departments, separa
 different model providers, different infrastructure, or another topology.
 Conformance uses a predicate rather than a universal scalar independence order:
 S at isf i e sI n d e p e n d e n c e ( a c t u al ,r e q uir e d , p r o f il e) .
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 ## 11.6 Acceptance obligations
 Acceptance is a Contract obligation, not a generic lifecycle state of every Proposition. Actors whose
 direct Work Products participate as inputs can receive Acceptance Obligations. Delegated/contracted
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 third parties do not automatically participate in parent Contract acceptance; the parent Executor is
 responsible for accepting their Work Products into the parent execution.
 The Executor controls immediate traceability quality and Known Gaps, and informs Acceptors through
@@ -733,15 +755,13 @@ supplier portal, or another external boundary representation.
 ## 11.8 Blast containment
 A Decision has direct effect only inside its local Contract and bounded Hive/Team context. Other parties
 are affected only when an Exchange Item that they consume changes.
-Let ChangedEI(d) be the Exchange Items updated by Decision d. Then:
-A f f e c t e d (T e am,d )⇔∃ e∈C h a n g e d E I ( d ) :C o n s ume s(T e am, e) .
+A f f e c t e d (T e am,d )⇔∃ e∈U p d at e d E x c h a n g e I t e m s( d ) :C o n s ume s(T e am, e) .
 If a team does not consume a changed Exchange Item, that team is outside the native blast area for that
 Decision.
 # 12. Evidence and validation locality
 Evidence is developed locally for the claim and engineering layer that requires it. Foreign evidence can
 inform local evidence generation but does not automatically close a higher- or lower-scale claim.
-F o r e i g n E v i d e n c e→Lo c al E v i d e n c e A c t i v it y→Lo c al E v i d e n c eO b j e c t .
-Lo c al E v i d e n c eO b j e c t →Lo c al J u st i f i c a t i o n .
+F o r e i g n E v i d e n c e→Lo c al E v i d e n c e A c t i v it y→Lo c al E v i d e n c eO b j e c t →Lo c al J u st i f i c at i o n .
 This prevents evidence laundering across scale or authority boundaries.
 Verification and validation methods remain Project Profile and domain-method concerns. Test
 existence alone does not prove the tested claim. Applicable observability, reachability,
@@ -755,8 +775,8 @@ dimension.
 Brittleness is separate from prescriptiveness. Let ΔP
 ( p) be the declared Revision Envelope for
 Proposition p. A project can define:
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 Brit t l e ( p , Δ,Θ)
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 when a change inside the expected revision environment creates repair cost above threshold Θ or
 violates another Project Profile brittleness rule.
 # 14. UNKNOWNs, Gaps, and Future Actions
@@ -791,16 +811,17 @@ external norm makes them obligatory.
 ## 17.1 Resource Envelope
 The proposal does not use the phrase bounded resources as an undefined scalar. A Resource Envelope
 is a vector of declared availability or limits:
-R=(r1
-,…,rn ) .
-The Project Profile names the dimensions. Typical dimensions include context, model calls, compute,
-wall time, money, human effort, energy, equipment, and external capacity.
+R=( c o nt e x t ,mo d e lC alls, c om p u t e ,w allT ime ,mo n e y ,huma n E f f o rt , e n e r g y , e q ui pme nt , e x t e r n alC a p a c it y ,…) .
 A Contract can define a narrower Resource Budget inside the project/Hive envelope.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 ## 17.2 Resource survival
 Candidate trajectories are rated using project-defined functions. Relevant inputs can include
 independent support, evidence strength, novelty, progress, Product/Contract value, repair cost,
 divergence persistence, and Resource Cost.
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
+A Swarm can form one or more Clusters around candidate Decisions for its assigned task. Cluster
+support is evidence of independent convergence, not semantic truth. Decisions preserve or direct
+trajectories through the Trade Space. Resource-survival rules can therefore consider Cluster support
+when rating a trajectory without equating majority support with correctness.
 A trajectory can be strengthened, maintained, reduced, or deactivated. Deactivation stops active
 expenditure; it does not delete discovered outcomes.
 ## 17.3 Waste and overthinking
@@ -810,16 +831,13 @@ Waste occurs when an operation produces neither required process effect nor reus
 evidence, knowledge, or Product value. Polling loops, repeated context replay, unnecessary status
 messages, redundant branch reasoning, and reasoning about deterministic facts are candidate waste
 categories when the project can establish that they add no required effect.
-Overthinking is a reasoning-specific waste mode. The Hive Mind should first ask whether deterministic
-algebra, an existing Decision, recorded evidence, or a previously preserved outcome already resolves
-the question before allocating another reasoning trajectory.
+Overthinking is a reasoning-specific waste mode. Before assigning further reasoning work to a Swarm,
+the Hive should determine whether deterministic algebra, an existing Decision, recorded evidence, or a
+previously preserved outcome already resolves the question.
 ## 17.4 Divergence and post-mortem
 Divergence is measured as reconciliation/repair difficulty, not semantic-text distance alone. The project
 can use a vector such as:
-R e p air=( c1
-,…, cn ) .
-The Project Profile can map the components to money, time, Hive utilization, Work Product rework,
-physical rework, schedule exposure, or other relevant repair costs.
+R e p air=(mo n e y ,t ime ,hi v eU t iliz a t i o n ,W P R ew o r k , p h y si c al R ew o r k ,s c h e d ul e E x p o s u r e ,…) .
 Persistent incompatible trajectories can lose active resource allocation. A post-mortem preserves useful
 findings and can reactivate an outlier or create a new trajectory.
 Contract divergence is different. A Contract is not restarted. At critical divergence, Human intervention
@@ -838,13 +856,13 @@ from propagating automatically.
 Part V - Conformance and Project Profile
 # 19. Conformance
 Conformance is evaluated against the common proposal plus the applicable Project Profile revision.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 A conformant implementation MUST:
 preserve Proposition and Engineering Object distinction;
 validate relation use before semantic justification;
 preserve unresolved required information explicitly;
 enforce scale/bridge rules;
 enforce Human ingress and Decision authority rules;
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 preserve all discovered outcomes while controlling active resource allocation;
 separate Decision authority from Exchange Item communication;
 enforce Contract accountability, Work Product schemas, information boundaries, and acceptance
@@ -876,6 +894,7 @@ lifecycle labels for Decisions, Engineering Objects, Work Products, Contracts, a
 elements;
 external-party communication constraints and permitted formats;
 integration/composition strategies and their validation requirements.
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 # 21. Formal model audit
 Each Foundation Axiom has a defined Intent, Statement, Boundary, and Validation argument. A release
 audit SHOULD test at least the following countermodels:
@@ -884,7 +903,6 @@ AX-2: Hidden or fabricated completion replaces unresolved information
 AX-3: Local Decision/evidence becomes remote authority without a bridge
 AX-4: Universal human approval or unauthorized Hive commitment
 AX-5: Low-support discoveries are deleted or active search consumes unlimited resources
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 The audit also checks term uniqueness, Proposition/Engineering Object separation, Work Product
 information boundaries, Project Profile scoping, relation-role typing, revision/time qualification, and
 conformance-test evidence.
@@ -914,6 +932,7 @@ The proposal adopts the distinction between expression syntax and statement role
 serialization in OpenMath, TPTP, OMDoc, or SMT-LIB.
 # 24. Supporting AI architecture references
 The following sources are illustrative/supportive only:
+Draft 0.10 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 OpenAI Agents SDK, agent orchestration, manager/agents-as-tools and handoff patterns.
 https://openai.github.io/openai-agents-python/multi_agent/
 CrewAI Crews, role-bearing agents, tasks, processes, manager and memory concepts.
@@ -924,7 +943,6 @@ Tree of Thoughts: Deliberate Problem Solving with Large Language Models, NeurIPS
 https://papers.nips.cc/paper/2023/hash/271db9922b8d1f4dd7aaef84ed5ac703-Abstract-Conference.html
 Graph of Thoughts: Solving Elaborate Problems with Large Language Models, AAAI 2024.
 https://ojs.aaai.org/index.php/AAAI/article/view/29720
-Draft 0.9 - project review; supporting external references are non-normative unless made applicable by Project Profile.
 # 25. Supporting engineering references
 Engineering standards and frameworks remain supportive/non-normative in this common proposal
 unless a Project Profile makes them applicable. Examples include Automotive SPICE, APQP, ISO 26262-
@@ -932,21 +950,3 @@ family standards, INCOSE requirements guidance, NASA systems/software engineerin
 project-specific V-model processes.
 # 26. Project supporting material
 The following project material informed this revision:
-harness-hive-dialogue-recap.md - non-normative recap used to restore the state-centric Hive
-architecture, bounded traversal, trade-space, trajectory, cluster, repair-cost, and non-actor design
-direction. Later accepted decisions in this proposal take precedence where the recap is older.
-resource_consumption_recap.md - decision recap for context/input, orchestration, polling waste, and
-root/sub-agent resource use.
-session_resource_analysis.xlsx - supporting workbook containing summary, category, phase, waste,
-support, agent, sub-agent, timing, session, and daily pivots.
-Compilation status
-Draft 0.9 performs a structural rewrite rather than a local patch. It introduces formal definitions for
-Hive, Swarm, Hive Mind, Product, Reshuffling, Waste, Resource Envelope, Extremum Exploration,
-Proposition, Engineering Object, and formal statement roles. It moves algebra and Human ingress
-definitions before the Foundation Axioms; rewrites AX-5 to preserve every discovered outcome while
-rating active resource allocation; restores trade-space and trajectory concepts; separates the non-specialist proposal from the formal operational model; and places the operational chapters under one
-Formal Proposal umbrella.
-Review assumption. This draft distinguishes Hive (persistent problem-local semantic/governance
-computation) from Swarm (transient execution population). This distinction is used consistently in
-Draft 0.9 but remains the one terminology choice that requires project confirmation; if Hive and Swarm
-are intended as exact synonyms, the Abstract and Dictionary need a controlled collapse.
