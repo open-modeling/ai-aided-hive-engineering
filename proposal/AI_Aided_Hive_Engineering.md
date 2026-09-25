@@ -6692,193 +6692,73 @@ The Hive preserves failure information because it is part of the Solution Space 
 
 ### 17.6 Confidence as operational exploration-health indication
 
-Confidence exists because the proposal defines a highly autonomous solution explorer and solver rather than a conversational assistant that continuously explains every internal step. A Human operator needs a compact indication of whether an assigned task appears to be progressing toward a useful outcome without reconstructing the full internal exploration history.
+Confidence is a time-varying operational indication of Solution Exploration health under the information currently available to the Hive and the applicable Resource Envelope.
 
-For task $q$, the Hive therefore can maintain:
+For bounded task or problem $q$:
 
 $$Confidence_H(q,t).$$
 
-In Human terms, this can be understood as an analogue of a changing engineering "gut feeling" about likely task outcome. This analogy is illustrative only; Confidence is an operational indicator, not a Human emotion or a claim about Human cognition.
+Confidence can also be evaluated for a trajectory or a scoped Decision context where that distinction is operationally useful.
 
-Confidence can synthesize process observations such as:
+Confidence is related to convergence and divergence without being equivalent to either:
 
-$$Confidence_H(q,t)=Indicator_{PP}(ProgressHistory,Convergence,Divergence,EvidenceTrend,DecisionState,ValidationResults,ReworkHistory,ResourceConsumption,ResourceHeadroom,HistoricalResolution,\ldots)$$
+$$Convergence
+ot\Rightarrow HighConfidence$$
 
-where $Indicator_{PP}$ is defined by $PP$. This expression identifies possible inputs rather than prescribing one universal formula.
-
-#### 17.6.1 Relationship to convergence and divergence
-
-Confidence is related to convergence/divergence behaviour but is not identical to the existing health function.
-
-Sustained valid progress can increase Confidence; repeated invalid branches can reduce it; decreasing divergence can increase it; growing unresolved divergence can reduce it; successful validation can increase it; repeated rework without progress can reduce it; discovery of a previously unknown viable trajectory can change it sharply.
-
-No universal implication follows:
-
-$$Convergence\not\Rightarrow HighConfidence$$
-
-$$Divergence\not\Rightarrow LowConfidence.$$
-
-The Project Profile defines how such observations contribute to the indicator.
-
-#### 17.6.2 Relationship to bounded resources
-
-Confidence reflects the apparent likelihood of obtaining a useful result under the currently available Resource Envelope.
-
-A task can remain technically solvable while Confidence decreases because remaining time, compute, money, Human effort, external capacity, or physical test capacity becomes insufficient. Conversely, a difficult task can show increasing Confidence when new Evidence or a better trajectory materially reduces remaining work.
-
-Conceptually:
-
-$$Confidence_H(q,t)=f_{PP}(ExplorationState,Progress,ResourceEnvelope,ResourceConsumption,\ldots).$$
+$$Divergence
+ot\Rightarrow LowConfidence.$$
 
 Confidence remains distinct from the Resource Envelope itself.
 
-#### 17.6.3 Confidence in a trajectory
+#### 17.6.1 Inputs and update
 
-The Hive can compute Confidence relative to one trajectory:
+The Project Profile defines the Confidence representation, observation window, update frequency, and applicable inputs. Inputs can include progress, convergence, divergence, Evidence, Decision progression, validation results, rework history, Resource Cost, remaining Resource Envelope, and historical resolution patterns.
 
-$$Confidence_H(\tau,t).$$
+Confidence need not be monotonic. New Evidence, failed validation, a newly viable trajectory, or a material resource change can alter the indicator in either direction.
 
-This indicates the operational expectation that continued exploration of $\tau$ is currently promising. It does not mean that the trajectory is correct:
+#### 17.6.2 Semantic boundaries
 
-$$HighConfidence_H(\tau,t)\not\Rightarrow True(\tau)$$
+Confidence is not truth, probability, precision, Evidence, authority, Decision, Acceptance, Back-off, or Work Product content.
 
-$$LowConfidence_H(\tau,t)\not\Rightarrow Invalid(\tau).$$
-
-An unlikely or currently low-Confidence trajectory can later become the successful one. Confidence must therefore not collapse autonomous exploration into deterministic hill-climbing.
-
-#### 17.6.4 Confidence relative to a Decision context
-
-The Hive can expose Confidence relative to a Decision context:
-
-$$Confidence_H(d,q,t).$$
-
-This means that the current exploration around Decision $d$ appears more or less likely to contribute to a positive resolution of task $q$. It is not a property of Decision $d$.
-
-Therefore, for applicable Scope $\sigma$:
-
-$$HighConfidence_H(d,q,t)\not\Rightarrow Binding(d,\sigma,t)$$
-
-$$HighConfidence_H(d,q,t)\not\Rightarrow AuthorityValid(d)$$
-
-and:
-
-$$HighConfidence_H(d,q,t)\not\Rightarrow Committed(d).$$
-
-#### 17.6.5 Confidence is not Back-off
+A high or low Confidence indication therefore establishes none of those properties.
 
 Confidence is not Back-off:
 
-$$Confidence\neq BackOff.$$
+$$Confidence
+eq BackOff.$$
 
-Low Confidence does not automatically cause Back-off:
+Low Confidence does not itself require Back-off:
 
-$$LowConfidence_H(\tau,t)\not\Rightarrow BackOff(\tau).$$
+$$LowConfidence_H(	au,t)
+ot\Rightarrow BackOff(	au).$$
 
-Back-off remains governed by the explicit divergence/resource rules of Sections 17.4 and 17.5. Confidence can be one operational input that indicates where reassessment may be useful; it does not replace the health, divergence, allocation, or deactivation mechanisms.
+Back-off remains governed by the divergence and resource rules of §§17.4–17.5.
 
-#### 17.6.6 Confidence and stochastic exploration
+#### 17.6.3 Exploration diversity
 
-Confidence must not force exploration toward only the currently most promising trajectory. The Hive can deliberately explore low-Confidence or apparently unlikely trajectories to escape local extrema, preserve diversity, discover non-obvious solutions, challenge hidden assumptions, challenge dominant Clusters, or avoid deterministic convergence on a poor Solution Space region.
+Confidence can inform resource allocation and reassessment without forcing deterministic selection of the currently highest-rated trajectory.
 
-A Project Profile can therefore permit bounded stochastic exploration.
+A Project Profile can permit bounded stochastic or Monte-Carlo mechanisms for exploration diversity. Such mechanisms operate on exploration policy; they do not randomize the Confidence indication itself.
 
-Let:
+Exploration remains constrained by Engineering State, Contracts, authority, validation, Resource Envelope, and commitment rules.
 
-$$\xi_t$$
+#### 17.6.4 Operator-facing representation
 
-be a bounded stochastic input produced by a Monte-Carlo method, pseudo-random generator, randomized sampler, latent-space perturbation, or another project-defined mechanism.
+A Human operator can observe Confidence and its trend without reconstructing the full exploration history.
 
-A possible policy is:
+**Illustration.** A Project Profile can map Confidence to a traffic-light presentation for operator attention. The labels and thresholds are presentation choices only; they establish no Decision, validator result, Evidence disposition, authority, Contract transition, or Back-off.
 
-$$NextTrajectory\sim Explore_{PP}(X_t,Confidence_H,ProgressHistory,\xi_t,ResourceEnvelope).$$
+#### 17.6.5 Automated use
 
-The stochastic component remains constrained by actual exploration state, observed progress, Resource Envelope, applicable authority, Contract, safety/project constraints, and applicable Engineering State, authority, validation, and commitment rules.
+A Project Profile can use Confidence as one input to automated operational policy where the policy has an Evidence basis appropriate to the applicable environment.
 
-This permits occasional investigation of unlikely but potentially valuable directions without hard-coding a single path optimization strategy.
+Confidence alone establishes no Decision, authority, Acceptance, Evidence disposition, Contract transition, Product materialization, Rollback, or Back-off.
 
-#### 17.6.7 Stochastic Confidence generation
+#### 17.6.6 Post-mortem learning
 
-Confidence itself can include a stochastic component if the Project Profile deliberately defines one:
+Post-mortem analysis can compare historical Confidence with later observed outcomes to identify systematic drift, delayed failure recognition, poor interpretation of Evidence trends, or ineffective response to resource pressure.
 
-$$Confidence_H(q,t)=Indicator_{PP}(X_t,\xi_t)$$
-
-where:
-
-$$X_t=(Progress,EvidenceTrend,Divergence,ResourceState,ValidationHistory,ReworkHistory,\ldots).$$
-
-The stochastic term remains bounded by actual process observations. It cannot create arbitrary optimism or pessimism detached from engineering state:
-
-$$StochasticComponent\not\Rightarrow IgnoreObservedProgress.$$
-
-Monte-Carlo and pseudo-random methods are implementation options, not mandatory mechanisms.
-
-#### 17.6.8 Avoiding deterministic confidence feedback loops
-
-A deterministic indicator can create a self-reinforcing loop:
-
-$$HighRatedTrajectory\rightarrow MoreResources\rightarrow MoreEvidence\rightarrow HigherRating.$$
-
-This can unintentionally starve unusual but valuable trajectories. A bounded stochastic component can reduce this effect while actual outcomes continuously correct the indicator.
-
-#### 17.6.9 Operator-facing Confidence
-
-A Human operator can observe $Confidence_H(q,t)$ and its trend without reading the full exploration history.
-
-A Project Profile can map Confidence to a traffic-light presentation:
-
-$$TrafficLight_{PP}(Confidence_H)\in\{Green,Amber,Red\}.$$
-
-A typical interpretation can be Green for a healthy positive trend, Amber for material uncertainty or deterioration, and Red for execution that appears unlikely to reach an acceptable result without meaningful change. These labels are illustrative; actual thresholds and semantics belong to the Project Profile.
-
-A traffic light is an operator indication, not a Decision, validator, Evidence disposition, or authority mechanism.
-
-#### 17.6.10 Automated use of Confidence
-
-A Project Profile can use Confidence thresholds as inputs to automated operational policy, for example:
-
-$$Confidence_H(q,t)<\theta_1\rightarrow IncreaseExplorationDiversity$$
-
-or:
-
-$$Confidence_H(q,t)<\theta_2\land ResourcePressure(q,t)\rightarrow RequestOperationalReassessment.$$
-
-Automated reliance on Confidence should be supported by Evidence showing that the chosen indicator and thresholds produce useful behaviour in the applicable environment.
-
-Confidence alone cannot establish truth, authority, Decision Binding, Acceptance, Evidence rejection, Contract transition, Product materialization, Rollback, or Back-off.
-
-#### 17.6.11 Confidence and post-mortem learning
-
-Confidence history is useful during post-mortem analysis. The Hive can compare historical $Confidence_H(q,t)$ with the subsequently observed execution outcome.
-
-This can expose persistent optimism or pessimism, delayed recognition of failure, excessive sensitivity to temporary failures, poor interpretation of Evidence trends, inadequate response to Resource Envelope depletion, failure to recognize convergence, or systematic starvation of unusual trajectories.
-
-A post-mortem can then tune the Project Profile, Confidence model, stochastic exploration policy, or underlying computational components. This tuning does not rewrite historical Confidence values.
-
-#### 17.6.12 Confidence drift
-
-Confidence is expected to drift as Solution Exploration evolves:
-
-$$Confidence_H(q,t+\Delta t)=Update_{PP}(Confidence_H(q,t),Observation_{t\rightarrow t+\Delta t}).$$
-
-The update can respond to new Evidence, validated progress, failed checks, rework, convergence, divergence, Decision changes, trajectory changes, Resource Cost, remaining Resource Envelope, historical resolution patterns, and stochastic exploration effects.
-
-Confidence need not be monotonic. A healthy exploration can temporarily lose Confidence after discovering an important hidden problem, and Confidence can increase sharply when a previously blocked path becomes feasible.
-
-#### 17.6.13 Confidence is task-local
-
-Confidence remains task- and context-qualified. The Hive does not maintain one undifferentiated scalar representing how "good" the Hive is.
-
-For concurrent tasks $q_1$ and $q_2$:
-
-$$Confidence_H(q_1,t)$$
-
-and:
-
-$$Confidence_H(q_2,t)$$
-
-can evolve independently.
-
-An aggregate operational dashboard can summarize several Confidence signals, but that aggregation is Project Profile defined and does not replace the task-local values.
+The Project Profile or computational components can then be tuned prospectively. Historical Confidence values remain unchanged.
 
 ## 18. Derived no-sphere theorem
 
@@ -7022,7 +6902,7 @@ It specializes the common model for a Product, engineering domain, organization,
 | **Authority and Human input** | Contract parties; explicit authority sources and records; authority kinds and operation-level requirements; Human and non-Human authority Scope and applicability; Contract-Issuer, Contract-revision, Assignment, Decision-commitment, and Acceptance-delegation authority; delegability, delegation limits, revocation, expiry, and role combinations; Human identity/authentication where applicable; Human-input normalization, transformation, Scope, ordering, atomic/joint groups, composability, Decision Space derivation, infeasibility handling, retraction, supersession, and recovery. |
 | **Execution, communication, verification, and integration** | Team API rules; external-party communication constraints and formats; Contract-type execution policies and Executor eligibility; required Contract-type independence and Hive/Actor separation; validation/verification independence topology; integration/composition strategies and validation requirements; integration-input verification and rework rules. |
 | **Exploration, resources, Rollback, and recovery** | Trade Space representation; trajectory rating; Cluster independence; outlier policy; Rollback Cost model; Resource Envelope dimensions and measurement; invention allocation; Waste classification; Contract-execution health, divergence, and back-off; Agent and Contract-role Actor deactivation; reassignment; recovery; termination; post-mortem criteria. |
-| **Confidence** | Response to material Contract and Acceptance failures; representation; observation window; trend calculation; update frequency; inputs from convergence/divergence, Evidence, Decision progression, validation, Resource Cost, remaining Resource Envelope, and historical resolution; permitted stochastic or Monte-Carlo mechanisms; operator-facing representation; permitted automated uses and their Evidence basis; post-mortem tuning and drift assessment. |
+| **Confidence** | Response to material Contract and Acceptance failures; representation; observation window; trend calculation; update frequency; inputs from convergence/divergence, Evidence, Decision progression, validation, Resource Cost, remaining Resource Envelope, and historical resolution; permitted exploration-diversity mechanisms; operator-facing representation; permitted automated uses and their Evidence basis; post-mortem tuning and drift assessment. |
 | **Supporting processes and lifecycle vocabulary** | Configuration Management, Change Management, Baseline, release, deployment, production, risk, quality, and other supporting-process predicates; lifecycle labels for Decisions, Engineering Objects, Work Products, Contracts, and other project elements. |
 
 The Project Profile cannot create authority from Confidence, title, expertise, apparent seniority, conversational style, organizational visibility, or other social cues.
