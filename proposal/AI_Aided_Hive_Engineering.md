@@ -7023,11 +7023,7 @@ The following sources are illustrative/supportive only:
 - Tree of Thoughts: Deliberate Problem Solving with Large Language Models, NeurIPS 2023. https://papers.nips.cc/paper/2023/hash/271db9922b8d1f4dd7aaef84ed5ac703-Abstract-Conference.html
 - Graph of Thoughts: Solving Elaborate Problems with Large Language Models, AAAI 2024. https://ojs.aaai.org/index.php/AAAI/article/view/29720
 
-## 25. Supporting engineering references
-
-Engineering standards and frameworks remain supportive/non-normative in this common proposal unless a Project Profile makes them applicable. Examples include Automotive SPICE, APQP, ISO 26262-family standards, INCOSE requirements guidance, NASA systems/software engineering guidance, and project-specific V-model processes.
-
-## 26. Project supporting material
+## 25. Project supporting material
 
 The following project material informed this revision:
 
