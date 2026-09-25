@@ -2823,15 +2823,7 @@ Where engineering activity determines that another distinct Magnification is req
 
 ### 9.7 Magnification change and permitted Scale traversal
 
-The second meaning of Magnification is operational.
-
-Changing Magnification requests bounded traversal of the underlying graph data model toward a coarser or finer engineering representation.
-
-Conceptually:
-
-$$Magnify(x,m_t)=Project_{m_t}(Traverse(x,m_t,B))$$
-
-where $m_t$ is the target Magnification and $B$ is the applicable traversal budget.
+Operational Magnification follows the established Scale relations toward applicable coarser or finer engineering information.
 
 Magnification operates on engineering information that exists or is explicitly created through governed engineering activity.
 
