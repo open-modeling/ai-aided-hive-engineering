@@ -353,6 +353,8 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Decision Extent** | Propagation reach already materialized by a **Decision** in the Engineering State at a stated time. |
 | **Deprecation** | Ordinary forward engineering evolution in which later engineering supersedes, replaces, or makes earlier materialized engineering obsolete while continuing Product development from that history. |
 | **Delusive Traceability** | Apparently complete traceability created through semantically invalid, fabricated, or unjustified relations. |
+| **Domain Nature** | Classification of an Engineering Domain as **Prescriptive** or **Engineered**. A Prescriptive Domain develops or interprets conditions imposed on Product engineering. An Engineered Domain develops Product or project solutions.<br><br>**Examples:**<br>Prescriptive — legal, regulatory, certification, natural-law.<br>Engineered — customer development, UX, Product engineering, ordering, architecture, implementation, manufacturing. |
+| **Engineering Domain** | Project-defined engineering concern whose Decisions, Contracts, Work Products, Evidence, and other engineering information evolve through Domain-local Engineering Layers on the common Scale. |
 | **Engineering Layer** | Domain-local engineering context associated with one major Scale position and the corresponding Magnification level. An Engineering Layer can contain an execution sub-scale used to arrange local execution topology and gates without changing its major Scale position. |
 | **Engineering Universe** | Theoretical domain of engineering elements, relations, configurations, and outcomes expressible by the common model before Product-, project-, material-, contextual-, or temporal bounds are applied. |
 | **Engineering Space** | Materially and contextually bounded subset of the Engineering Universe applicable to one Product or engineering context. Its bounds can include Product scope, engineering domains, Project Profile, physical constraints, available capability, enabling technology, applicable external constraints, and other non-temporal engineering dimensions. |
@@ -383,6 +385,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Materialized Product State** | Product content materially realized at a stated observation point. |
 | **Magnification** | Function on Scale used in two related senses: the Scale position at which an engineering element belongs, and bounded traversal of the underlying graph data model toward an existing coarser or finer engineering representation. Magnification does not create missing engineering content. |
 | **Micro-agent** | Short-lived, specialized, low-Resource-Cost Agent used for one narrow exploration or validation operation. |
+| **Negotiability** | Classification of a Y Branch as **Negotiable** or **Fixed** for one Product engineering reconciliation. Information from a Prescriptive Domain is Fixed. Information from an Engineered Domain is normally Negotiable and can be Fixed when applicable engineering conditions make source change economically ineffective for the current reconciliation. Both classifications support governed feedback. |
 | **Obligation** | Responsibility of an Executor for the complete result of an assigned Contract. The Executor delivers the required result or explicitly reports inability to fulfil the Contract to the authoritative party or parties. Obligation is Contract semantics, not necessarily a separate stored object. |
 | **Outlier** | Discovered outcome or trajectory with low current cluster support. It remains recorded even when active allocation is zero. |
 | **Overthinking** | Reasoning expenditure whose expected information or decision value is lower than its Resource Cost, or reasoning applied to a result that deterministic state/algebra can establish directly. |
@@ -411,6 +414,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **UNKNOWN** | Required information whose value, validity, applicability, or result has not been established. |
 | **Waste** | Resource consumption that creates neither required governance/validation effect nor reusable progress, evidence, knowledge, or Product value for the active objective. |
 | **Work Product** | Complete required Contract result prepared under a defined schema and Acceptance rule. A Work Product can be an input to another Contract. |
+| **Y Branch** | Consumer-established information flow from an Engineering Domain for a particular Product engineering need. The flow participates in a Y-model reconciliation on the Fixed or Negotiable branch according to Domain Nature and applicable engineering conditions. |
 
 #### Mathematical symbols
 
@@ -2863,19 +2867,26 @@ One governed transfer uses one Exchange Item identity.
 
 For Decision propagation:
 
-$$Decision_iightarrow ExchangeItem_{iightarrow j}ightarrow LocalInterpretation_j.$$
+$$Decision_i
+ightarrow ExchangeItem_{i
+ightarrow j}
+ightarrow LocalInterpretation_j.$$
 
 The Exchange Item delivers the boundary-relative Decision projection.
 
 Where a new local Decision is required:
 
-$$LocalInterpretation_jightarrow Decision_j.$$
+$$LocalInterpretation_j
+ightarrow Decision_j.$$
 
 An Objective Exchange Item transfers a Work Product while the Work Product retains its Engineering Object identity and source-Contract role.
 
 For feedback:
 
-$$Evidence_jightarrow FeedbackExchangeItem_{jightarrow i}ightarrow LocalInterpretation_i.$$
+$$Evidence_j
+ightarrow FeedbackExchangeItem_{j
+ightarrow i}
+ightarrow LocalInterpretation_i.$$
 
 A Feedback Exchange Item is a specialized Informational Exchange Item. It delivers a boundary-relative projection of the originating Evidence.
 
@@ -6440,15 +6451,99 @@ The common temporal condition is:
 
 $$CannotKnowNow\land CanKnowAfter(ProductState).$$
 
-## 15. Recursive Y/V architectural model
+## 15. Recursive Y-model
 
-The recursive Y/V model reconciles negotiable and fixed-horizon sources at every engineering magnification.
+The Y-model defines operational reconciliation rules from the point of view of a particular Product engineering need.
 
-The left branch contains sources that can be negotiated within the current horizon, such as Product requests, UX findings, business choices, or lower-cost design alternatives. The right branch contains sources treated as fixed at that horizon, such as applicable law, established natural constraints, already committed high-cost manufacturing, or other non-negotiable obligations.
+Engineering Domains evolve their Decisions, Contracts, Work Products, Evidence, and other engineering information independently and concurrently.
 
-The center reconciles contradictions and produces a feasible region. Engineering realization then generates evidence, deficiencies, and Product feedback that can reopen the appropriate negotiable side.
+Product engineering establishes the information it requires and requests that information from the applicable Engineering Domains.
 
-The same pattern can recur at Product, system, subsystem, component, implementation, manufacturing, deployment, or another Project Profile layer.
+Each resulting information flow forms a Y Branch for that reconciliation.
+
+### 15.1 Consumer-established information flow
+
+A Y Branch is established by a Product engineering consumer need.
+
+The information flow is pull-driven. Product engineering establishes the need and requests the required information. The source Domain interprets that request, resolves the applicable information, and returns it through an Exchange Item for Product engineering interpretation.
+
+An Engineering Domain does not independently establish or push an information flow into Product engineering.
+
+The consumer request determines the required engineering information.
+
+The source Domain resolves the request against its applicable Engineering State and Magnification.
+
+The Y Branch remains applicable while the consumer need and governed information relationship remain applicable.
+
+A change inside the source Domain does not independently create a downstream information flow.
+
+Where changed source information affects an established consumer need, that established relationship is reassessed through the applicable exchange and feedback mechanisms.
+
+### 15.2 Fixed and Negotiable branches
+
+The Y-model places each Y Branch on the Fixed or Negotiable side of the current Product engineering reconciliation.
+
+Information requested from a Prescriptive Domain is placed on the Fixed branch.
+
+Information requested from an Engineered Domain is normally placed on the Negotiable branch.
+
+Information from an Engineered Domain can instead be placed on the Fixed branch when applicable engineering conditions make changing that source economically ineffective for the current reconciliation.
+
+Both branches support feedback.
+
+The receiving Product engineering activity does not directly modify information governed by another Engineering Domain.
+
+For a Negotiable Y Branch, a receiving finding can request reconsideration by the governing Domain. The governing Domain interprets the feedback, determines whether a Decision or rework is required, and returns revised information through a subsequent Exchange Item where applicable.
+
+A Fixed Y Branch can use the same feedback path.
+
+Its difference is the Product engineering disposition.
+
+Product engineering cannot resolve incompatibility with Fixed information by choosing an economically acceptable deviation from that information.
+
+From the current Product engineering point of view, changing the Fixed-side source lies outside the economically effective Solution Exploration of that reconciliation.
+
+The incompatibility remains explicit until Product engineering finds an admissible solution, establishes infeasibility, or a separately governed change alters the information that caused the Y Branch to be Fixed.
+
+### 15.3 Domain and Scale locality
+
+Cross-Domain information exchange occurs at the same Scale position.
+
+Cross-Scale propagation occurs through adjacent Engineering Layers inside one Engineering Domain.
+
+The two operations are distinct.
+
+One Exchange Item cannot simultaneously change both Engineering Domain and Scale.
+
+The underlying graph can contain arbitrary structural edges, but engineering use of those edges remains subject to Scale, Domain, semantic, Scope, authority, Contract, information-boundary, and relation validation.
+
+Magnification preserves applicable intermediate Engineering Layers and prevents a valid vertical engineering flow from being compacted into a distant direct relation merely because the underlying graph contains such an edge.
+
+### 15.4 Magnification and information relevance
+
+Magnification controls traversal through the Engineering Layers of an Engineering Domain.
+
+The common model does not prescribe a fixed number of Engineering Layers.
+
+Different Domains can contain different engineering detail.
+
+Product engineering requests the information required by its current engineering need.
+
+The source Domain resolves that request at the applicable Magnification.
+
+Fine engineering information remains local while the consumer need does not require it.
+
+When fine engineering creates a material consequence relevant to a coarser Product engineering need, the requested information is resolved through the applicable Domain-local adjacent Layers before the cross-Domain exchange occurs.
+
+The complete fine-detail Work Product does not need to become part of the coarser Product engineering context.
+
+**Illustration — homologation.**
+
+Product engineering pulls required information from a Prescriptive homologation Domain at the applicable Magnification, so the resulting Y Branch is Fixed. Finer homologation engineering remains local until the Product engineering consumer requires information representing its material consequence. This Illustration defines no required homologation process, Layer structure, or implementation binding.
+
+**Illustration — accessibility and UX.**
+
+Accessibility information pulled from a Prescriptive Domain is Fixed, while information pulled from an Engineered UX Domain is normally Negotiable even when the UX Decisions were developed using Fixed accessibility information. This Illustration defines no required accessibility, UX, or implementation process and creates no implementation binding.
 
 ## 16. Supporting processes over Solution Space
 
@@ -6938,7 +7033,7 @@ It specializes the common model for a Product, engineering domain, organization,
 |---|---|
 | **Product and capability** | Product boundaries; admissible Product kinds and Product-intent representation; Product scope and state vocabularies; Product-to-Contract scoping; Product target satisfaction and Product Delivery Contract classes; Product/Work Product relations, composition and materiality; Hive capability representation and acquisition; enabling-technology representation and availability; Product Development Envelope assessment; capability and enablement change detection; external capability, supplier, and tooling involvement; Product-level acceptance, qualification, certification, release, production, deployment, delivery, and their relation to Contract Acceptance. |
 | **Semantic model and relations** | Proposition roles; Engineering Object families; relation vocabulary; source/target signatures; converse labels; validators; semantic-composition rules. |
-| **Scale and engineering topology** | Scale positions; Engineering Layers; domain topology; Magnification traversal; adjacent-layer transfer; same-Scale cross-domain relation rules. |
+| **Scale and engineering topology** | Scale positions; Engineering Layers; Engineering Domain topology and Domain Nature; Magnification traversal; adjacent-layer transfer; same-Scale cross-Domain relation rules; Product engineering consumer-need representation; Y Branch establishment and applicability; Y Branch placement rules; Informational and Objective Exchange Item boundary rules; Feedback Exchange Item rules. |
 | **Work Products, Evidence, and validation** | Work Product schemas; semantic-role constraints; required validators; information-exposure policies; Acceptance rules; Instrumental Checks; Low-profile and High-profile Assessments; escalation and instrumentation-improvement rules; Evidence rules; UNKNOWN materiality; Gap and Future Action policy. |
 | **Contract definition and lifecycle** | Contract-type vocabulary and required fields; identity, revision-materiality, and successor criteria; Product-target representation; Work Product Requirement schema; prerequisite and dependency types, states, and internal/external representation; Contract Resource Budget; Acceptance Specification; information policy; enforcement; supplementary participants; event types and retention; derived runtime views; Contract/Profile migration; readiness prerequisite kinds; lifecycle transition guards; runtime-regression and definition-revision materiality; same-time event ordering; temporary blocking and reassessment; readiness evaluation and resumption; Work Product preparation, submission, and revision handling; Acceptance materiality, dispositions, delegation, and reuse of unaffected validation or Evidence; discontinuation guards; blocker categories; successor and external Contract dependencies. |
 | **Authority and Human input** | Contract parties; explicit authority sources and records; authority kinds and operation-level requirements; Human and non-Human authority Scope and applicability; Contract-Issuer, Contract-revision, Assignment, Decision-commitment, and Acceptance-delegation authority; delegability, delegation limits, revocation, expiry, and role combinations; Human identity/authentication where applicable; Human-input normalization, transformation, Scope, ordering, atomic/joint groups, composability, Decision Space derivation, infeasibility handling, retraction, supersession, and recovery. |
