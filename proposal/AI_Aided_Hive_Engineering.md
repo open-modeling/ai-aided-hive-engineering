@@ -514,29 +514,17 @@ The mathematics below exists to make those observations testable. Sets represent
 
 ### 5.2 Formal statement roles
 
-This proposal separates the role of a mathematical expression from its expression syntax.
+Formal statement roles follow §4.2.3 and remain independent of mathematical expression syntax or serialization.
 
-OpenMath is useful for representing mathematical objects, symbols, Content Dictionaries, and Formal Mathematical Properties. It does not by itself provide the document-level distinction needed here between an axiom, theorem, assumption, and conjecture. OMDoc and TPTP explicitly represent those statement roles. The proposal adopts that role separation without requiring any one serialization format.
+OpenMath supports mathematical objects, symbols, Content Dictionaries, and Formal Mathematical Properties. OMDoc and TPTP explicitly represent statement roles. The proposal uses the role distinction without requiring one serialization format.
 
-**Definition.** Introduces a term, symbol, relation, function, or predicate meaning Can be used after introduction.
-
-**Axiom.** Foundation statement accepted by this proposal and not derived from another proposal statement Basis for derived properties and conformance.
-
-**Assumption.** Explicit scoped condition supplied by a problem or Project Profile Valid only in its declared scope; must not become a universal rule.
-
-**Lemma.** Derived intermediate result Used to simplify a later proof.
-
-**Theorem / Derived Property.** Result derived from Definitions, Axioms, and declared Assumptions Can be used where its proof conditions hold.
-
-**Conjecture.** Proposed relation or property not yet established Cannot support conformance or commitment.
-
-An **Invariant** is a property that must hold in every valid state of a specified scope. Its logical source can be an Axiom, Theorem, Contract rule, or Project Profile rule; `Invariant` is therefore a state-property class, not a separate proof role.
+An **Invariant** is a property that holds in every valid state of a specified Scope. Its logical basis can be an Axiom, Theorem, Contract rule, or Project Profile rule.
 
 A formal statement record conceptually contains:
 
 $$(id,role,intent,statement,scope,dependencies,evidence,validation).$$
 
-The tuple structure defines the record fields without introducing another reusable symbol.
+The tuple identifies conceptual fields only and introduces no reusable mathematical symbol.
 
 ### 5.3 Core set, relation, and graph algebra
 
