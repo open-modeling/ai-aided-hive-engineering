@@ -359,7 +359,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Engineering State** | Temporally bounded subset of an Engineering Space containing the governed engineering elements and relations addressable at one observation point together with their applicable identity, revision, Scope, lifecycle or status, provenance, temporal qualification, and applicability. |
 | **Engineering Object** | Materialized project entity with tool, repository, physical, or document identity. It can carry or materialize one or more Propositions. |
 | **Evidence** | Recorded information used by a defined validator or argument to support a Proposition. Evidence is scope- and role-specific. |
-| **Exchange Item** | Boundary-relative information object used to communicate Propositions, Product interfaces, results, feedback, or other materialized information. |
+| **Exchange Item** | Addressable Proposition node that represents a governed engineering transfer and preserves that transfer for traversal and traceability. An Informational Exchange Item delivers a boundary-relative projection of a Decision or Evidence Proposition. An Objective Exchange Item delivers a Work Product. The Exchange Item retains identity distinct from its transferred content. |
 | **Executor** | Actor responsible for fulfilment of an assigned Contract, including delivery of the required Work Product or explicit reporting that fulfilment cannot be completed. A Human can be an Executor when assigned responsibility for a Contract result. |
 | **Exploration** | Bounded computational attempt to extend, test, compare, or refine the current Solution Space. |
 | **Extremum Exploration** | Exploration intended to discover a different local extremum or challenge whether a materially better region exists outside the current search neighborhood. |
@@ -1594,7 +1594,7 @@ The common minimum communication roles are:
 
 $$CommRole\supseteq\{Question,Request,Clarification\}.$$
 
-Projects can add roles through the Project Profile. Exchange Item is not another conversational role; it is a boundary-relative materialized information role that carries applicable Propositions.
+Projects can add roles through the Project Profile. Exchange Item is not another conversational role; it is an addressable Proposition node used for governed transfer of a Decision or Evidence projection or a Work Product.
 
 ### 6.4 Decision
 
@@ -1624,13 +1624,53 @@ An implementation represents one Decision node across this lifecycle.
 
 ### 6.5 Exchange Item
 
-An Exchange Item is a boundary-relative materialized information object. Its representation is project-specific. It can be a textual document, model file, protocol schema, CAN matrix, Revit artifact, drawing, source code, binary, simulation result, physical sample record, or another information form appropriate to the Product.
+An Exchange Item is an addressable Proposition node that represents a governed engineering transfer.
 
-Exchange Item atomicity is boundary-relative. Feedback can target an internal locator of the Exchange Item when the representation supports it.
+Its graph identity supports forward and reverse traversal, provenance, traceability, revision and temporal qualification, Scope, and relation qualification.
+
+The Exchange Item and the source or transferred engineering element retain separate identities.
+
+Exchange Items have two common kinds.
+
+#### 6.5.1 Informational Exchange Item
+
+An Informational Exchange Item delivers a boundary-relative projection of one Decision or Evidence Proposition.
+
+The projection contains only the semantic information required by the receiving boundary.
+
+The source Decision or Evidence Proposition remains canonically addressable in its originating engineering context.
+
+The projection preserves sufficient source identity and provenance for reverse traversal and traceability.
+
+An Informational Exchange Item does not convert the source Decision or Evidence into an Engineering Object.
+
+#### 6.5.2 Objective Exchange Item
+
+An Objective Exchange Item delivers a Work Product.
+
+The Work Product remains the Contract-produced Engineering Object.
+
+The Objective Exchange Item represents its governed transfer to another Contract or Engineering Layer and preserves the corresponding graph traversal and traceability.
+
+#### 6.5.3 Boundary semantics
+
+Exchange Item atomicity is boundary-relative.
+
+The receiving context consumes only the Decision projection, Evidence projection, or Work Product applicable to that boundary.
+
+An Exchange Item remains addressable after consumption so that the governed transfer can be traversed in both directions.
 
 ### 6.6 Work Product
 
 A Work Product is the Contract-required result offered as complete for the applicable Contract scope.
+
+A Work Product is produced through Contract execution.
+
+A Work Product can subsequently become the transferred content of an Objective Exchange Item when supplied to another Contract or Engineering Layer.
+
+The Work Product remains the complete result of its source Contract. The Objective Exchange Item represents its governed transfer.
+
+Parallel Contracts can produce parallel Work Products independently and concurrently. Their information is exchanged only through applicable governed engineering boundaries.
 
 The Work Product role does not itself prove conformity or Acceptance:
 
@@ -2817,23 +2857,33 @@ This prohibits diagonal shortcuts between parallel Product or engineering-domain
 
 ### 9.8 Exchange Item and Feedback Exchange Item propagation
 
-A consequence crossing an Engineering Layer boundary is materialized through an Exchange Item or Feedback Exchange Item and interpreted at the receiving Layer.
+A consequence crossing an Engineering Layer boundary is transferred through an Exchange Item or Feedback Exchange Item and interpreted at the receiving Layer.
 
-For downward or forward propagation:
+One governed transfer uses one Exchange Item identity.
 
-$$Decision_i\rightarrow ExchangeItem_i\rightarrow Transfer_{i\rightarrow j}\rightarrow ExchangeItem_j\rightarrow LocalInterpretation_j.$$
+For Decision propagation:
+
+$$Decision_iightarrow ExchangeItem_{iightarrow j}ightarrow LocalInterpretation_j.$$
+
+The Exchange Item delivers the boundary-relative Decision projection.
 
 Where a new local Decision is required:
 
-$$LocalInterpretation_j\rightarrow Decision_j.$$
+$$LocalInterpretation_jightarrow Decision_j.$$
 
-For upward feedback:
+An Objective Exchange Item transfers a Work Product while the Work Product retains its Engineering Object identity and source-Contract role.
 
-$$Evidence_j\rightarrow FeedbackExchangeItem_j\rightarrow Transfer_{j\rightarrow i}\rightarrow FeedbackExchangeItem_i\rightarrow LocalInterpretation_i.$$
+For feedback:
 
-The transfer preserves relevant information and provenance.
+$$Evidence_jightarrow FeedbackExchangeItem_{jightarrow i}ightarrow LocalInterpretation_i.$$
 
-It does not make the source Decision, Evidence, or authority directly operative at the receiving Engineering Layer.
+A Feedback Exchange Item is a specialized Informational Exchange Item. It delivers a boundary-relative projection of the originating Evidence.
+
+An Exchange Item originates in one engineering context and is consumed by the context on the other side of its governed boundary. Consumption does not create another Exchange Item identity.
+
+Forward and reverse graph traversal use the same Exchange Item.
+
+The transfer preserves applicable source identity and provenance. It does not make the source Decision, Evidence, Work Product, or authority directly operative at the receiving Engineering Layer.
 
 Every receiving Layer performs its own local interpretation.
 
@@ -5888,25 +5938,17 @@ The Feedback Exchange Item carries only the information appropriate for the rece
 
 ### 12.5 Feedback Exchange Item information discipline
 
-A Feedback Exchange Item is a specialized Exchange Item used to materialize feedback from an affected Engineering Layer toward an adjacent broader Engineering Layer.
+A Feedback Exchange Item is a specialized Informational Exchange Item used to deliver a boundary-relative projection of Evidence from an affected Engineering Layer toward an adjacent broader Engineering Layer.
 
-Its purpose is to communicate the engineering condition that requires reassessment.
+Its purpose is to communicate the Evidence information required for reassessment at the receiving boundary.
 
-It is not a container for unrestricted replication of the originating context.
+The originating Evidence remains associated with its local engineering context and remains canonically addressable.
 
-For Feedback Exchange Item $f_{j\rightarrow i}$:
+The Feedback Exchange Item preserves source identity and provenance sufficient for reverse traversal and explicit retrieval of the originating Evidence.
 
-$$Contents(f_{j\rightarrow i})\subseteq BoundaryRelevant(State_j,B_{j\rightarrow i})$$
+The applicable Project Profile and Contract determine required Evidence projection content, permissible supplementary provenance, information-exposure restrictions, and required Work Product interaction.
 
-where $B_{j\rightarrow i}$ is the applicable boundary.
-
-The applicable Project Profile and Contract determine required feedback information, permissible supplementary information, provenance requirements, Evidence references, information-exposure restrictions, and required Work Product interaction.
-
-The objective is sufficient engineering feedback without unnecessary propagation of local state.
-
-The Feedback Exchange Item therefore does not automatically contain the complete originating Evidence set, all supporting observations, unrelated Evidence, local Decision rationale, complete reasoning history, irrelevant implementation detail, or all materializations of the source Evidence.
-
-This protects foreign Decision contexts from irrelevant information accumulation while preserving traceability to the source.
+The receiving Layer can explicitly retrieve the originating Evidence where the projection is insufficient for its governed engineering activity.
 
 ### 12.6 Evidence and Work Products
 
