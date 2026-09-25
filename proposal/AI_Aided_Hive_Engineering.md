@@ -2,14 +2,9 @@
 title: "AI Aided Hive Engineering Proposal"
 subtitle: "Formal Proposal - Draft 0.40"
 author: "Julia (Ilya) Lebedev <ilya@lebedev.net>"
+copyright: "© 2026 Julia (Ilya) Lebedev"
 date: "24 September 2026"
 ---
-
-**Status.** Accepted Abstract, Part I Section 3, Language Foundation, Contract terminology/Acceptance revisions, Scale/Magnification/Decision Blast Radius/Decision Extent revisions, Check Cascade, Scope/revision/traversal restoration, Maturity/Brittleness restoration, Reshuffling/Rollback, Cluster/divergence resource-survival revisions, Evidence Proposition algebra/feedback-locality/reversible-traceability revisions, Engineering State/computation-boundary revisions, Contract decomposition/execution-topology/authority-locality revisions, and Formal Symbol and Predicate Audit revisions are integrated. Other unresolved formalization items remain unchanged. ASD-STE100 conformance is not claimed without designated checker or review evidence.
-
-**Normative basis.** Approved project discussion and accepted changes through Draft 0.8, aligned with the project dialogue recap and resource-consumption analysis where those sources do not conflict with later decisions.
-
-**Mathematics.** Mathematical expressions are represented as native editable equations in the Word build.
 
 [[STATIC_TOC]]
 
