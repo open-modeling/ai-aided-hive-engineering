@@ -3199,7 +3199,7 @@ the applicable domain contexts are consulted individually.
 
 One domain can absorb the change locally while another requires propagation to another Engineering Layer.
 
-There is no requirement that all affected domains reach the same Magnification level.
+There is no requirement that all affected Domains reach the same Magnification.
 
 Cross-domain coordination remains limited to same-Scale relations.
 
@@ -3237,7 +3237,7 @@ A change requiring both domain transition and Scale transition is decomposed int
 
 > **No Human shortcut:** a Human participating at multiple Engineering Layers does not create cross-layer authority, support, Evidence, or Decision semantics.
 
-> **Magnification band is abnormal:** mixed Magnification levels inside one semantic element require rework assessment.
+> **Magnification band is abnormal:** incompatible Magnifications inside one semantic element require rework assessment.
 
 > **Magnification-band effect is mediated through Brittleness:** $MagnificationBand\rightarrow Brittleness\rightarrow Confidence$ where applicable.
 
