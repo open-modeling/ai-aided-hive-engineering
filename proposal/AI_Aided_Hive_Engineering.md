@@ -2867,26 +2867,19 @@ One governed transfer uses one Exchange Item identity.
 
 For Decision propagation:
 
-$$Decision_i
-ightarrow ExchangeItem_{i
-ightarrow j}
-ightarrow LocalInterpretation_j.$$
+$$Decision_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow LocalInterpretation_j.$$
 
 The Exchange Item delivers the boundary-relative Decision projection.
 
 Where a new local Decision is required:
 
-$$LocalInterpretation_j
-ightarrow Decision_j.$$
+$$LocalInterpretation_j\rightarrow Decision_j.$$
 
 An Objective Exchange Item transfers a Work Product while the Work Product retains its Engineering Object identity and source-Contract role.
 
 For feedback:
 
-$$Evidence_j
-ightarrow FeedbackExchangeItem_{j
-ightarrow i}
-ightarrow LocalInterpretation_i.$$
+$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow LocalInterpretation_i.$$
 
 A Feedback Exchange Item is a specialized Informational Exchange Item. It delivers a boundary-relative projection of the originating Evidence.
 
@@ -6839,11 +6832,9 @@ Confidence can also be evaluated for a trajectory or a scoped Decision context w
 
 Confidence is related to convergence and divergence without being equivalent to either:
 
-$$Convergence
-ot\Rightarrow HighConfidence$$
+$$Convergence\not\Rightarrow HighConfidence$$
 
-$$Divergence
-ot\Rightarrow LowConfidence.$$
+$$Divergence\not\Rightarrow LowConfidence.$$
 
 Confidence remains distinct from the Resource Envelope itself.
 
@@ -6861,13 +6852,11 @@ A high or low Confidence indication therefore establishes none of those properti
 
 Confidence is not Back-off:
 
-$$Confidence
-eq BackOff.$$
+$$Confidence\neq BackOff.$$
 
 Low Confidence does not itself require Back-off:
 
-$$LowConfidence_H(	au,t)
-ot\Rightarrow BackOff(	au).$$
+$$LowConfidence_H(\tau,t)\not\Rightarrow BackOff(\tau).$$
 
 Back-off remains governed by the divergence and resource rules of §§17.4–17.5.
 
