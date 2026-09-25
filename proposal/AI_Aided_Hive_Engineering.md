@@ -2464,7 +2464,8 @@ It evaluates bounded semantic properties using semi-instrumented structures such
 - defined review questions;
 - semantic-role rules;
 - expected information patterns;
-- domain-specific review templates;- bounded consistency criteria.
+- domain-specific review templates;
+- bounded consistency criteria.
 
 Its purpose is to align semantics on top of formally valid engineering information without reopening unrestricted engineering reasoning.
 
@@ -3100,7 +3101,7 @@ A material deviation between calculated Blast Radius and observed Decision Exten
 
 ### 9.20 Decision Extent and Brittleness
 
-Decision Decision Extent and Brittleness answer different questions.
+Decision Extent and Brittleness answer different questions.
 
 **Decision Extent asks:**
 
@@ -3136,7 +3137,6 @@ If the Layer absorbs the change locally, propagation stops.
 
 If it cannot, the applicable information is materialized for the next adjacent Engineering Layer.
 
-### 9.22 Multi-domain change
 ### 9.22 Multi-domain change
 
 A Decision can affect several engineering domains.
