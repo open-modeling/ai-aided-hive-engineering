@@ -38,6 +38,30 @@ else:
         if subtitle and META["proposal"]["version"] not in subtitle.group(1):
             errors.append("proposal subtitle version does not match project.toml")
 
+    # Examples and Illustrations are explanatory publication blocks, not headings or custom-style divs.
+    if re.search(r'custom-style=["\'](?:Illustration|Example)["\']', text, re.I):
+        errors.append("Examples/Illustrations must use portable block quotes, not custom-style divs")
+
+    for lineno, line in enumerate(text.splitlines(), start=1):
+        stripped = line.strip()
+        if re.match(r'^#{1,6}\s+', stripped) and re.search(r'\b(?:Example|Illustration)s?\b', stripped, re.I):
+            if stripped != "#### 4.2.1 Examples and Illustrations":
+                errors.append(f"Example/Illustration must not be a heading: line {lineno}")
+
+        if re.match(r'^\*\*(?:Example|Illustration)\b', stripped, re.I):
+            errors.append(f"Example/Illustration label must be inside a block quote: line {lineno}")
+
+        representative = re.search(
+            r'\b(?:for example|examples? include|illustrative examples?|such as)\b',
+            stripped,
+            re.I,
+        )
+        if representative:
+            in_explanatory_block = stripped.startswith(">")
+            labelled_dictionary_example = stripped.startswith("|") and "**Examples:**" in stripped
+            if not in_explanatory_block and not labelled_dictionary_example:
+                errors.append(f"unlabelled representative/example phrasing: line {lineno}")
+
     # Markdown image references excluding remote URLs/data URIs.
     for target in re.findall(r'!\[[^\]]*\]\(([^)\s]+)', text):
         if re.match(r'^[a-zA-Z][a-zA-Z0-9+.-]*:', target):
