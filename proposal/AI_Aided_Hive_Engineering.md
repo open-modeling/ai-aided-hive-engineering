@@ -45,9 +45,9 @@ The intended result is faster and more stable engineering delivery through lower
 | Engineering traceability | Added by application | Usually outside the reasoning method | Native part of the state and relation algebra |
 | Cross-layer authority | Workflow-dependent | Usually not modeled | Explicitly blocked unless materialized and locally reconciled |
 
-::: {custom-style="Illustration"}
-**Illustration - established patterns.** Current agent frameworks commonly expose manager/worker, agents-as-tools, handoff, crew, task, process, memory, and conversation concepts. OpenAI Agents SDK and CrewAI are examples of this family. Tree of Thoughts and Graph of Thoughts are examples of deliberate reasoning-space search. These examples illustrate the comparison categories; they do not define proposal conformance.
-:::
+> **Illustration — established patterns.**
+>
+> Current agent frameworks commonly expose manager/worker, agents-as-tools, handoff, crew, task, process, memory, and conversation concepts. OpenAI Agents SDK and CrewAI are examples of this family. Tree of Thoughts and Graph of Thoughts are examples of deliberate reasoning-space search. These examples illustrate the comparison categories; they do not define proposal conformance.
 
 ### 2.2 Project evidence for communication cost
 
@@ -85,7 +85,7 @@ The proposal addresses a coordination problem rather than a lack of AI capabilit
 - Incomplete knowledge should remain visible. A known gap is safer than an apparently complete but unjustified engineering chain.
 - Failure should be exposed early. Fast failure followed by reassessment is healthier than forced continuation after an engineering path has become unsound, because forced execution accumulates rework, invalid evidence, and downstream cost.
 - Engineering information exists at different levels of Product decomposition and abstraction. Their relations must remain explicit without allowing detailed local reasoning to acquire unintended authority elsewhere.
-- Alternatives, rejected directions, outliers, and the reasoning behind past Decisions are valuable engineering knowledge. Good projects already record part of this information, for example through ADRs in software engineering, but those records often become large, weakly structured collections with poor evolution, visibility, and traceability to the Product elements they affected.
+- Alternatives, rejected directions, outliers, and the reasoning behind past Decisions are valuable engineering knowledge. Good projects already record part of this information in local decision records, but those records often become large, weakly structured collections with poor evolution, visibility, and traceability to the Product elements they affected.
 - Decision history should therefore remain connected to the relevant Product state, evidence, alternatives, and later changes instead of becoming detached documentation.
 - The model should support software, physical products, mixed systems, and established engineering lifecycles without assuming one artifact taxonomy or organizational structure.
 
@@ -196,21 +196,19 @@ Each region of mixed content follows the rule applicable to its information type
 
 The following clauses define proposal-specific treatment required by the formal engineering model.
 
-#### 4.2.1 Illustrations
+#### 4.2.1 Examples and Illustrations
 
-Illustrations provide explanation, demonstration, and context for proposal concepts.
+Examples and Illustrations provide non-binding explanation, demonstration, and context for proposal concepts.
 
-An Illustration can contain:
+An **Example** presents a bounded representative instance, value, relation, or use of a proposal concept.
 
-- representative engineering situations;
-- examples;
-- example values;
-- possible implementations;
-- explanatory scenarios.
+An **Illustration** presents a broader explanatory situation, scenario, or visual interpretation.
 
-Definitions, axioms, relation semantics, Project Profile defaults, Contract obligations, conformance criteria, and other formal properties are established by their designated proposal clauses.
+Outside the dictionary, each Example or Illustration is visually separated from formal proposal content and begins with an explicit bold **Example** or **Illustration** label. The proposal source uses a block quotation for this explanatory content so Word and PDF publication preserve a visible distinction from surrounding proposal clauses.
 
-Illustrations are visually separated from formal proposal content and explicitly identified as **Illustration**.
+Dictionary examples remain inside the applicable term definition, begin with the explicit label **Examples:**, and do not establish implementation bindings.
+
+Definitions, axioms, relation semantics, Project Profile defaults, Contract obligations, conformance criteria, and other formal properties are established only by their designated proposal clauses. Examples and Illustrations do not establish or extend those properties.
 
 #### 4.2.2 Normative provisions
 
@@ -353,7 +351,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Decision Extent** | Propagation reach already materialized by a **Decision** in the Engineering State at a stated time. |
 | **Deprecation** | Ordinary forward engineering evolution in which later engineering supersedes, replaces, or makes earlier materialized engineering obsolete while continuing Product development from that history. |
 | **Delusive Traceability** | Apparently complete traceability created through semantically invalid, fabricated, or unjustified relations. |
-| **Domain Nature** | Classification of an Engineering Domain as **Prescriptive** or **Engineered**. A Prescriptive Domain develops or interprets conditions imposed on Product engineering. An Engineered Domain develops Product or project solutions.<br><br>**Examples:**<br>Prescriptive — legal, regulatory, certification, natural-law.<br>Engineered — customer development, UX, Product engineering, ordering, architecture, implementation, manufacturing. |
+| **Domain Nature** | Classification of an Engineering Domain as **Prescriptive** or **Engineered**. A Prescriptive Domain develops or interprets conditions imposed on Product engineering. An Engineered Domain develops Product or project solutions. |
 | **Engineering Domain** | Project-defined engineering concern whose Decisions, Contracts, Work Products, Evidence, and other engineering information evolve through Domain-local Engineering Layers on the common Scale. |
 | **Engineering Layer** | Domain-local engineering context established for engineering information at one Magnification. Engineering Layers occupy relative positions on the common Scale. Additional Layers can be established when engineering information requires an intermediate Magnification. An Engineering Layer can contain an execution sub-scale without creating another Engineering Layer. |
 | **Engineering Universe** | Theoretical domain of engineering elements, relations, configurations, and outcomes expressible by the common model before Product-, project-, material-, contextual-, or temporal bounds are applied. |
@@ -381,7 +379,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Justification** | Valid relation/evidence structure that satisfies the applicable validators for using a Proposition as a decision, trace, or commitment basis. |
 | **Known Gap** | Gap whose existence and scope are known and recorded. |
 | **Local Optimum / Local Extremum** | Best/extreme candidate relative to a declared neighborhood or currently explored region, not the entire theoretical Solution Space. |
-| **Low-profile Assessment** | Bounded, semi-instrumented semantic assessment using explicit checklists, questions, local rules, or similar structures. |
+| **Low-profile Assessment** | Bounded, semi-instrumented semantic assessment using project-defined bounded structures. |
 | **Materialized Product State** | Product content materially realized at a stated observation point. |
 | **Magnification** | Operator on Scale used to locate engineering information by relative engineering order and to perform bounded traversal toward applicable coarser or finer engineering information. Magnification uses the Scale relations established among Engineering Layers and does not create missing engineering content. |
 | **Micro-agent** | Short-lived, specialized, low-Resource-Cost Agent used for one narrow exploration or validation operation. |
@@ -392,12 +390,12 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Product** | Coherent engineered subject and primary top-level scope/intent of Hive operation. The Product identifies what the Hive is working to establish, evolve, analyze, verify, realize, or deliver and bounds the corresponding engineering context. Actual Product development is bounded by available Hive capabilities, enabling technology, authority, and resources. |
 | **Product Delivery** | Specialization of Contract fulfilment in which fulfilment requires satisfaction of an explicit Product target state in addition to Acceptance of the required Work Product. |
 | **Product Evolution History** | Temporally ordered governed history of Product engineering, including Decisions, Evidence, Contracts, Work Products, exploration outcomes, supersession, deprecation, Rollback, Gaps, and other retained engineering information. |
-| **Project Profile** | Formal project input that defines open parameters such as relation vocabulary, scale topology, Work Product schemas, validators, authority, resource models, lifecycle predicates, and validation independence. |
+| **Project Profile** | Formal project input that defines proposal-identified open parameters. |
 | **Proposition** | Core addressable semantic element of the solution model. It is not an Engineering Object by default. It can later be materialized, carried, or realized by Engineering Objects. |
 | **Relation** | Typed semantic or structural association between addressable elements, qualified by scope, revision, time, and Project Profile semantics. |
 | **Reshuffling** | Primarily vertical Decision rework caused when an Engineering Layer committed downstream constraints without sufficient exploration to support delivery through affected downstream layers. A downstream finding becomes Reshuffling when it cannot be absorbed locally and requires Decision change at an adjacent or higher Engineering Layer. |
 | **Resource Cost** | Multi-dimensional consumption caused by an operation, exploration, Contract, trajectory, or change. |
-| **Resource Envelope** | Declared availability/limits for relevant resource dimensions such as context, model calls, compute, wall time, money, human effort, energy, equipment, and external capacity. It is not a universal scalar. |
+| **Resource Envelope** | Declared availability/limits for project-defined resource dimensions. It is not a universal scalar. |
 | **Rollback** | Evidence-supported engineering activity that completely cancels one previously committed Decision on one Engineering Layer. Rollback removes from current materialization the same-Layer engineering consequences that cannot remain valid after cancellation of that Decision, while retaining compatible parallel engineering and historical addressability. |
 | **Rollback Closure** | Least same-Layer set of Decisions, Contracts, and Work Products that have to be cancelled or rematerialized together for a Rollback to completely cancel its target Decision while leaving a valid same-Layer remainder. |
 | **Rollback Contract** | Contract governing one Rollback. It identifies the committed Decision being cancelled, applicable Evidence, the Rollback Closure, the expected resulting state, required Work Product, and Acceptance conditions. |
@@ -879,7 +877,7 @@ $$AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\not\Rightarrow Authorize
 
 Contract Issuer, Executor, Acceptance delegate, Human Decision authority, request originator, Work Product producer, and Engineering Layer participant remain distinct roles.
 
-For example:
+The following implications express that separation:
 
 $$Executor(C)=a\not\Rightarrow Issuer(C)=a$$
 
@@ -1142,7 +1140,7 @@ For a Human response to create Binding, Decision semantics and applicable author
 
 $$Binding(d,\sigma,t)\Rightarrow DecisionKind(d,\kappa)\land AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\land ApplicableDecisionConditionsSatisfied(d,\kappa).$$
 
-The common model does not introduce a generic `HumanOverride` primitive. A Human can cause a major change through ordinary governed concepts such as Human ingress, Decision, Contract revision, Assignment, Work Product, Product transition, and successor Engineering State.
+The common model does not introduce a generic `HumanOverride` primitive. A Human can cause a major change through the applicable ordinary governed concepts: Human ingress, Decision, Contract revision, Assignment, Work Product, Product transition, successor Engineering State, and other explicitly governed mechanisms defined by the applicable Project Profile.
 
 A Human input or authority change that materially revises a Contract feeds the existing revision-aware Contract FSM. It does not create a separate Human lifecycle.
 
@@ -1560,7 +1558,7 @@ Engineering State and its governed relations provide the common semantic referen
 
 A Proposition is the core addressable semantic graph node. It can represent a claim, need, candidate structure, Decision, interface intent, expected behavior, constraint, question, request, gap statement, or another addressable semantic unit.
 
-An Engineering Object is a materialized project entity such as a requirement record, document, model element, source file, binary, simulation result, test artifact, physical part, assembly, configuration record, or other tool/physical item.
+An Engineering Object is a materialized project entity with tool, repository, physical, or document identity.
 
 Materialization is many-to-many:
 
@@ -1720,19 +1718,21 @@ Unaffected Evidence or validation can be reused only where the applicable Projec
 
 A Product is the coherent engineered subject and the primary scope and intent anchor for Hive operation.
 
-A Product can be, for example:
-
-- a mobile application;
-- a book;
-- an SoC;
-- a software component;
-- an electronic or mechanical component;
-- a complex device;
-- a vehicle;
-- a system-of-systems;
-- another project-defined engineered subject.
-
-These examples do not constrain Product kind.
+> **Example — Product kinds.**
+>
+> A Product can be:
+>
+> - a mobile application;
+> - a book;
+> - an SoC;
+> - a software component;
+> - an electronic or mechanical component;
+> - a complex device;
+> - a vehicle;
+> - a system-of-systems;
+> - another project-defined engineered subject.
+>
+> These examples do not constrain Product kind.
 
 The Product establishes the top-level engineering context within which the Hive operates. Conceptually:
 
@@ -1864,7 +1864,9 @@ $$Enablement(P,t)$$
 
 represent the applicable set of technologies, facilities, tools, platforms, infrastructure, processes, and external technical capabilities available for Product development.
 
-Illustrative examples include programming languages and frameworks, EDA/CAD/CAE tools, fabrication technologies, semiconductor process nodes, test equipment, manufacturing methods, simulation environments, laboratories, cloud/compute infrastructure, publishing technologies, third-party platforms, and external engineering services.
+> **Example — enabling technology.**
+>
+> Programming languages and frameworks, EDA/CAD/CAE tools, fabrication technologies, semiconductor process nodes, test equipment, manufacturing methods, simulation environments, laboratories, cloud/compute infrastructure, publishing technologies, third-party platforms, and external engineering services are possible enabling technologies. This example does not constrain the project-defined Enablement set.
 
 A theoretically valid Product solution can remain unavailable when required enabling technology does not exist or is inaccessible. Therefore:
 
@@ -1914,13 +1916,13 @@ $$DevelopmentEnvelope_H(P,t_1)\neq DevelopmentEnvelope_H(P,t_2)$$
 
 can occur even when Product intent is unchanged.
 
-For example:
-
-$$NewTool\rightarrow ExpandedCapability\rightarrow ExpandedDevelopmentEnvelope$$
-
-or:
-
-$$SupplierUnavailable\rightarrow ReducedEnablement\rightarrow ReducedDevelopmentEnvelope.$$
+> **Example — Development Envelope change.**
+>
+> $$NewTool\rightarrow ExpandedCapability\rightarrow ExpandedDevelopmentEnvelope$$
+>
+> or:
+>
+> $$SupplierUnavailable\rightarrow ReducedEnablement\rightarrow ReducedDevelopmentEnvelope.$$
 
 A Product path that was previously infeasible can later become feasible without changing Product identity. A previously feasible Product path can likewise become unavailable.
 
@@ -2065,7 +2067,9 @@ A verification, analysis, feasibility, testing, planning, Evidence-generation, o
 
 Product target satisfaction is established according to the Contract and applicable engineering method. The common proposal does not prescribe how that target is technically demonstrated.
 
-Illustrative project-defined mechanisms can include direct state observation, integration result, test Evidence, manufacturing result, deployed state, delivered physical item, accepted configuration, or another domain-specific mechanism.
+> **Example — Product target demonstration.**
+>
+> Project-defined mechanisms can include direct state observation, integration result, test Evidence, manufacturing result, deployed state, delivered physical item, accepted configuration, or another domain-specific mechanism. This example does not prescribe the mechanism used by a Project Profile.
 
 The common semantic requirement is only that:
 
@@ -2193,13 +2197,15 @@ $$r^{\smile}=\{(y,x)\mid(x,y)\in r\}.$$
 
 The converse is a derived view of the same relation. It is not a second independently asserted graph fact.
 
-A Project Profile can define human-readable labels for both directions. For example:
+A Project Profile can define human-readable labels for both directions.
 
-$$Supports_{\kappa}\Longleftrightarrow IsSupportedBy_{\kappa}$$
-
-where:
-
-$$IsSupportedBy_{\kappa}=Supports_{\kappa}^{\smile}.$$
+> **Example — converse labels.**
+>
+> $$Supports_{\kappa}\Longleftrightarrow IsSupportedBy_{\kappa}$$
+>
+> where:
+>
+> $$IsSupportedBy_{\kappa}=Supports_{\kappa}^{\smile}.$$
 
 Therefore:
 
@@ -2284,7 +2290,7 @@ where:
 - $y^j$ is the target Proposition revision;
 - $\sigma$ is the affected Scope;
 - $I$ is the applicability interval;
-- $\kappa$ contains relation-specific context such as authority, Contract, Engineering Layer, or Project Profile.
+- $\kappa$ contains the relation-specific context defined for the relation family; common context dimensions are authority, Contract, Engineering Layer, and Project Profile.
 
 Historical relation instances are preserved. A later relation does not destructively rewrite the earlier fact.
 
@@ -2393,15 +2399,15 @@ $$Confidence\neq ComputationalAssuranceMetric.$$
 
 A probability estimate, confidence interval, precision value, uncertainty bound, reliability estimate, statistical test result, simulation distribution, or similar quantity retains its own mathematical semantics. Confidence can use such quantities as inputs; it cannot silently reinterpret itself as one of them.
 
-Therefore a value such as:
-
-$$Confidence_H(q,t)=0.82$$
-
-does not mean:
-
-$$P(Success(q))=0.82$$
-
-unless a Project Profile separately defines such a probabilistic model. In that case the probability remains a distinct computational quantity and is not the definition of Confidence.
+> **Example — Confidence value.**
+>
+> $$Confidence_H(q,t)=0.82$$
+>
+> does not mean:
+>
+> $$P(Success(q))=0.82$$
+>
+> unless a Project Profile separately defines such a probabilistic model. In that case the probability remains a distinct computational quantity and is not the definition of Confidence.
 
 ### 8.3.3 Confidence is not materialized engineering content
 
@@ -2492,14 +2498,18 @@ Passing an Instrumental Check establishes only the property checked by that inst
 
 Low-profile Assessment operates only after the applicable Instrumental Checks have passed.
 
-It evaluates bounded semantic properties using semi-instrumented structures such as:
+It evaluates bounded semantic properties using semi-instrumented structures.
 
-- controlled checklists;
-- defined review questions;
-- semantic-role rules;
-- expected information patterns;
-- domain-specific review templates;
-- bounded consistency criteria.
+> **Example — Low-profile Assessment structures.**
+>
+> Representative structures include:
+>
+> - controlled checklists;
+> - defined review questions;
+> - semantic-role rules;
+> - expected information patterns;
+> - domain-specific review templates;
+> - bounded consistency criteria.
 
 Its purpose is to align semantics on top of formally valid engineering information without reopening unrestricted engineering reasoning.
 
@@ -2621,13 +2631,15 @@ A finding that changes the assessed subject invalidates every affected result do
 
 After correction, Decision rework, or another disposition, checking resumes from the cheapest check class whose result can have been affected.
 
-For example, a Low-profile finding that causes a structural change returns through Instrumental Checks before Low-profile Assessment is repeated:
-
-$$LowProfile \xrightarrow{finding} DecisionRework \rightarrow Instrumental \rightarrow LowProfile$$
-
-A High-profile finding that causes broader rework similarly returns through the complete affected cascade:
-
-$$HighProfile \xrightarrow{finding} DecisionRework \rightarrow Instrumental \rightarrow LowProfile \rightarrow HighProfile$$
+> **Example — check-cascade re-entry.**
+>
+> A Low-profile finding that causes a structural change returns through Instrumental Checks before Low-profile Assessment is repeated:
+>
+> $$LowProfile \xrightarrow{finding} DecisionRework \rightarrow Instrumental \rightarrow LowProfile$$
+>
+> A High-profile finding that causes broader rework similarly returns through the complete affected cascade:
+>
+> $$HighProfile \xrightarrow{finding} DecisionRework \rightarrow Instrumental \rightarrow LowProfile \rightarrow HighProfile$$
 
 A finding also triggers the coverage-discipline rule in Section 8.5.5.
 
@@ -2797,9 +2809,9 @@ Cross-Domain alignment does not create missing intermediate Layers in either Dom
 
 An intermediate Layer is established only where that Domain's engineering information requires another Magnification.
 
-**Illustration.**
-
-Two Domains can contain different numbers of Engineering Layers while still having particular Layers aligned for direct cross-Domain information exchange. This Illustration defines no mandatory Layer hierarchy, Layer count, or naming scheme.
+> **Illustration — parallel Domain alignment.**
+>
+> Two Domains can contain different numbers of Engineering Layers while still having particular Layers aligned for direct cross-Domain information exchange. This Illustration defines no mandatory Layer hierarchy, Layer count, or naming scheme.
 
 ### 9.6 Magnification
 
@@ -3251,9 +3263,9 @@ A change requiring both domain transition and Scale transition is decomposed int
 
 > **Execution depth can use a local sub-scale without changing engineering Scale.**
 
-**Illustration — Figure 9-1.**
-
-Figure 9-1 visualizes the interval Scale, dynamic Engineering Layer refinement, Magnification traversal, parallel Engineering Domains, same-Scale cross-Domain exchange, adjacent-Layer propagation, execution sub-scale, Decision Blast Radius, and Decision Extent. It shows prohibited diagonal and Layer-skipping transfers only as rejected cases. The figure derives from §9 and introduces no additional semantics. The rendering specification is maintained in `../assets/prompts/figure_9_1_prompt.md`.
+> **Illustration — Figure 9-1.**
+>
+> Figure 9-1 visualizes the interval Scale, dynamic Engineering Layer refinement, Magnification traversal, parallel Engineering Domains, same-Scale cross-Domain exchange, adjacent-Layer propagation, execution sub-scale, Decision Blast Radius, and Decision Extent. It shows prohibited diagonal and Layer-skipping transfers only as rejected cases. The figure derives from §9 and introduces no additional semantics. The rendering specification is maintained in `../assets/prompts/figure_9_1_prompt.md`.
 
 
 ## 10. Decisions, trade space, exploration, and human intervention
@@ -3370,9 +3382,9 @@ Deprecation and Rollback describe different Product evolution.
 
 Rollback therefore acts on current Product realization rather than returning the Product to the historical state that existed before the cancelled Decision. Product Evolution History remains in $K_t$ while active Materialized Product State changes.
 
-::: {custom-style="Illustration"}
-**Illustration - Deprecation versus Rollback.** An earlier Product realization uses incandescent lighting. Ordinary engineering later replaces it with LED lighting; this is Deprecation because the Product continues through the newer lighting realization. In parallel, the wiring-harness topology evolves for unrelated engineering reasons. A later Rollback cancels the original lighting Decision completely. Because the LED realization belongs to the continuation of that Decision, the lighting succession is included in the Rollback Closure. The current wiring-harness topology remains because it is outside that closure. The resulting Product retains the parallel harness evolution and contains no materialized realization of the cancelled lighting Decision. The Product is not restored to the earlier historical snapshot.
-:::
+> **Illustration — Deprecation versus Rollback.**
+>
+> An earlier Product realization uses incandescent lighting. Ordinary engineering later replaces it with LED lighting; this is Deprecation because the Product continues through the newer lighting realization. In parallel, the wiring-harness topology evolves for unrelated engineering reasons. A later Rollback cancels the original lighting Decision completely. Because the LED realization belongs to the continuation of that Decision, the lighting succession is included in the Rollback Closure. The current wiring-harness topology remains because it is outside that closure. The resulting Product retains the parallel harness evolution and contains no materialized realization of the cancelled lighting Decision. The Product is not restored to the earlier historical snapshot.
 
 #### 10.4.3 Rollback Closure
 
@@ -3548,18 +3560,20 @@ $$type(C^k)$$
 
 identifies the Project Profile-defined Contract class relevant to execution policy and other Contract-specific rules.
 
-Contract type can distinguish, for example:
+Contract type is Project Profile-defined. The common model does not define a universal Contract taxonomy.
 
-- development;
-- production;
-- verification;
-- test;
-- integration;
-- analysis;
-- external supply;
-- another project-defined Contract class.
-
-The common model does not define a universal Contract taxonomy.
+> **Example — Contract types.**
+>
+> A Project Profile can distinguish:
+>
+> - development;
+> - production;
+> - verification;
+> - test;
+> - integration;
+> - analysis;
+> - external supply;
+> - another project-defined Contract class.
 
 The existing execution-policy relation remains:
 
@@ -3700,15 +3714,19 @@ Each definition references its applicable execution policy:
 
 $$ExecutionPolicyRef(C^k).$$
 
-Resolved policy determines constraints such as:
+Resolved policy determines applicable execution constraints.
 
-- Executor eligibility;
-- independence;
-- prohibited role combinations;
-- development/verification separation;
-- permitted Hive topology;
-- external-party constraints;
-- required physical or organizational separation.
+> **Example — execution-policy constraints.**
+>
+> Applicable constraints can include:
+>
+> - Executor eligibility;
+> - independence;
+> - prohibited role combinations;
+> - development/verification separation;
+> - permitted Hive topology;
+> - external-party constraints;
+> - required physical or organizational separation.
 
 Validity requires:
 
@@ -3802,19 +3820,21 @@ $$DependsOn(C_i,C_j,\delta).$$
 
 A dependency does **not** automatically mean that the target Contract must be `FULFILLED`.
 
-For example the required condition can be:
-
-$$State(C_j)=READY$$
-
-or:
-
-$$State(C_j)=FULFILLED$$
-
-or:
-
-$$Accepted(w_j,C_j)$$
-
-or another defined predicate.
+> **Example — dependency conditions.**
+>
+> A required condition can be:
+>
+> $$State(C_j)=READY$$
+>
+> or:
+>
+> $$State(C_j)=FULFILLED$$
+>
+> or:
+>
+> $$Accepted(w_j,C_j)$$
+>
+> or another defined predicate.
 
 Thus:
 
@@ -4012,13 +4032,15 @@ This is a conceptual runtime projection.
 
 Not every field exists in every state.
 
-For example, before submission:
-
-$$SubmissionRef=\varnothing.$$
-
-Before Acceptance:
-
-$$AcceptanceAttemptRef=\varnothing.$$
+> **Example — absent runtime references.**
+>
+> Before submission:
+>
+> $$SubmissionRef=\varnothing.$$
+>
+> Before Acceptance:
+>
+> $$AcceptanceAttemptRef=\varnothing.$$
 
 The lifecycle state is therefore not embedded permanently into the definition revision.
 
@@ -4103,19 +4125,19 @@ This preserves the proposal's state-centric, low-context-overhead architecture.
 
 Common Contract properties can be computed from definition plus history.
 
-For example:
-
-$$CurrentDefinition(C,t)$$
-
-$$CurrentExecutor(C,t)$$
-
-$$CurrentState(C,t)$$
-
-$$CurrentBlockers(C,t)$$
-
-$$LatestSubmission(C,t)$$
-
-$$LatestAcceptanceDisposition(C,t).$$
+> **Example — derived Contract views.**
+>
+> $$CurrentDefinition(C,t)$$
+>
+> $$CurrentExecutor(C,t)$$
+>
+> $$CurrentState(C,t)$$
+>
+> $$CurrentBlockers(C,t)$$
+>
+> $$LatestSubmission(C,t)$$
+>
+> $$LatestAcceptanceDisposition(C,t).$$
 
 These are derived views.
 
@@ -4159,19 +4181,23 @@ Therefore:
 
 $$ContractExists(C)\not\Rightarrow Executable(C).$$
 
-A partially specified Contract can remain `DEFINED` while missing, for example:
+A partially specified Contract can remain `DEFINED` while required executable information is missing.
 
-- valid Assignment;
-- required prerequisite information;
-- Resource Budget;
-- dependency resolution;
-- another required executable-field value.
+> **Example — incomplete Contract definition.**
+>
+> Missing information can include:
+>
+> - valid Assignment;
+> - required prerequisite information;
+> - Resource Budget;
+> - dependency resolution;
+> - another required executable-field value.
 
 Missing required Contract information remains explicit under truthful incompleteness.
 
 ##### 11.1.1.30 Material Contract revision
 
-A change requires a Contract-definition revision when it alters governed Contract semantics such as:
+A change requires a Contract-definition revision when it alters governed Contract semantics material to the Contract definition. Applicable semantics include:
 
 - Product target;
 - required Work Product;
@@ -4196,14 +4222,14 @@ The earlier definition remains addressable.
 
 Not every environmental change revises the Contract.
 
-For example:
-
-- required compute becomes temporarily unavailable;
-- an external dependency changes state;
-- a blocker is cleared;
-- a test facility becomes available.
-
-These events can change runtime lifecycle state while the Contract definition remains unchanged.
+> **Example — runtime condition changes.**
+>
+> The following can change runtime lifecycle state while the Contract definition remains unchanged:
+>
+> - required compute becomes temporarily unavailable;
+> - an external dependency changes state;
+> - a blocker is cleared;
+> - a test facility becomes available.
 
 Therefore:
 
@@ -4397,7 +4423,9 @@ Execution remains bounded Solution Exploration and remains subject to Resource E
 
 $$BLOCKED(C)\Rightarrow RecordedBlocker(C).$$
 
-Examples include temporary resource unavailability, an unfinished dependency, unavailable external input, temporary physical access failure, or a temporarily unresolved required condition.
+> **Example — temporary blockers.**
+>
+> Temporary resource unavailability, an unfinished dependency, unavailable external input, temporary physical access failure, or a temporarily unresolved required condition can place an executing Contract in `BLOCKED` while the Contract basis remains potentially valid.
 
 **SUBMITTED.** A Contract enters `SUBMITTED` only after explicit submission of a prepared Work Product revision.
 
@@ -4454,7 +4482,9 @@ $$\delta_C(\delta_C(q,e_a),e_b)\neq\delta_C(\delta_C(q,e_b),e_a)$$
 
 in general.
 
-For example, loss of a readiness prerequisite before execution starts can produce a different lifecycle path from loss of the same resource after execution has started.
+> **Example — event-order effect.**
+>
+> Loss of a readiness prerequisite before execution starts can produce a different lifecycle path from loss of the same resource after execution has started.
 
 Event order is therefore part of Contract history.
 
@@ -4514,7 +4544,7 @@ A condition that invalidates the Contract basis is not merely a blocker.
 
 ##### 11.1.6.5 Reassessment guard
 
-Define $G_X(C^k,t)$ to include applicable conditions such as:
+Define $G_X(C^k,t)$ to include applicable critical conditions:
 
 $$ReportInability(C)$$
 
@@ -4620,19 +4650,19 @@ This table is the normative common transition relation.
 
 A runtime readiness condition can change without changing the Contract definition.
 
-For example:
-
-$$READY(C^k,t_1)$$
-
-and later:
-
-$$\neg ResourceAvailable(r,C^k,t_2)$$
-
-can produce:
-
-$$READY(C^k)\rightarrow ASSIGNED(C^k)$$
-
-while remaining on the same definition revision.
+> **Example — same-revision readiness loss.**
+>
+> $$READY(C^k,t_1)$$
+>
+> and later:
+>
+> $$\neg ResourceAvailable(r,C^k,t_2)$$
+>
+> can produce:
+>
+> $$READY(C^k)\rightarrow ASSIGNED(C^k)$$
+>
+> while remaining on the same definition revision.
 
 Therefore:
 
@@ -4888,7 +4918,9 @@ does not require:
 
 $$Transition(q,q).$$
 
-Examples include additional Evidence received while `EXECUTING`, progress inside `EXECUTING`, waiting during `UNDER_ACCEPTANCE`, or new diagnostic information while `BLOCKED`.
+> **Example — recorded non-transition events.**
+>
+> Additional Evidence received while `EXECUTING`, progress inside `EXECUTING`, waiting during `UNDER_ACCEPTANCE`, or new diagnostic information while `BLOCKED` can be recorded without an artificial self-transition.
 
 This retains the existing principle that activity does not equal lifecycle progress.
 
@@ -4954,13 +4986,15 @@ $$DependsForReadiness(C_a,C_b,s_b)$$
 
 means that $C_a$ can become `READY` only when $C_b$ reaches required state $s_b$.
 
-For example, a project can require:
-
-$$State(C_b)=FULFILLED$$
-
-before:
-
-$$State(C_a)=READY.$$
+> **Example — dependency-driven readiness.**
+>
+> A project can require:
+>
+> $$State(C_b)=FULFILLED$$
+>
+> before:
+>
+> $$State(C_a)=READY.$$
 
 The common model does not require every dependency to wait for full fulfilment. A Project Profile can require another state or a particular accepted Work Product.
 
@@ -5403,7 +5437,7 @@ Let:
 
 $$FailureObservation(C,t)$$
 
-include events such as:
+include applicable material Contract and Acceptance failure events:
 
 - Executor conformity failure;
 - Work Product rejection;
@@ -5473,47 +5507,43 @@ $$Succeeds(C_2,C_1).$$
 
 The original Contract remains historical. Successor creation is not a restart or rewrite.
 
-#### 11.6.13 Illustration - in-house Product replaced by third-party Product
+> **Illustration — in-house Product replaced by third-party Product.**
+>
+> Consider an initial Contract $C_{internal}$ whose Product target is an internally developed component. Its execution model assumes internal design, internal implementation or manufacturing, internal verification capability, internally controlled change authority, and internal access to engineering Evidence.
+>
+> During exploration the Hive determines that purchasing a third-party component is economically or technically preferable.
+>
+> This is not merely a different implementation trajectory inside the same Contract if the change materially alters responsibility, authority, dependencies, Evidence availability, or fulfilment obligations.
+>
+> A successor engineering Contract can therefore be established:
+>
+> $$Succeeds(C_{thirdparty},C_{internal}).$$
+>
+> The successor Product target now depends on an external supplier. That change can create additional prerequisite obligations outside the original engineering Contract, including an external legal/commercial Contract $C_{legal}$ covering project-specific procurement, delivery, payment, warranty, licensing, intellectual-property, permitted-use, data-rights, confidentiality, liability, compliance, change-notification, support, discontinuation, supplier-Evidence, acceptance, rejection, regulatory, or export obligations.
+>
+> These matters are illustrative. The common proposal does not prescribe commercial law or supplier-contract content.
+>
+> What is normative to the governance model is that the external dependency must not be hidden.
+>
+> If legal/commercial fulfilment is required before engineering execution can legitimately continue:
+>
+> $$DependsForReadiness(C_{thirdparty},C_{legal},s)$$
+>
+> for the applicable required state $s$.
+>
+> $$Fulfilled(C_{legal})\Rightarrow LegalPrerequisiteSatisfied(C_{thirdparty}).$$
+>
+> Until that condition holds:
+>
+> $$\neg READY(C_{thirdparty}).$$
+>
+> A Decision to replace internal realization with a third-party Product therefore changes the Solution Space and can create new external Contract dependencies that did not exist in the in-house trajectory:
+>
+> $$ChangeToThirdPartySolution\not\Rightarrow PreserveOriginalObligationSet.$$
+>
+> The Hive must reassess Contract topology, Evidence availability, authority, Resource Envelope, readiness prerequisites, and Acceptance rules.
 
-::: {custom-style="Illustration"}
-Consider an initial Contract $C_{internal}$ whose Product target is an internally developed component. Its execution model assumes internal design, internal implementation or manufacturing, internal verification capability, internally controlled change authority, and internal access to engineering Evidence.
-
-During exploration the Hive determines that purchasing a third-party component is economically or technically preferable.
-
-This is not merely a different implementation trajectory inside the same Contract if the change materially alters responsibility, authority, dependencies, Evidence availability, or fulfilment obligations.
-
-A successor engineering Contract can therefore be established:
-
-$$Succeeds(C_{thirdparty},C_{internal}).$$
-
-The successor Product target now depends on an external supplier. That change can create additional prerequisite obligations outside the original engineering Contract, for example an external legal/commercial Contract $C_{legal}$ covering project-specific matters such as procurement obligation, delivery terms, price/payment terms, warranties, licensing, intellectual-property rights, permitted use, data rights, confidentiality, liability, compliance representations, change-notification duties, support/service obligations, product discontinuation or obsolescence, required supplier Evidence, acceptance and rejection rights, or applicable regulatory or export conditions.
-
-These matters are illustrative. The common proposal does not prescribe commercial law or supplier-contract content.
-
-What is normative to the governance model is that the external dependency must not be hidden.
-
-If legal/commercial fulfilment is required before engineering execution can legitimately continue:
-
-$$DependsForReadiness(C_{thirdparty},C_{legal},s)$$
-
-for the applicable required state $s$.
-
-For example:
-
-$$Fulfilled(C_{legal})\Rightarrow LegalPrerequisiteSatisfied(C_{thirdparty}).$$
-
-Until that condition holds:
-
-$$\neg READY(C_{thirdparty}).$$
-
-A Decision to replace internal realization with a third-party Product therefore changes the Solution Space and can create new external Contract dependencies that did not exist in the in-house trajectory:
-
-$$ChangeToThirdPartySolution\not\Rightarrow PreserveOriginalObligationSet.$$
-
-The Hive must reassess Contract topology, Evidence availability, authority, Resource Envelope, readiness prerequisites, and Acceptance rules.
-:::
-
-#### 11.6.14 Contract revision during Acceptance
+#### 11.6.13 Contract revision during Acceptance
 
 If:
 
@@ -5527,7 +5557,7 @@ $$MaterialToAcceptance(C^k,C^{k+1},w^r)\Rightarrow ReassessSubmissionOrAcceptanc
 
 Acceptance under the old basis does not automatically transfer.
 
-#### 11.6.15 Work Product FSM
+#### 11.6.14 Work Product FSM
 
 The Work Product submission FSM is:
 
@@ -5543,7 +5573,7 @@ $$NOT\_ACCEPTED(w^r)\rightarrow Prepare(w^{r+1})$$
 
 rather than mutation of $w^r$.
 
-#### 11.6.16 Contract FSM summary
+#### 11.6.15 Contract FSM summary
 
 The principal success path is:
 
@@ -5551,19 +5581,21 @@ $$DEFINED\rightarrow ASSIGNED\rightarrow READY\rightarrow EXECUTING\rightarrow S
 
 But the actual model is a guarded graph, not a one-way pipeline.
 
-The normative guarded transition relation is defined in Section 11.1.7. It distinguishes same-revision runtime regression from definition-revision re-entry. For example:
+The normative guarded transition relation is defined in Section 11.1.7. It distinguishes same-revision runtime regression from definition-revision re-entry.
 
-$$READY(C^k)\rightarrow ASSIGNED(C^k)$$
-
-can occur when a runtime readiness prerequisite is lost while Assignment remains valid, whereas:
-
-$$READY(C^k)\rightarrow ASSIGNED(C^{k+1})$$
-
-can occur when a material Contract revision preserves Assignment but introduces an unsatisfied readiness prerequisite.
+> **Example — runtime regression versus definition revision.**
+>
+> $$READY(C^k)\rightarrow ASSIGNED(C^k)$$
+>
+> can occur when a runtime readiness prerequisite is lost while Assignment remains valid, whereas:
+>
+> $$READY(C^k)\rightarrow ASSIGNED(C^{k+1})$$
+>
+> can occur when a material Contract revision preserves Assignment but introduces an unsatisfied readiness prerequisite.
 
 The model also includes recoverable execution blocking, guarded rework re-entry, reassessment, explicit discontinuation, and revision-specific submission/Acceptance. Every transition preserves history. There is no same-state transition used to hide iteration.
 
-#### 11.6.17 Product boundary
+#### 11.6.16 Product boundary
 
 Acceptance assesses Work Product conformance and Contract fulfilment.
 
@@ -5715,7 +5747,7 @@ $$IsSupportedBy_{\kappa_i}(d_i,e_i).$$
 
 The two expressions identify the same semantic edge.
 
-This permits efficient bidirectional engineering questions such as which Decisions this Evidence supports and which Evidence supports this Decision, without storing two independent relations.
+This permits efficient bidirectional traversal between a Decision and its supporting Evidence without storing two independent relations.
 
 Evidence does not acquire authority because it supports a Decision.
 
@@ -5881,15 +5913,15 @@ It does not thereby become direct Evidence for every Engineering Layer reached b
 
 Confidence can use Evidence-processing history and trend information as inputs to an operational assessment of likely task outcome.
 
-For example, the Hive can observe that Evidence of a certain form has historically tended to confirm a trajectory, expose a recurring deficiency, require additional testing, create a Gap, trigger rework, or remain inconclusive.
-
 These observations can contribute to:
 
-$$Confidence_H(q,t)$$
+$$Confidence_H(q,t).$$
 
-or to an internal Evidence-processing indication such as:
-
-$$Confidence_H(EvidenceProcess,q,t).$$
+> **Example — Evidence-processing history.**
+>
+> The Hive can observe that Evidence of a certain form has historically tended to confirm a trajectory, expose a recurring deficiency, require additional testing, create a Gap, trigger rework, or remain inconclusive. A Project Profile can also represent a bounded Evidence-processing indication as:
+>
+> $$Confidence_H(EvidenceProcess,q,t).$$
 
 This means that, based on current Evidence, historical resolution patterns, and the current trend, the process appears more or less likely to resolve successfully.
 
@@ -5913,7 +5945,11 @@ Thus, as a universal rule:
 
 $$Confidence_H(q,t)<\theta\not\Rightarrow HumanAlert(q).$$
 
-A Project Profile can combine Confidence with actual operational observations such as repeated validation failure, Resource Envelope pressure, unhealthy divergence, inability to obtain required Evidence, persistent rework, deadline risk, or explicit Human-reserved authority.
+A Project Profile can combine Confidence with actual operational observations.
+
+> **Example — combined Confidence inputs.**
+>
+> Repeated validation failure, Resource Envelope pressure, unhealthy divergence, inability to obtain required Evidence, persistent rework, deadline risk, or explicit Human-reserved authority can participate in such a Project Profile-defined combination.
 
 ## 13. Maturity, prescriptiveness, and brittleness
 
@@ -6241,27 +6277,31 @@ $$KnownGap\rightarrow FutureAction\rightarrow Resolved.$$
 
 Transitions preserve history. Later discovery does not rewrite earlier engineering state.
 
-### Illustrative Material - Future Actions
-
-*The following material is illustrative. It does not establish additional rules.*
-
-Engineering Design can establish that a component requires calibration while valid calibration values cannot yet be produced because the Product is not sufficiently materialized. The Baseline can preserve the Known Gap together with a Future Action that identifies the responsible party, the required in-field or pre-production activity, and the artifacts that must later be produced and added to the controlled Product state as project-defined Supplementary Documents.
-
-A typical progression is:
-
-$$DesignNeed\rightarrow KnownGap\rightarrow FutureAction\rightarrow MaterializedProduct\rightarrow Calibration\rightarrow CalibrationArtifacts\rightarrow GapClosure.$$
-
-The same pattern can apply to A/B testing, feature-flagged activation, parameter tuning, field measurement, commissioning adjustment, controlled deployment observation, supplier measurements available only from produced hardware, and other activities whose valid result depends on a later Product state.
-
-The common temporal condition is:
-
-$$CannotKnowNow\land CanKnowAfter(ProductState).$$
+> **Illustration — Future Actions.**
+>
+> Engineering Design can establish that a component requires calibration while valid calibration values cannot yet be produced because the Product is not sufficiently materialized. The Baseline can preserve the Known Gap together with a Future Action that identifies the responsible party, the required in-field or pre-production activity, and the artifacts that must later be produced and added to the controlled Product state as project-defined Supplementary Documents.
+>
+> A representative progression is:
+>
+> $$DesignNeed\rightarrow KnownGap\rightarrow FutureAction\rightarrow MaterializedProduct\rightarrow Calibration\rightarrow CalibrationArtifacts\rightarrow GapClosure.$$
+>
+> The same pattern can apply to A/B testing, feature-flagged activation, parameter tuning, field measurement, commissioning adjustment, controlled deployment observation, supplier measurements available only from produced hardware, and other activities whose valid result depends on a later Product state.
+>
+> The common temporal condition is:
+>
+> $$CannotKnowNow\land CanKnowAfter(ProductState).$$
 
 ## 15. Recursive Y-model
 
 The Y-model defines operational reconciliation rules from the point of view of a particular Product engineering need.
 
 Engineering Domains evolve their Decisions, Contracts, Work Products, Evidence, and other engineering information independently and concurrently.
+
+> **Example — Domain Nature.**
+>
+> Prescriptive — legal, regulatory, certification, natural-law.
+>
+> Engineered — customer development, UX, Product engineering, ordering, architecture, implementation, manufacturing.
 
 Product engineering establishes the information it requires and requests that information from the applicable Engineering Domains.
 
@@ -6343,23 +6383,27 @@ When fine engineering creates a material consequence relevant to a coarser Produ
 
 The complete fine-detail Work Product does not need to become part of the coarser Product engineering context.
 
-**Illustration — homologation.**
+> **Illustration — homologation.**
+>
+> Product engineering pulls required information from a Prescriptive homologation Domain at the applicable Magnification, so the resulting Y Branch is Fixed. Finer homologation engineering remains local until the Product engineering consumer requires information representing its material consequence. This Illustration defines no required homologation process, Layer structure, or implementation binding.
 
-Product engineering pulls required information from a Prescriptive homologation Domain at the applicable Magnification, so the resulting Y Branch is Fixed. Finer homologation engineering remains local until the Product engineering consumer requires information representing its material consequence. This Illustration defines no required homologation process, Layer structure, or implementation binding.
-
-**Illustration — accessibility and UX.**
-
-Accessibility information pulled from a Prescriptive Domain is Fixed, while information pulled from an Engineered UX Domain is normally Negotiable even when the UX Decisions were developed using Fixed accessibility information. This Illustration defines no required accessibility, UX, or implementation process and creates no implementation binding.
+> **Illustration — accessibility and UX.**
+>
+> Accessibility information pulled from a Prescriptive Domain is Fixed, while information pulled from an Engineered UX Domain is normally Negotiable even when the UX Decisions were developed using Fixed accessibility information. This Illustration defines no required accessibility, UX, or implementation process and creates no implementation binding.
 
 ## 16. Supporting processes over Solution Space
 
 Configuration Management, Change Management, Problem Resolution, Quality Assurance, Risk Management, Measurement, release management, production control, and similar disciplines operate over Solution Space entries and Engineering Objects.
 
-They are supporting processes, not universal semantic primitives. A Baseline, for example, exists only where Configuration Management establishes it. A production batch can be accepted without becoming a Baseline. Software can pass acceptance testing before deployment, while production deployment performs only project-defined sanity checks.
+They are supporting processes, not universal semantic primitives. A Baseline exists only where Configuration Management establishes it.
+
+> **Example — supporting-process independence.**
+>
+> A production batch can be accepted without becoming a Baseline. Software can pass acceptance testing before deployment while production deployment performs only project-defined sanity checks.
 
 Supporting-process predicates remain Project Profile parameters unless a Contract or applicable external norm makes them obligatory.
 
-Supporting-process states apply independently to Product and Work Product where the project defines them. For example:
+Supporting-process states apply independently to Product and Work Product where the project defines them. Therefore:
 
 $$Baselined(w)\not\Rightarrow Baselined(P)$$
 
@@ -6478,7 +6522,7 @@ The Project Profile defines a health function:
 
 $$Health_{PP}(\tau_1,\tau_2,t)$$
 
-using factors such as:
+using applicable factors from:
 
 - explored reconciliation cost;
 - persistence of incompatibility;
@@ -6685,7 +6729,9 @@ Exploration remains constrained by Engineering State, Contracts, authority, vali
 
 A Human operator can observe Confidence and its trend without reconstructing the full exploration history.
 
-**Illustration.** A Project Profile can map Confidence to a traffic-light presentation for operator attention. The labels and thresholds are presentation choices only; they establish no Decision, validator result, Evidence disposition, authority, Contract transition, or Back-off.
+> **Illustration — Confidence presentation.**
+>
+> A Project Profile can map Confidence to a traffic-light presentation for operator attention. The labels and thresholds are presentation choices only; they establish no Decision, validator result, Evidence disposition, authority, Contract transition, or Back-off.
 
 #### 17.6.5 Automated use
 
@@ -6734,7 +6780,9 @@ when a receiving Decision is required.
 
 The corresponding graph can be traversed in reverse for traceability.
 
-For example, from a Decision the Hive can trace toward the Feedback Exchange Item and ultimately toward the Evidence that caused the feedback.
+> **Example — reverse traceability.**
+>
+> From a Decision, the Hive can trace toward the Feedback Exchange Item and ultimately toward the Evidence that caused the feedback.
 
 Such reverse traversal answers what source information contributed to this local Decision.
 
@@ -7007,7 +7055,7 @@ The proposal adopts the distinction between expression syntax and statement role
 
 ## 24. Supporting AI architecture references
 
-The following sources are illustrative/supportive only:
+The following sources provide non-normative supporting context:
 
 - OpenAI Agents SDK, agent orchestration, manager/agents-as-tools and handoff patterns. https://openai.github.io/openai-agents-python/multi_agent/
 - CrewAI Crews, role-bearing agents, tasks, processes, manager and memory concepts. https://docs.crewai.com/en/concepts/crews
