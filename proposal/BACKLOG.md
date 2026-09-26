@@ -15,7 +15,6 @@ Items are not proposal semantics until reviewed and integrated into the proposal
 ## Proposal structure and language
 
 - **Proposal structural compaction:** continue removing duplicated semantics, unnecessary section depth, and implementation-oriented detail after each bounded compaction package is reviewed.
-- **Example and Illustration placement audit:** audit the complete proposal and remove, generalize, or move representative examples that occur outside the dictionary and explicitly identified Illustrations. Dictionary examples must be explicitly identified as examples and must not create implementation bindings. Illustrations must not establish definitions, formal semantics, Project Profile defaults, Contract obligations, conformance requirements, or implementation bindings. Add a validation check so example content cannot silently enter model text.
 - **ADS/LMC example-placement rule:** update the applicable ADS Language & Meaning Core drafting rules so project-authored technical documents distinguish model content from examples. Permit examples only in terminology definitions where explicitly identified and non-binding, or in explicitly identified Illustration content. Require examples to avoid implementation bindings and add a conformance or lint rule where practical.
 
 ## External engineering alignment assessment
