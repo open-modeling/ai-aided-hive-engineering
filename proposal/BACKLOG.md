@@ -8,10 +8,11 @@ Items are not proposal semantics until reviewed and integrated into the proposal
 
 ### 1. Literature organisation and related-work positioning
 
+**Status:** accepted and integrated into proposal §§23–24. `proposal/RELATED_WORK_RESEARCH.md` remains non-canonical research support; publication-grade metadata verification and future explicit alignments remain follow-up work.
+
 - **Literature architecture:** reorganize related work into three explicitly separated strata:
-  1. conceptual foundations;
-  2. engineering-model neighbours;
-  3. implementation and comparison technologies.
+  1. related work and alignment without presumed ancestry;
+  2. engineering toolbox and implementation/comparison instrumentation.
 - **Source classification:** distinguish peer-reviewed research, formal standards/specifications, established engineering methods, recent preprints, industrial research, and implementation/framework documentation. Do not present these source classes as equivalent evidence.
 - **Proposal-to-literature traceability:** map each related-work family to the current proposal semantics it actually supports or contrasts. Separate established prior art, implementation precedent, comparison systems, and potentially distinctive combinations.
 - **Draft 0.14 migration:** update the Draft 0.14 research recap against the current proposal rather than importing it verbatim. In particular:
@@ -20,13 +21,14 @@ Items are not proposal semantics until reviewed and integrated into the proposal
   - treat calibration, selective classification, and conformal prediction as computation-level uncertainty methods rather than prior art for Hive `Confidence`, which is an operational-health indication;
   - preserve the strong historical lineage through shared-state coordination, truth maintenance/design rationale, commitment/governance, assurance/provenance, tradespace engineering, and resource-bounded reasoning.
 - **Missing related-work families:** assess and add, where supported:
-  - digital thread, MBSE, lifecycle engineering information, and SysML v2;
+  - digital thread, MBSE, and lifecycle engineering information;
+  - keep SysML v2, Alloy, solver interfaces, and similar instrumentation in the Engineering Toolbox rather than treating them as Hive semantic foundations;
   - boundary objects and cross-discipline interpretation, especially for Exchange Item and `LocalInterpretation`;
   - artifact-centric lifecycle/process models such as Guard-Stage-Milestone;
   - current assurance and provenance standards, including SACM, W3C PROV, and PPMN;
   - Agent Contracts, Agent Behavioral Contracts, and Proof-Carrying Agent Actions as contemporary comparison work rather than foundational equivalence.
-- **Reference-section redesign:** after the literature map is accepted, reorganize proposal references so formal-knowledge references, conceptual prior work, engineering-model neighbours, and current implementation comparisons are not conflated.
-- **Research-gap statement:** rewrite the Draft 0.14 gap statement around governed Engineering State evolution over bounded State Projections and existing engineering semantics, without depending on a universal change entity.
+- **Reference-section redesign:** completed in proposal §§23–24: related work/alignment is separated from optional Engineering Toolbox instrumentation.
+- **Research-gap statement:** deferred until priority 2 and Exchange Item / `LocalInterpretation` semantics stabilize; keep the working formulation in research material only.
 - **Novelty discipline:** keep research positioning separate from legal novelty or patentability claims. Any stronger novelty claim requires a dedicated systematic academic and patent search.
 
 ### 2. Diffeomorphism / graph-topology operations for Scale, Magnification, and Domain evolution

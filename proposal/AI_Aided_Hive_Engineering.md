@@ -7042,26 +7042,343 @@ External language, terminology, drafting, information-development, and conformit
 
 The proposal-specific profile in §4 extends this common basis with the language and meaning rules required by the formal Hive engineering model.
 
-## 23. Formal-knowledge representation references
+## 23. Related work and alignment
 
-The proposal uses the following specifications as design references, not normative dependencies:
+Related work provides comparison, independent corroboration, alternative formulations, and potential mechanisms for later alignment.
 
-1. OpenMath Standard 2.0r2 and Content Dictionaries - semantic representation of mathematical objects, symbols, Commented Mathematical Properties, and Formal Mathematical Properties. https://openmath.org/standard/om20-2019-07-01/
-2. TPTP Language - annotated formula roles including axiom, hypothesis, definition, assumption, lemma, theorem, corollary, conjecture, and type. https://tptp.org/UserDocs/TPTPLanguage/TPTPLanguage.shtml
-3. OMDoc - document/theory-level distinction among axioms, definitions, assertions/theorems, proofs, and related mathematical statements. https://www.omdoc.org/
-4. SMT-LIB 2.7 - rigorous common languages and background theories for solver interaction. https://smt-lib.org/language.shtml
+A conceptual similarity between this proposal and external work does not establish ancestry, adoption, dependency, or semantic equivalence.
 
-The proposal adopts the distinction between expression syntax and statement role. It does not require serialization in OpenMath, TPTP, OMDoc, or SMT-LIB.
+AI Aided Hive Engineering is developed from its own engineering model and accepted project decisions. External work can have been developed independently and in parallel.
 
-## 24. Supporting AI architecture references
+Alignment is established only when a particular part of this proposal or an implementation deliberately uses, maps to, or depends on an external concept, method, specification, or mechanism.
 
-The following sources provide non-normative supporting context:
+### 23.1 Related-work status
 
-- OpenAI Agents SDK, agent orchestration, manager/agents-as-tools and handoff patterns. https://openai.github.io/openai-agents-python/multi_agent/
-- CrewAI Crews, role-bearing agents, tasks, processes, manager and memory concepts. https://docs.crewai.com/en/concepts/crews
-- AutoGen/ConversableAgent message-based agent communication. https://microsoft.github.io/FLAML/docs/reference/autogen/agentchat/conversable_agent/
-- Tree of Thoughts: Deliberate Problem Solving with Large Language Models, NeurIPS 2023. https://papers.nips.cc/paper/2023/hash/271db9922b8d1f4dd7aaef84ed5ac703-Abstract-Conference.html
-- Graph of Thoughts: Solving Elaborate Problems with Large Language Models, AAAI 2024. https://ojs.aaai.org/index.php/AAAI/article/view/29720
+Related work is classified by its relationship to the proposal:
+
+- **Parallel** — addresses a similar engineering or computational concern independently. No lineage or dependency is asserted.
+- **Compared** — used to clarify similarities, differences, boundaries, or design choices.
+- **Aligned** — a defined part of Hive deliberately adopts or maps to an external concept or mechanism.
+- **Dependent** — a defined part of Hive requires an external specification or mechanism for its stated semantics or conformance.
+
+A source remains Parallel or Compared unless an explicit alignment or dependency is established.
+
+Alignment MUST identify the affected Hive concept or operation and the externally used concept or mechanism.
+
+An implementation choice does not establish common-model alignment.
+
+### 23.2 Shared-state and environment-mediated coordination
+
+Relevant parallel work includes:
+
+1. [Nii, *The Blackboard Model of Problem Solving and the Evolution of Blackboard Architectures*, 1986](https://doi.org/10.1609/aimag.v7i2.537).
+2. [Gelernter, *Generative Communication in Linda*, 1985](https://doi.org/10.1145/2363.2433).
+3. [Omicini, Ricci, Viroli, Castelfranchi, and Tummolini, *Coordination Artifacts: Environment-based Coordination for Intelligent Agents*, 2004](https://doi.org/10.1109/AAMAS.2004.10070).
+4. Agents & Artifacts and environment-programming work in multi-agent systems.
+5. Stigmergic coordination research.
+
+These works provide parallel approaches in which computation coordinates through shared state, environments, artifacts, or persistent traces rather than requiring persistent direct conversational organization.
+
+Hive similarly permits transient computational participants to operate through addressable shared Engineering State.
+
+No ancestry or semantic equivalence is implied.
+
+Hive additionally defines Product-specific semantic identity, typed relations, Evidence, authority, Scale, Contract, Acceptance, Product Evolution History, and resource-governance semantics.
+
+### 23.3 Justification, alternatives, and retained reasoning state
+
+Relevant parallel work includes:
+
+1. [Doyle, *A Truth Maintenance System*, 1979](https://doi.org/10.1016/0004-3702(79)90008-0).
+2. [de Kleer, *An Assumption-based TMS*, 1986](https://doi.org/10.1016/0004-3702(86)90080-9).
+3. Questions, Options, and Criteria and other design-rationale methods.
+4. Architectural Decision and design-rationale research.
+
+These works address retained justification, dependency, alternatives, contradiction, and revision.
+
+They are relevant when comparing Hive Propositions, Decisions, Evidence, competing Solution Space trajectories, historical addressability, and the distinction between graph reachability and legitimate justification.
+
+Hive does not adopt a Truth Maintenance System or design-rationale ontology by implication.
+
+Any future reuse of such mechanisms requires explicit alignment with the applicable Hive semantics.
+
+### 23.4 Distributed coordination, commitments, and governance
+
+Relevant parallel work includes:
+
+1. [Smith, *The Contract Net Protocol*, 1980](https://doi.org/10.1109/TC.1980.1675516).
+2. Partial Global Planning.
+3. [Jennings, *Commitments and Conventions*, 1993](https://doi.org/10.1017/S0269888900000205).
+4. SharedPlans and teamwork models.
+5. MOISE+ and institutional multi-agent-system research.
+6. Commitment-oriented multi-agent systems.
+7. Holonic engineering and manufacturing systems.
+
+These works address distributed task allocation, commitments, organizational structures, obligations, and coordination.
+
+They provide useful comparison for Hive Contracts, authority, Team structure, delegation, and distributed execution.
+
+Hive Contract semantics, Product-delivery obligations, Acceptance, Work Products, authority topology, and Contract lifecycle remain proposal-defined unless a specific alignment is established.
+
+### 23.5 Engineering lifecycle, information transfer, and boundary interpretation
+
+Relevant parallel work includes:
+
+1. digital-thread and lifecycle-information research;
+2. boundary-object research in multidisciplinary engineering;
+3. artifact-centric process and Guard-Stage-Milestone lifecycle research;
+4. engineering information continuity and traceability research.
+
+These works address persistent engineering information, lifecycle continuity, information transfer between disciplines, and stateful artifact evolution.
+
+They are relevant to Engineering State, Product Evolution History, Engineering Objects, Exchange Items, LocalInterpretation, Work Products, and Contract lifecycle.
+
+A transferred representation or boundary object does not automatically establish the semantics defined for an Exchange Item.
+
+Hive explicitly separates transferred content, transfer identity, receiving-context interpretation, Evidence sufficiency, and authority.
+
+### 23.6 Evidence, assurance, and provenance
+
+Relevant parallel work includes:
+
+1. assurance-case and structured-assurance research;
+2. Goal Structuring Notation and Claims-Arguments-Evidence approaches;
+3. provenance research;
+4. evidence-based engineering and verification research.
+
+These works address claims, supporting evidence, provenance, argument structure, and assurance.
+
+They are relevant to Hive Evidence, Evidence locality, provenance, Acceptance, verification, and authority decisions.
+
+Hive maintains separate semantics for:
+
+- Evidence existence;
+- Evidence applicability;
+- Evidence sufficiency;
+- Decision authority;
+- Acceptance authority;
+- Product-materialization authority.
+
+An assurance or provenance representation does not itself establish any of these conditions.
+
+### 23.7 Trade Space and resource-bounded exploration
+
+Relevant parallel work includes:
+
+1. Set-Based Concurrent Engineering;
+2. [Ross, Hastings, Warmkessel, and Diller, *Multi-Attribute Tradespace Exploration as Front End for Effective Space System Design*, 2004](http://hdl.handle.net/1721.1/84152);
+3. bounded-rationality and metareasoning research;
+4. anytime computation;
+5. resource-bounded search and autonomous-computation research.
+
+These works address simultaneous alternatives, persistent tradespaces, resource allocation, search value, and bounded computation.
+
+They provide comparison for Hive Solution Space, Trade Space, trajectories, preserved outliers, convergence, divergence, Resource Envelopes, and exploration survival.
+
+No external tradespace or metareasoning formalism is currently normative for Hive.
+
+### 23.8 Reasoning and agent-system comparisons
+
+Contemporary reasoning and agent-system research provides useful comparison with implementation patterns that can operate around Hive Engineering State.
+
+Relevant comparison work includes:
+
+1. [Tree of Thoughts, 2023](https://papers.nips.cc/paper_files/paper/2023/hash/271db9922b8d1f4dd7aaef84ed5ac703-Abstract-Conference.html).
+2. [Graph of Thoughts, 2024](https://ojs.aaai.org/index.php/AAAI/article/view/29720).
+3. Agent Contract and runtime-governance research.
+4. proof-carrying and evidence-carrying autonomous-action research.
+5. neuro-symbolic computation.
+6. structured and constrained model-output research.
+
+These approaches can contribute computation, search, validation, or execution mechanisms.
+
+They do not define Hive Engineering State.
+
+A computational participant can use any applicable reasoning architecture provided that its interaction with Hive conforms to the applicable Hive semantics and governance.
+
+### 23.9 Research positioning
+
+The mechanisms identified in this section are generally established independently and MUST NOT be claimed as individually novel merely because they also occur in Hive.
+
+The research interest of AI Aided Hive Engineering is primarily in:
+
+- the semantic boundaries maintained between its concepts;
+- the relationships among those concepts;
+- the governance of Engineering State evolution;
+- the independence of engineering meaning from temporary computational participants;
+- the interaction among Evidence, authority, Scale, Contracts, Product obligations, lifecycle, and resource economics.
+
+Related work can strengthen, challenge, or provide implementation mechanisms for individual parts of the model without becoming the origin of the model as a whole.
+
+A stronger combination-level research-gap or novelty statement is deferred until:
+
+- the Scale, Magnification, and Domain evolution model is stabilized;
+- Exchange Item and LocalInterpretation semantics are internally consistent throughout the proposal;
+- the selected related-work set has been systematically rechecked against the stabilized model.
+
+Patent novelty and patentability are outside the scope of this related-work section.
+
+## 24. Engineering toolbox
+
+The Engineering Toolbox identifies external languages, standards, analyzers, frameworks, and other instrumentation that can support engineering, implementation, validation, analysis, exchange, or operation of Hive.
+
+The toolbox is **non-normative** unless a Project Profile or another governed project decision explicitly selects an item for a defined purpose.
+
+A conforming Hive implementation does not require any particular toolbox item merely because it is listed here.
+
+Hive semantics are defined by this proposal and its applicable governing material.
+
+Toolbox representations are derived from Hive semantics.
+
+A toolbox representation MUST NOT redefine Hive semantics implicitly.
+
+### 24.1 Tool materialization
+
+A Hive Proposition can be materialized by one or more Engineering Objects.
+
+Tool-specific models, files, schemas, databases, solver inputs, reports, diagrams, and repository objects can therefore act as materializations of governed Hive information.
+
+The same governed formal Proposition can be materialized as:
+
+- proposal text;
+- a SysML model element;
+- an Alloy relation or constraint;
+- a theorem-prover statement;
+- a database record;
+- an assurance-model element;
+- another addressable Engineering Object.
+
+The tool-specific representation does not replace the Proposition that it materializes.
+
+Materialization can therefore follow:
+
+`Hive semantic definition -> governed mapping -> tool-specific Engineering Object`
+
+The reverse direction is not assumed.
+
+Information produced in an external tool becomes part of Hive Engineering State only through the applicable Hive interpretation, Evidence, Decision, Contract, Acceptance, or other governed operation.
+
+A mapping that cannot represent a Hive semantic distinction MUST record that limitation rather than silently merge or discard the distinction.
+
+### 24.2 Systems modelling and model exchange
+
+Potential modelling and interchange instrumentation includes:
+
+1. [OMG SysML 2.0](https://www.omg.org/spec/SysML/2.0) — systems-model representation.
+2. [OMG Systems Modeling API and Services 1.0](https://www.omg.org/spec/SystemsModelingAPI/1.0) — standardized model access, query, update, and interchange services.
+3. OpenMath — semantic representation of mathematical objects and symbols.
+4. OMDoc — representation of mathematical theories, definitions, assertions, and related structures.
+5. TPTP — representation and interchange of formal statements and theorem-oriented problems.
+
+These can be used to materialize or exchange selected Hive information.
+
+Hive does not require its internal model to be expressed in any of these representations.
+
+A SysML model is one possible materialization of applicable engineering information; SysML does not define Engineering State, Scale, authority, Evidence locality, or other Hive semantics unless an explicit mapping has been established.
+
+### 24.3 Formal analysis
+
+Potential formal-analysis instrumentation includes:
+
+1. [Alloy](https://alloytools.org/) — finite relational modelling and bounded SAT-based analysis.
+2. [SMT-LIB](https://smt-lib.org/language.shtml) and compatible SMT solvers — solver-independent representation of applicable logical theories and constraints.
+3. theorem provers or other formal-analysis environments where required by a particular property.
+
+Alloy is a planned analysis option for the Hive mathematical model.
+
+Where Alloy is used, the analysis model is derived from the governed proposal mathematics:
+
+`Hive mathematical model -> Alloy encoding -> SAT analysis`
+
+The Alloy encoding is not the source definition of the Hive mathematical model.
+
+The mapping SHOULD provide traceability from governed Hive formal elements to their Alloy representation.
+
+Applicable Alloy analysis can include:
+
+- satisfiability of model constraints;
+- generation of representative valid instances;
+- search for counterexamples to invariants;
+- analysis of prohibited relation combinations;
+- analysis of state-transition and graph-transformation rules;
+- bounded checking of Scale, Magnification, Domain, Contract, Evidence, and other relational constraints;
+- detection and analysis of inconsistent constraint sets.
+
+Alloy analysis is bounded by the analysis scope.
+
+Absence of a counterexample establishes the checked result within the declared scope. It does not by itself establish an unbounded mathematical proof.
+
+An Alloy result can be recorded as Evidence when incorporated under the applicable Hive Evidence rules.
+
+SAT success, unsatisfiability, or absence of a bounded counterexample does not independently create Decision authority or change Engineering State.
+
+Where a property requires unbounded proof, richer theories, or another analysis model, another applicable formal-analysis method can be used.
+
+### 24.4 Formal-model analysis coverage
+
+A project using executable formal analysis can maintain traceability between the governed mathematical model and its analysis instrumentation.
+
+Analysis coverage can include:
+
+- **translation coverage** — governed formal concepts, relations, predicates, and operations have applicable tool representations;
+- **constraint-consistency coverage** — intended model configurations are satisfiable and unintended contradictions are investigated;
+- **property coverage** — applicable invariants and formal claims have executable checks;
+- **bounded-verification coverage** — checks are executed under recorded finite scopes;
+- **evolution coverage** — required legal Engineering State transformations can be instantiated and prohibited transformations are rejected.
+
+These are analysis-control properties.
+
+They do not redefine the semantic meaning of the Hive model.
+
+### 24.5 Assurance and provenance instrumentation
+
+Potential assurance and provenance instrumentation includes:
+
+1. [OMG Structured Assurance Case Metamodel](https://www.omg.org/spec/SACM/) — structured assurance information.
+2. [W3C PROV](https://www.w3.org/TR/prov-o/) — interoperable provenance representation.
+3. [OMG Pedigree and Provenance Model and Notation](https://www.omg.org/spec/PPMN/) — pedigree and provenance representation.
+
+These specifications can materialize applicable assurance, Evidence, or provenance information.
+
+Their use does not replace Hive Evidence, Evidence sufficiency, authority, Acceptance, or provenance semantics.
+
+Where such a representation is used, the project SHOULD maintain an explicit mapping to the affected Hive concepts.
+
+### 24.6 Runtime and orchestration instrumentation
+
+Potential runtime instrumentation includes agent frameworks, workflow engines, durable-execution systems, message protocols, model gateways, and other execution infrastructure.
+
+Current comparison frameworks include:
+
+- [OpenAI Agents SDK](https://openai.github.io/openai-agents-python/multi_agent/);
+- [CrewAI](https://docs.crewai.com/en/concepts/crews);
+- AutoGen and related multi-agent orchestration systems.
+
+These frameworks can host or invoke computational participants.
+
+They do not define Hive Agents, Teams, Contracts, authority, Engineering State, or execution topology.
+
+A Hive implementation can use none, one, or several such technologies.
+
+The implementation remains conformant through its observable Hive semantics rather than through the selection of a particular framework.
+
+### 24.7 Toolbox governance
+
+Selection of a toolbox item SHOULD identify:
+
+- the engineering purpose;
+- the applicable Hive concepts;
+- the direction of transformation or exchange;
+- the mapping between Hive semantics and tool semantics;
+- the tool or specification version where version affects behaviour;
+- known representational limitations;
+- applicable validation;
+- produced Work Products or Evidence;
+- ownership of the mapping.
+
+A toolbox change does not require a Hive semantic change when the same Hive semantics remain preserved.
+
+If a tool exposes a semantic gap or motivates a change to the Hive model, the model change follows the ordinary proposal governance process.
 
 ## 25. Project supporting material
 
