@@ -4,6 +4,23 @@ All notable changes to AI DevMode Standards are recorded here.
 
 ## [Unreleased]
 
+## [5.0.0-rc.2] - 2026-09-26
+
+### Changed
+
+- Defined Examples and Illustrations as explicitly labeled, non-binding explanatory material in LMC-03.
+- Required format-native visual distinction for explanatory material in each governed rendered publication.
+- Added explanatory-material handling to the LMC-04 review sequence and conformance basis.
+
+### Added
+
+- Added required `explanatory_material` evidence to the Language & Meaning conformance schema.
+- Added adversarial validator tests for missing or contradictory explanatory-material conformance evidence.
+
+### Migration
+
+- Language & Meaning conformance records created for `5.0.0-rc.1` must add `explanatory_material` with `PASS`, `FAIL`, or `N/A` before validation against `5.0.0-rc.2`. A record with overall `PASS` permits only `PASS` or `N/A`.
+
 ## [5.0.0-rc.1] - 2026-09-13
 
 ### Changed

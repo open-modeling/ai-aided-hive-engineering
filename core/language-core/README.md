@@ -1,6 +1,6 @@
 # Part I — Language & Meaning Core
 
-Suite version: `5.0.0-rc.1`
+Suite version: `5.0.0-rc.2`
 
 This part is independently reusable by project documents that are not skills.
 

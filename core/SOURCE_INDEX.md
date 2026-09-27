@@ -1,4 +1,4 @@
-# ADS 5.0.0-rc.1 — Project-Linkable Source Index
+# ADS 5.0.0-rc.2 — Project-Linkable Source Index
 
 ## Governance
 

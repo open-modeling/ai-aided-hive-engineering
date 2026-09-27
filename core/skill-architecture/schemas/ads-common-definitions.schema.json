@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json",
+  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.2/skill-architecture/ads-common-definitions.schema.json",
   "title": "ADS common definitions",
   "description": "Reusable ADS 5 release-candidate definitions for skill identity, versioning, classifications, lifecycle states, and conformance tokens.",
-  "x-ads-schema-version": "5.0.0-rc.1",
+  "x-ads-schema-version": "5.0.0-rc.2",
   "$defs": {
     "semanticVersion": {
       "type": "string",

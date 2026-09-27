@@ -1,4 +1,4 @@
-# AI DevMode Standards 5.0.0-rc.1
+# AI DevMode Standards 5.0.0-rc.2
 
 This release candidate restructures ADS into two normative parts under one bootstrap governance layer.
 

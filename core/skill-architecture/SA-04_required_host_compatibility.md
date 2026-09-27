@@ -2,7 +2,7 @@
 
 **Document ID:** SA-04  
 **Status:** Normative required-host compatibility baseline release candidate  
-**Suite version:** 5.0.0-rc.1  
+**Suite version:** 5.0.0-rc.2
 **Date:** 2026-09-13  
 **Parent:** ADS-00  
 **Language baseline:** LMC  
@@ -73,13 +73,13 @@ The installer **MUST** verify the identity and version that the host will actual
 
 A Codex project projection **MUST** use the current verified Codex repository skill discovery convention.
 
-For the SA host profile for suite 5.0.0-rc.1, verified on 2026-09-09, Codex scans `.agents/skills` from the current working directory through the repository root.
+For the inherited SA host profile, verified on 2026-09-09 under suite 5.0.0-rc.1, Codex scans `.agents/skills` from the current working directory through the repository root.
 
 ### 5.2 Global discovery
 
 A Codex global installation **MUST** use a current verified Codex user, admin, or managed skill discovery location.
 
-For the SA host profile for suite 5.0.0-rc.1, verified on 2026-09-09, Codex documents `$HOME/.agents/skills` for user skills and `/etc/codex/skills` for admin skills.
+For the inherited SA host profile, verified on 2026-09-09 under suite 5.0.0-rc.1, Codex documents `$HOME/.agents/skills` for user skills and `/etc/codex/skills` for admin skills.
 
 The global package **MUST** remain read-only during project operation.
 
@@ -116,13 +116,13 @@ Codex compatibility **MUST** verify:
 
 A Claude Code project projection **MUST** use the current verified Claude Code project skill discovery convention.
 
-For the SA host profile for suite 5.0.0-rc.1, verified on 2026-09-09, the standard project path is `.claude/skills/<skill-name>/SKILL.md`.
+For the inherited SA host profile, verified on 2026-09-09 under suite 5.0.0-rc.1, the standard project path is `.claude/skills/<skill-name>/SKILL.md`.
 
 ### 6.2 Global discovery
 
 A Claude Code global installation **MUST** use the current verified Claude Code personal or managed skill discovery location.
 
-For the SA host profile for suite 5.0.0-rc.1, verified on 2026-09-09, the standard personal path is `~/.claude/skills/<skill-name>/SKILL.md`.
+For the inherited SA host profile, verified on 2026-09-09 under suite 5.0.0-rc.1, the standard personal path is `~/.claude/skills/<skill-name>/SKILL.md`.
 
 The global package **MUST** remain read-only during project operation.
 
@@ -130,9 +130,9 @@ The global package **MUST** remain read-only during project operation.
 
 A skill `name` **MUST NOT** use a host-reserved name for a required host.
 
-For the SA host profile for suite 5.0.0-rc.1, verified on 2026-09-09, Claude Code reserves the skill folder name `synced` in any capitalization for skills synchronized from claude.ai.
+For the inherited SA host profile, verified on 2026-09-09 under suite 5.0.0-rc.1, Claude Code reserves the skill folder name `synced` in any capitalization for skills synchronized from claude.ai.
 
-The common `skillName` schema **MUST** reject `synced` for the SA host profile for suite 5.0.0-rc.1.
+The common `skillName` schema **MUST** reject `synced` for the inherited SA host profile verified under suite 5.0.0-rc.1.
 
 A future host-reserved name change **MUST** be incorporated into compatibility validation before release.
 
@@ -140,7 +140,7 @@ A future host-reserved name change **MUST** be incorporated into compatibility v
 
 Claude Code can load same-name skills or commands from enterprise, personal, project, nested-project, added-directory, plugin, synced, bundled, and legacy command sources.
 
-For the SA host profile for suite 5.0.0-rc.1, verified on 2026-09-09, enterprise takes precedence over personal, and personal takes precedence over project for `/name`. A project-root skill and a nested skill can both remain visible. Plugin skills use a plugin-qualified command name. A local skill takes precedence over a same-name synced skill.
+For the inherited SA host profile, verified on 2026-09-09 under suite 5.0.0-rc.1, enterprise takes precedence over personal, and personal takes precedence over project for `/name`. A project-root skill and a nested skill can both remain visible. Plugin skills use a plugin-qualified command name. A local skill takes precedence over a same-name synced skill.
 
 Before compatibility PASS, the verifier **MUST** enumerate every visible same-name source that can affect the tested automatic or explicit invocation path.
 

@@ -15,7 +15,7 @@ from referencing import Registry, Resource
 ROOT = Path(__file__).resolve().parents[1]
 LMC_SCHEMAS = ROOT / 'language-core' / 'schemas'
 SA_SCHEMAS = ROOT / 'skill-architecture' / 'schemas'
-SUITE_VERSION = '5.0.0-rc.1'
+SUITE_VERSION = '5.0.0-rc.2'
 ADS_FILES = [
     ROOT / '00_governance_and_bootstrap.md',
     ROOT / 'language-core' / 'LMC-01_language_standards_profile.md',
@@ -311,7 +311,7 @@ def self_tests(docs, registry):
         'lifecycle_classification': 'stateless',
         'configuration_classification': 'non-configurable',
         'persists_project_data': False,
-        'language_meaning_results': {'artifact_id':'skill:acme.document-governor','artifact_version':'1.2.3','lmc_version':SUITE_VERSION,'review_method':'designated-review','review_authority':'project-review','evidence':['review://skill/document-governor'],'bcp14':'PASS','asd_ste100_issue9':'PASS','project_terminology':'PASS','meaning_control':'PASS','protected_content':'N/A','result':'PASS'},
+        'language_meaning_results': {'artifact_id':'skill:acme.document-governor','artifact_version':'1.2.3','lmc_version':SUITE_VERSION,'review_method':'designated-review','review_authority':'project-review','evidence':['review://skill/document-governor'],'bcp14':'PASS','asd_ste100_issue9':'PASS','project_terminology':'PASS','meaning_control':'PASS','protected_content':'N/A','explanatory_material':'PASS','result':'PASS'},
         'schema_results': {'metaschema_validation': 'PASS', 'offline_resolution': 'PASS', 'adversarial_self_tests': 'PASS'},
         'skill_api_results': {'schema_validation': 'PASS', 'identity_consistency': 'PASS', 'applicability_consistency': 'PASS', 'capability_implementation': 'PASS', 'outcome_linkage': 'PASS', 'communication_addressing': 'PASS'},
         'host_results': {'codex': 'PASS', 'claude_code': 'PASS'},
@@ -445,11 +445,15 @@ def selftest_language_conformance(docs, registry):
         'artifact_id':'example','artifact_version':'1.0.0','lmc_version':SUITE_VERSION,
         'review_method':'designated-review','review_authority':'project-review',
         'evidence':['review://example'], 'bcp14':'PASS','asd_ste100_issue9':'PASS',
-        'project_terminology':'PASS','meaning_control':'PASS','protected_content':'N/A','result':'PASS'
+        'project_terminology':'PASS','meaning_control':'PASS','protected_content':'N/A','explanatory_material':'PASS','result':'PASS'
     }
     assert_valid(v, good, 'language conformance valid record')
     bad = dict(good); bad['meaning_control']='FAIL'
     assert_invalid(v, bad, 'language conformance impossible PASS')
+    missing = dict(good); missing.pop('explanatory_material')
+    assert_invalid(v, missing, 'language conformance missing explanatory-material result')
+    bad_explanatory = dict(good); bad_explanatory['explanatory_material']='FAIL'
+    assert_invalid(v, bad_explanatory, 'language conformance PASS with explanatory-material failure')
     print('PASS: Language & Meaning conformance schema requires designated evidence and rejects contradictory PASS records.')
 
 def main():

@@ -1,4 +1,4 @@
-# Project Source Attachments — ADS 5.0.0-rc.1
+# Project Source Attachments — ADS 5.0.0-rc.2
 
 Attach these files as the directly searchable project source set:
 

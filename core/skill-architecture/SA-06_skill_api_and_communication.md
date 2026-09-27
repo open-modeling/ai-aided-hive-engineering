@@ -2,7 +2,7 @@
 
 **Document ID:** SA-06  
 **Status:** Normative skill identity, applicability, and communication baseline release candidate  
-**Suite version:** 5.0.0-rc.1  
+**Suite version:** 5.0.0-rc.2
 **Date:** 2026-09-13  
 **Parent:** ADS-00  
 **Language baseline:** LMC  

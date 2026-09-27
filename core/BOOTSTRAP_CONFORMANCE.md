@@ -1,19 +1,19 @@
-# ADS 5.0.0-rc.1 Bootstrap Conformance Evidence
+# ADS 5.0.0-rc.2 Bootstrap Conformance Evidence
 
 **Status:** release-candidate evidence; final designated language review remains open  
-**Date:** 2026-09-13
+**Date:** 2026-09-26
 
 ## 1. Prior authoring baseline
 
-This restructuring was derived from ADS `4.0.0-rc.2` plus explicit project decisions dated 2026-09-13 that established the external controlled-language authority model and the two-part ADS architecture.
+This candidate is derived from released ADS `5.0.0-rc.1` plus the accepted project decision dated 2026-09-26 that requires Examples and Illustrations to remain explicitly labeled, non-binding, and visually distinct in governed rendered publications.
 
-The prior RC remains immutable.
+ADS `5.0.0-rc.1` remains immutable.
 
 ## 2. Candidate baseline
 
-Candidate Language & Meaning Core: `5.0.0-rc.1`.
+Candidate Language & Meaning Core: `5.0.0-rc.2`.
 
-Candidate Skill Architecture: `5.0.0-rc.1`.
+Candidate Skill Architecture: `5.0.0-rc.2`.
 
 ## 3. Bootstrap checks performed
 
@@ -21,7 +21,8 @@ Candidate Skill Architecture: `5.0.0-rc.1`.
 - Part I contains no normative dependency on Part II.
 - ADS-00, Part I, Part II, README, changelog, source index, schemas, and validator are part of the candidate review set.
 - Machine-readable suite structure and schema consistency are validated by `scripts/validate_ads_bundle.py`.
-- Candidate documents were structurally reviewed against the candidate LMC integration rules.
+- Candidate documents were structurally reviewed against the released `5.0.0-rc.1` Language & Meaning Core and the candidate `5.0.0-rc.2` Language & Meaning Core.
+- The candidate Language & Meaning conformance schema and validator require explicit explanatory-material evidence.
 
 ## 4. External-language evidence status
 
@@ -41,4 +42,5 @@ Before stable release, attach or reference:
 4. BCP 14 review result for normative prose;
 5. ASD-STE100 Issue 9 review result for applicable project-authored English prose;
 6. project terminology and meaning-control result;
-7. protected-content preservation result where applicable.
+7. protected-content preservation result where applicable;
+8. explanatory-material result where applicable.

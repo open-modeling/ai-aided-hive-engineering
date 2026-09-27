@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/language-core/language-meaning-conformance.schema.json",
+  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.2/language-core/language-meaning-conformance.schema.json",
   "title": "Language and Meaning conformance record",
   "description": "Reusable project evidence for Language & Meaning Core conformance.",
-  "x-ads-schema-version": "5.0.0-rc.1",
+  "x-ads-schema-version": "5.0.0-rc.2",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -18,6 +18,7 @@
     "project_terminology",
     "meaning_control",
     "protected_content",
+    "explanatory_material",
     "result"
   ],
   "properties": {
@@ -30,7 +31,7 @@
       "minLength": 1
     },
     "lmc_version": {
-      "const": "5.0.0-rc.1"
+      "const": "5.0.0-rc.2"
     },
     "review_method": {
       "enum": [
@@ -89,6 +90,14 @@
         "PASS",
         "FAIL"
       ]
+    },
+    "explanatory_material": {
+      "description": "Conformance of Example and Illustration labeling, non-binding semantics, owning-topic placement, and rendered visual distinction under LMC-03 Section 3.5.",
+      "enum": [
+        "PASS",
+        "FAIL",
+        "N/A"
+      ]
     }
   },
   "allOf": [
@@ -121,6 +130,12 @@
             ]
           },
           "protected_content": {
+            "enum": [
+              "PASS",
+              "N/A"
+            ]
+          },
+          "explanatory_material": {
             "enum": [
               "PASS",
               "N/A"
