@@ -40,7 +40,7 @@ A reproducible container build environment is described by `Containerfile`.
 - Images referenced by Markdown belong under `assets/images/`.
 - Supplementary release data belongs under `data/supplementary/`.
 - Generated PDF and release archives belong only under ignored build/output directories.
-- Auditing is a separate process and is intentionally outside this repository structure.
+- Human-readable audit records belong under `audit/`; they are tied to specific committed states and are not canonical proposal semantics or proposal release artifacts.
 
 ## License
 
