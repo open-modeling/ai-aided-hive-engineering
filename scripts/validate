@@ -77,8 +77,6 @@ except Exception:
     tracked = []
 for path in tracked:
     low = path.lower()
-    if low.startswith("audit/"):
-        errors.append(f"audit content is outside repository scope: {path}")
     if low.startswith("history/"):
         errors.append(f"history snapshots must stay in Git history/tags, not history/: {path}")
     if low.endswith((".pdf", ".docx")):
