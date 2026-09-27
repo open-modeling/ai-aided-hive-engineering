@@ -31,28 +31,15 @@ Items are not proposal semantics until reviewed and integrated into the proposal
 - **Research-gap statement:** deferred until priority 2 and Exchange Item / `LocalInterpretation` semantics stabilize; keep the working formulation in research material only.
 - **Novelty discipline:** keep research positioning separate from legal novelty or patentability claims. Any stronger novelty claim requires a dedicated systematic academic and patent search.
 
-### 2. Diffeomorphism / graph-topology operations for Scale, Magnification, and Domain evolution
+### 2. Scale / Magnification / Domain topology and no-fold evolution
 
-- **Mathematical-model selection:** determine whether `diffeomorphism` is mathematically justified. The current Product graph is discrete, so explicitly compare graph isomorphism, graph homeomorphism/subdivision equivalence, topology-preserving graph rewrite, order-preserving mappings, and any deliberately defined smooth analogue before adopting terminology.
-- **Evolution operator:** define the governed graph operation for establishing an intermediate Magnification and Engineering Layer, including its effect on:
-  - Domain-local Layer topology;
-  - project-wide Scale intervals and Scale deltas;
-  - Magnification traversal;
-  - cross-Domain same-Scale alignment;
-  - State Projections and historical Engineering States.
-- **Domain evolution:** define how one Domain can refine its Layer topology without synthesizing Layers in other Domains, while preserving valid cross-Domain alignment at common Scale positions.
-- **Topology invariants:** identify and formalize the invariants that must survive topology evolution, including at minimum:
-  - existing Layer identity;
-  - relative engineering order;
-  - project-wide Scale semantics;
-  - no diagonal Domain-and-Scale transition;
-  - adjacency-constrained cross-Scale transfer;
-  - no vertical semantic compaction;
-  - historical state-relative Scale relations and deltas.
-- **Mapping across Engineering States:** define how engineering objects and relations before and after a topology refinement are compared without retroactively rewriting historical topology.
-- **Traceability delta integration:** align traceability-specific Scale-delta semantics with the resulting topology-evolution model and the common relation algebra.
-- **Proof obligations and counterexamples:** define valid and invalid refinement cases, including asymmetric Domain refinement, insertion of multiple intermediate Magnifications, deletion/deprecation scenarios if permitted, and interactions with cross-Domain Exchange Items.
-- **Related-work search:** once the model is stable, assess graph transformation systems, algebraic graph transformation, dynamic graph topology, order/topology-preserving refinement, multiscale modelling, and model-transformation research for the closest formal precedents.
+**Status:** accepted and integrated. The formal model now uses a rectangular Scale-Domain projection, Magnification Bands, Layer Band homogeneity, governed Band compaction, sparse Domain adjacency, and a no-fold invariant. Diffeomorphism is retained only as a continuous analogy; the common model remains discrete. Alloy/SAT materialization remains downstream Engineering Toolbox work.
+
+Follow-up work:
+
+- derive the accepted mathematics into Alloy and define bounded SAT checks without allowing the Alloy representation to redefine proposal semantics;
+- assess graph transformation, algebraic graph transformation, order/topology-preserving refinement, sparse multiscale modelling, and related independent work against the stabilized model;
+- add topology-specific counterexample suites for imported graph defects, invalid Layer merges, diagonal relations, and Magnification Conflicts.
 
 ## Semantic audit corrections
 

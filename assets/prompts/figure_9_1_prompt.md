@@ -2,98 +2,104 @@
 
 ## Purpose
 
-Render **Figure 9-1 — Scale, Magnification, and Decision propagation** for the AI Aided Hive Engineering Proposal.
+Render **Figure 9-1 - Scale, Magnification Bands, and topology-preserving engineering flow** for the AI Aided Hive Engineering Proposal.
 
 The figure is an Illustration of §9. It must not introduce model semantics or implementation bindings beyond the proposal text.
 
-## Topology
+## Geometry
 
-Depict one project-wide interval Scale as the vertical engineering-order direction. Do not use immutable numerical Scale coordinates or a fixed global ladder of named engineering levels.
+Depict the formal engineering projection as a rectangular structure with:
 
-Engineering Layers appear only where governed engineering information establishes a Magnification in the applicable Domain.
+- Engineering Domains on the horizontal direction;
+- the common ordered Scale on the vertical direction.
 
-Adjacent Engineering Layers use equal-semantic Scale intervals. Show that an intermediate Engineering Layer can be inserted between two previously adjacent Layers:
+Domains are sparse. Do not draw mandatory Layer cells at every Scale position.
 
-- the pre-existing Layers retain identity and relative order;
-- the inserted Layer becomes adjacent to each former endpoint;
-- each new adjacency uses the same Scale-interval semantics;
-- the current Scale delta between the former endpoints increases because the path contains another interval.
+Show the underlying engineering graph as capable of richer internal structure than the rectangular projection.
 
-Parallel Engineering Domains occupy separated horizontal regions. Different Domains may contain different numbers of Engineering Layers.
+Optionally include a small inset that wraps the Domain direction around a cylinder. The cylinder is explanatory only. Do not imply cyclic Domain adjacency or semantic meaning from angular distance.
 
-Cross-Domain Scale alignment appears only where actual engineering information is valid for direct exchange. Do not draw a global rectangular grid that implies every Domain contains predefined corresponding levels.
+## Magnification Bands
 
-Execution sub-scale may extend in depth inside an Engineering Layer. It must remain visibly Layer-local and must not appear as another engineering Scale interval.
+Engineering Layers are graph nodes with Magnification Bands.
 
-## Magnification
+Show both:
 
-Show Magnification as the operator that locates engineering information by relative order and performs bounded traversal through the established Scale topology.
+- point Bands, represented as A{2};
+- non-zero free-floating Bands, represented as C[1-3].
 
-Do not show Magnification as a separate axis.
+A non-zero Band is normal.
 
-Do not imply that Magnification creates missing engineering information or creates an Engineering Layer by traversal alone.
+Show Layer-bound semantic content moving with the same Band as its Layer. Do not show one valid Layer containing bound Propositions at different Magnification points.
+
+Include an explicitly rejected Magnification Conflict with L1[2-3], p1{2} bound to L1, and p2{3} bound to L1. Mark the affected continuation as blocked until the conflict is resolved.
+
+## Band alignment and compaction
+
+Show C[1-3], B[2-3], their overlap [2-3], governed compaction C[1-3] -> C[2-3], and the resulting valid same-Band cross-Domain relation C[2-3] <-> B[2-3].
+
+Do not collapse either Layer to a point unless another valid constraint requires that point.
+
+Compaction must visibly preserve node identity and must not appear as a graph-node merge.
+
+## Rectangularity
+
+Horizontal direct cross-Domain relations connect equal Bands only.
+
+Vertical Scale propagation stays inside one Domain and crosses only adjacent Engineering Layer boundaries.
+
+Show a diagonal cross-Domain/cross-Band relation as explicitly rejected.
+
+Show a Layer-skipping vertical relation as explicitly rejected.
+
+## No-fold merge example
+
+Show A{2} <-> B{2} and A{3} <-> B{3}.
+
+Then show the attempted merge A{2}+A{3} -> A[2-3] as rejected while both external relations remain.
+
+Do not depict B{2} and B{3} as collapsing merely because Domain A attempted a merge.
+
+Do not silently delete either external relation.
+
+## Human locality
+
+A Human can be drawn with an applicability Band represented as Human[2-3].
+
+Show possible participation at a Layer {3} inside that Band.
+
+Do not show the Human Band as authority, and do not collapse Human[2-3] to {3} merely because one participation occurs at {3}.
 
 ## Exchange Items
 
 Use one Exchange Item identity for one governed transfer.
 
-Show:
-
-- Informational Exchange Items delivering Decision or Evidence projections;
-- Objective Exchange Items delivering Work Products;
-- Feedback Exchange Items delivering Evidence projections in the feedback direction.
-
 Vertical transfer is Domain-local and crosses only adjacent Engineering Layers.
 
-Horizontal cross-Domain transfer occurs only between Scale-aligned contexts.
+Horizontal cross-Domain transfer occurs only between equal Bands.
 
-A single Exchange Item must not simultaneously change Domain and Scale.
+A single Exchange Item must not simultaneously change Domain and Magnification Band.
 
-Show a path that requires both operations as a corner made from two governed transfers: vertical then horizontal, or horizontal then vertical.
-
-Show a diagonal cross-Domain/cross-Scale transfer only as an explicitly rejected case.
-
-## Graph versus engineering validity
-
-The underlying graph may structurally contain an edge between arbitrary addressable nodes.
-
-Where useful, show such a structural shortcut faintly or dashed and mark it as rejected for engineering use when Scale, Domain, semantic, Scope, authority, Contract, information-boundary, or relation validators do not permit it.
-
-A structural edge must not visually override adjacent-Layer traversal.
-
-## Y-model information flow
-
-Where Y-model participation is visible, show it as a consumer-established pull flow for a Product engineering need.
-
-Do not depict Engineering Domains as pushing unsolicited information or as owning a Y Branch.
-
-Prescriptive-domain information participates on the Fixed branch. Engineered-domain information normally participates on the Negotiable branch and may be Fixed under applicable conditions.
+Where both operations are required, show separate governed transitions with local interpretation.
 
 ## Decision propagation
 
-Show a Decision Candidate at its originating Engineering Layer with a calculated **Decision Blast Radius** over the valid engineering topology.
+Show a Decision Candidate with calculated Decision Blast Radius over the valid topology and a committed Decision with separate Decision Extent.
 
-The Blast Radius is a calculated, non-committed topology-constrained region, not a Euclidean sphere.
-
-Show a committed Decision with a separate **Decision Extent** representing the region actually materialized at the illustrated observation point.
-
-The Blast Radius and Decision Extent may differ.
-
-Propagation terminates where a receiving Engineering Layer can accommodate the consequence locally.
-
-## Human locality
-
-If a Human appears at more than one Engineering Layer, show separate Layer-local participation. Do not use Human identity as a vertical authority connection.
+Neither region overrides Band, adjacency, or no-diagonal rules.
 
 ## Visual restrictions
 
 Do not imply:
 
-- predefined absolute Scale coordinates;
-- mandatory Product/system/subsystem/component levels;
-- identical Domain Layer structures;
-- diagonal Exchange Items;
-- Layer-skipping semantic propagation;
+- fixed universal Layer names;
+- mandatory dense Domain grids;
+- non-zero Band as an anomaly;
+- valid Layer-bound content with unequal Bands;
+- diagonal engineering relations;
+- Layer-skipping propagation;
+- graph contraction as Band compaction;
+- local Layer merge collapsing related Layers in other Domains;
+- Human Magnification applicability as Authority;
 - Magnification-generated detail;
-- Scale position as authority;
-- Decision Blast Radius as a geometric sphere.
+- Decision Blast Radius as a Euclidean sphere.
