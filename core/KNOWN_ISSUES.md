@@ -1,6 +1,6 @@
-# ADS 5.0.0-rc.1 Known Issues
+# ADS 5.0.0-rc.2 Known Issues
 
-Date: 2026-09-13
+Date: 2026-09-26
 
 | ID | Severity | Known issue | Release effect |
 |---|---|---|---|

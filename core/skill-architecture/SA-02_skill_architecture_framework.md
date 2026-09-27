@@ -2,7 +2,7 @@
 
 **Document ID:** SA-02  
 **Status:** Normative architecture and lifecycle baseline  
-**Suite version:** 5.0.0-rc.1  
+**Suite version:** 5.0.0-rc.2
 **Date:** 2026-09-13  
 **Parent:** ADS-00  
 **Language baseline:** LMC  

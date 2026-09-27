@@ -2,7 +2,7 @@
 
 **Document ID:** LMC-02  
 **Status:** Normative project terminology and interpretation baseline  
-**Suite version:** 5.0.0-rc.1  
+**Suite version:** 5.0.0-rc.2
 **Part:** Language & Meaning Core  
 **Parent:** ADS-00
 

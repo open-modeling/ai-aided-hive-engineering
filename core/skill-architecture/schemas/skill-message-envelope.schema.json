@@ -1,9 +1,9 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/skill-message-envelope.schema.json",
+  "$id": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.2/skill-architecture/skill-message-envelope.schema.json",
   "title": "ADS addressed skill message envelope",
   "description": "Structured role-to-skill and skill-to-skill request envelope with explicit resolution state.",
-  "x-ads-schema-version": "5.0.0-rc.1",
+  "x-ads-schema-version": "5.0.0-rc.2",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -34,29 +34,29 @@
       "minLength": 1
     },
     "source_skill_uri": {
-      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/skillUri"
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.2/skill-architecture/ads-common-definitions.schema.json#/$defs/skillUri"
     },
     "source_skill_version": {
-      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/semanticVersion"
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.2/skill-architecture/ads-common-definitions.schema.json#/$defs/semanticVersion"
     },
     "target_skill_uri": {
-      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/skillUri"
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.2/skill-architecture/ads-common-definitions.schema.json#/$defs/skillUri"
     },
     "requested_target_version": {
-      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/semanticVersion"
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.2/skill-architecture/ads-common-definitions.schema.json#/$defs/semanticVersion"
     },
     "resolved_target_version": {
-      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/semanticVersion"
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.2/skill-architecture/ads-common-definitions.schema.json#/$defs/semanticVersion"
     },
     "capability_id": {
-      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/localContractId"
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.2/skill-architecture/ads-common-definitions.schema.json#/$defs/localContractId"
     },
     "expected_outcome_ids": {
       "type": "array",
       "minItems": 1,
       "uniqueItems": true,
       "items": {
-        "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/localContractId"
+        "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.2/skill-architecture/ads-common-definitions.schema.json#/$defs/localContractId"
       }
     },
     "intent": {
@@ -64,7 +64,7 @@
       "minLength": 1
     },
     "payload_schema_uri": {
-      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.1/skill-architecture/ads-common-definitions.schema.json#/$defs/absoluteUri"
+      "$ref": "https://schemas.ai-devmode.invalid/ads/5.0.0-rc.2/skill-architecture/ads-common-definitions.schema.json#/$defs/absoluteUri"
     },
     "payload": {}
   },

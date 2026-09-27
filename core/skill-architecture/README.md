@@ -1,6 +1,6 @@
 # Part II — Skill Architecture
 
-Suite version: `5.0.0-rc.1`
+Suite version: `5.0.0-rc.2`
 
 Part II depends on Part I — Language & Meaning Core.
 

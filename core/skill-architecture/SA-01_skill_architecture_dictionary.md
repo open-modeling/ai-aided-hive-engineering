@@ -2,7 +2,7 @@
 
 **Document ID:** SA-01  
 **Status:** Normative skill-architecture terminology baseline  
-**Suite version:** 5.0.0-rc.1  
+**Suite version:** 5.0.0-rc.2
 **Part:** Skill Architecture  
 **Parent:** ADS-00  
 **Language baseline:** LMC

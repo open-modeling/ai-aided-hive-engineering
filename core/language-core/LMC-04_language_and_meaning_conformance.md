@@ -2,7 +2,7 @@
 
 **Document ID:** LMC-04  
 **Status:** Normative conformance and bootstrap baseline  
-**Suite version:** 5.0.0-rc.1  
+**Suite version:** 5.0.0-rc.2
 **Part:** Language & Meaning Core  
 **Parent:** ADS-00
 
@@ -20,6 +20,7 @@ A Language & Meaning conformance claim identifies:
 - the review method;
 - evidence locations;
 - protected-content handling when applicable;
+- explanatory-material handling when applicable;
 - project terminology sources used;
 - unresolved deviations or blockers;
 - the final result.
@@ -33,13 +34,14 @@ Use this sequence for a governed artifact:
 1. classify content applicability under LMC-03;
 2. identify protected and imported content;
 3. identify normative prose and apply BCP 14 semantics;
-4. apply project-authorized ASD-STE100 Issue 9 resources to applicable English prose;
-5. apply project-authorized terminology sources;
-6. review meaning, scope, actors, conditions, references, and acceptance criteria under LMC-02;
-7. apply complementary domain or information standards when relevant;
-8. preserve mathematical and machine syntax according to LMC-03;
-9. run the project-designated checker or designated review process;
-10. retain evidence and record the result.
+4. identify Examples and Illustrations and verify their explicit labels, non-binding semantics, owning-topic placement, and visible distinction in each governed rendered publication;
+5. apply project-authorized ASD-STE100 Issue 9 resources to applicable English prose;
+6. apply project-authorized terminology sources;
+7. review meaning, scope, actors, conditions, references, and acceptance criteria under LMC-02;
+8. apply complementary domain or information standards when relevant;
+9. preserve mathematical and machine syntax according to LMC-03;
+10. run the project-designated checker or designated review process;
+11. retain evidence and record the result.
 
 ## 4. Bootstrap review for guideline updates
 

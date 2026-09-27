@@ -2,7 +2,7 @@
 
 **Document ID:** SA-03  
 **Status:** Normative machine-readable contract baseline release candidate  
-**Suite version:** 5.0.0-rc.1  
+**Suite version:** 5.0.0-rc.2
 **Date:** 2026-09-13  
 **Parent:** ADS-00  
 **Language baseline:** LMC  
@@ -204,7 +204,7 @@ Skill Architecture provides reusable schemas in `schemas/`.
 | `skill-api.schema.json` | Mandatory Skill API contract for identity, applicability, capabilities, and outcomes. |
 | `skill-message-envelope.schema.json` | Common addressed role-to-skill and skill-to-skill communication envelope. |
 | `stateful-runtime-envelope.schema.json` | Reusable project-local stateful runtime envelope. |
-| `skill-conformance-record.schema.json` | Machine-readable ADS 5.0.0-rc.1 skill release-candidate and gate evidence. |
+| `skill-conformance-record.schema.json` | Machine-readable ADS 5.0.0-rc.2 skill release-candidate and gate evidence. |
 
 A skill **SHOULD** reuse these schemas when it uses the corresponding common concepts.
 

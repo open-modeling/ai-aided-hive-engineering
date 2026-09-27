@@ -2,7 +2,7 @@
 
 **Document ID:** SA-07  
 **Status:** Normative development and release guide release candidate  
-**Suite version:** 5.0.0-rc.1  
+**Suite version:** 5.0.0-rc.2
 **Date:** 2026-09-13  
 **Parent:** ADS-00  
 **Language baseline:** LMC  
@@ -591,12 +591,12 @@ Skill: <name>
 Skill URI: <absolute-uri>
 Version: <semantic-version>
 Canonical package: <source>
-ADS suite: 5.0.0-rc.1
+ADS suite: 5.0.0-rc.2
 Lifecycle classification: stateful | stateless
 Configuration classification: configurable | non-configurable
 Persists project data: true | false
 
-Language & Meaning profile: LMC 5.0.0-rc.1
+Language & Meaning profile: LMC 5.0.0-rc.2
 Language review method: designated-checker | designated-review | combined
 Language review authority: <authority>
 Language review evidence: <evidence location(s)>

@@ -2,7 +2,7 @@
 
 **Document ID:** ADS-00  
 **Status:** Normative umbrella governance, release-candidate baseline  
-**Suite version:** 5.0.0-rc.1  
+**Suite version:** 5.0.0-rc.2
 **Date:** 2026-09-13
 
 ## 1. Purpose
@@ -125,7 +125,7 @@ A lower-precedence document **MUST NOT** weaken a higher-precedence mandatory re
 
 The ADS suite uses Semantic Versioning.
 
-This restructuring candidate is `5.0.0-rc.1` because separating the suite into reusable Part I and dependent Part II changes normative document ownership, dependency direction, and conformance obligations.
+The `5.0.0` release-candidate line began at `5.0.0-rc.1` when the suite was separated into reusable Part I and dependent Part II. This candidate is `5.0.0-rc.2`; it adds mandatory Example/Illustration labeling, rendered visual distinction, and explanatory-material conformance evidence before stable promotion.
 
 A released ADS version **MUST** remain immutable.
 

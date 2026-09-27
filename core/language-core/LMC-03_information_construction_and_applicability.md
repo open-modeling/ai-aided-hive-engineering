@@ -2,7 +2,7 @@
 
 **Document ID:** LMC-03  
 **Status:** Normative information-construction and source-protection baseline  
-**Suite version:** 5.0.0-rc.1  
+**Suite version:** 5.0.0-rc.2
 **Part:** Language & Meaning Core  
 **Parent:** ADS-00
 
@@ -52,7 +52,24 @@ Prefer current state over chronological discussion history.
 
 ### 3.5 Explanatory material
 
-Organize explanations around one technical topic at a time.
+Examples and Illustrations are non-binding explanatory material.
+
+An **Example** presents a bounded representative instance, value, relation, or use of a governed concept.
+
+An **Illustration** presents a broader explanatory situation, scenario, or visual interpretation.
+
+Outside a terminology definition, each Example or Illustration **MUST**:
+
+1. begin with an explicit **Example** or **Illustration** label;
+2. remain subordinate to the technical topic it explains rather than create an independent normative section;
+3. be visually distinguishable from surrounding non-explanatory content in each governed rendered publication; and
+4. preserve that label and visual distinction through the publication process.
+
+The rendered form **MUST** use a format-native visual distinction in addition to the explanatory label.
+
+A terminology definition **MAY** contain representative examples under an explicit **Examples:** label.
+
+An Example or Illustration **MUST NOT** establish or extend a definition, normative requirement, default, obligation, conformance criterion, or implementation binding.
 
 Use explicit references when multiple possible referents exist.
 

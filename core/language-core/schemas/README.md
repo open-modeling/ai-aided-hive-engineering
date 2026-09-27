@@ -1,6 +1,6 @@
 # Language & Meaning Core schema catalog
 
-Suite version: `5.0.0-rc.1`
+Suite version: `5.0.0-rc.2`
 
 - `language-meaning-conformance.schema.json` — reusable conformance evidence for governed project artifacts.
 

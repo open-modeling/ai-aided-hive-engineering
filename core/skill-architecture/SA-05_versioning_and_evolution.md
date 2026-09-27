@@ -2,7 +2,7 @@
 
 **Document ID:** SA-05  
 **Status:** Normative versioning and release-evolution baseline release candidate  
-**Suite version:** 5.0.0-rc.1  
+**Suite version:** 5.0.0-rc.2
 **Date:** 2026-09-13  
 **Parent:** ADS-00  
 **Language baseline:** LMC  
@@ -201,7 +201,7 @@ A backward-compatible new framework capability or optional rule **SHOULD** incre
 
 A clarification or correction that changes no normative meaning **SHOULD** increment PATCH.
 
-The current working suite version is `5.0.0-rc.1`. The intended stable baseline is `4.0.0` after every mandatory release gate passes.
+The current working suite version is `5.0.0-rc.2`. The intended stable baseline is `4.0.0` after every mandatory release gate passes.
 
 ## 17. Skill changelog contract
 
