@@ -122,6 +122,12 @@ The proposal is organized around five complementary concerns:
 
 The remaining parts of the proposal formalize these concerns while leaving implementation technology and project-specific engineering practice open.
 
+> **Illustration — project cylinder.**
+>
+> The common Scale-Domain projection can be visualized as a rectangle whose horizontal dimension contains Engineering Domains and whose vertical dimension is the common Scale. For compact visualization, the Domain dimension can be wrapped around a cylinder while Scale remains the cylinder axis. Same-Band cross-Domain structures then appear as horizontal braids around the cylinder, while sparse or free-floating Engineering Layers occupy bounded axial Magnification Bands. The graph inside this projection can contain arbitrarily complex engineering structure.
+>
+> The cylinder is explanatory only. Wrapping the Domain dimension does not create cyclic Domain adjacency, does not make angular distance semantically meaningful, and does not introduce relations absent from the governed engineering graph.
+
 # Part II - Language and Meaning Profile
 
 ## 4. Language and Meaning Profile
@@ -337,7 +343,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Acceptance** | Contract-governed process that assesses Contract fulfilment and the resulting Work Product against the applicable Acceptance rules and records the resulting disposition. |
 | **Check Cascade** | Cost-ordered sequence of applicable checks in which a more expensive check is entered only after all applicable cheaper checks have passed. |
 | **Assignment** | Contract relation that identifies the Actor responsible for execution of that Contract. A valid Assignment establishes that Actor as the Executor in the Contract context. Assignment is part of the Contract state, not a separate Engineering Object. |
-| **Authority** | Explicit, externally established permission for an Actor to perform a governed operation within a defined Scope, time, and context. Authority is operation-specific and does not imply correctness, Evidence sufficiency, or engineering feasibility. |
+| **Authority** | Explicit, externally established permission for an Actor to perform a governed operation within a defined Scope, time, and context. Authority is operation-specific and does not imply correctness, Evidence sufficiency, engineering feasibility, Magnification applicability, or Scale position. |
 | **Actor** | Human, Hive, external organization, or other authority-capable participant. Computational micro-agents are not Actors unless a Project Profile grants that role. |
 | **Agent** | Computational participant that performs a bounded operation. Agent identity does not create semantic authority. |
 | **Baseline** | Configuration Management reference state created only when the applicable Configuration Management process defines it. |
@@ -353,7 +359,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Delusive Traceability** | Apparently complete traceability created through semantically invalid, fabricated, or unjustified relations. |
 | **Domain Nature** | Classification of an Engineering Domain as **Prescriptive** or **Engineered**. A Prescriptive Domain develops or interprets conditions imposed on Product engineering. An Engineered Domain develops Product or project solutions. |
 | **Engineering Domain** | Project-defined engineering concern whose Decisions, Contracts, Work Products, Evidence, and other engineering information evolve through Domain-local Engineering Layers on the common Scale. |
-| **Engineering Layer** | Domain-local engineering context established for engineering information at one Magnification. Engineering Layers occupy relative positions on the common Scale. Additional Layers can be established when engineering information requires an intermediate Magnification. An Engineering Layer can contain an execution sub-scale without creating another Engineering Layer. |
+| **Engineering Layer** | Domain-local graph node that provides one engineering context and occupies one Magnification Band on the common Scale. Every scale-sensitive semantic node bound to that Layer for the applicable role has the same Magnification Band. An Engineering Layer can contain an execution sub-scale without creating another Engineering Layer. |
 | **Engineering Universe** | Theoretical domain of engineering elements, relations, configurations, and outcomes expressible by the common model before Product-, project-, material-, contextual-, or temporal bounds are applied. |
 | **Engineering Space** | Materially and contextually bounded subset of the Engineering Universe applicable to one Product or engineering context. Its bounds can include Product scope, engineering domains, Project Profile, physical constraints, available capability, enabling technology, applicable external constraints, and other non-temporal engineering dimensions. |
 | **Engineering State** | Temporally bounded subset of an Engineering Space containing the governed engineering elements and relations addressable at one observation point together with their applicable identity, revision, Scope, lifecycle or status, provenance, temporal qualification, and applicability. |
@@ -381,7 +387,10 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Local Optimum / Local Extremum** | Best/extreme candidate relative to a declared neighborhood or currently explored region, not the entire theoretical Solution Space. |
 | **Low-profile Assessment** | Bounded, semi-instrumented semantic assessment using project-defined bounded structures. |
 | **Materialized Product State** | Product content materially realized at a stated observation point. |
-| **Magnification** | Operator on Scale used to locate engineering information by relative engineering order and to perform bounded traversal toward applicable coarser or finer engineering information. Magnification uses the Scale relations established among Engineering Layers and does not create missing engineering content. |
+| **Magnification** | Scale operator and qualification used to locate engineering information by relative engineering order, establish or refine its Magnification Band, and perform bounded traversal toward applicable coarser or finer engineering information. Magnification uses governed Scale relations and does not create missing engineering content, authority, or graph relations. |
+| **Magnification Band** | Non-empty contiguous interval on the common Scale associated with a scale-sensitive graph node or with the Magnification applicability of an Actor. A point is the degenerate case in which both Band bounds coincide. For a valid Engineering Layer, every Layer-bound scale-sensitive semantic node has exactly the Layer's Magnification Band. A non-zero Band is normal and can represent sparse or free-floating localization. |
+| **Magnification Compaction** | Governed narrowing of a Magnification Band to a non-empty sub-band while preserving semantic identity and protected graph topology. Compaction of an Engineering Layer applies atomically to that Layer and its Layer-bound scale-sensitive semantic nodes. Compaction does not implicitly merge graph nodes, delete relations, or create authority. |
+| **Magnification Conflict** | Invalid Scale-locality condition in which a scale-sensitive semantic node bound to an Engineering Layer has a Magnification Band different from that Layer's Band. A conflict can result from malformed import, faulty extraction, invalid merge, incorrect Layer binding, tooling failure, legacy data, or another topology or representation defect. |
 | **Micro-agent** | Short-lived, specialized, low-Resource-Cost Agent used for one narrow exploration or validation operation. |
 | **Negotiability** | Classification of a Y Branch as **Negotiable** or **Fixed** for one Product engineering reconciliation. Information from a Prescriptive Domain is Fixed. Information from an Engineered Domain is normally Negotiable and can be Fixed when applicable engineering conditions make source change economically ineffective for the current reconciliation. Both classifications support governed feedback. |
 | **Obligation** | Responsibility of an Executor for the complete result of an assigned Contract. The Executor delivers the required result or explicitly reports inability to fulfil the Contract to the authoritative party or parties. Obligation is Contract semantics, not necessarily a separate stored object. |
@@ -401,7 +410,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Rollback Contract** | Contract governing one Rollback. It identifies the committed Decision being cancelled, applicable Evidence, the Rollback Closure, the expected resulting state, required Work Product, and Acceptance conditions. |
 | **Rollback Cost** | Resource Cost attributable to exploration, realization, verification, integration consequences, or other engineering work caused by a Rollback. Its complete economy semantics are deferred to the Engineering Economy backlog package. |
 | **Scale of measurement** | Established measurement-theory classification defining which comparisons and algebraic operations are meaningful for a measured property. Common scales of measurement are nominal, ordinal, interval, and ratio. The proposal uses these established meanings and does not redefine them. |
-| **Scale** | Project-wide interval Scale that establishes relative engineering order and interval distance among Engineering Layers according to Magnification. Scale has no mandatory absolute numerical coordinates. Adjacent Engineering Layers are separated by one applicable Scale interval; additional intermediate Layers can be inserted while preserving adjacent-interval semantics. |
+| **Scale** | Project-wide ordered interval space shared by all Engineering Domains. Magnification Bands occupy contiguous intervals on Scale. Domains can be sparse and need not instantiate Layers at every Scale position. Scale has no mandatory absolute numerical coordinates. The Scale-Domain projection remains rectangular: direct cross-Domain relations preserve Magnification Band, while Scale transitions remain Domain-local and use adjacent Engineering Layers. |
 | **Solution Universe** | Theoretical domain of possible solution configurations for an applicable class of engineering problem before the material and contextual bounds of a particular Product or problem are applied. |
 | **Solution Space** | Materially and contextually bounded subset of a Solution Universe for a stated Product or engineering problem. Its bounds can include Product intent, Product boundary, physical constraints, available capability, enabling technology, and applicable external constraints. |
 | **State Projection** | Purpose-bounded subset of one Engineering State selected for a stated computation, query, analysis, Contract, Decision, traversal, or other engineering operation while preserving the applicable qualifications of the selected engineering information. |
@@ -463,6 +472,8 @@ Mathematical symbols are part of the proposal dictionary. This table is authorit
 | $R_t(C_R)$ | Subset of $P^{mat}_t$ removed from active materialization by successful Rollback Contract $C_R$. |
 | $\mathcal U_E$ | Engineering Universe. |
 | $\mathcal E_\kappa$ | Engineering Space applicable to engineering context $\kappa$. |
+| $\mathbb D_\kappa$ | Set of Engineering Domains applicable to engineering context $\kappa$. |
+| $\mathbb S_{\kappa,t}$ | Common ordered Scale applicable to engineering context $\kappa$ at observation point $t$. |
 | $\Omega$ | Solution Universe. |
 | $\mathcal S_\kappa$ | Solution Space applicable to engineering context $\kappa$. |
 | $\mathcal F(X_t)$ | Feasible Region under Engineering State $X_t$. |
@@ -481,13 +492,19 @@ Mathematical symbols are part of the proposal dictionary. This table is authorit
 | $V_G$ | Vertex set of graph-structured State Projection $G$. |
 | $E_G$ | Edge/relation-instance set of graph-structured State Projection $G$. |
 | $r$ | Typed relation family. |
+| $s,s_i,s_j$ | Scale positions used when expressing Scale order or interval bounds. Numerical labels are optional representations. |
+| $h$ | One Human Actor. |
+| $o$ | One governed operation. |
+| $Q$ | One bounded traversal query as defined in §7.2.1. |
+| $\delta_s$ | One adjacent interval of the current common Scale. |
+| $\Delta_s(s_i,s_j)$ | Signed Scale delta between two Scale positions. |
 | $S_r,T_r$ | Source and target sets of relation $r$. |
 | $x,y,z$ | Locally typed arbitrary elements. |
 | $i,j,k,m,n$ | Local indices or revision counters. |
 | $a,b$ | Labels distinguishing compared cases when used as subscripts. |
 | $\langle\cdot\rangle$ | Ordered tuple. |
 | $\subseteq,\subset,\cup,\cap,\setminus,\in,\varnothing$ | Standard set operators and the empty set. |
-| $=,\neq,\Rightarrow,\Leftrightarrow,\forall,\exists,\neg,\land,\lor$ | Standard equality and logical operators. |
+| $=,\neq,\Rightarrow,\not\Rightarrow,\Leftrightarrow,\forall,\exists,\neg,\land,\lor$ | Standard equality and logical operators. |
 | $<,>$ | Standard order operators where the participating domain defines an order. |
 | $\times$ | Cartesian product. |
 | $\rightarrow$ | Directed progression or mapping where defined by context. |
@@ -892,13 +909,22 @@ $$OriginatesRequest(a,C)\not\Rightarrow Issuer(C)=a.$$
 One Actor can carry several roles where the Project Profile and required independence rules permit that combination.
 
 #### 5.5.4 Multi-layer and Contract-boundary locality
-#### 5.5.4 Multi-layer and Contract-boundary locality
+
+A Human can participate across a Magnification range without acquiring authority over that range.
+
+Where a Human has an applicable Magnification Band, participation in Engineering Layer $L$ requires the Layer Band to lie inside the Human's applicable Band:
+
+$$Band(L,\kappa,t)\subseteq Band(h,\kappa,t).$$
+
+This is an applicability condition only:
+
+$$Band(L,\kappa,t)\subseteq Band(h,\kappa,t)\not\Rightarrow AuthorizedFor(h,o,x,\sigma,t,\kappa).$$
 
 A Human can participate in several Engineering Layers without creating cross-layer authority:
 
 $$Participates(h,L_i)\land Participates(h,L_j)\not\Rightarrow AuthorityPropagation(h,L_i,L_j).$$
 
-Knowledge acquired in one Engineering Layer can inform reasoning but does not become an implicit Decision in another layer:
+Knowledge acquired in one Engineering Layer can inform reasoning but does not become an implicit Decision in another Layer:
 
 $$Knows(h,p,L_i)\land Participates(h,L_j)\not\Rightarrow Decision_j(p).$$
 
@@ -910,7 +936,7 @@ $$DependsOn(C_i,C_j)\not\Rightarrow AuthorityInheritance(C_i,C_j)$$
 
 $$Integrates(C_i,C_j)\not\Rightarrow AuthorityInheritance(C_i,C_j).$$
 
-Where information must affect another Engineering Layer or Contract context, it follows the applicable Decision, Exchange Item, feedback, Contract, or other explicit materialization mechanism.
+Where information must affect another Engineering Layer or Contract context, it follows the applicable Decision, Exchange Item, feedback, Contract, or other explicit governed mechanism.
 
 #### 5.5.5 Delegation
 
@@ -1178,33 +1204,37 @@ A project can classify the unresolved state as `ORPHAN`, `UNKNOWN`, `KNOWN_GAP`,
 
 **Validation.** Remove AX-2 and the model can improve apparent completeness by inventing links or suppressing gaps. That directly conflicts with truthful traceability.
 
-### 5.8 AX-3 - Scale locality
+### 5.8 AX-3 - Scale locality and rectangularity
 
-**Intent.** Prevent visibility, graph reachability, Human participation, or engineering convenience from creating direct semantic, evidential, or authority relations across incompatible engineering orders.
+**Intent.** Preserve the common rectangular Scale-Domain projection and prevent graph reachability, Human participation, sparse Domain structure, compaction, or engineering convenience from creating diagonal, folded, Layer-skipping, or authority-bearing shortcuts.
 
-**Statement.** Every direct engineering relation operates between elements at the same Scale position:
+**Statement.** At context $\kappa$ and observation point $t$, the common engineering projection is:
 
-$$DirectSemanticUse(x,y,\kappa)\Rightarrow Scale(x)=Scale(y).$$
+$$\mathbb D_\kappa\times\mathbb S_{\kappa,t}.$$
 
-Scale equality and Scale distance are relative engineering properties. They do not require permanently assigned numerical coordinates.
+Engineering Domains can be sparse. An Engineering Layer occupies one non-empty contiguous Magnification Band on the common Scale.
 
-A consequence moving between Engineering Layers is propagated only through the applicable adjacent Engineering Layer boundary, using an Exchange Item or Feedback Exchange Item followed by local interpretation.
+For every scale-sensitive semantic node $x$ bound to Engineering Layer $L$:
 
-$$CrossScaleEffect\Rightarrow AdjacentLayerTransfer\land LocalInterpretation.$$
+$$Layer(x,\kappa,t)=L\Rightarrow Band(x,\kappa,t)=Band(L,\kappa,t).$$
 
-A direct relation must not bypass an Engineering Layer that is intermediate under the current Scale and Magnification relations.
+A valid direct cross-Domain engineering relation preserves Magnification Band. It cannot simultaneously change Domain and Scale localization.
 
-A cross-domain relation must not simultaneously change domain and Scale level.
+A Scale transition remains inside one Engineering Domain and can cross only one current adjacent Engineering Layer boundary at a time.
 
-**Human locality.** One Human can participate in several Engineering Layers, but Human identity does not create a cross-layer authority, Evidence, support, or Decision path.
+A consequence crossing an Engineering Layer boundary is propagated through the applicable Exchange Item or Feedback Exchange Item and local interpretation.
 
-$$Participates(h,L_i)\land Participates(h,L_j)\not\Rightarrow AuthorityPropagation(h,L_i,L_j).$$
+A direct relation must not bypass an Engineering Layer intermediate in the current Domain-local Scale order.
 
-Each Human Decision remains subject to the engineering artifacts, authority, and semantic conditions applicable at its own Engineering Layer.
+Magnification Compaction can narrow a floating Band but does not merge graph nodes or silently discard cross-Domain relations.
 
-**Boundary.** The proposal defines one project-wide interval Scale. Magnification establishes the relative Scale placement of Engineering Layers, while Scale establishes their interval relations and deltas. The occupied Layer structure can evolve as engineering work establishes additional Magnifications. The Project Profile defines Domain topology, Magnification interpretation, adjacent-layer transfer semantics, and cross-Domain alignment rules.
+**Human locality.** A Human's Magnification applicability can span several Layers. That applicability, Human identity, and Human participation do not establish Decision authority, Evidence, support, or authority propagation.
 
-**Validation.** Without AX-3, a local Decision, Evidence item, or Human action can silently become authoritative at remote engineering levels and produce the authority/evidence sphere that the proposal is intended to prevent.
+**Boundary.** Scale locality constrains the engineering projection of the graph. The underlying graph can contain richer structure, but a relation used as a valid engineering relation remains subject to the Scale, Domain, semantic, Scope, Evidence, authority, Contract, and information-boundary rules.
+
+The common model does not require Engineering State to form a differentiable manifold. The no-fold invariant is the discrete topology-preservation requirement corresponding to the non-folding intuition behind a diffeomorphic deformation.
+
+**Validation.** Without AX-3, a local merge, imported edge, Human action, or cross-Domain relation can fold distinct Magnifications together, create diagonal propagation, skip an established Layer, or make one sparse Domain collapse the topology of another.
 
 ### 5.9 AX-4 - Delegated autonomy
 
@@ -2693,189 +2723,241 @@ Magnification uses that Scale to locate engineering information and to control b
 
 Decision Blast Radius and Decision Extent use the same propagation geometry at different stages of a Decision lifecycle.
 
-### 9.1 Scale
+### 9.1 Scale and the rectangular Scale-Domain projection
 
-The proposal uses one project-wide **interval Scale**.
+Scale is the common project-wide ordered engineering Magnification space.
 
-Scale provides the common reference for engineering order of magnitude among Engineering Layers.
+At context $\kappa$ and observation point $t$, let $\mathbb D_\kappa$ be the applicable Engineering Domains and $\mathbb S_{\kappa,t}$ the applicable common Scale. Their engineering projection is:
 
-Engineering Layers do not require fixed or pre-assigned numerical coordinates. Their Scale placement is relative and is established from Magnification.
+$$\mathbb D_\kappa\times\mathbb S_{\kappa,t}.$$
 
-Scale establishes:
+This Cartesian product is the common rectangular reference used for Scale and Domain locality. It does not imply that every Domain contains an Engineering Layer at every Scale position.
 
-- coarser/finer order;
-- adjacency;
-- interval distance;
-- Scale delta;
-- alignment required for direct cross-Domain engineering relations.
+Domains can therefore be sparse.
 
-The occupied Scale can evolve as engineering work establishes additional Engineering Layers.
+The underlying graph $G$ can contain arbitrarily complex internal structure. Rectangularity constrains how scale-sensitive engineering nodes and direct engineering relations project onto Domain and Scale; it does not reduce the whole graph to a two-dimensional lattice.
 
-Such evolution does not require a predefined hierarchy of Layer names.
+Scale has no mandatory permanent numerical coordinates. Numerical labels $(1,2,3,\ldots)$ are permitted representations of relative order where useful.
 
-### 9.2 Scale interval and distance
+Historical Engineering States preserve the Scale and Band relations applicable at their observation points.
+
+### 9.2 Magnification Band
+
+For every scale-sensitive node or Actor applicability $x$ for which Magnification localization is defined:
+
+$$Band(x,\kappa,t)\subseteq\mathbb S_{\kappa,t}$$
+
+and:
+
+$$Band(x,\kappa,t)\neq\varnothing.$$
+
+A Magnification Band is contiguous in Scale order. For $s_1$ and $s_2$ in $Band(x,\kappa,t)$, every Scale position $s$ between them also belongs to the Band:
+
+$$\forall s_1,s_2\in Band(x,\kappa,t),\ \forall s\in\mathbb S_{\kappa,t}:\ (s_1<s<s_2)\Rightarrow s\in Band(x,\kappa,t).$$
+
+A Scale point is the degenerate Band:
+
+$$Band(x,\kappa,t)=\{s\}.$$
+
+A free-floating or sparse localization can use a non-zero Band:
+
+$$Band(x,\kappa,t)=[s_i,s_j],\qquad s_i<s_j.$$
+
+A non-zero Band is not an anomaly by itself.
+
+For two non-overlapping Bands $B_1$ and $B_2$, this section uses the local order:
+
+$$B_1<B_2\Leftrightarrow\forall s_i\in B_1,\forall s_j\in B_2:\ s_i<s_j.$$
+
+### 9.3 Engineering Layer homogeneity
+
+Each scale-sensitive semantic node belongs to one Engineering Layer for the applicable semantic role.
+
+For valid Layer-bound information:
+
+$$Layer(x,\kappa,t)=L\Rightarrow Band(x,\kappa,t)=Band(L,\kappa,t).$$
+
+This is an equality invariant, not containment.
+
+Therefore a valid Layer with Band $[2,3]$ cannot simultaneously contain one Layer-bound Proposition at $\{2\}$ and another at $\{3\}$. Such a state exposes unresolved topology or binding and is a Magnification Conflict.
+
+Distinct Engineering Layers in one Engineering Domain have disjoint Bands:
+
+$$L_i\neq L_j\land Domain(L_i,\kappa,t)=Domain(L_j,\kappa,t)$$
+
+implies:
+
+$$Band(L_i,\kappa,t)\cap Band(L_j,\kappa,t)=\varnothing.$$
+
+Their Bands are ordered by the common Scale.
+
+An Engineering Object can materialize information from several Engineering Layers. That does not make the Engineering Object one multi-Layer semantic node. The graph retains the applicable Layer-local semantic nodes separately.
+
+### 9.4 Scale intervals and delta
+
+Scale interval semantics belong to the common Scale, not to the number of Engineering Layers instantiated in one Domain.
 
 Let:
 
 $$\delta_s>0$$
 
-denote one adjacent Magnification interval on Scale.
+denote one adjacent interval on the current common Scale.
 
-For Engineering Layers $L_i$ and $L_j$, let:
+For Scale positions $s_i$ and $s_j$, $\Delta_s(s_i,s_j)$ is their signed Scale delta. The sign identifies the project-defined coarser or finer direction.
 
-$$\Delta s(L_i,L_j)$$
+For adjacent Scale positions:
 
-denote their signed Scale delta. The sign identifies the project-defined coarser/finer direction.
+$$|\Delta_s(s_i,s_j)|=\delta_s.$$
 
-For adjacent Layers in one Domain:
+For $n$ adjacent Scale intervals:
 
-$$Adjacent_d(L_i,L_j)\Rightarrow |\Delta s(L_i,L_j)|=\delta_s.$$
+$$|\Delta_s(s_i,s_j)|=n\delta_s.$$
 
-If the current Domain-local path from $L_i$ to $L_j$ contains $n$ adjacent Scale intervals, then:
+An Engineering Layer Band can span one or more Scale intervals. Two Domain-adjacent Engineering Layers can therefore be separated by unused Scale positions without creating missing Layers in that Domain.
 
-$$|\Delta s(L_i,L_j)|=n\delta_s.$$
+Establishing an intermediate Magnification position can refine the current Scale while preserving existing semantic identities and relative order. Historical States retain their previous Scale deltas.
 
-Scale delta is therefore additive over adjacent Magnification intervals.
+### 9.5 Engineering Layer establishment and sparse Domains
 
-Absolute numerical Scale coordinates are optional representations and are not part of Engineering Layer identity or Scale semantics.
+A Domain establishes only the Engineering Layers required by its engineering information.
 
-### 9.3 Engineering Layer establishment and refinement
+A new Layer can be established between two existing Domain-local Layers when governed engineering work requires a distinct Magnification Band between their Bands.
 
-Each scale-sensitive semantic element belongs to one Engineering Layer for the applicable semantic role.
+The new Layer must have a non-empty contiguous Band, must remain disjoint from other Layers in that Domain, and must preserve Domain-local Scale order.
 
-Therefore:
+A new Layer can occupy Scale positions already represented elsewhere in the project, or governed engineering work can establish additional Scale refinement where no adequate position exists.
 
-$$Layer(x)=L_i\Rightarrow Scale(x)=Scale(L_i).$$
+Establishing a Layer in one Domain does not synthesize corresponding Layers in other Domains.
 
-A semantic element does not directly belong to several Engineering Layers for the same semantic role.
+> **Illustration — sparse Layer establishment.**
+>
+> Domain A contains $L^A_{\{1\}}$, $L^A_{\{2\}}$, and $L^A_{\{5\}}$. Domain B contains $L^B_{\{2\}}$, $L^B_{\{3\}}$, $L^B_{\{4\}}$, and $L^B_{\{5\}}$. Domain A can establish $L^A_{[3,4]}$ between $L^A_{\{2\}}$ and $L^A_{\{5\}}$. $L^A_{[3,4]}$ is one Engineering Layer with one Magnification Band; it is not two hidden Layers.
 
-A new Engineering Layer is established when governed engineering information requires a Magnification distinct from the currently adjacent Layers.
+### 9.6 Cross-Domain alignment and Magnification Compaction
 
-Suppose $L_i$ and $L_j$ are adjacent and engineering work establishes intermediate Layer $L_k$. The refined order is:
+A valid direct cross-Domain engineering relation is horizontal in the Scale-Domain projection.
 
-$$Scale(L_i)<Scale(L_k)<Scale(L_j).$$
+Let $x$ and $y$ be Layer-bound scale-sensitive nodes with:
 
-Adjacency becomes:
-
-$$Adjacent_d(L_i,L_k)$$
+$$L_x=Layer(x,\kappa,t)$$
 
 and:
 
-$$Adjacent_d(L_k,L_j).$$
+$$L_y=Layer(y,\kappa,t).$$
 
-The new adjacent relations retain the same Scale-interval semantics:
+For any direct cross-Domain engineering relation $r$:
 
-$$|\Delta s(L_i,L_k)|=|\Delta s(L_k,L_j)|=\delta_s.$$
+$$Domain(L_x,\kappa,t)\neq Domain(L_y,\kappa,t)\land r(x,y)$$
 
-The current endpoint distance therefore becomes:
+implies:
 
-$$|\Delta s(L_i,L_j)|=2\delta_s.$$
+$$Band(x,\kappa,t)=Band(y,\kappa,t).$$
 
-The pre-existing Layers retain their identity and relative order. Historical Engineering States retain the Scale relations and deltas applicable at their observation time.
+Thus a direct cross-Domain relation cannot be diagonal.
 
-A materialized Engineering Object can contain engineering information belonging to several Engineering Layers without becoming one multi-Layer semantic element. The graph represents the applicable Layer-local semantic elements separately and relates them through valid graph relations and traversal.
+Where two unlinked Layers have overlapping but unequal Bands, a governed alignment operation can use their common Band as a candidate Magnification Compaction:
 
-### 9.4 Direct relation locality
+$$B^*=Band(L_a,\kappa,t)\cap Band(L_b,\kappa,t).$$
 
-A direct engineering relation is valid only between elements aligned at the same Scale position under the current Magnification relations.
+Alignment requires:
 
-For direct semantic relation $r$:
+$$B^*\neq\varnothing.$$
 
-$$r(x,y)\Rightarrow Scale(x)=Scale(y).$$
+If the alignment is accepted, every compacted Layer and every scale-sensitive semantic node bound to that Layer receive the same successor Band $B^*$ atomically.
 
-Therefore:
-
-$$Scale(x)\neq Scale(y)\Rightarrow\neg DirectEngineeringRelation(x,y).$$
-
-Equal Scale is necessary but not sufficient. Scale alignment is an engineering relation, not equality of immutable numerical coordinates.
-
-The underlying graph can structurally contain an edge between arbitrary addressable nodes. Such an edge acquires engineering relation semantics only when the applicable validators succeed.
-
-Scale, Domain topology, Scope, revision, Evidence, authority, Contract, information boundary, and relation-specific semantics constrain engineering use of graph connectivity.
-
-These restrictions constrain long-range semantic coupling and resulting potential change impact without requiring the underlying graph representation to prohibit arbitrary structural edges.
-
-### 9.5 Parallel engineering domains
-
-Engineering Domains use the same project-wide interval Scale.
-
-Each Domain establishes only the Engineering Layers required by its engineering information. Domains therefore do not need identical Layer structures.
-
-Direct cross-Domain relations are valid only where the participating Layers are aligned at the same Scale position:
-
-$$CrossDomainRelation(x_a,x_b)\Rightarrow Scale(x_a)=Scale(x_b).$$
-
-Cross-Domain alignment does not create missing intermediate Layers in either Domain.
-
-An intermediate Layer is established only where that Domain's engineering information requires another Magnification.
-
-> **Illustration — parallel Domain alignment.**
+> **Illustration — Band compaction without point collapse.**
 >
-> Two Domains can contain different numbers of Engineering Layers while still having particular Layers aligned for direct cross-Domain information exchange. This Illustration defines no mandatory Layer hierarchy, Layer count, or naming scheme.
+> If $Band(L^C,\kappa,t)=[1,3]$ and $Band(L^B,\kappa,t)=[2,3]$, then:
+>
+> $$B^*=[1,3]\cap[2,3]=[2,3].$$
+>
+> A valid compaction can therefore change $L^C_{[1,3]}$ to $L^C_{[2,3]}$. It does not force $L^C$ to $\{2\}$ or $\{3\}$.
 
-### 9.6 Magnification
+Magnification Compaction narrows localization:
 
-Magnification is an operator on Scale.
+$$\varnothing\neq B^*\subseteq Band(L,\kappa,t).$$
 
-Applied to engineering information, Magnification determines its relative engineering order with respect to other applicable engineering information.
+Compaction does not identify two graph nodes, does not implicitly delete or redirect relations, and does not create authority.
 
-Scale uses that Magnification to establish Layer ordering, alignment, adjacency, interval distance, and Scale delta.
+Every direct cross-Domain relation retained in the successor Engineering State must still satisfy Band equality. Where a proposed compaction would invalidate an existing relation, that relation must be explicitly removed, rebound, or transformed through a separately governed topology change before or as part of an explicitly atomic validated change. Compaction itself cannot silently perform that repair.
 
-Operational Magnification performs bounded traversal through those established Scale relations toward applicable coarser or finer engineering information.
+### 9.7 Magnification traversal and topology-preserving evolution
 
-Conceptually:
+Magnification uses the common Scale and Magnification Bands to locate applicable engineering information and to perform bounded traversal toward coarser or finer engineering information.
 
-$$Magnify(x,m_t)=Project_{m_t}(Traverse(x,m_t,B))$$
+Magnification does not manufacture missing detail.
 
-where $m_t$ is the target Magnification and $B$ is the applicable traversal budget.
-
-Magnification uses existing engineering information and established Engineering Layers. It does not create missing engineering content.
-
-Where engineering activity determines that another distinct Magnification is required, governed engineering work establishes an additional Engineering Layer. Scale then incorporates the new Layer using the ordinary interval semantics of adjacent Layers.
-
-### 9.7 Magnification change and permitted Scale traversal
-
-Operational Magnification follows the established Scale relations toward applicable coarser or finer engineering information.
-
-Magnification operates on engineering information that exists or is explicitly created through governed engineering activity.
-
-It does not manufacture missing detail.
+Operational traversal continues to use the bounded traversal mechanism of §7.2.1 with an applicable `ScalePolicy`.
 
 #### 9.7.1 Adjacent Engineering Layer rule
 
-Adjacency is evaluated against the Engineering Layers established in the applicable Engineering State.
+Adjacency is evaluated inside one Engineering Domain against the Engineering Layers established in the applicable Engineering State.
 
-Two Engineering Layers in Domain $d$ are adjacent when no established Layer of that Domain lies between them in Scale order:
+For non-overlapping Bands $B_1$ and $B_2$, use the Band order defined in §9.2.
 
-$$Adjacent_d(L_i,L_j)\Leftrightarrow\neg\exists L_k:\ L_k\in d\land Scale(L_i)<Scale(L_k)<Scale(L_j).$$
+Two Layers are adjacent when they belong to the same Domain, one Band precedes the other, and no established Layer of that Domain lies between them:
 
-A Scale transition occurs only between adjacent Layers:
+$$AdjacentLayer(L_i,L_j,\kappa,t)\Leftrightarrow$$
 
-$$CrossScaleTransfer(L_i,L_j)\Rightarrow Adjacent_d(L_i,L_j).$$
+$$Domain(L_i,\kappa,t)=Domain(L_j,\kappa,t)$$
 
-A Domain can contain any number of Engineering Layers required by its information structure.
+$$\land\ Band(L_i,\kappa,t)<Band(L_j,\kappa,t)$$
 
-When an intermediate Layer is established, adjacency is refined accordingly. Each new adjacent relation retains the same Scale-interval semantics, while the delta between the pre-existing endpoint Layers increases by the inserted interval.
+$$\land\ \neg\exists L_k:\ Domain(L_k,\kappa,t)=Domain(L_i,\kappa,t)\land Band(L_i,\kappa,t)<Band(L_k,\kappa,t)<Band(L_j,\kappa,t).$$
 
-The underlying graph can contain a shorter structural edge, but that edge does not override the current Scale and adjacency relations.
+A governed Scale transition can cross only an `AdjacentLayer` boundary.
 
-Magnification therefore prevents vertical semantic compaction.
+Domain adjacency does not require the two Layers to be one Scale interval apart. Sparse Domains can leave unused Scale positions between adjacent Domain-local Layers.
 
-#### 9.7.2 No diagonal propagation between parallel engineering Domains
+The underlying graph can contain a structural shortcut. Such an edge does not override the current Layer adjacency and engineering relation rules.
 
-A single relation or transfer must not simultaneously change Domain and Scale position.
+#### 9.7.2 No diagonal propagation
 
-For different Domains $d_a\neq d_b$:
+One direct engineering relation or one Exchange Item transition changes at most one coordinate of the Scale-Domain projection.
 
-$$Domain(x)=d_a\land Domain(y)=d_b\land Scale(x)\neq Scale(y)\Rightarrow\neg DirectRelation(x,y).$$
+A cross-Domain direct relation changes Domain while preserving Magnification Band.
 
-The same restriction applies to Exchange Items.
+A Scale transition changes Magnification through an adjacent Layer boundary while remaining in the same Domain.
 
-One Exchange Item performs at most one engineering-topology transition: a Scale transition between adjacent Engineering Layers inside one Domain, or a cross-Domain transition at the same Scale position.
+A single transition must not change both Domain and Magnification Band.
 
-Where an engineering effect requires both changes, separate validated exchanges and an intermediate local interpretation establish the path.
+Where an engineering effect requires both changes, separate governed transitions and the applicable local interpretation establish the path.
 
-No single Exchange Item represents a diagonal shortcut.
+#### 9.7.3 Topology preservation and no-fold invariant
+
+Magnification Compaction is not graph contraction.
+
+A pure Band compaction preserves semantic-node identity and graph incidence except for explicitly governed relation changes associated with the operation. It does not identify two pre-existing Engineering Layers as one node.
+
+A topology-changing Layer merge is a different operation.
+
+For local notation, a proposed merge of two Layers is written:
+
+$$\langle L_i,L_j\rangle\rightarrow L'.$$
+
+The resulting Engineering State is valid only if all retained direct cross-Domain relations remain rectangular and every Layer-bound semantic node satisfies Layer Band homogeneity.
+
+A merge must not implicitly remove a cross-Domain relation merely because that relation prevents the merge.
+
+> **Illustration — prohibited topology fold.**
+>
+> Assume $L^A_{\{2\}}\leftrightarrow L^B_{\{2\}}$ and $L^A_{\{3\}}\leftrightarrow L^B_{\{3\}}$. The proposed merge:
+>
+> $$\langle L^A_{\{2\}},L^A_{\{3\}}\rangle\rightarrow L^A_{[2,3]}$$
+>
+> cannot retain either relation as a valid direct cross-Domain relation because:
+>
+> $$[2,3]\neq\{2\}$$
+>
+> and:
+>
+> $$[2,3]\neq\{3\}.$$
+>
+> Therefore the merge is prohibited while those relations remain. A separately governed topology change must first remove, rebind, or restructure the affected interfaces. The merge operation cannot collapse $L^B_{\{2\}}$ and $L^B_{\{3\}}$, and cannot silently disconnect them.
+
+The same rule applies across any number of sparse Domains. A local Domain transformation must not fold externally distinguishable Layer interfaces into one node.
+
+This no-fold rule is the common discrete topology invariant. Diffeomorphic deformation is a useful continuous analogy for non-folding identity-preserving transformation, but the common model does not require a smooth manifold or differentiable structure.
 
 ### 9.8 Exchange Item and Feedback Exchange Item propagation
 
@@ -2887,19 +2969,15 @@ For Decision propagation:
 
 $$Decision_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow LocalInterpretation_j.$$
 
-The Exchange Item delivers the boundary-relative Decision projection.
-
 Where a new local Decision is required:
 
 $$LocalInterpretation_j\rightarrow Decision_j.$$
-
-An Objective Exchange Item transfers a Work Product while the Work Product retains its Engineering Object identity and source-Contract role.
 
 For feedback:
 
 $$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow LocalInterpretation_i.$$
 
-A Feedback Exchange Item is a specialized Informational Exchange Item. It delivers a boundary-relative projection of the originating Evidence.
+An Objective Exchange Item transfers a Work Product while the Work Product retains its Engineering Object identity and source-Contract role.
 
 An Exchange Item originates in one engineering context and is consumed by the context on the other side of its governed boundary. Consumption does not create another Exchange Item identity.
 
@@ -2909,19 +2987,33 @@ The transfer preserves applicable source identity and provenance. It does not ma
 
 Every receiving Layer performs its own local interpretation.
 
+A Domain-local Scale transfer crosses one `AdjacentLayer` boundary. A cross-Domain transfer preserves Magnification Band. One Exchange Item does not perform a diagonal Domain-and-Band transition.
+
 ### 9.9 Human locality across Engineering Layers
 
-The Scale rules apply equally to Human-originated Decisions.
+A Human is an Actor, not a Scale-derived authority object.
 
-A Human participating in multiple Engineering Layers does not create a direct semantic or authority path among them.
+Where the project records a Human Magnification Band, that Band describes the Magnification range in which the Human's capability or participation can be considered applicable.
+
+For participation in Layer $L$:
+
+$$Band(L,\kappa,t)\subseteq Band(h,\kappa,t)$$
+
+can establish Magnification applicability.
+
+It does not establish Authority:
+
+$$Band(L,\kappa,t)\subseteq Band(h,\kappa,t)\not\Rightarrow AuthorizedFor(h,o,x,\sigma,t,\kappa).$$
+
+A Human Band can therefore remain $[2,3]$ while the Human participates in a Layer at $\{3\}$. The Human Band does not collapse to the Layer point unless an independent governed reason changes that Actor applicability information.
+
+A Human participating in multiple Engineering Layers does not create a direct semantic or authority path among them:
 
 $$Participates(h,L_i)\land Participates(h,L_j)\not\Rightarrow AuthorityPropagation(h,L_i,L_j).$$
 
-A Human Decision at $L_j$ must be supported by the applicable local engineering information and authority at $L_j$.
+A Human Decision at Layer $L$ must still satisfy the engineering information, Evidence, Scope, and explicit authority conditions applicable to that Layer and operation.
 
-Information known to the Human from another Engineering Layer can affect the receiving Layer only through the ordinary governed engineering mechanisms applicable to that Layer.
-
-Human identity cannot substitute for missing Layer artifacts, traceability, Exchange Items, Feedback Exchange Items, or local Decisions.
+Human identity cannot substitute for missing Layer artifacts, traceability, Exchange Items, Feedback Exchange Items, local Decisions, or Authority.
 
 ### 9.10 Missing representations and terminal traversal
 
@@ -2929,113 +3021,105 @@ If Magnification traversal cannot find applicable engineering information at the
 
 Magnification does not establish missing engineering information merely because a consumer requests another Magnification.
 
-Where the required information is absent, truthful incompleteness applies.
+Where required information is absent, truthful incompleteness applies.
 
-If the engineering need requires an additional Magnification, the absence is recorded as a Gap and governed engineering activity can establish the required Engineering Layer and content.
+If the engineering need requires another Engineering Layer or a different Magnification Band, the absence is recorded as a Gap and governed engineering activity can establish the required Layer, Band, and content.
 
-The current element remains terminal for that traversal direction until the engineering topology is extended.
+The current element remains terminal for that traversal direction until the engineering topology is validly extended.
 
 ### 9.11 Exploration can extend the engineering state
 
 A Contract can explicitly authorize engineering work that creates previously absent coarser or finer engineering information.
 
-If exploration legitimately produces new element $y$:
+If exploration legitimately produces a new element $y$:
 
 $$Explore(C,x)\rightarrow Create(y).$$
 
-The resulting element becomes governed Engineering State when it is intentionally recorded with the applicable semantic identity, provenance, status, Scope, and validation.
-
-Therefore:
+The resulting element becomes governed Engineering State when it is intentionally recorded with the applicable semantic identity, provenance, status, Scope, Engineering Layer, Magnification Band, and validation.
 
 $$MagnificationTraversal\neq SolutionSpaceExploration.$$
 
 Magnification traverses established Scale relations.
 
-Engineering exploration can create engineering information. Where that information requires a distinct Magnification, engineering exploration can also establish a new Engineering Layer.
+Engineering exploration can create engineering information. Where that information requires a distinct engineering context, exploration can also establish a new Engineering Layer with a valid Magnification Band.
 
-Establishing the Layer inserts another Scale interval into the current Domain topology. Existing Layer identities and order remain unchanged, while Scale deltas are evaluated against the refined current topology.
+The new Layer can occupy existing Scale positions or can require governed refinement of the common Scale. Existing Layer identities and relative order remain preserved unless a separately governed topology-changing operation states otherwise. No corresponding Layer is synthesized in another Domain merely to preserve visual density.
 
-### 9.12 Magnification band
+### 9.12 Magnification Conflict
 
-A normal scale-sensitive semantic element belongs to one Engineering Layer for one semantic role.
+A Magnification Band is normal Scale-localization information.
 
-Audit can nevertheless detect content whose semantic construction spans incompatible Engineering Layers.
+A non-zero Band is not itself an anomaly.
 
-A Magnification band represents the ordered Scale span over which that incompatible content occurs. It does not imply a predefined numerical Layer system.
+For every scale-sensitive semantic node $x$ bound to Engineering Layer $L$, valid Layer homogeneity requires:
 
-Represent the observed range as:
+$$Layer(x,\kappa,t)=L\Rightarrow Band(x,\kappa,t)=Band(L,\kappa,t).$$
 
-$$Band(x)=[m_{min},m_{max}].$$
+Define:
 
-For a clean element:
+$$MagnificationConflict(x,L,\kappa,t)\Leftrightarrow Layer(x,\kappa,t)=L\land Band(x,\kappa,t)\neq Band(L,\kappa,t).$$
 
-$$m_{min}=m_{max}.$$
+> **Illustration — invalid Magnification State.**
+>
+> Assume:
+>
+> $$Band(L_1,\kappa,t)=[2,3]$$
+>
+> $$Band(p_1,\kappa,t)=\{2\}$$
+>
+> $$Band(p_2,\kappa,t)=\{3\}$$
+>
+> $$Layer(p_1,\kappa,t)=L_1$$
+>
+> $$Layer(p_2,\kappa,t)=L_1.$$
+>
+> Both Propositions individually lie inside the Layer Band, but the Layer is semantically heterogeneous. The State is therefore invalid for further solution development through that affected engineering closure.
 
-A non-zero band:
+A Magnification Conflict can indicate malformed import, faulty extraction, inappropriate aggregation, invalid Layer merge, incorrect graph-node construction, stale legacy data, tooling fault, or another defect.
 
-$$m_{min}\neq m_{max}$$
+The Hive resolves the conflict before performing further engineering operations whose validity depends on the affected Layer or its bound information. Independent work outside that dependency closure can continue where ordinary concurrency rules permit it.
 
-is an abnormal condition.
+Resolution can include correcting the Band, rebinding the node, splitting or restoring Layers, reversing an invalid merge, re-importing source information, or another governed repair. Conflict resolution must preserve history and must not fabricate Scale alignment.
 
-It can indicate malformed import, faulty extraction, inappropriate aggregation, incorrect graph-node construction, legacy data problems, or another defect.
+### 9.13 Magnification Conflict, Brittleness, and Confidence
 
-A Magnification band is not a normal compatibility mechanism.
+A confirmed Magnification Conflict directly requires Brittleness reassessment because invalid Layer homogeneity can hide disproportionate propagation, rework, invalid dependencies, or topology folding.
 
-Confirmed mixed-level content requires rework assessment.
+$$MagnificationConflict(x,L,\kappa,t)$$
 
-### 9.13 Magnification band, Brittleness, and Confidence
+is therefore an active Brittleness input while the conflict remains unresolved.
 
-A Magnification-band anomaly directly affects Brittleness assessment because mixed-level content makes local change more likely to create disproportionate propagation, rework, or invalid dependencies.
+Brittleness can in turn affect the applicable operational Confidence under the ordinary Confidence rules.
 
-Therefore:
+There is no universal permanent Confidence penalty for a resolved Magnification Conflict.
 
-$$MagnificationBand(x,t)\Rightarrow ReassessBrittleness(x,t).$$
+Once the conflict is corrected, it is no longer an active Confidence input. Its history remains available for post-mortem analysis and later Brittleness assessment.
 
-Brittleness can in turn affect the applicable operational Confidence:
+The intended dependency is therefore:
 
-$$Brittleness(x,t)\rightarrow ConfidenceUpdate(q,t).$$
+$$MagnificationConflict\rightarrow BrittlenessReassessment\rightarrow PossibleConfidenceUpdate$$
 
-There is no universal direct rule:
+not:
 
-$$MagnificationBand(x,t)\Rightarrow PermanentConfidencePenalty.$$
-
-The condition is transient for Confidence.
-
-When the malformed element is corrected and the mixed-level condition no longer exists, it is no longer an active Confidence input.
-
-Its history remains available for post-mortem analysis and future Brittleness assessment.
-
-Thus the intended dependency is:
-
-$$MagnificationBand\rightarrow Brittleness\rightarrow Confidence$$
-
-where applicable, rather than a permanent direct Confidence penalty.
+$$MagnificationBand\rightarrow PermanentConfidencePenalty.$$
 
 ### 9.14 Execution sub-scale
 
-An Engineering Layer can contain a local execution sub-scale.
+Local execution inside one Engineering Layer can use a finer **execution sub-scale** that does not establish additional Engineering Layers.
 
-Execution sub-scale positions do not introduce additional engineering Magnification and therefore do not add Scale intervals.
+Let an Engineering Layer $L_i$ have local execution positions:
 
-For Engineering Layer $L_i$, let:
+$$\epsilon_0<\epsilon_1<\ldots<\epsilon_n.$$
 
-$$\epsilon\in E_i$$
+These positions can represent bounded internal steps, tool stages, local computations, or other execution detail. They remain internal to the same Engineering Layer and do not enter the project-wide Scale.
 
-represent a local execution sub-scale position.
+Project-wide Engineering Scale remains unchanged by local execution depth.
 
-An execution position can therefore be represented as:
+Execution sub-scale does not change the Engineering Layer's Magnification Band. For any scale-sensitive semantic node $x$ produced or interpreted at a local execution position and bound to $L_i$:
 
-$$(L_i,\epsilon).$$
+$$Layer(x,\kappa,t)=L_i\Rightarrow Band(x,\kappa,t)=Band(L_i,\kappa,t).$$
 
-The execution sub-scale can arrange parallel work, sequential implementation, local integration order, verification gates, implementation gates, and rework loops without changing the Layer's position in the engineering Scale.
-
-Therefore:
-
-$$ExecutionDepth\not\Rightarrow EngineeringScaleChange.$$
-
-But:
-
-$$ExecutionDepth\Rightarrow PossibleExecutionSubScaleDifference.$$
+Execution depth therefore cannot create another Magnification or partially localize content inside the Layer Band.
 
 ### 9.15 Contract topology does not define engineering Scale
 
@@ -3211,62 +3295,59 @@ A change requiring both domain transition and Scale transition is decomposed int
 
 ### 9.23 Scale and Decision-propagation invariants
 
-> **One project-wide interval Scale:** all Engineering Domains use the same engineering Scale.
-
-> **No fixed absolute coordinates:** Scale semantics depend on order, intervals, deltas, and alignment rather than permanent numerical positions.
-
-> **Magnification establishes relative placement:** relative engineering Magnification determines Layer placement; Scale establishes ordering, alignment, adjacency, interval distance, and delta among those Layers.
-
-> **Adjacent interval preservation:** adjacent Engineering Layers use the same Scale-interval semantics.
-
-> **Dynamic Layer insertion:** an intermediate Engineering Layer can be established when engineering information requires another Magnification.
-
-> **Refinement changes current delta:** inserting an intermediate Layer replaces one adjacent interval by two adjacent intervals; the former endpoint distance increases while Layer identity and order remain preserved.
-
-> **Historical Scale state:** previous Engineering States retain their previous adjacency and Scale deltas.
-
-> **Scale-local semantic elements:** a scale-sensitive graph element belongs to one Engineering Layer for the applicable role.
-
-> **Material object versus graph representation:** one materialized artifact can contain representations from several Engineering Layers or Magnifications, while the underlying graph data model represents the corresponding semantic elements separately.
-
-> **Direct relation locality:** $r(x,y)\Rightarrow Scale(x)=Scale(y)$.
-
-> **Same-Scale cross-Domain relations only:** direct relations between parallel Domain or Product topologies cannot be diagonal.
-
-> **Adjacent-Layer propagation only:** a Scale transition must not bypass an established intermediate Engineering Layer.
-
-> **Magnification is an operator:** Magnification locates engineering information by relative order and performs bounded traversal; it does not define another engineering axis.
-
-> **Magnification traversal does not generate detail:** governed engineering activity creates missing information and any required intermediate Layer.
-
-> **No Human shortcut:** a Human participating at multiple Engineering Layers does not create cross-layer authority, support, Evidence, or Decision semantics.
-
-> **Magnification band is abnormal:** incompatible Magnifications inside one semantic element require rework assessment.
-
-> **Magnification-band effect is mediated through Brittleness:** $MagnificationBand\rightarrow Brittleness\rightarrow Confidence$ where applicable.
-
-> **Decision Blast Radius is calculated before commitment.**
-
-> **Decision Blast Radius calculation is non-mutating.**
-
-> **Decision Blast Radius participates in feasibility and change-economy assessment.**
-
-> **Decision Extent belongs to a committed Decision.**
-
-> **Decision Extent is temporal.**
-
-> **Decision Extent can be smaller or larger than the original Decision Blast Radius.**
-
-> **Nearest affected Engineering Layer is determined by feasible local accommodation and domain extent, not Scale distance alone.**
-
-> **Multi-domain change requires domain-local accommodation assessment.**
-
-> **Execution depth can use a local sub-scale without changing engineering Scale.**
-
+> **One project-wide Scale:** all Engineering Domains use the same ordered Scale.
+>
+> **Rectangular Scale-Domain projection:** the common engineering projection is $\mathbb D_\kappa\times\mathbb S_{\kappa,t}$. Sparse Domains are valid; missing Layer cells do not require synthetic Layers.
+>
+> **No fixed absolute coordinates:** Scale semantics depend on order, interval, Band, adjacency, and alignment rather than permanent numerical labels.
+>
+> **Magnification Band is normal:** a Layer or other applicable node can occupy a non-zero contiguous Band.
+>
+> **Point is a degenerate Band:** $\{s\}$ is the point-localized special case of the same Magnification Band concept.
+>
+> **Layer homogeneity:** $Layer(x,\kappa,t)=L\Rightarrow Band(x,\kappa,t)=Band(L,\kappa,t)$ for every Layer-bound scale-sensitive semantic node.
+>
+> **Sparse Domain order:** distinct Layers in one Domain have disjoint ordered Bands.
+>
+> **Scale intervals belong to Scale:** Domain-local Layer adjacency does not require one Scale interval of separation.
+>
+> **Direct cross-Domain Band equality:** a valid direct cross-Domain engineering relation preserves Magnification Band.
+>
+> **No diagonals:** one direct engineering relation or Exchange Item transition does not simultaneously change Domain and Magnification Band.
+>
+> **Adjacent-Layer Scale propagation:** a Domain-local Scale transition does not bypass an established intermediate Layer.
+>
+> **Alignment can compact a Band:** overlapping Bands can support governed compaction to a non-empty common Band when all topology constraints remain valid.
+>
+> **Compaction is not contraction:** Magnification Compaction narrows localization without merging graph nodes or silently deleting relations.
+>
+> **No-fold invariant:** a Domain-local topology change must not fold externally distinguishable cross-Domain Layer interfaces into one node.
+>
+> **Merge repair is explicit:** a Layer merge cannot silently remove, redirect, or collapse relations that prevent the merge.
+>
+> **Magnification Conflict is blocking for affected continuation:** Layer-bound Band inequality is resolved before dependent solution development proceeds.
+>
+> **Human Magnification applicability is not Authority:** Band containment can establish applicability but does not establish $AuthorizedFor(\ldots)$.
+>
+> **Magnification traversal does not generate detail:** governed engineering activity creates missing information and any required Layer or Band.
+>
+> **Historical Scale state:** previous Engineering States retain their previous Scale, Bands, topology, and deltas.
+>
+> **Material object versus graph representation:** one Engineering Object can contain representations from several Layers while the graph keeps their semantic nodes separate.
+>
+> **Execution sub-scale does not alter Magnification Band.**
+>
+> **Decision Blast Radius is calculated before commitment and remains non-mutating.**
+>
+> **Decision Extent belongs to a committed Decision and is temporal.**
+>
+> **Nearest affected Engineering Layer is determined by feasible local accommodation and Domain extent, not Scale distance alone.**
+>
+> **Multi-domain change requires Domain-local accommodation assessment.**
+>
 > **Illustration — Figure 9-1.**
 >
-> Figure 9-1 visualizes the interval Scale, dynamic Engineering Layer refinement, Magnification traversal, parallel Engineering Domains, same-Scale cross-Domain exchange, adjacent-Layer propagation, execution sub-scale, Decision Blast Radius, and Decision Extent. It shows prohibited diagonal and Layer-skipping transfers only as rejected cases. The figure derives from §9 and introduces no additional semantics. The rendering specification is maintained in `../assets/prompts/figure_9_1_prompt.md`.
-
+> Figure 9-1 visualizes the rectangular Scale-Domain projection, sparse Domains, point and non-zero Magnification Bands, governed Band compaction, same-Band cross-Domain relations, adjacent-Layer Domain-local propagation, prohibited diagonal and Layer-skipping relations, Human Magnification applicability without authority, execution sub-scale, Decision Blast Radius, and Decision Extent. It also illustrates a prohibited Layer merge that would fold two externally distinguished cross-Domain interfaces. The figure derives from §9 and introduces no additional semantics. The rendering specification is maintained in `../assets/prompts/figure_9_1_prompt.md`.
 
 ## 10. Decisions, trade space, exploration, and human intervention
 
@@ -6353,43 +6434,39 @@ The incompatibility remains explicit until Product engineering finds an admissib
 
 ### 15.3 Domain and Scale locality
 
-Cross-Domain information exchange occurs at the same Scale position.
+Cross-Domain information exchange occurs between engineering contexts with equal Magnification Bands.
 
 Cross-Scale propagation occurs through adjacent Engineering Layers inside one Engineering Domain.
 
 The two operations are distinct.
 
-One Exchange Item cannot simultaneously change both Engineering Domain and Scale.
+One Exchange Item cannot simultaneously change both Engineering Domain and Magnification Band.
 
-The underlying graph can contain arbitrary structural edges, but engineering use of those edges remains subject to Scale, Domain, semantic, Scope, authority, Contract, information-boundary, and relation validation.
+Where two consumer or source contexts have overlapping but unequal Bands, governed Magnification Compaction or another explicit topology change must establish a valid common Band before a direct cross-Domain exchange relation is established.
+
+The underlying graph can contain arbitrary structural edges, but engineering use of those edges remains subject to Scale, Magnification Band, Domain, semantic, Scope, authority, Contract, information-boundary, and relation validation.
 
 Magnification preserves applicable intermediate Engineering Layers and prevents a valid vertical engineering flow from being compacted into a distant direct relation merely because the underlying graph contains such an edge.
 
+A topology change in one Domain must not fold or silently remove related Layer interfaces in another Domain.
+
 ### 15.4 Magnification and information relevance
 
-Magnification controls traversal through the Engineering Layers of an Engineering Domain.
+Magnification controls traversal through the Engineering Layers and Magnification Bands of an Engineering Domain.
 
-The common model does not prescribe a fixed number of Engineering Layers.
+The common model does not prescribe a fixed number of Engineering Layers or require every Domain to instantiate every Scale position.
 
-Different Domains can contain different engineering detail.
+Different Domains can therefore contain different sparse Layer structures.
 
 Product engineering requests the information required by its current engineering need.
 
-The source Domain resolves that request at the applicable Magnification.
+The source Domain resolves that request at the applicable Magnification Band. If the relevant source Layer is free-floating across a wider Band, cross-Domain alignment can compact that Band only through the governed rules of §9.
 
 Fine engineering information remains local while the consumer need does not require it.
 
 When fine engineering creates a material consequence relevant to a coarser Product engineering need, the requested information is resolved through the applicable Domain-local adjacent Layers before the cross-Domain exchange occurs.
 
 The complete fine-detail Work Product does not need to become part of the coarser Product engineering context.
-
-> **Illustration — homologation.**
->
-> Product engineering pulls required information from a Prescriptive homologation Domain at the applicable Magnification, so the resulting Y Branch is Fixed. Finer homologation engineering remains local until the Product engineering consumer requires information representing its material consequence. This Illustration defines no required homologation process, Layer structure, or implementation binding.
-
-> **Illustration — accessibility and UX.**
->
-> Accessibility information pulled from a Prescriptive Domain is Fixed, while information pulled from an Engineered UX Domain is normally Negotiable even when the UX Decisions were developed using Fixed accessibility information. This Illustration defines no required accessibility, UX, or implementation process and creates no implementation binding.
 
 ## 16. Supporting processes over Solution Space
 
@@ -6883,7 +6960,7 @@ It specializes the common model for a Product, engineering domain, organization,
 |---|---|
 | **Product and capability** | Product boundaries; admissible Product kinds and Product-intent representation; Product scope and state vocabularies; Product-to-Contract scoping; Product target satisfaction and Product Delivery Contract classes; Product/Work Product relations, composition and materiality; Hive capability representation and acquisition; enabling-technology representation and availability; Product Development Envelope assessment; capability and enablement change detection; external capability, supplier, and tooling involvement; Product-level acceptance, qualification, certification, release, production, deployment, delivery, and their relation to Contract Acceptance. |
 | **Semantic model and relations** | Proposition roles; Engineering Object families; relation vocabulary; source/target signatures; converse labels; validators; semantic-composition rules. |
-| **Scale and engineering topology** | Scale orientation; Magnification interpretation; adjacent Scale interval semantics; Engineering Layer establishment and refinement; Engineering Domain topology and Domain Nature; cross-Domain Scale alignment; Magnification traversal; state-relative adjacency; adjacent-Layer transfer; same-Scale cross-Domain relation rules; execution sub-scale rules; Product engineering consumer-need representation; Y Branch establishment and applicability; Y Branch placement rules; Informational and Objective Exchange Item boundary rules; Feedback Exchange Item rules. |
+| **Scale and engineering topology** | Scale orientation and representation; Magnification interpretation; Magnification Band representation; Scale interval semantics; Engineering Layer Band establishment, compaction, split, merge, and refinement controls; Engineering Domain topology and Domain Nature; cross-Domain Band alignment; topology-preservation and no-fold validation; Magnification traversal; state-relative Layer adjacency; adjacent-Layer transfer; direct same-Band cross-Domain relation rules; Human Magnification-applicability representation where used; Magnification Conflict handling; execution sub-scale rules; Product engineering consumer-need representation; Y Branch establishment and applicability; Y Branch placement rules; Informational and Objective Exchange Item boundary rules; Feedback Exchange Item rules. |
 | **Work Products, Evidence, and validation** | Work Product schemas; semantic-role constraints; required validators; information-exposure policies; Acceptance rules; Instrumental Checks; Low-profile and High-profile Assessments; escalation and instrumentation-improvement rules; Evidence rules; UNKNOWN materiality; Gap and Future Action policy. |
 | **Contract definition and lifecycle** | Contract-type vocabulary and required fields; identity, revision-materiality, and successor criteria; Product-target representation; Work Product Requirement schema; prerequisite and dependency types, states, and internal/external representation; Contract Resource Budget; Acceptance Specification; information policy; enforcement; supplementary participants; event types and retention; derived runtime views; Contract/Profile migration; readiness prerequisite kinds; lifecycle transition guards; runtime-regression and definition-revision materiality; same-time event ordering; temporary blocking and reassessment; readiness evaluation and resumption; Work Product preparation, submission, and revision handling; Acceptance materiality, dispositions, delegation, and reuse of unaffected validation or Evidence; discontinuation guards; blocker categories; successor and external Contract dependencies. |
 | **Authority and Human input** | Contract parties; explicit authority sources and records; authority kinds and operation-level requirements; Human and non-Human authority Scope and applicability; Contract-Issuer, Contract-revision, Assignment, Decision-commitment, and Acceptance-delegation authority; delegability, delegation limits, revocation, expiry, and role combinations; Human identity/authentication where applicable; Human-input normalization, transformation, Scope, ordering, atomic/joint groups, composability, Decision Space derivation, infeasibility handling, retraction, supersession, and recovery. |
@@ -6946,7 +7023,7 @@ Cross-cutting audit areas reference their defining sections instead of restating
 | **Human authority and input** | Explicit authority, operation/Scope/time qualification, ordered transformations, partial composition, history preservation | §5.5 |
 | **Semantic algebra and revision** | Proposition/Object separation, relation typing, converse consistency, revision mapping, scoped supersession | §§5.3, 7, 8.1 |
 | **Data reliability and checking** | Independent validity dimensions, Check Cascade order, cheaper-check improvement, re-entry after findings | §§8.3–8.5 |
-| **Scale and Magnification** | same-Scale direct relations, adjacent-Layer transfer, no diagonal propagation, Magnification traversal | §9 |
+| **Scale and Magnification** | common rectangular Scale-Domain projection; Band contiguity; Layer Band homogeneity; sparse Domain ordering; same-Band direct cross-Domain relations; adjacent-Layer Domain-local propagation; no diagonals; Band compaction; no-fold merge behavior; Human Magnification applicability independent from Authority; Magnification Conflict blocking and resolution | §9 |
 | **Decision propagation** | Blast Radius before commitment, Decision Extent after materialization, locality and Brittleness distinction | §§9.16–9.22 |
 | **Product and Work Product** | role/state separation, many-to-many relation, Acceptance locality, Product Delivery specialization, integration independence | §§6.7–6.11 |
 | **Contracts and execution topology** | one accountable Assignment, readiness guards, lifecycle transitions, revision/runtime separation, authority locality | §11 |
@@ -6986,6 +7063,12 @@ The registry contains reusable common-model identifiers. Project Profile extensi
 | $Fulfilled(C)$ | predicate | Contract fulfilment established | §6.8 / §11 | predicate |
 | $ProductTargetSatisfied(C)$ | predicate | Contract Product target satisfied | §6.8 | predicate |
 | $ProductStateTransition(P)$ | predicate | Applicable Product-state transition established | §6.7 | predicate |
+| $Band(x,\kappa,t)$ | partial set-valued function into $\mathbb S_{\kappa,t}$ | Magnification Band of a scale-sensitive graph node or applicable Actor Magnification qualification | §9.2 | function |
+| $Layer(x,\kappa,t)$ | partial function | Engineering Layer to which scale-sensitive semantic node $x$ is bound for the applicable role | §9.3 | function |
+| $Domain(L,\kappa,t)$ | function | Engineering Domain containing Engineering Layer $L$ | §9.3 | function |
+| $Adjacent\allowbreak Layer(L_i,L_j,\kappa,t)$ | predicate | $L_i$ and $L_j$ are current adjacent Engineering Layers in one Domain under Band order | §9.7.1 | predicate |
+| $Magnification\allowbreak Conflict(x,L,\kappa,t)$ | predicate | $x$ is bound to $L$ but $Band(x,\kappa,t)$ differs from $Band(L,\kappa,t)$ | §9.12 | predicate |
+| $Traverse(G,Q)$ | set-valued function | Bounded graph traversal under query $Q$ | §7.2.1 | function |
 | $BR(d^{candidate},X)$ | function | Decision Blast Radius for Decision Candidate $d^{candidate}$ evaluated against Engineering State $X$ | §9.16 | function |
 | $DecisionExtent(d,t)$ | function | Actual materialized propagation of committed Decision | §9.18 | function |
 | $CanAccommodate(d^{candidate},L,X')$ | predicate | Layer $L$ can accommodate Decision Candidate $d^{candidate}$ in prospective State $X'$ | §9.21 | predicate |
@@ -7022,6 +7105,7 @@ The release audit applies the following model-integrity checks.
 | **Projection/revision notation** | $\Pi_q(X_t)$ denotes State Projection and $\rho$ denotes revision mapping. |
 | **Project Profile notation** | $PP$ identifies Project Profile semantics; $P$ remains reserved for Product. |
 | **Integration readiness** | $W^{ready}_{C_I}\subseteq W_I$, with full readiness exactly when $W^{ready}_{C_I}=W_I$. |
+| **Scale vocabulary** | $Band$, $Layer$, $Domain$, $AdjacentLayer$, and $MagnificationConflict$ use the §21.4 signatures; Scale deltas use $\delta_s$ and $\Delta_s(s_i,s_j)$. |
 | **Formal-source integrity** | Mathematical source renders the intended operators and contains no control-character corruption of TeX expressions. |
 
 These checks validate representation consistency. Their engineering semantics remain defined in the referenced proposal sections.
