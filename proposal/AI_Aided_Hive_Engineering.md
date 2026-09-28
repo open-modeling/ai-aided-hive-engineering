@@ -790,9 +790,11 @@ Provenance identifies the applicable computational source and context where orig
 
 Decision authority, Contract authority, Acceptance authority, Evidence sufficiency, and Product-materialization authority follow their respective governance models.
 
-Implementation mechanisms can batch or transport engineering information through transactions, patches, commits, deltas, messages, database operations, or similar structures.
+Implementation mechanisms can batch or transport engineering information without changing the semantics of the common-model elements and relations they carry.
 
-The engineering semantics remain those of the common-model elements and relations carried by those mechanisms.
+> **Example — implementation transport mechanisms.**
+>
+> An implementation can use transactions, patches, commits, deltas, messages, database operations, or other project-defined transport structures.
 
 ### 5.5 Human ingress and choice set
 
@@ -841,7 +843,11 @@ An authority fact can be represented conceptually as:
 
 $$AuthorityFact=(Source,Actor,Operation,Subject,Scope,Time,Conditions,Provenance).$$
 
-Authority sources are explicit Project Profile inputs. They can originate from applicable law or regulation, contractual authority, enterprise governance, Product ownership, delegated authority, project governance, or another recognized source. These categories do not establish one universal precedence order.
+Authority sources are explicit Project Profile inputs. The Project Profile defines the recognized source classes and any applicable precedence rules.
+
+> **Example — authority sources.**
+>
+> Recognized sources can originate in applicable law or regulation, contractual authority, enterprise governance, Product ownership, delegated authority, project governance, or another project-defined basis.
 
 Title, seniority, Confidence, expertise, social cues, and organizational visibility are not authority sources. Authority is established from an explicit authority source applicable to the governed operation, subject, Scope, time, and context.
 
@@ -1127,7 +1133,11 @@ An empty feasible space means that autonomous commitment is unavailable:
 
 $$\mathcal F(X_t)=\varnothing\Rightarrow\neg AutonomousCommitmentAvailable.$$
 
-Recovery can require revision or relaxation of an input, another Human input, Product-intent revision, capability or enabling-technology acquisition, Contract revision, Resource Envelope change, external capability, or another newly explored trajectory. Human authority still does not manufacture engineering feasibility.
+Recovery requires a governed change that restores a non-empty feasible continuation. Human authority still does not manufacture engineering feasibility.
+
+> **Example — recovery changes.**
+>
+> Recovery can involve revision or relaxation of an input, another Human input, Product-intent revision, capability or enabling-technology acquisition, Contract revision, Resource Envelope change, external capability, or another newly explored trajectory.
 
 If a Human input changes a Space-defining material or contextual bound, the resulting state is evaluated under the resulting context:
 
@@ -1175,7 +1185,11 @@ $$Reachable_G(a,b)\not\Rightarrow Justifies(a,b).$$
 
 $$Required(x,\kappa)\land\neg Established(x,\kappa)\Rightarrow ExplicitUnresolved(x,\kappa).$$
 
-A project can classify the unresolved state as `ORPHAN`, `UNKNOWN`, `KNOWN_GAP`, `CONFLICT`, or another Project Profile category. The category must preserve the fact that the required item is unresolved.
+A Project Profile can classify unresolved state using project-defined categories. The classification must preserve the fact that the required item is unresolved.
+
+> **Example — unresolved-state categories.**
+>
+> A Project Profile can use categories such as `ORPHAN`, `UNKNOWN`, `KNOWN_GAP`, or `CONFLICT` where their project semantics are defined.
 
 **Boundary.** AX-2 does not require every unknown to block every activity. Materiality and commitment rules remain project- and Contract-specific.
 
@@ -1793,7 +1807,11 @@ Conceptually, for a Contract belonging to Product $P$:
 
 $$ContractTarget(C)\subseteq ProductContext(P).$$
 
-This does not require the Contract target to represent a physical Product fragment. A Contract can concern Product development, analysis, architecture, verification, Evidence generation, integration, supplier work, documentation, qualification, or another bounded responsibility.
+This does not require the Contract target to represent a physical Product fragment. A Contract can govern any bounded Product-related responsibility permitted by the Project Profile.
+
+> **Example — bounded Contract responsibilities.**
+>
+> A Project can use Contracts for development, analysis, architecture, verification, Evidence generation, integration, supplier work, documentation, qualification, or another bounded responsibility.
 
 The Product is not created merely by aggregating Contracts:
 
@@ -1813,7 +1831,11 @@ Let:
 
 $$OperationalScope_H(P,t)$$
 
-be the currently applicable Product-oriented operating scope of Hive $H$. It can contain active engineering questions, active Contracts, Product Decisions, Trade Spaces, Product-relevant Evidence, unresolved Product UNKNOWNs and Gaps, applicable Engineering Layers, enabling capabilities and tools, and Product-related external dependencies.
+be the currently applicable Product-oriented operating scope of Hive $H$. Its content is the governed Product-related information and activity currently applicable to Hive operation.
+
+> **Example — Product operating-scope content.**
+>
+> The operating scope can contain unresolved Propositions, active Contracts, Product Decisions, Trade Spaces, Product-relevant Evidence, unresolved UNKNOWNs and Gaps, applicable Engineering Layers, enabling capabilities and tools, and Product-related external dependencies.
 
 The operating scope can evolve as the Product becomes better understood:
 
@@ -2036,7 +2058,11 @@ Therefore:
 
 $$Accepted(w,C)\not\Rightarrow GloballyAccepted(P).$$
 
-The common model does not define universal Product Acceptance. Product-level acceptance, qualification, certification, release, manufacturing acceptance, customer acceptance, regulatory approval, or another Product lifecycle predicate can be defined through the Project Profile or an applicable external process.
+The common model does not define universal Product Acceptance. Product lifecycle predicates are defined through the Project Profile or an applicable external process.
+
+> **Example — Product lifecycle predicates.**
+>
+> A Project can define acceptance, qualification, certification, release, manufacturing acceptance, customer acceptance, regulatory approval, or another project-specific Product lifecycle predicate.
 
 #### 6.7.15 Acceptance does not automatically mutate Product state
 
@@ -2068,7 +2094,11 @@ For a Contract that is not a Product Delivery Contract:
 
 $$Fulfilled(C)\not\Rightarrow ProductStateTransition(P).$$
 
-A verification, analysis, feasibility, testing, planning, Evidence-generation, or similar Contract can therefore be successfully fulfilled without itself changing the Product.
+A non-delivery Contract can therefore be successfully fulfilled without itself changing the Product.
+
+> **Example — non-delivery Contract responsibilities.**
+>
+> Verification, analysis, feasibility, testing, planning, or Evidence-generation work can be governed by non-delivery Contracts.
 
 #### 6.8.1 Product target satisfaction
 
@@ -2122,7 +2152,11 @@ When a project requires both, its engineering method and Contract topology estab
 
 ### 6.11 Product observation and historical Work Product state
 
-Product state can evolve after a Work Product has been Accepted. Later operation can reveal degradation, failure, unexpected behaviour, changed environment, or another new condition.
+Product state can evolve after a Work Product has been Accepted. Later operation can establish new Product information that requires reassessment.
+
+> **Example — later Product information.**
+>
+> Later operation can reveal degradation, failure, unexpected behaviour, environmental change, or another project-relevant condition.
 
 Such later Product state does not retroactively rewrite historical Acceptance:
 
@@ -2130,7 +2164,11 @@ $$LaterProductState(P,t_2)\not\Rightarrow RewriteAcceptance(w^r,C^k,t_1).$$
 
 The historical statement remains that $w^r$ was Accepted against $C^k$ under the information and rules applicable at $t_1$.
 
-New Product information can instead create new Evidence, Feedback Exchange Items, Decision reassessment, Work Product revision, new Contract, successor Contract, Change Management activity, or another applicable governed response.
+New Product information can create the applicable governed response under the current Product and Contract semantics.
+
+> **Example — responses to new Product information.**
+>
+> A response can include new Evidence, a Feedback Exchange Item, Decision reassessment, Work Product revision, a new or successor Contract, Change Management activity, or another project-defined governed response.
 
 ## 7. Operational algebra
 
@@ -2404,7 +2442,11 @@ and, more generally:
 
 $$Confidence\neq ComputationalAssuranceMetric.$$
 
-A probability estimate, confidence interval, precision value, uncertainty bound, reliability estimate, statistical test result, simulation distribution, or similar quantity retains its own mathematical semantics. Confidence can use such quantities as inputs; it cannot silently reinterpret itself as one of them.
+An externally defined quantitative result retains its own mathematical semantics. Confidence can use such quantities as inputs; it cannot silently reinterpret itself as one of them.
+
+> **Example — quantitative Confidence inputs.**
+>
+> Inputs can include a probability estimate, confidence interval, precision value, uncertainty bound, reliability estimate, statistical test result, simulation distribution, or another explicitly defined quantity.
 
 > **Example — Confidence value.**
 >
@@ -2444,7 +2486,11 @@ Where the representation is numeric, a trend can be expressed as:
 
 $$\Delta Confidence_H(q,t)=Confidence_H(q,t)-Confidence_H(q,t-\Delta t).$$
 
-A Project Profile can use an ordinal or categorical equivalent instead. Confidence can therefore be improving, stable, degrading, volatile, or insufficiently established. No universal numeric representation is required.
+A Project Profile can use an ordinal or categorical equivalent instead. No universal numeric representation or category set is required.
+
+> **Example — categorical Confidence representation.**
+>
+> A Project Profile can use categories such as improving, stable, degrading, volatile, or insufficiently established.
 
 Historical Confidence observations remain associated with the Solution Exploration state in which they were produced. Later observations do not rewrite earlier ones.
 
@@ -3092,7 +3138,11 @@ Let an Engineering Layer $L_i$ have local execution positions:
 
 $$\epsilon_0<\epsilon_1<\ldots<\epsilon_n.$$
 
-These positions can represent bounded internal steps, tool stages, local computations, or other execution detail. They remain internal to the same Engineering Layer and do not enter the project-wide Scale.
+These positions represent project-defined execution detail and remain internal to the same Engineering Layer; they do not enter the project-wide Scale.
+
+> **Example — execution sub-scale detail.**
+>
+> Internal positions can represent bounded steps, tool stages, local computations, or another project-defined execution detail.
 
 Project-wide Engineering Scale remains unchanged by local execution depth.
 
@@ -3144,7 +3194,11 @@ $$Calculated(BR(d^{candidate},X_t))\not\Rightarrow Committed(d).$$
 
 Calculating Decision Blast Radius is part of deciding whether the Decision Candidate is viable.
 
-The calculated propagation can expose an empty feasible Solution Space, inability of an affected Engineering Layer to accommodate the change, excessive Work Product rework, reverification or reintegration, unavailable capability, Resource Envelope violation, physical or supplier consequences, unacceptable engineering or economic impact, or another reason not to commit the candidate.
+The calculated propagation can establish that the candidate is not committable under the applicable engineering and economic rules.
+
+> **Example — non-committable propagation result.**
+>
+> A candidate can be rejected because propagation exposes an empty feasible Solution Space, inability of an affected Engineering Layer to accommodate the change, excessive Work Product rework, reverification or reintegration, unavailable capability, Resource Envelope violation, physical or supplier consequences, unacceptable engineering or economic impact, or another project-defined blocking condition.
 
 Conceptually:
 
@@ -3344,12 +3398,11 @@ $$T(q,t)$$
 
 is the project-visible subset of the applicable Solution Space represented for comparison or exploration at observation point $t$.
 
-The Trade Space can contain candidates with:
+The Trade Space can retain candidates without requiring one universal feasibility-state taxonomy.
 
-- established feasibility;
-- established infeasibility;
-- unresolved feasibility;
-- pending evaluation.
+> **Example — Trade Space candidate states.**
+>
+> A Project Profile can distinguish established feasibility, established infeasibility, unresolved feasibility, pending evaluation, or other project-defined candidate states.
 
 The currently feasible part represented inside the Trade Space is:
 
@@ -3365,7 +3418,11 @@ $$\mathcal S_\kappa.$$
 
 A changed Space-defining context provides the corresponding Solution Space for subsequent Trade Spaces.
 
-A Trade Space can contain discrete alternatives and references to continuous optimization delegated to simulations, field tests, calibration systems, or external optimizers. Continuous parameter optimization is not automatically Hive global search.
+A Trade Space can contain discrete alternatives and references to project-defined continuous optimization. Continuous parameter optimization is not automatically Hive global search.
+
+> **Example — delegated continuous optimization.**
+>
+> A Project can delegate continuous optimization to simulations, field tests, calibration systems, external optimizers, or another selected engineering mechanism.
 
 ### 10.2 Local and global extrema
 
@@ -3506,15 +3563,11 @@ An attempted Rollback that introduces a replacement realization or materially ne
 
 Rollback Solution Exploration establishes the Rollback Closure and evaluates the resulting same-Layer state.
 
-Possible outcomes include:
+Rollback exploration produces the outcome established by the applicable Rollback rules.
 
-- successful Rollback;
-- expansion of the Rollback Closure;
-- additional Evidence requirement;
-- a Known Gap;
-- a blocker in current materialized state;
-- rejection of Rollback classification;
-- absence of a viable Rollback.
+> **Example — Rollback outcomes.**
+>
+> Outcomes can include successful Rollback, expansion of the Rollback Closure, additional Evidence requirement, a Known Gap, a blocker in current materialized state, rejection of Rollback classification, or absence of a viable Rollback.
 
 Successful Rollback produces the Work Product required by $C_R$ and updates the Materialized Product State according to §10.4.4.
 
@@ -3614,7 +3667,11 @@ This is a conceptual typed record.
 
 It does not require a positional tuple in implementation.
 
-A conformant implementation can use structured objects, graph nodes/relations, database records, SysML elements, documents, or another representation while preserving the same semantics.
+A conformant implementation can use any representation that preserves the same semantics.
+
+> **Example — Contract representation.**
+>
+> An implementation can use structured objects, graph nodes and relations, database records, SysML elements, documents, or another representation.
 
 ##### 11.1.1.3 Contract type
 
@@ -3697,7 +3754,11 @@ $$ProductTarget(C)\subseteq ProductContext(P)$$
 
 conceptually.
 
-The target can concern creation, modification, analysis, verification, Evidence generation, integration, delivery, or another governed Product-related effect.
+The target semantics are Project Profile-defined and identify the governed Product-related effect.
+
+> **Example — Contract target effects.**
+>
+> A target can concern creation, modification, analysis, verification, Evidence generation, integration, delivery, or another governed Product-related effect.
 
 ##### 11.1.1.6 Required Work Product specification
 
@@ -4021,17 +4082,11 @@ The Contract can reference project-defined enforcement semantics:
 
 $$EnforcementSpec(C^k).$$
 
-Possible consequences include:
+The Project Profile defines applicable enforcement consequences.
 
-- refusal of Acceptance;
-- failed gate;
-- rework;
-- reassessment;
-- escalation;
-- prevention of subsequent execution;
-- commercial/legal remedy;
-- discontinuation;
-- another applicable project mechanism.
+> **Example — enforcement consequences.**
+>
+> Consequences can include refusal of Acceptance, a failed gate, rework, reassessment, escalation, prevention of subsequent execution, commercial or legal remedy, discontinuation, or another applicable project mechanism.
 
 These are not universal consequences.
 
@@ -4071,7 +4126,11 @@ Each Contract definition revision preserves at minimum:
 
 $$RevisionMeta(C^k)=(predecessor,createdAt,effectiveFrom,changeReason,provenance).$$
 
-A Contract definition revision can identify the governed source that caused the revision, including its initiating Decision, Human input, dependency change, Product-state change, authority change, failure or reassessment event, exploration result, or another addressable causal source.
+A Contract definition revision can identify the governed causal source of the revision.
+
+> **Example — Contract revision causes.**
+>
+> A causal source can be an initiating Decision, Human input, dependency change, Product-state change, authority change, failure or reassessment event, exploration result, or another addressable project-defined source.
 
 Revision metadata supports historical explanation.
 
@@ -4970,7 +5029,11 @@ $$G_D(C,t)$$
 
 be the applicable discontinuation guard.
 
-Possible Project Profile-defined bases include explicit authorized cancellation, demonstrated infeasibility, permanent resource withdrawal, unrecoverable external dependency, replacement by successor Contract, or another governed reason.
+The Project Profile defines the bases under which the discontinuation guard can hold.
+
+> **Example — discontinuation bases.**
+>
+> A Project Profile can use explicit authorized cancellation, demonstrated infeasibility, permanent resource withdrawal, unrecoverable external dependency, replacement by successor Contract, or another governed reason.
 
 Then:
 
@@ -5344,7 +5407,11 @@ Where independent verification or testing is required:
 
 $$Executor(C_{development})\neq Executor(C_{verification}).$$
 
-The required separation can be implemented through different Actors, Hive instances, organizations, models, providers, infrastructure, or another Project Profile mechanism. A single Hive can coordinate related Contracts only when doing so remains compatible with the required independence.
+The required separation is implemented through a Project Profile-defined mechanism. A single Hive can coordinate related Contracts only when doing so remains compatible with the required independence.
+
+> **Example — independence mechanisms.**
+>
+> Separation can use different Actors, Hive instances, organizations, models, providers, infrastructure, or another Project Profile-defined mechanism.
 
 ### 11.6 Acceptance
 
@@ -5441,7 +5508,11 @@ $$Accepted(w,C)\not\Rightarrow Fulfilled(C)$$
 
 universally.
 
-Successful Acceptance establishes that the submitted result satisfies the applicable Contract Acceptance rules. It does not by itself imply release, deployment, production, baselining, or another project-specific lifecycle transition.
+Successful Acceptance establishes that the submitted result satisfies the applicable Contract Acceptance rules. It does not by itself imply a separate Product lifecycle transition.
+
+> **Example — lifecycle transitions outside Contract Acceptance.**
+>
+> Release, deployment, production, baselining, or another project-specific lifecycle transition can remain separately governed.
 
 #### 11.6.7 Rework
 
@@ -5533,7 +5604,7 @@ Its full history remains addressable:
 
 $$Discontinued(C)\not\Rightarrow DeleteHistory(C).$$
 
-Discontinuation can follow from infeasibility, authority decision, exhausted or withdrawn resources, replacement by a successor Contract, unrecoverable external dependency, cancellation, or another Project Profile-defined reason.
+Discontinuation follows the applicable Project Profile-defined guard and preserves the complete Contract history.
 
 #### 11.6.12 Successor Contract
 
@@ -5657,7 +5728,11 @@ $$Fulfilled(C)\iff AcceptedRequiredWorkProduct(C)\land ProductTargetSatisfied(C)
 
 subject to any additional applicable Contract conditions.
 
-For a non-delivery Contract, Product target satisfaction can represent verification, analysis, characterization, or another target semantics rather than Product mutation.
+For a non-delivery Contract, Product target satisfaction uses the Project Profile-defined target semantics rather than implying Product mutation.
+
+> **Example — non-delivery Product target semantics.**
+>
+> Target satisfaction can represent verification, analysis, characterization, or another project-defined target semantics.
 
 #### 11.6.18 Product / Work Product rework boundary
 
@@ -6124,17 +6199,11 @@ holds when:
 
 $$\exists\delta\in\Delta(p,\kappa):MinorOrWrongScale(\delta,p,\kappa)\land Severe_\Theta(Impact(p,\delta,\kappa)).$$
 
-`MinorOrWrongScale` can represent a change that is, for the applicable context:
+`MinorOrWrongScale` and `Severe` are Project Profile-defined predicates constrained by the disproportion criterion below. The common proposal does not prescribe one universal numeric threshold.
 
-- small in scope;
-- subtle in meaning;
-- local in Product structure;
-- low in apparent implementation effort;
-- introduced at an inappropriate Scale or Magnification.
-
-`Severe` represents disproportionate effect on engineering economy, including time, money, computation, human effort, physical work, coordination, or other applicable resources.
-
-The common proposal does not prescribe one universal numeric threshold.
+> **Example — Brittleness predicate interpretation.**
+>
+> `MinorOrWrongScale` can cover a change that is small in Scope, subtle in meaning, local in Product structure, low in apparent implementation effort, or introduced at an inappropriate Scale or Magnification. `Severe` can cover disproportionate effect on engineering economy across time, money, computation, Human effort, physical work, coordination, or other project-defined resources.
 
 The essential property is **disproportion** between the apparent significance of the triggering detail and the resulting impact.
 
@@ -6494,7 +6563,11 @@ Discovered Decisions, evidence, alternatives, and outliers remain addressable.
 
 Waste is not synonymous with overhead. Required verification, governance, communication, or setup can consume resources without being waste.
 
-Waste occurs when an operation produces neither required process effect nor reusable progress, evidence, knowledge, or Product value. Polling loops, repeated context replay, unnecessary status messages, redundant branch reasoning, and reasoning about deterministic facts are candidate waste categories when the project can establish that they add no required effect.
+Waste occurs when an operation produces neither required process effect nor reusable progress, evidence, knowledge, or Product value. Candidate Waste categories are Project Profile-defined and require evidence that they add no required effect.
+
+> **Example — candidate Waste categories.**
+>
+> Polling loops, repeated context replay, unnecessary status messages, redundant branch reasoning, and reasoning about deterministic facts can be candidate Waste categories when the Project can establish that they add no required effect.
 
 Overthinking is a reasoning-specific waste mode. Before assigning further reasoning work to a Swarm, the Hive should determine whether deterministic algebra, an existing Decision, recorded evidence, or a previously preserved outcome already resolves the issue.
 
