@@ -361,7 +361,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Engineering Domain** | Project-defined engineering concern whose Decisions, Contracts, Work Products, Evidence, and other engineering information evolve through Domain-local Engineering Layers on the common Scale. |
 | **Engineering Layer** | Domain-local graph node that provides one engineering context and occupies one Magnification Band on the common Scale. Every scale-sensitive semantic node bound to that Layer for the applicable role has the same Magnification Band. An Engineering Layer can contain an execution sub-scale without creating another Engineering Layer. |
 | **Engineering Universe** | Theoretical domain of engineering elements, relations, configurations, and outcomes expressible by the common model before Product-, project-, material-, contextual-, or temporal bounds are applied. |
-| **Engineering Space** | Materially and contextually bounded subset of the Engineering Universe applicable to one Product or engineering context. Its bounds can include Product scope, engineering domains, Project Profile, physical constraints, available capability, enabling technology, applicable external constraints, and other non-temporal engineering dimensions. |
+| **Engineering Space** | Materially and contextually bounded subset of the Engineering Universe applicable to one Product or engineering context. **Examples:** Product scope, engineering domains, Project Profile, physical constraints, available capability, enabling technology, applicable external constraints, and other non-temporal engineering dimensions. |
 | **Engineering State** | Temporally bounded subset of an Engineering Space containing the governed engineering elements and relations addressable at one observation point together with their applicable identity, revision, Scope, lifecycle or status, provenance, temporal qualification, and applicability. |
 | **Engineering Object** | Materialized project entity with tool, repository, physical, or document identity. It can carry or materialize one or more Propositions. |
 | **Evidence** | Recorded information used by a defined validator or argument to support a Proposition. Evidence is scope- and role-specific. |
@@ -381,7 +381,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **High-profile Assessment** | Open semantic or logical assessment used only for properties that cannot yet be established adequately by cheaper checks. |
 | **Instrumental Check** | Deterministic or mechanically executable check over explicit engineering data, structure, or rules. |
 | **Integrator** | Executor of an integration Contract that constructs a coherent same-scale Work Product from applicable partial Work Products and evidence. |
-| **Issuer** | Actor that, under applicable authority, creates or revises a Contract and assigns its execution. Originating an input, request, Choice, or human directive does not by itself make an Actor an Issuer. |
+| **Issuer** | Actor that, under applicable authority, creates or revises a Contract and assigns its execution. Originating information does not by itself make an Actor an Issuer. |
 | **Justification** | Valid relation/evidence structure that satisfies the applicable validators for using a Proposition as a decision, trace, or commitment basis. |
 | **Known Gap** | Gap whose existence and scope are known and recorded. |
 | **Local Optimum / Local Extremum** | Best/extreme candidate relative to a declared neighborhood or currently explored region, not the entire theoretical Solution Space. |
@@ -412,7 +412,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Scale of measurement** | Established measurement-theory classification defining which comparisons and algebraic operations are meaningful for a measured property. Common scales of measurement are nominal, ordinal, interval, and ratio. The proposal uses these established meanings and does not redefine them. |
 | **Scale** | Project-wide ordered interval space shared by all Engineering Domains. Magnification Bands occupy contiguous intervals on Scale. Domains can be sparse and need not instantiate Layers at every Scale position. Scale has no mandatory absolute numerical coordinates. The Scale-Domain projection remains rectangular: direct cross-Domain relations preserve Magnification Band, while Scale transitions remain Domain-local and use adjacent Engineering Layers. |
 | **Solution Universe** | Theoretical domain of possible solution configurations for an applicable class of engineering problem before the material and contextual bounds of a particular Product or problem are applied. |
-| **Solution Space** | Materially and contextually bounded subset of a Solution Universe for a stated Product or engineering problem. Its bounds can include Product intent, Product boundary, physical constraints, available capability, enabling technology, and applicable external constraints. |
+| **Solution Space** | Materially and contextually bounded subset of a Solution Universe for a stated Product or engineering problem. **Examples:** Product intent, Product boundary, physical constraints, available capability, enabling technology, and applicable external constraints. |
 | **State Projection** | Purpose-bounded subset of one Engineering State selected for a stated computation, query, analysis, Contract, Decision, traversal, or other engineering operation while preserving the applicable qualifications of the selected engineering information. |
 | **Swarm** | Population of specialized computational participants assigned by the Hive to one bounded task. Swarm contributions can form Clusters supporting Decisions. |
 | **Team API** | Governed cross-Actor or cross-Hive communication boundary used to coordinate Product evolution and Contract execution through applicable Work Products, Exchange Items, and communication Propositions. |
@@ -630,7 +630,7 @@ Potential Evidence is represented through the Evidence role.
 
 An unresolved finding is represented as an UNKNOWN or Gap.
 
-Required future engineering activity is represented through the applicable Request, Future Action, or Contract mechanism.
+Required future engineering activity is represented through the applicable Future Action or Contract mechanism.
 
 Material engineering output is represented as an Engineering Object and can become a Work Product according to the Work Product definition.
 
@@ -671,18 +671,9 @@ Its engineering persistence is determined by whether a resulting item carries co
 
 Selected results enter Product Evolution History through their corresponding common-model concepts and retain their actual disposition.
 
-Such dispositions can include:
-
-- prospective;
-- committed;
-- accepted;
-- rejected;
-- deferred;
-- superseded;
-- deprecated;
-- cancelled;
-- unresolved;
-- non-selected.
+> **Example — retained-result dispositions.**
+>
+> Representative dispositions include prospective, committed, accepted, rejected, deferred, superseded, deprecated, cancelled, unresolved, and non-selected.
 
 This preserves useful engineering discovery while retaining the semantic distinction between exploration, Decision commitment, Evidence, Contract state, Work Product Acceptance, and Product materialization.
 
@@ -722,21 +713,9 @@ $$K_{t_2}\setminus K_{t_1}$$
 
 contains the governed engineering history established between the observations.
 
-It can include:
-
-- new or revised Propositions;
-- Decision states;
-- Evidence;
-- relations;
-- Contracts and Contract events;
-- Engineering Objects;
-- Work Products;
-- Gaps;
-- UNKNOWNs;
-- Future Actions;
-- provenance;
-- Rollback information;
-- other governed engineering information.
+> **Example — Product Evolution History content.**
+>
+> Product Evolution History can retain new or revised Propositions, Decision states, Evidence, relations, Contracts and Contract events, Engineering Objects, Work Products, Gaps, UNKNOWNs, Future Actions, provenance, Rollback information, and other governed engineering information.
 
 Each retained element carries its applicable temporal and lifecycle/status qualification.
 
@@ -892,7 +871,7 @@ and:
 
 $$AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\not\Rightarrow AuthorizedFor(a,Assignment,C,\sigma,t,\kappa).$$
 
-Contract Issuer, Executor, Acceptance delegate, Human Decision authority, request originator, Work Product producer, and Engineering Layer participant remain distinct roles.
+Contract Issuer, Executor, Acceptance delegate, Human Decision authority, input originator, Work Product producer, and Engineering Layer participant remain distinct roles.
 
 The following implications express that separation:
 
@@ -962,15 +941,13 @@ Authority can expire or be revoked. Later authority change does not rewrite the 
 
 #### 5.5.6 Human input semantic classification
 
-Every Human-originated item is classified by what it is, not merely by who supplied it.
-
-A Human input can become, as applicable, a Question, Request, Clarification, candidate Proposition, Decision candidate, Exchange Item, Work Product, Evidence candidate, Contract revision request, or another Project Profile-defined role.
+Every Human-originated item is classified into the applicable governed semantics before it can affect Engineering State. Human origin does not establish semantic kind or role.
 
 Therefore:
 
 $$HumanOrigin(x)\not\Rightarrow DecisionKind(x,\kappa).$$
 
-Human provenance does not replace semantic typing.
+Human provenance does not replace semantic typing. The common model does not define a taxonomy of Human-input or information-ingress forms.
 
 #### 5.5.7 Human inputs as Engineering State transformations
 
@@ -1498,15 +1475,11 @@ $$\mathcal E_\kappa$$
 
 contains the engineering domain established by the applicable material and contextual bounds.
 
-These bounds can include:
+These bounds are established by the applicable Product and engineering context.
 
-- Product boundary;
-- engineering domains;
-- physical constraints;
-- capability;
-- enabling technology;
-- Project Profile;
-- applicable external constraints.
+> **Example — Engineering Space bounds.**
+>
+> Representative bounds include Product boundary, engineering domains, physical constraints, capability, enabling technology, Project Profile, and applicable external constraints.
 
 A material change in these bounds can establish a changed context:
 
@@ -1586,7 +1559,7 @@ Engineering State and its governed relations provide the common semantic referen
 
 ### 6.2 Proposition and Engineering Object
 
-A Proposition is the core addressable semantic graph node. It can represent a claim, need, candidate structure, Decision, interface intent, expected behavior, constraint, question, request, gap statement, or another addressable semantic unit.
+A Proposition is the core addressable semantic graph node. Defined Proposition kinds and roles inherit the common Proposition algebra where this proposal explicitly establishes them.
 
 An Engineering Object is a materialized project entity with tool, repository, physical, or document identity.
 
@@ -1594,9 +1567,9 @@ Materialization is many-to-many:
 
 $$Materializes\subseteq\mathbb P\times\mathbb O.$$
 
-A Decision is a Proposition node kind. It can materialize into an ADR, plan, change request, Product definition, Exchange Item, or another Engineering Object.
+A Decision is a Proposition node kind. A Decision can be materialized by one or more Engineering Objects.
 
-Evidence, Question, Request, constraint, expected behavior, interface intent, Gap statement, and other semantic roles specialize Proposition semantics without creating separate semantic universes.
+Defined Proposition kinds and roles specialize Proposition semantics without creating separate semantic universes.
 
 For an engineering context $\kappa$, let:
 
@@ -1622,13 +1595,13 @@ Evidence extends the common Proposition algebra with Evidence-specific relations
 
 Membership in the common Proposition algebra does not imply predicate substitutability. An operation defined for Evidence is valid only when the participating Proposition has the required Evidence role and the applicable relation validators succeed.
 
-### 6.3 Communication Proposition roles
+### 6.3 Information ingress
 
-The common minimum communication roles are:
+The common model does not define conversational or information-ingress form roles. Information introduced from outside the current Engineering State is classified into the applicable defined semantic concepts before it participates in governed engineering operations.
 
-$$CommRole\supseteq\{Question,Request,Clarification\}.$$
+A Project Profile can govern ingress handling. An ingress form does not acquire common-model semantics unless this proposal explicitly defines that semantic kind or role.
 
-Projects can add roles through the Project Profile. Exchange Item is not another conversational role; it is an addressable Proposition node used for governed transfer of a Decision or Evidence projection or a Work Product.
+Exchange Item is not an ingress-form role; it is the addressable Proposition node defined in §6.5 for governed transfer.
 
 ### 6.4 Decision
 
@@ -1788,7 +1761,7 @@ The common proposal does not prescribe technical interfaces, architecture, proto
 
 #### 6.7.1 Product as the primary Hive input
 
-Product definition is a primary input to Hive operation. It establishes the initial scope, intent, and subject of Product-oriented Solution Exploration.
+The Product and its governed initial information are the primary input to Hive operation. They establish the initial scope, intent, and subject of Product-oriented Solution Exploration.
 
 Let:
 
@@ -1804,7 +1777,7 @@ Then initiation of Product-oriented Hive work can be represented conceptually as
 
 $$(P,Intent(P),Scope(P))\rightarrow InitializeExplorationContext(H,P).$$
 
-This does not require the Product to be fully defined before work begins. The initial Product definition can contain known needs, intended outcomes, constraints, UNKNOWNs, Known Gaps, existing Product state, externally imposed conditions, available capabilities, partial intent, or ambiguous intent. Truthful incompleteness remains applicable.
+This does not require the Product to be fully specified before work begins. UNKNOWNs and Known Gaps preserve explicit incompleteness while the applicable Product state and context bound the initial exploration. Truthful incompleteness remains applicable.
 
 Therefore:
 
@@ -1876,7 +1849,11 @@ Let:
 
 $$Capability_H(t)$$
 
-represent the engineering capabilities available to Hive $H$ at time $t$. Capability can include reasoning capability, domain knowledge, software-development capability, simulation capability, verification capability, physical-design capability, tooling access, manufacturing access, external specialist capability, Human capability, supplier capability, and other project-defined execution capability.
+represent the engineering capabilities available to Hive $H$ at time $t$. The applicable capability dimensions are project-defined.
+
+> **Example — Hive capability dimensions.**
+>
+> Capability dimensions can cover reasoning, domain knowledge, software development, simulation, verification, physical design, tooling, manufacturing, external specialists, Human capability, supplier capability, and other project-defined execution capability.
 
 The Product defines the intended engineering problem. Hive capability restricts what parts of that problem can actually be executed autonomously or through currently available participants.
 
@@ -3079,7 +3056,11 @@ A Magnification Conflict can indicate malformed import, faulty extraction, inapp
 
 The Hive resolves the conflict before performing further engineering operations whose validity depends on the affected Layer or its bound information. Independent work outside that dependency closure can continue where ordinary concurrency rules permit it.
 
-Resolution can include correcting the Band, rebinding the node, splitting or restoring Layers, reversing an invalid merge, re-importing source information, or another governed repair. Conflict resolution must preserve history and must not fabricate Scale alignment.
+Conflict resolution must preserve history and must not fabricate Scale alignment.
+
+> **Example — Magnification Conflict resolution.**
+>
+> A governed resolution can correct the Band, rebind the node, split or restore Layers, reverse an invalid merge, re-import source information, or apply another governed repair.
 
 ### 9.13 Magnification Conflict, Brittleness, and Confidence
 
@@ -3519,7 +3500,7 @@ Rollback has one engineering purpose: complete cancellation of one committed Dec
 
 The resulting Work Product can change any technical aspect required to materialize that cancellation and retain a valid same-Layer remainder.
 
-A request that introduces a replacement realization or materially new Product intent in addition to cancellation is not a Rollback. Such a request is rejected under the Rollback classification. Continuation as ordinary engineering work is a separate Decision and Contract activity.
+An attempted Rollback that introduces a replacement realization or materially new Product intent in addition to cancellation is not a Rollback. That operation is rejected under the Rollback classification. Continuation as ordinary engineering work is a separate Decision and Contract activity.
 
 #### 10.4.8 Rollback outcome
 
@@ -3815,7 +3796,7 @@ $$Assignment(C^k,a)\Rightarrow SatisfiesExecutionPolicy(a,C^k,PP).$$
 
 Policy is definition-level governance.
 
-Whether execution can start at time $t$ remains a runtime readiness question.
+Whether execution can start at time $t$ remains a runtime readiness condition.
 
 ##### 11.1.1.10 Resource Budget and Resource Envelope
 
@@ -4062,16 +4043,11 @@ The Contract definition can reference its execution-topology context:
 
 $$TopologyRef(C^k).$$
 
-This can include relations to:
+The referenced topology is Project Profile- and Contract-defined.
 
-- parent Contract;
-- child Contracts;
-- Integrator Contract;
-- verification Contract;
-- supplier Contract;
-- successor Contract;
-- Team API context;
-- another applicable execution relation.
+> **Example — execution-topology references.**
+>
+> A topology reference can identify parent or child Contracts, an Integrator context, verification or supplier execution contexts, a successor Contract, a Team API context, or another applicable execution relation.
 
 These topology relations remain distinct from Product topology and authority topology.
 
@@ -4336,15 +4312,9 @@ The common model does not define one universal numerical threshold between these
 
 The Project Profile determines the applicable identity-continuity rule.
 
-Examples that can justify successor identity include material change of:
-
-- Product purpose;
-- accountability model;
-- external/legal obligation;
-- Work Product semantics;
-- delivery model;
-- Contract class;
-- another project-defined identity criterion.
+> **Example — successor Contract identity.**
+>
+> A Project Profile can treat a material change of Product purpose, accountability model, external or legal obligation, Work Product semantics, delivery model, Contract class, or another project-defined identity criterion as justification for successor identity.
 
 ##### 11.1.1.33 Contract decomposition relation
 
@@ -4396,7 +4366,7 @@ Therefore:
 
 $$TeamAPIRef(C)$$
 
-identifies the governed communication context while individual Questions, Requests, Clarifications, Exchange Items, Feedback Exchange Items, and Work Products remain their own addressable elements.
+identifies the governed communication context while communicated governed elements retain their own semantic identity and addressability.
 
 The Contract is governance structure.
 
@@ -4469,24 +4439,9 @@ $$ReadyPrerequisites(C)$$
 
 be the Project Profile- and Contract-defined prerequisite set.
 
-It can include, without limitation:
-
-- completion of external work;
-- completion of an external Contract;
-- completion or required state of dependent internal Contracts;
-- availability of required Work Products;
-- availability of required Evidence;
-- availability of computational resources;
-- availability of physical resources;
-- availability of test facilities;
-- availability of manufacturing capability;
-- availability of external services;
-- required personnel or Human participation;
-- authority prerequisites;
-- legal or commercial prerequisites;
-- environmental or physical conditions;
-- required Product state;
-- dependency synchronization conditions.
+> **Example — readiness prerequisites.**
+>
+> Readiness prerequisites can concern external work or Contracts, dependent Contract state, required Work Products or Evidence, computational or physical resources, facilities, manufacturing capability, external services, Human participation, authority, legal or commercial conditions, environmental or physical conditions, Product state, or dependency synchronization.
 
 Then:
 
@@ -4969,21 +4924,21 @@ $$Transition(C,z_i,z_j)\Rightarrow(z_i,z_j)\in E_C$$
 
 for common transitions.
 
-Examples of invalid shortcuts include:
-
-$$DEFINED\not\rightarrow EXECUTING$$
-
-without Assignment and readiness;
-
-$$ASSIGNED\not\rightarrow SUBMITTED;$$
-
-$$SUBMITTED\not\rightarrow FULFILLED$$
-
-without independent Acceptance and the Contract fulfilment predicate; and:
-
-$$REWORK\_REQUIRED\not\rightarrow FULFILLED$$
-
-without a successor Work Product submission and Acceptance.
+> **Example — invalid Contract lifecycle shortcuts.**
+>
+> $$DEFINED\not\rightarrow EXECUTING$$
+>
+> without Assignment and readiness;
+>
+> $$ASSIGNED\not\rightarrow SUBMITTED;$$
+>
+> $$SUBMITTED\not\rightarrow FULFILLED$$
+>
+> without independent Acceptance and the Contract fulfilment predicate; and:
+>
+> $$REWORK\_REQUIRED\not\rightarrow FULFILLED$$
+>
+> without a successor Work Product submission and Acceptance.
 
 #### 11.1.10 No hidden same-state iteration
 
@@ -5732,7 +5687,7 @@ Conceptually:
 
 $$TeamAPI: Actor/Hive\leftrightarrow Actor/Hive.$$
 
-A Team API can carry or reference Questions, Requests, Clarifications, Exchange Items, Feedback Exchange Items, Work Products, Contract-relevant execution information, and other Project Profile-defined communications.
+A Team API can carry or reference governed engineering information according to the applicable Project Profile and information-boundary rules.
 
 Team API does not prescribe Product architecture or technical Product interfaces. It governs engineering communication between execution parties.
 
@@ -5804,7 +5759,11 @@ $$Relevant(e,p,\kappa)\not\Rightarrow Supports_{\kappa}(e,p)$$
 
 $$Supports_{\kappa}(e,p)\not\Rightarrow Sufficient(e,p,\kappa).$$
 
-A test result, analysis, simulation, inspection, field observation, end-user claim, regulatory statement, human study, review result, or another recorded Proposition can therefore exist without being valid Evidence for every Proposition to which it can be structurally connected.
+A recorded Proposition can therefore exist without being valid Evidence for every Proposition to which it can be structurally connected.
+
+> **Example — recorded information considered for Evidence.**
+>
+> Recorded information can originate from testing, analysis, simulation, inspection, field observation, end-user input, regulatory information, Human study, review, or another project-defined source.
 
 The Project Profile defines the applicable Evidence validators and sufficiency rules.
 
@@ -5962,33 +5921,17 @@ For Evidence $e$:
 
 $$WidePotentialRelevance(e)\not\Rightarrow WideDirectApplicability(e).$$
 
-Consider a field bug report describing unexpected behavior in one vehicle or one component.
+> **Illustration — field Evidence propagation.**
+>
+> A field report can describe unexpected behavior in one Product instance or element. The Evidence can have potential relevance across several engineering contexts without acquiring direct evidential applicability to all of them.
+>
+> The owning Engineering Layer first assesses the Evidence locally. If the condition cannot be resolved locally and is relevant to the adjacent broader Engineering Layer, the local context can create:
+>
+> $$FeedbackExchangeItem_{i\rightarrow j}.$$
+>
+> The receiving context interprets that feedback and reassesses its local Solution Space and Decisions. Further propagation uses a new Feedback Exchange Item at each required adjacent Scale boundary. The source Evidence does not become directly operative in every potentially affected context.
 
-The report can potentially indicate a condition relevant to a physical element, component, subsystem, vehicle behavior, fleet population, Product requirements, or customer experience.
-
-This potential Scale range does not create direct Evidence relations to every one of those contexts.
-
-The owning Engineering Layer first assesses the Evidence locally.
-
-If the condition can be resolved locally, propagation stops.
-
-If the condition is relevant to the adjacent broader Engineering Layer, the local context creates:
-
-$$FeedbackExchangeItem_{component\rightarrow subsystem}.$$
-
-The subsystem context interprets that feedback and reassesses its local Solution Space and Decisions.
-
-If the subsystem resolves the condition, propagation stops.
-
-If it cannot, that layer creates a new Feedback Exchange Item for the next affected Scale.
-
-The original field report does not need to enter every Product, architecture, software, manufacturing, regulatory, UX, or service Decision context merely because the observed condition can eventually have consequences there.
-
-The same principle applies to an end-user claim.
-
-An end-user claim can be important Evidence at the context in which it is assessed and can initiate a substantial feedback loop.
-
-It does not thereby become direct Evidence for every Engineering Layer reached by that feedback loop.
+The same locality rule applies to any source information admitted as Evidence: importance or broad potential relevance does not create direct Evidence applicability at every Engineering Layer reached by a feedback path.
 
 ### 12.10 Confidence and Evidence processing
 
@@ -6121,7 +6064,9 @@ The upstream change still evolves the Solution Space and requires the affected d
 
 The pattern can be legitimate when downstream engineering has, for a valid reason, performed engineering normally owned by an upstream context and the result is subsequently propagated upward through the applicable adjacent-layer propagation and authority rules.
 
-Examples can include a lower-level feasibility discovery, supplier engineering result, manufacturing constraint, or implementation finding that causes the upstream context to adopt an already-developed solution.
+> **Example — reverse engineering influence.**
+>
+> A lower-level feasibility discovery, supplier engineering result, manufacturing constraint, or implementation finding can cause the upstream context to adopt an already-developed solution.
 
 The exception therefore permits **reverse engineering influence**, not silent inversion of Scale authority.
 
@@ -6135,16 +6080,11 @@ $$\Delta(p,\kappa)$$
 
 be the Revision Envelope applicable in context $\kappa$.
 
-The Revision Envelope can include:
+The Project Profile establishes the applicable Revision Envelope.
 
-- plausible requirement changes;
-- parameter changes;
-- interface changes;
-- implementation substitutions;
-- environmental changes;
-- local physical changes;
-- changes to assumptions;
-- other project-relevant perturbations.
+> **Example — Revision Envelope contents.**
+>
+> A Revision Envelope can contain plausible changes to requirements, parameters, interfaces, implementations, environment, local physical conditions, assumptions, or other project-relevant perturbations.
 
 A brittleness claim without a declared Revision Envelope is incomplete.
 
@@ -6160,9 +6100,11 @@ $$Impact(p,\delta,\kappa)$$
 
 represent the resources and engineering effects required to restore a valid state.
 
-Impact is multidimensional and can include:
+Impact is multidimensional and is interpreted under the applicable Project Profile.
 
-$$Impact=(time,money,compute,humanEffort,rework,reverification,coordination,physicalChange,schedule,\ldots).$$
+> **Example — Impact dimensions.**
+>
+> One project can assess an impact vector over dimensions such as time, money, computation, Human effort, rework, reverification, coordination, physical change, and schedule.
 
 Re-exploration is one possible component. It is not the definition of Brittleness.
 
@@ -6392,13 +6334,13 @@ Each resulting information flow forms a Y Branch for that reconciliation.
 
 A Y Branch is established by a Product engineering consumer need.
 
-The information flow is pull-driven. Product engineering establishes the need and requests the required information. The source Domain interprets that request, resolves the applicable information, and returns it through an Exchange Item for Product engineering interpretation.
+The information flow is pull-driven. Product engineering establishes the need for required information. The source Domain interprets that need, resolves the applicable information, and returns it through an Exchange Item for Product engineering interpretation.
 
 An Engineering Domain does not independently establish or push an information flow into Product engineering.
 
-The consumer request determines the required engineering information.
+The consumer need determines the required engineering information.
 
-The source Domain resolves the request against its applicable Engineering State and Magnification.
+The source Domain resolves the need against its applicable Engineering State and Magnification.
 
 The Y Branch remains applicable while the consumer need and governed information relationship remain applicable.
 
@@ -6420,7 +6362,7 @@ Both branches support feedback.
 
 The receiving Product engineering activity does not directly modify information governed by another Engineering Domain.
 
-For a Negotiable Y Branch, a receiving finding can request reconsideration by the governing Domain. The governing Domain interprets the feedback, determines whether a Decision or rework is required, and returns revised information through a subsequent Exchange Item where applicable.
+For a Negotiable Y Branch, a receiving finding can trigger reconsideration by the governing Domain. The governing Domain interprets the feedback, determines whether a Decision or rework is required, and returns revised information through a subsequent Exchange Item where applicable.
 
 A Fixed Y Branch can use the same feedback path.
 
@@ -6460,7 +6402,7 @@ Different Domains can therefore contain different sparse Layer structures.
 
 Product engineering requests the information required by its current engineering need.
 
-The source Domain resolves that request at the applicable Magnification Band. If the relevant source Layer is free-floating across a wider Band, cross-Domain alignment can compact that Band only through the governed rules of §9.
+The source Domain resolves that need at the applicable Magnification Band. If the relevant source Layer is free-floating across a wider Band, cross-Domain alignment can compact that Band only through the governed rules of §9.
 
 Fine engineering information remains local while the consumer need does not require it.
 
@@ -6554,7 +6496,7 @@ Waste is not synonymous with overhead. Required verification, governance, commun
 
 Waste occurs when an operation produces neither required process effect nor reusable progress, evidence, knowledge, or Product value. Polling loops, repeated context replay, unnecessary status messages, redundant branch reasoning, and reasoning about deterministic facts are candidate waste categories when the project can establish that they add no required effect.
 
-Overthinking is a reasoning-specific waste mode. Before assigning further reasoning work to a Swarm, the Hive should determine whether deterministic algebra, an existing Decision, recorded evidence, or a previously preserved outcome already resolves the question.
+Overthinking is a reasoning-specific waste mode. Before assigning further reasoning work to a Swarm, the Hive should determine whether deterministic algebra, an existing Decision, recorded evidence, or a previously preserved outcome already resolves the issue.
 
 ### 17.4 Contention and divergence
 
@@ -6652,7 +6594,11 @@ It is also distinct from Contract identity: a Contract is not restarted merely b
 
 Contract execution is bounded Solution Exploration and therefore uses the same convergence/divergence governance as other exploration.
 
-For Contract $C$, let $\tau_C$ denote its active execution trajectory. The trajectory can include construction attempts, verification results, integration attempts, rework, repeated submissions, feedback resolution, alternative execution approaches, and repair exploration.
+For Contract $C$, let $\tau_C$ denote its active execution trajectory. The trajectory records the governed execution history relevant to convergence and divergence.
+
+> **Example — Contract execution trajectory content.**
+>
+> A trajectory can contain construction attempts, verification results, integration attempts, rework, repeated submissions, feedback resolution, alternative execution approaches, and repair exploration.
 
 Contract execution is healthy while the trajectory demonstrates sufficient progress toward a valid fulfilment state under the applicable Resource Envelope.
 
@@ -6674,9 +6620,13 @@ $$Repair(\Delta)\neq\Delta^{-1}.$$
 
 One failed integration attempt does not by itself establish unhealthy divergence. Failure provides Evidence about the current trajectory. Repeated failure without adequate progress is a convergence signal.
 
-Relevant signals can include repeated rejection of the same Work Product, recurrence of the same defect class, repeated incompatibility, repeated integration or verification failure, repeated rework without reducing the affected problem, increasing Resource Cost with insufficient progress, persistent disagreement between responsible Actors, and inability to reconcile contending engineering trajectories.
+The Project Profile defines the signals used by the divergence-health calculation.
 
-The Project Profile can include these factors in the existing divergence-health calculation:
+> **Example — unhealthy-divergence signals.**
+>
+> Signals can include repeated rejection of the same Work Product, recurrence of the same defect class, repeated incompatibility, repeated integration or verification failure, repeated rework without reducing the affected problem, increasing Resource Cost with insufficient progress, persistent disagreement between responsible Actors, and inability to reconcile contending engineering trajectories.
+
+The applicable signals feed the existing divergence-health calculation:
 
 $$Health_{PP}(\tau_C,t).$$
 
@@ -6774,7 +6724,11 @@ Confidence remains distinct from the Resource Envelope itself.
 
 #### 17.6.1 Inputs and update
 
-The Project Profile defines the Confidence representation, observation window, update frequency, and applicable inputs. Inputs can include progress, convergence, divergence, Evidence, Decision progression, validation results, rework history, Resource Cost, remaining Resource Envelope, and historical resolution patterns.
+The Project Profile defines the Confidence representation, observation window, update frequency, and applicable inputs.
+
+> **Example — Confidence inputs.**
+>
+> Applicable inputs can include progress, convergence, divergence, Evidence, Decision progression, validation results, rework history, Resource Cost, remaining Resource Envelope, and historical resolution patterns.
 
 Confidence need not be monotonic. New Evidence, failed validation, a newly viable trajectory, or a material resource change can alter the indicator in either direction.
 
@@ -7378,15 +7332,9 @@ The Alloy encoding is not the source definition of the Hive mathematical model.
 
 The mapping SHOULD provide traceability from governed Hive formal elements to their Alloy representation.
 
-Applicable Alloy analysis can include:
-
-- satisfiability of model constraints;
-- generation of representative valid instances;
-- search for counterexamples to invariants;
-- analysis of prohibited relation combinations;
-- analysis of state-transition and graph-transformation rules;
-- bounded checking of Scale, Magnification, Domain, Contract, Evidence, and other relational constraints;
-- detection and analysis of inconsistent constraint sets.
+> **Example — Alloy analysis uses.**
+>
+> Applicable Alloy analysis can cover satisfiability of model constraints, generation of representative valid instances, counterexample search, prohibited relation combinations, state-transition and graph-transformation rules, bounded checks of relational constraints, and inconsistent constraint sets.
 
 Alloy analysis is bounded by the analysis scope.
 
@@ -7402,13 +7350,9 @@ Where a property requires unbounded proof, richer theories, or another analysis 
 
 A project using executable formal analysis can maintain traceability between the governed mathematical model and its analysis instrumentation.
 
-Analysis coverage can include:
-
-- **translation coverage** — governed formal concepts, relations, predicates, and operations have applicable tool representations;
-- **constraint-consistency coverage** — intended model configurations are satisfiable and unintended contradictions are investigated;
-- **property coverage** — applicable invariants and formal claims have executable checks;
-- **bounded-verification coverage** — checks are executed under recorded finite scopes;
-- **evolution coverage** — required legal Engineering State transformations can be instantiated and prohibited transformations are rejected.
+> **Example — formal-analysis coverage.**
+>
+> A project can track translation coverage, constraint-consistency coverage, property coverage, bounded-verification coverage, and evolution coverage according to its selected analysis instrumentation.
 
 These are analysis-control properties.
 
