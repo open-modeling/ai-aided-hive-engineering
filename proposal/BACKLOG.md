@@ -51,6 +51,7 @@ Follow-up work:
 
 ## Formal model
 
+- **Information ingress model:** define how information entering Hive is represented, classified, validated, and admitted into Engineering State. The current common model intentionally does not specify conversational or ingress-form taxonomies such as questions, requests, or clarifications. Until an ingress form is explicitly specified, it can appear only as non-binding content inside a labelled Example or Illustration and must not be used as common-model vocabulary, a formal role, or a conformance requirement.
 - **Engineering Economy consolidation:** consolidate the economic objective, Resource Cost, Rollback Cost, exploration versus materialization cost, Decision ordering under concurrency, Decision Blast Radius/Decision Extent economics, over-commitment, resource depletion, and staged resource expenditure.
 - **Contract realization phases:** formalize progression from lightweight Solution Exploration through planning, Work Product materialization, integration, and where applicable physical-world realization.
 - **Traceability dimensions:** refine operational/metadata and materialized engineering dimensions of the common Product graph while preserving one relation algebra.

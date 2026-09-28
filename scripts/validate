@@ -52,7 +52,7 @@ else:
             errors.append(f"Example/Illustration label must be inside a block quote: line {lineno}")
 
         representative = re.search(
-            r'\b(?:for example|examples? include|illustrative examples?|such as)\b',
+            r'\b(?:for example|examples? include|examples? can include|illustrative examples?|such as|can include)\b',
             stripped,
             re.I,
         )
