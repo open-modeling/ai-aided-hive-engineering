@@ -13,6 +13,7 @@ Proposal milestones use tags of the form `proposal-X.Y`. The reconstructed miles
 - `proposal-0.25`
 - `proposal-0.30`
 - `proposal-0.40`
+- `proposal-0.50`
 
 Core releases use the source archive notation, for example `core-v5.0.0-rc.1`. Version strings are not added to filenames inside `core/` merely because the imported archive has that version.
 

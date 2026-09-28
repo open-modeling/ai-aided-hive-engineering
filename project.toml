@@ -14,11 +14,11 @@ required = true
 
 [proposal]
 title = "AI Aided Hive Engineering Proposal"
-version = "0.40"
+version = "0.50"
 status = "draft"
-date = "2026-09-24"
+date = "2026-09-28"
 source = "proposal/AI_Aided_Hive_Engineering.md"
-tag = "proposal-0.40"
+tag = "proposal-0.50"
 
 [paths]
 images = "assets/images"
@@ -28,15 +28,15 @@ dist = "dist"
 
 [build.pdf]
 engine = "xelatex"
-filename = "AI_Aided_Hive_Engineering-0.40.pdf"
+filename = "AI_Aided_Hive_Engineering-0.50.pdf"
 toc = true
 toc_depth = 3
 papersize = "a4"
 font_size = "10pt"
 
 [release]
-base_name = "AI_Aided_Hive_Engineering-0.40"
-archive = "AI_Aided_Hive_Engineering-0.40.zip"
+base_name = "AI_Aided_Hive_Engineering-0.50"
+archive = "AI_Aided_Hive_Engineering-0.50.zip"
 include_markdown = true
 include_images = true
 include_pdf = true

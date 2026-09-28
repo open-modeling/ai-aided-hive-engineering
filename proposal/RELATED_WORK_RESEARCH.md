@@ -60,7 +60,7 @@ A source remains Parallel or Compared unless alignment or dependency is explicit
 | Distributed coordination without a single persistent manager | Contract Net; Partial Global Planning; SharedPlans; commitments/conventions; electronic institutions | Prior art / contrast | Use for coordination comparison. Hive does not derive semantic authority from an agent role or communication hierarchy. |
 | Engineering Universe / Space / State / State Projection; persistent identity and lifecycle information | digital thread / model-based enterprise; SysML v2 and Systems Modeling API | Engineering-model neighbour | Add as a first-class family. Hive is not merely a lifecycle integration layer: it adds state legitimacy, locality, Evidence, authority, Contract, and resource-governance semantics. |
 | Product evolution, revision, identity, and provenance | W3C PROV; OMG PPMN; digital-thread work | Engineering-model neighbour | Use for provenance and lifecycle identity precedent. Do not imply that provenance alone establishes semantic validity or authority. |
-| Exchange Item and receiving `LocalInterpretation` | boundary objects in multidisciplinary engineering; artifact-mediated coordination | Engineering-model neighbour | Boundary-object research is the closest conceptual neighbour for cross-discipline transfer with local meaning. Hive is stricter about transfer identity, projection, authority, Scale, and receiving interpretation. |
+| Exchange Item receiving-layer decomposition and terminal handoff | boundary objects in multidisciplinary engineering; artifact-mediated coordination | Engineering-model neighbour | Boundary-object research is the closest conceptual neighbour for cross-discipline transfer with local meaning. Hive is stricter about transfer identity, local semantic reconstruction, authority, Scale, and terminal handoff. |
 | Contract lifecycle, obligations, prerequisites, Acceptance, and Work Product delivery | commitment-oriented MAS; Guard-Stage-Milestone; assume-guarantee/contract-based design; Agent Contracts | Mixed: prior art / neighbour / contemporary comparison | Split the comparison. No one family should be used as if it were equivalent to the proposal Contract. |
 | Evidence, assurance, support, sufficiency, and locality | SACM; GSN/CAE; W3C PROV; PPMN | Engineering-model neighbour | Assurance and provenance are established. Hive-specific comparison should focus on Evidence locality, sufficiency, transfer, and authority separation. |
 | Trade Space, trajectories, alternatives, outliers | ATMS; set-based concurrent engineering; MATE | Prior art / neighbour | Do not claim preservation of alternatives or tradespace exploration as individually novel. |
@@ -225,7 +225,7 @@ The following is working research text, not proposal text:
 Before this wording is moved into the proposal:
 
 1. resolve the open Scale/Magnification/Domain topology semantics;
-2. complete the Exchange Item / `LocalInterpretation` cleanup;
+2. assess inter-Hive and global operational patterns built on the stabilized Exchange Item decomposition and terminal handoff semantics;
 3. verify all source metadata selected for proposal citation;
 4. keep the statement as research positioning, not a patentability or legal-novelty conclusion.
 
@@ -236,7 +236,7 @@ Proposal integration uses two bounded sections:
 1. **§23 Related work and alignment** — parallel/comparison work, with explicit Parallel / Compared / Aligned / Dependent status discipline and no presumed ancestry.
 2. **§24 Engineering toolbox** — optional instrumentation such as SysML, Alloy, formal interchange, assurance/provenance representations, and runtime frameworks. Toolbox representations are derived from Hive semantics and do not define them.
 
-A stronger research-gap statement remains deferred until priority-2 topology semantics and the Exchange Item / `LocalInterpretation` cleanup are stable.
+A stronger research-gap statement remains deferred until inter-Hive/global operational patterns and the selected literature set are rechecked against the stabilized topology and Exchange Item decomposition semantics.
 
 ## 8. Next literature actions
 

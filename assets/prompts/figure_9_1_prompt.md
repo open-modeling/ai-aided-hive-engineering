@@ -80,7 +80,7 @@ Horizontal cross-Domain transfer occurs only between equal Bands.
 
 A single Exchange Item must not simultaneously change Domain and Magnification Band.
 
-Where both operations are required, show separate governed transitions with local interpretation.
+Where both operations are required, show separate governed transitions with receiving-layer decomposition into locally addressable semantic state.
 
 ## Decision propagation
 

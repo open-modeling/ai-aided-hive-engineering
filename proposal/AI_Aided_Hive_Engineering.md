@@ -1,9 +1,9 @@
 ---
 title: "AI Aided Hive Engineering Proposal"
-subtitle: "Formal Proposal - Draft 0.40"
+subtitle: "Formal Proposal - Draft 0.50"
 author: "Julia (Ilya) Lebedev <ilya@lebedev.net>"
 copyright: "© 2026 Julia (Ilya) Lebedev"
-date: "24 September 2026"
+date: "28 September 2026"
 ---
 
 [[STATIC_TOC]]
@@ -445,6 +445,7 @@ Mathematical symbols are part of the proposal dictionary. This table is authorit
 | $D$ | Set of Decisions in the stated context; lifecycle qualification is stated where material. |
 | $D^*$ | Same bounded Decision set compared across trajectories. |
 | $d$ | One Decision node. Where pre-commit lifecycle qualification is material, the same node is written $d^{candidate}$. |
+| $e$ | One Evidence Proposition. |
 | $d_0$ | Committed Decision targeted by a Rollback. |
 | $D_L$ | Decisions belonging to Engineering Layer $L$. |
 | $C$ | Contract. |
@@ -1213,7 +1214,7 @@ A valid direct cross-Domain engineering relation preserves Magnification Band. I
 
 A Scale transition remains inside one Engineering Domain and can cross only one current adjacent Engineering Layer boundary at a time.
 
-A consequence crossing an Engineering Layer boundary is propagated through the applicable Exchange Item or Feedback Exchange Item and local interpretation.
+A consequence crossing an Engineering Layer boundary is propagated through the applicable Exchange Item or Feedback Exchange Item. At the receiving Engineering Layer, the transferred information is decomposed into the locally addressable Decision or Evidence required by that Layer before dependent solution development or further propagation continues.
 
 A direct relation must not bypass an Engineering Layer intermediate in the current Domain-local Scale order.
 
@@ -2944,7 +2945,7 @@ A Scale transition changes Magnification through an adjacent Layer boundary whil
 
 A single transition must not change both Domain and Magnification Band.
 
-Where an engineering effect requires both changes, separate governed transitions and the applicable local interpretation establish the path.
+Where an engineering effect requires both changes, separate governed transitions establish the path. Each receiving Engineering Layer decomposes the applicable transferred information into its own locally addressable semantics before another Scale transition is established.
 
 #### 9.7.3 Topology preservation and no-fold invariant
 
@@ -2984,33 +2985,215 @@ This no-fold rule is the common discrete topology invariant. Diffeomorphic defor
 
 ### 9.8 Exchange Item and Feedback Exchange Item propagation
 
-A consequence crossing an Engineering Layer boundary is transferred through an Exchange Item or Feedback Exchange Item and interpreted at the receiving Layer.
+Cross-Scale propagation uses addressable Exchange Items between adjacent Engineering Layers.
 
 One governed transfer uses one Exchange Item identity.
 
-For Decision propagation:
+A receiving Engineering Layer does not operate directly on the source Layer's Decision or Evidence semantics. The receiving Layer establishes its own applicable addressable semantic result.
 
-$$Decision_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow LocalInterpretation_j.$$
+#### 9.8.1 Coarser-to-finer Decision propagation
 
-Where a new local Decision is required:
+Let $L_i$ be the adjacent coarser Engineering Layer and $L_j$ the receiving adjacent finer Engineering Layer.
 
-$$LocalInterpretation_j\rightarrow Decision_j.$$
+Let $d_i$ be a Decision in the source context:
 
-For feedback:
+$$
+ d_i\in D_{\kappa_i},
+ \qquad
+ Layer(d_i,\kappa_i,t)=L_i.
+$$
 
-$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow LocalInterpretation_i.$$
+An Informational Exchange Item transfers the boundary-relative Decision information:
 
-An Objective Exchange Item transfers a Work Product while the Work Product retains its Engineering Object identity and source-Contract role.
+$$
+ d_i\rightarrow ExchangeItem_{i\rightarrow j}.
+$$
 
-An Exchange Item originates in one engineering context and is consumed by the context on the other side of its governed boundary. Consumption does not create another Exchange Item identity.
+The receiving Engineering Layer decomposes that transferred information into one or more Decisions governed by its local engineering context.
 
-Forward and reverse graph traversal use the same Exchange Item.
+For each resulting local Decision $d_j$:
 
-The transfer preserves applicable source identity and provenance. It does not make the source Decision, Evidence, Work Product, or authority directly operative at the receiving Engineering Layer.
+$$
+ d_j\in D_{\kappa_j},
+ \qquad
+ Layer(d_j,\kappa_j,t)=L_j.
+$$
 
-Every receiving Layer performs its own local interpretation.
+The addressable topology contains:
 
-A Domain-local Scale transfer crosses one `AdjacentLayer` boundary. A cross-Domain transfer preserves Magnification Band. One Exchange Item does not perform a diagonal Domain-and-Band transition.
+$$
+ ExchangeItem_{i\rightarrow j}\rightarrow d_j.
+$$
+
+The resulting traceability path is:
+
+$$
+ d_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow d_j.
+$$
+
+The local Decision $d_j$ is distinct from the source Decision $d_i$.
+
+Traceability to $d_i$ does not transfer the source Decision's Authority, Binding, Scope, or other context-qualified semantics to $d_j$.
+
+The receiving Layer can establish or retrieve local Evidence that supports its local Decision.
+
+For local Evidence $e_j$:
+
+$$
+ e_j\in E_{\kappa_j},
+ \qquad
+ Layer(e_j,\kappa_j,t)=L_j.
+$$
+
+Where the Evidence relation is valid:
+
+$$
+ Supports_{\kappa_j}(e_j,d_j).
+$$
+
+Local research activity can contribute to this process only through addressable engineering results governed by existing proposal semantics.
+
+Where a research result is used as Evidence for the local Decision, the applicable Proposition has Evidence role in the receiving context:
+
+$$
+ e_j\in E_{\kappa_j}.
+$$
+
+Research activity itself is not a graph node in this propagation path.
+
+#### 9.8.2 Finer-to-coarser Evidence feedback
+
+Let $L_j$ be the adjacent finer Engineering Layer and $L_i$ the receiving adjacent coarser Engineering Layer.
+
+Let $e_j$ be Evidence in the finer source context:
+
+$$
+ e_j\in E_{\kappa_j},
+ \qquad
+ Layer(e_j,\kappa_j,t)=L_j.
+$$
+
+Where that Evidence creates a consequence relevant to the adjacent coarser Engineering Layer, the source Layer establishes a Feedback Exchange Item:
+
+$$
+ e_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}.
+$$
+
+The receiving Layer decomposes the feedback into the locally addressable semantic result required by its engineering context.
+
+Where the required result is a local Decision $d_i$:
+
+$$
+ d_i\in D_{\kappa_i},
+ \qquad
+ Layer(d_i,\kappa_i,t)=L_i,
+$$
+
+and the topology contains:
+
+$$
+ FeedbackExchangeItem_{j\rightarrow i}\rightarrow d_i.
+$$
+
+The resulting traceability path is:
+
+$$
+ e_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow d_i.
+$$
+
+Where the feedback must continue toward another adjacent coarser Engineering Layer, the receiving Layer first establishes Evidence applicable in its own context.
+
+For local Evidence $e_i$:
+
+$$
+ e_i\in E_{\kappa_i},
+ \qquad
+ Layer(e_i,\kappa_i,t)=L_i.
+$$
+
+The addressable topology contains:
+
+$$
+ FeedbackExchangeItem_{j\rightarrow i}\rightarrow e_i.
+$$
+
+Further propagation toward the next applicable adjacent coarser Layer $L_h$ uses a new Feedback Exchange Item:
+
+$$
+ e_i\rightarrow FeedbackExchangeItem_{i\rightarrow h}.
+$$
+
+The complete multi-Layer topology can therefore contain:
+
+$$
+ e_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow e_i\rightarrow FeedbackExchangeItem_{i\rightarrow h}.
+$$
+
+The intermediate Layer does not merely relay $e_j$.
+
+The Evidence $e_i$ is locally applicable Evidence with its own semantic identity and context qualification.
+
+The originating Evidence $e_j$ remains canonically addressable in its originating context.
+
+#### 9.8.3 Exchange termination and Gap exposure
+
+A cross-Scale Informational Exchange Item received at an Engineering Layer is expected to establish the local addressable semantic result required by that Layer.
+
+An Exchange Item received from an adjacent coarser Layer that terminates without establishing the required local Decision is a condition that must be assessed as a Gap.
+
+A Feedback Exchange Item received from an adjacent finer Layer that terminates without establishing the required local Decision or locally applicable Evidence is likewise a condition that must be assessed as a Gap.
+
+The same applies where locally applicable Evidence has been established but further propagation is required and no required successor Feedback Exchange Item is established.
+
+The applicable Gap identifies the missing relation, Evidence, Decision, content, capability, result, or continuation required for the stated engineering purpose.
+
+An Exchange Item is not considered successfully resolved merely because its graph path ends.
+
+#### 9.8.4 Terminal Engineering Layer exception
+
+An Engineering Layer can be terminal for the applicable traversal direction inside the current Hive.
+
+For this rule, terminal means that no further Engineering Layer inside the current Hive is applicable to the required continuation in that traversal direction.
+
+A cross-Scale Informational Exchange Item or Feedback Exchange Item can intentionally terminate at such a Layer without creating a Gap only when the Project Profile defines a governed method for handing the applicable exchange outside the current Hive-operated environment.
+
+The external handoff uses the applicable Team API boundary.
+
+The handoff preserves the source identity and provenance required for applicable traceability.
+
+A terminal handoff therefore ends propagation **inside the current Hive** without asserting that the engineering information itself has no further consumer.
+
+Absence of a required external handoff method leaves the unresolved termination subject to Gap handling.
+
+#### 9.8.5 Objective Exchange Item distinction
+
+The preceding decomposition and termination rules do not redefine Objective Exchange Item semantics.
+
+An Objective Exchange Item transfers a Work Product.
+
+The Work Product retains its Engineering Object identity and source-Contract role.
+
+Delivery of the required Work Product to its intended receiving boundary can be a legitimate terminal result according to the applicable Contract and Project Profile.
+
+Such termination is not a Gap merely because no local Decision is created.
+
+#### 9.8.6 Identity and traversal
+
+An Exchange Item originates in one engineering context and is consumed by the context on the other side of its governed boundary.
+
+Consumption does not create another identity for the same transfer.
+
+Forward and reverse graph traversal use the same Exchange Item identity.
+
+The transfer preserves applicable source identity and provenance.
+
+It does not make the source Decision, Evidence, Work Product, or Authority directly operative in the receiving Engineering Layer.
+
+A Domain-local Scale transfer crosses one `AdjacentLayer` boundary.
+
+A cross-Domain transfer preserves Magnification Band.
+
+One Exchange Item does not perform a diagonal Domain-and-Band transition.
 
 ### 9.9 Human locality across Engineering Layers
 
@@ -3046,9 +3229,13 @@ Magnification does not establish missing engineering information merely because 
 
 Where required information is absent, truthful incompleteness applies.
 
-If the engineering need requires another Engineering Layer or a different Magnification Band, the absence is recorded as a Gap and governed engineering activity can establish the required Layer, Band, and content.
+If the engineering need requires another Engineering Layer, a different Magnification Band, a missing local semantic result from a received Informational Exchange Item, or required continuation toward another adjacent Engineering Layer, the absence is recorded as a Gap.
 
-The current element remains terminal for that traversal direction until the engineering topology is validly extended.
+Governed engineering activity can establish the required Layer, Band, Decision, Evidence, Exchange Item, Feedback Exchange Item, or other already-defined engineering information.
+
+An Engineering Layer can remain terminal for the applicable traversal direction inside the current Hive.
+
+A cross-Scale exchange can terminate there without a Gap only when §9.8.4 applies and the Project Profile defines the governed Team API handoff required to continue the exchange outside the current Hive-operated environment.
 
 ### 9.11 Exploration can extend the engineering state
 
@@ -5770,6 +5957,31 @@ Shared Team API access does not imply shared authority:
 
 $$SharedTeamAPI(a,b)\not\Rightarrow SharedAuthority(a,b).$$
 
+
+#### 11.7.1 Hive-boundary exchange continuation
+
+A Team API can carry or reference an Exchange Item whose propagation leaves the current Hive-operated environment.
+
+This provides the governed boundary for Hive-to-Hive communication, Hive-to-external-Actor communication, and larger operational structures composed from independently governed Hives.
+
+A terminal exchange under §9.8.4 is complete for the sending Hive only when the applicable Team API handoff method is known and governed by the Project Profile.
+
+The handoff preserves enough source identity and provenance for the receiving party to trace the transferred information to its source.
+
+A receiving Hive does not inherit the sending Hive's local Decision, Evidence applicability, Authority, Scope, Magnification localization, Contract state, or other context-qualified semantics merely because the information crossed a Team API.
+
+The receiving Hive admits and processes the transferred engineering information under its own governed Engineering State and Project Profile.
+
+Where the receiving Hive continues the same engineering propagation, it establishes the addressable Decisions, Evidence, Exchange Items, Feedback Exchange Items, Contracts, or other defined semantics applicable to its local context.
+
+Team API connectivity therefore permits Hives to compose operationally without collapsing their local semantic governance.
+
+The Team API relation and no-shared-authority invariant defined in §11.7 remain applicable.
+
+This section establishes the communication basis required for later definition of global operational patterns.
+
+It does not yet define one global Hive graph, global Scale, global Decision Authority, or global Evidence context.
+
 ### 11.8 Blast containment
 
 A Decision has direct effect only inside its local Contract and bounded Hive/Team context. Other parties are affected only when an Exchange Item that they consume changes.
@@ -5874,31 +6086,81 @@ Evidence does not directly cross an incompatible Engineering Layer boundary as a
 
 For Evidence $e_j$ at Engineering Layer $L_j$ and a broader Engineering Layer $L_i$:
 
-$$Reachable(e_j,L_i)\not\Rightarrow DirectlyApplicable(e_j,L_i)$$
+$$
+Reachable(e_j,L_i)\not\Rightarrow DirectlyApplicable(e_j,L_i)
+$$
 
 and:
 
-$$Reachable(e_j,p_i)\not\Rightarrow Supports_{\kappa_i}(e_j,p_i).$$
+$$
+Reachable(e_j,p_i)\not\Rightarrow Supports_{\kappa_i}(e_j,p_i).
+$$
 
-When locally assessed Evidence identifies a condition relevant to the adjacent broader Scale, the originating context produces a Feedback Exchange Item.
+When locally assessed Evidence identifies a condition relevant to the adjacent broader Scale, the originating context establishes a Feedback Exchange Item.
 
-The feedback loop is:
+For:
 
-$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow LocalInterpretation_i$$
+$$
+e_j\in E_{\kappa_j},
+\qquad
+Layer(e_j,\kappa_j,t)=L_j,
+$$
 
-and, when a Decision is required:
+the feedback topology contains:
 
-$$LocalInterpretation_i\rightarrow Decision_i.$$
+$$
+e_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}.
+$$
 
-This preserves the compact established propagation form:
+The receiving Engineering Layer decomposes the feedback into the local semantic result required by its engineering context.
 
-$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow Decision_i$$
+Where the required result is a Decision $d_i$:
 
-with local interpretation understood as part of the receiving operation.
+$$
+d_i\in D_{\kappa_i},
+\qquad
+Layer(d_i,\kappa_i,t)=L_i,
+$$
 
-The originating Evidence remains associated with its local engineering context.
+and:
 
-The Feedback Exchange Item carries only the information appropriate for the receiving boundary.
+$$
+FeedbackExchangeItem_{j\rightarrow i}\rightarrow d_i.
+$$
+
+The complete addressable traceability path is:
+
+$$
+e_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow d_i.
+$$
+
+Where further propagation toward another adjacent coarser Engineering Layer is required, the receiving Layer establishes local Evidence $e_i$:
+
+$$
+e_i\in E_{\kappa_i},
+\qquad
+Layer(e_i,\kappa_i,t)=L_i.
+$$
+
+The receiving topology then contains:
+
+$$
+FeedbackExchangeItem_{j\rightarrow i}\rightarrow e_i.
+$$
+
+Further propagation uses another Feedback Exchange Item:
+
+$$
+e_i\rightarrow FeedbackExchangeItem_{i\rightarrow h}.
+$$
+
+The originating Evidence $e_j$ remains associated with its originating engineering context.
+
+The intermediate Layer does not make $e_j$ directly applicable merely because it is traceable through the feedback path.
+
+A Feedback Exchange Item that stops at a non-terminal receiving Engineering Layer without establishing the locally required Decision, locally applicable Evidence, or required successor propagation is subject to Gap assessment under §9.8.3.
+
+A Feedback Exchange Item can terminate at the current Hive boundary without a Gap only under the terminal handoff rule of §9.8.4.
 
 ### 12.5 Feedback Exchange Item information discipline
 
@@ -5913,6 +6175,14 @@ The Feedback Exchange Item preserves source identity and provenance sufficient f
 The applicable Project Profile and Contract determine required Evidence projection content, permissible supplementary provenance, information-exposure restrictions, and required Work Product interaction.
 
 The receiving Layer can explicitly retrieve the originating Evidence where the projection is insufficient for its governed engineering activity.
+
+A receiving Engineering Layer does not use a Feedback Exchange Item as a transparent relay of the originating Evidence.
+
+Where the feedback becomes locally operative, the receiving Layer establishes the applicable local Decision or Evidence under §9.8 and §12.4.
+
+Where another broader Engineering Layer must be affected, propagation starts from the locally applicable Evidence and uses a new Feedback Exchange Item.
+
+This preserves Evidence locality while retaining complete reverse traceability to the originating Evidence.
 
 ### 12.6 Evidence and Work Products
 
@@ -6004,7 +6274,7 @@ $$WidePotentialRelevance(e)\not\Rightarrow WideDirectApplicability(e).$$
 >
 > $$FeedbackExchangeItem_{i\rightarrow j}.$$
 >
-> The receiving context interprets that feedback and reassesses its local Solution Space and Decisions. Further propagation uses a new Feedback Exchange Item at each required adjacent Scale boundary. The source Evidence does not become directly operative in every potentially affected context.
+> The receiving Engineering Layer establishes the local Decision required by that Layer or, where broader propagation is required, establishes locally applicable Evidence. Further propagation starts from that local Evidence and uses a new Feedback Exchange Item at each required adjacent Scale boundary. The source Evidence does not become directly operative in every potentially affected context.
 
 The same locality rule applies to any source information admitted as Evidence: importance or broad potential relevance does not create direct Evidence applicability at every Engineering Layer reached by a feedback path.
 
@@ -6403,7 +6673,9 @@ Each resulting information flow forms a Y Branch for that reconciliation.
 
 A Y Branch is established by a Product engineering consumer need.
 
-The information flow is pull-driven. Product engineering establishes the need for required information. The source Domain interprets that need, resolves the applicable information, and returns it through an Exchange Item for Product engineering interpretation.
+The information flow is pull-driven. Product engineering establishes the need for required information. The source Domain resolves that need against its governed Engineering State and returns the applicable information through an Exchange Item.
+
+Where the returned Informational Exchange Item crosses an Engineering Layer boundary, Product engineering decomposes the received information into its locally governed Decision semantics under §9.8.
 
 An Engineering Domain does not independently establish or push an information flow into Product engineering.
 
@@ -6431,7 +6703,11 @@ Both branches support feedback.
 
 The receiving Product engineering activity does not directly modify information governed by another Engineering Domain.
 
-For a Negotiable Y Branch, a receiving finding can trigger reconsideration by the governing Domain. The governing Domain interprets the feedback, determines whether a Decision or rework is required, and returns revised information through a subsequent Exchange Item where applicable.
+For a Negotiable Y Branch, a receiving finding can trigger reconsideration by the governing Domain.
+
+The governing Domain receives the applicable Feedback Exchange Item and establishes the local Decision or Evidence required by its engineering context.
+
+Where revised information must return through the Y Branch, the governing Domain establishes a subsequent Exchange Item from that local governed state.
 
 A Fixed Y Branch can use the same feedback path.
 
@@ -6862,25 +7138,67 @@ Assume:
 5. Structural reachability does not establish semantic justification.
 6. Decisions have direct effect only inside their valid local engineering context.
 7. Evidence directly supports Propositions only where its Evidence relation is valid locally.
-8. Cross-Scale effects require applicable adjacent-layer materialization and local interpretation.
-9. Downward Decision effects are materialized through Exchange Items.
-10. Upward Evidence effects are materialized through Feedback Exchange Items.
-11. Receiving Engineering Layers perform local interpretation.
-12. Evidence support, evidential closure, and Decision authority do not automatically compose through relation paths.
+8. Cross-Scale effects propagate only through applicable adjacent Engineering Layers.
+9. Decision information from an adjacent coarser Engineering Layer is transferred through an Informational Exchange Item and becomes locally operative only through a Decision established in the receiving Engineering Layer.
+10. Evidence feedback from an adjacent finer Engineering Layer is transferred through a Feedback Exchange Item and becomes locally operative through a Decision or Evidence established in the receiving Engineering Layer.
+11. Where further cross-Scale propagation is required, the receiving Engineering Layer establishes the applicable local semantic state before creating the next Exchange Item or Feedback Exchange Item.
+12. Evidence support, evidential closure, Decision Authority, and Binding do not automatically compose through transfer or traceability paths.
 
 Then neither forward nor reverse graph traversal can make a local Decision or local Evidence Proposition directly authoritative or evidentially sufficient at an incompatible foreign Engineering Layer.
 
-A local Decision can influence another Scale through:
+A local Decision can influence an adjacent finer Engineering Layer through an Exchange Item.
 
-$$Decision_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow Decision_j$$
+For source Decision $d_i$:
 
-when a receiving Decision is required.
+$$
+d_i\in D_{\kappa_i},
+\qquad
+Layer(d_i,\kappa_i,t)=L_i.
+$$
 
-Local Evidence can influence a broader Scale through:
+Where the receiving Layer establishes Decision $d_j$:
 
-$$Evidence_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow Decision_i$$
+$$
+d_j\in D_{\kappa_j},
+\qquad
+Layer(d_j,\kappa_j,t)=L_j,
+$$
 
-when a receiving Decision is required.
+the addressable topology can contain:
+
+$$
+d_i\rightarrow ExchangeItem_{i\rightarrow j}\rightarrow d_j.
+$$
+
+Local Evidence can influence an adjacent broader Engineering Layer through a Feedback Exchange Item.
+
+For source Evidence $e_j$:
+
+$$
+e_j\in E_{\kappa_j},
+\qquad
+Layer(e_j,\kappa_j,t)=L_j.
+$$
+
+Where the receiving Layer establishes Decision $d_i$:
+
+$$
+e_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow d_i.
+$$
+
+Where further propagation requires locally applicable Evidence $e_i$:
+
+$$
+e_i\in E_{\kappa_i},
+\qquad
+Layer(e_i,\kappa_i,t)=L_i,
+$$
+
+and the addressable topology can contain:
+
+$$
+e_j\rightarrow FeedbackExchangeItem_{j\rightarrow i}\rightarrow e_i\rightarrow FeedbackExchangeItem_{i\rightarrow h}.
+$$
 
 The corresponding graph can be traversed in reverse for traceability.
 
@@ -6894,23 +7212,29 @@ It does not make the receiving Decision authoritative over the source Evidence a
 
 Therefore, let $\sigma_j$ be the applicable receiving Scope at Engineering Layer $L_j$. Then:
 
-$$Reachable(d_i,L_j)\not\Rightarrow Binding(d_i,\sigma_j,t)$$
+$$
+Reachable(d_i,L_j)\not\Rightarrow Binding(d_i,\sigma_j,t)
+$$
 
 and:
 
-$$Reachable(e_j,L_i)\not\Rightarrow EvidenceClosure_i(e_j).$$
+$$
+Reachable(e_j,L_i)\not\Rightarrow EvidenceClosure_i(e_j).
+$$
 
 Likewise:
 
-$$ReverseReachable(d_i,e_j)\not\Rightarrow Supports_{\kappa_i}(e_j,d_i)$$
+$$
+ReverseReachable(d_i,e_j)\not\Rightarrow Supports_{\kappa_i}(e_j,d_i)
+$$
 
 unless that local support relation is independently valid.
 
 The model therefore supports full bidirectional traceability without creating bidirectional semantic authority.
 
-Information can propagate through many Engineering Layers while Decisions, Evidence support, evidential closure, and authority remain local.
+Information can propagate through many Engineering Layers while Decisions, Evidence support, evidential closure, and Authority remain local.
 
-**Derived property:** Decisions and Evidence remain local semantic Propositions. Their engineering effects cross Scale boundaries only through explicit materialized exchanges and renewed local interpretation. Forward and reverse graph traversal preserve traceability but do not create semantic inheritance.
+**Derived property:** Decisions and Evidence remain local semantic Propositions. Cross-Scale effects pass through explicit Exchange Items or Feedback Exchange Items and are decomposed into addressable semantic state at each receiving Engineering Layer. Further propagation starts from that local state. Forward and reverse traversal preserve traceability but do not create semantic inheritance, Authority propagation, Binding propagation, or direct Evidence applicability.
 
 ### Execution-topology extension
 
@@ -7134,6 +7458,12 @@ The release audit applies the following model-integrity checks.
 | **Integration readiness** | $W^{ready}_{C_I}\subseteq W_I$, with full readiness exactly when $W^{ready}_{C_I}=W_I$. |
 | **Scale vocabulary** | $Band$, $Layer$, $Domain$, $AdjacentLayer$, and $MagnificationConflict$ use the §21.4 signatures; Scale deltas use $\delta_s$ and $\Delta_s(s_i,s_j)$. |
 | **Formal-source integrity** | Mathematical source renders the intended operators and contains no control-character corruption of TeX expressions. |
+| **Graph-atom addressability** | Every atom used as a graph vertex in a formal path denotes an addressable model element defined by the proposal. Processes, activities, validators, research activity, interpretation operations, decomposition operations, and handoff execution do not appear as graph vertices unless the proposal explicitly defines addressable semantics for them. |
+| **Adjacent exchange propagation** | Cross-Scale Informational Exchange Item and Feedback Exchange Item propagation crosses applicable adjacent Engineering Layers and does not encode a direct Layer-skipping path. |
+| **Receiving-layer decomposition** | A received cross-Scale Informational Exchange Item establishes the locally required Decision; a received Feedback Exchange Item establishes the locally required Decision or locally applicable Evidence before dependent continuation. |
+| **Feedback renewal** | Further coarser feedback propagation starts from Evidence applicable in the intermediate receiving context and uses a new Feedback Exchange Item. The originating Evidence is not transparently relayed as directly applicable Evidence. |
+| **Exchange termination** | Unresolved cross-Scale Informational Exchange Item termination is assessed as a Gap unless the receiving Layer is terminal for that traversal direction and a Project Profile-defined Team API handoff continues the exchange outside the current Hive. |
+| **Objective Exchange distinction** | Objective Exchange Item delivery is validated under §6.5.2 and is not treated as a Gap solely because it terminates without creating a local Decision. |
 
 These checks validate representation consistency. Their engineering semantics remain defined in the referenced proposal sections.
 
@@ -7242,11 +7572,11 @@ Relevant parallel work includes:
 
 These works address persistent engineering information, lifecycle continuity, information transfer between disciplines, and stateful artifact evolution.
 
-They are relevant to Engineering State, Product Evolution History, Engineering Objects, Exchange Items, LocalInterpretation, Work Products, and Contract lifecycle.
+They are relevant to Engineering State, Product Evolution History, Engineering Objects, Exchange Items, receiving-layer decomposition, Work Products, and Contract lifecycle.
 
 A transferred representation or boundary object does not automatically establish the semantics defined for an Exchange Item.
 
-Hive explicitly separates transferred content, transfer identity, receiving-context interpretation, Evidence sufficiency, and authority.
+Hive explicitly separates transferred content, transfer identity, receiving-layer semantic state, Evidence sufficiency, and Authority.
 
 ### 23.6 Evidence, assurance, and provenance
 
@@ -7324,7 +7654,7 @@ Related work can strengthen, challenge, or provide implementation mechanisms for
 A stronger combination-level research-gap or novelty statement is deferred until:
 
 - the Scale, Magnification, and Domain evolution model is stabilized;
-- Exchange Item and LocalInterpretation semantics are internally consistent throughout the proposal;
+- Exchange Item, receiving-layer decomposition, termination, and inter-Hive handoff semantics are internally consistent throughout the proposal;
 - the selected related-work set has been systematically rechecked against the stabilized model.
 
 Patent novelty and patentability are outside the scope of this related-work section.
