@@ -96,7 +96,7 @@ A re-audit SHOULD be performed when a change:
 - changes formal model semantics or registered vocabulary;
 - changes repository governance, validators, release rules, or imported core baselines;
 - changes Scale/Magnification/Domain topology rules;
-- changes Exchange Item, Evidence, authority, Contract, Acceptance, or LocalInterpretation semantics;
+- changes Exchange Item, receiving-layer decomposition, Evidence, authority, Contract, Acceptance, or terminal handoff semantics;
 - materially changes the literature-based research-positioning claims.
 
 A re-audit may be narrow when the correction is narrow, but it MUST include all invariants that the correction could reasonably affect.
