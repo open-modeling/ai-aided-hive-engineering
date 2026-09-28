@@ -43,10 +43,8 @@ Follow-up work:
 
 ## Semantic audit corrections
 
-- **Exchange Item cleanup:** remove stale wording that treats a Human input as becoming an Exchange Item or a Decision as materializing into an Exchange Item. Preserve Exchange Item as a distinct governed transfer node.
 - **Mandatory `LocalInterpretation`:** correct remaining propagation formulas that shortcut from Exchange Item directly to Decision or other local semantic use.
 - **ADS/LMC baseline:** rebase the proposal to the accepted ADS/LMC `5.0.0-rc.2` baseline and keep only proposal-specific Example/Illustration specialization locally.
-- **Example/Illustration cleanup:** convert remaining explicit examples into compliant labelled explanatory blocks and extend validator coverage for equivalent phrasings.
 - **Formal-vocabulary cleanup:** localize unnecessary formal predicates and register only genuinely reusable common-model symbols/functions.
 
 ## Formal model
