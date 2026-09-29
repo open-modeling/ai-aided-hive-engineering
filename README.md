@@ -14,6 +14,7 @@ Proposal milestones use tags of the form `proposal-X.Y`. The reconstructed miles
 - `proposal-0.30`
 - `proposal-0.40`
 - `proposal-0.50`
+- `proposal-0.60`
 
 Core releases use the source archive notation, for example `core-v5.0.0-rc.1`. Version strings are not added to filenames inside `core/` merely because the imported archive has that version.
 
@@ -31,7 +32,7 @@ make pdf
 make release
 ```
 
-`make pdf` produces the PDF under `build/`. `make release` creates a self-contained ZIP under `dist/` containing the Markdown source, referenced images, generated PDF, repository metadata, license, and available supplementary data. Generated output is ignored by Git.
+`make pdf` produces the PDF under `build/`. `make release` creates a self-contained ZIP under `dist/` containing the canonical proposal Markdown, current proposal backlog and development-control records, referenced images, generated PDF, repository metadata, license, and available supplementary data. Audit records remain outside the release archive. Generated output is ignored by Git.
 
 A reproducible container build environment is described by `Containerfile`.
 
@@ -41,6 +42,7 @@ A reproducible container build environment is described by `Containerfile`.
 - Images referenced by Markdown belong under `assets/images/`.
 - Supplementary release data belongs under `data/supplementary/`.
 - Generated PDF and release archives belong only under ignored build/output directories.
+- Proposal development-control records (`BACKLOG.md`, `DATA_MODEL.md`, and `RETRACTIONS.md`) live under `proposal/` and are included in proposal releases as non-canonical companion records.
 - Human-readable audit records belong under `audit/`; they are tied to specific committed states and are not canonical proposal semantics or proposal release artifacts.
 
 ## License

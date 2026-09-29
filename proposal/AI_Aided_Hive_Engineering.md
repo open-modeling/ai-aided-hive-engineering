@@ -1,6 +1,6 @@
 ---
 title: "AI Aided Hive Engineering Proposal"
-subtitle: "Formal Proposal - Draft 0.50"
+subtitle: "Formal Proposal - Draft 0.60"
 author: "Julia (Ilya) Lebedev <ilya@lebedev.net>"
 copyright: "© 2026 Julia (Ilya) Lebedev"
 date: "28 September 2026"
