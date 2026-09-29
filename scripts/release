@@ -13,6 +13,11 @@ rm -rf "$TREE"
 mkdir -p "$TREE/images" "$DIST"
 
 cp "$ROOT/$($META proposal.source)" "$TREE/AI_Aided_Hive_Engineering.md"
+for companion in BACKLOG.md DATA_MODEL.md RETRACTIONS.md; do
+  if [[ -f "$ROOT/proposal/$companion" ]]; then
+    cp "$ROOT/proposal/$companion" "$TREE/$companion"
+  fi
+done
 cp "$PDF" "$TREE/$(basename "$PDF")"
 cp "$ROOT/project.toml" "$ROOT/CITATION.cff" "$ROOT/LICENSE" "$ROOT/README.md" "$TREE/"
 

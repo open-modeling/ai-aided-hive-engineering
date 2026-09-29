@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this work, please cite it using the metadata below."
 title: "AI Aided Hive Engineering Proposal"
 type: generic
-version: "0.50"
-date-released: 2026-09-28
+version: "0.60"
+date-released: 2026-09-30
 authors:
   - family-names: "Lebedev"
     given-names: "Julia (Ilya)"
