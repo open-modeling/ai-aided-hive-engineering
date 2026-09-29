@@ -362,22 +362,22 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Engineering Layer** | Domain-local graph node that provides one engineering context and occupies one Magnification Band on the common Scale. Every scale-sensitive semantic node bound to that Layer for the applicable role has the same Magnification Band. An Engineering Layer can contain an execution sub-scale without creating another Engineering Layer. |
 | **Engineering Universe** | Theoretical domain of engineering elements, relations, configurations, and outcomes expressible by the common model before Product-, project-, material-, contextual-, or temporal bounds are applied. |
 | **Engineering Space** | Materially and contextually bounded subset of the Engineering Universe applicable to one Product or engineering context. **Examples:** Product scope, engineering domains, Project Profile, physical constraints, available capability, enabling technology, applicable external constraints, and other non-temporal engineering dimensions. |
-| **Engineering State** | Temporally bounded subset of an Engineering Space containing the governed engineering elements and relations addressable at one observation point together with their applicable identity, revision, Scope, lifecycle or status, provenance, temporal qualification, and applicability. |
+| **Engineering State** | Temporally bounded subset of an Engineering Space containing the governed engineering elements and relations addressable at one observation point. The State retains the engineering context under which those elements and relations are interpreted. |
 | **Engineering Object** | Materialized project entity with tool, repository, physical, or document identity. It can carry or materialize one or more Propositions. |
 | **Evidence** | Recorded information used by a defined validator or argument to support a Proposition. Evidence is scope- and role-specific. |
 | **Exchange Item** | Addressable Proposition node that represents a governed engineering transfer and preserves that transfer for traversal and traceability. An Informational Exchange Item delivers a boundary-relative projection of a Decision or Evidence Proposition. An Objective Exchange Item delivers a Work Product. The Exchange Item retains identity distinct from its transferred content. |
 | **Executor** | Actor responsible for fulfilment of an assigned Contract, including delivery of the required Work Product or explicit reporting that fulfilment cannot be completed. A Human can be an Executor when assigned responsibility for a Contract result. |
 | **Exploration** | Bounded computational attempt to extend, test, compare, or refine the current Solution Space. |
 | **Extremum Exploration** | Exploration intended to discover a different local extremum or challenge whether a materially better region exists outside the current search neighborhood. |
-| **Feasible Region** | Subset of a Solution Space satisfying the constraints applicable under a stated Engineering State and engineering context. |
+| **Feasible Region** | Context- and time-qualified subset of a Solution Space satisfying the active constraint set for one bounded engineering problem. Feasibility is represented by this region and its set calculus, not by a Boolean `Feasible(...)` function. |
 | **Future Action** | Explicit deferred engineering activity that resolves or closes a Known Gap after its required prerequisites become available. It identifies the responsible party, trigger, expected result, required artifacts, execution method or reference, readiness conditions, and completion conditions. |
 | **Gap** | Explicitly known missing relation, evidence, content, capability, or result required for a stated purpose. |
 | **Hive** | Complete execution model that maintains engineering state, governance, Contracts, resources, and execution topology and commands Swarms assigned to bounded tasks. |
 | **Hive Mind** | Distributed/federated intelligence paradigm in which the Hive operates as one coherent intelligence for an external observer while participating actors retain individual traits, properties, and behaviours. |
 | **Human Arbitrary Input (HAI)** | Exogenous human input that can arrive at any time and can preempt the current continuation without erasing history. |
-| **Human Prescriptive Choice (HPC)** | Human choice required when an obligatory Decision cannot be committed by the Hive. |
-| **Human Voluntary Choice (HVC)** | Optional human choice made while autonomous Hive continuation remains possible. |
-| **Human Work Product (HWP)** | Work Product supplied by a Human or human organization. Human origin does not bypass validation. |
+| **Human Prescriptive Choice (HPC)** | Human-originated prescription supporting a Decision Candidate when an obligatory Decision requires applicable Human Decision authority. The prescription is not itself the Decision. |
+| **Human Voluntary Choice (HVC)** | Optional Human-originated support for a Decision Candidate while autonomous Hive continuation remains possible. The support is not itself the Decision. |
+| **Human Work Product (HWP)** | Work Product authored or supplied by a Human or human organization, either as a contribution to another Work Product or as the complete Contract-required Work Product. Human origin does not bypass validation, Contract accountability, or Acceptance. |
 | **High-profile Assessment** | Open semantic or logical assessment used only for properties that cannot yet be established adequately by cheaper checks. |
 | **Instrumental Check** | Deterministic or mechanically executable check over explicit engineering data, structure, or rules. |
 | **Integrator** | Executor of an integration Contract that constructs a coherent same-scale Work Product from applicable partial Work Products and evidence. |
@@ -399,6 +399,7 @@ The dictionary is intentionally compact. A term definition may reference another
 | **Product** | Coherent engineered subject and primary top-level scope/intent of Hive operation. The Product identifies what the Hive is working to establish, evolve, analyze, verify, realize, or deliver and bounds the corresponding engineering context. Actual Product development is bounded by available Hive capabilities, enabling technology, authority, and resources. |
 | **Product Delivery** | Specialization of Contract fulfilment in which fulfilment requires satisfaction of an explicit Product target state in addition to Acceptance of the required Work Product. |
 | **Product Evolution History** | Temporally ordered governed history of Product engineering, including Decisions, Evidence, Contracts, Work Products, exploration outcomes, supersession, deprecation, Rollback, Gaps, and other retained engineering information. |
+| **Prescriptiveness** | Reduction of available finer-Layer solution freedom caused by applying a Proposition or constraint. The common model compares prescriptiveness by Feasible Region inclusion; where the finer-Layer solution domain has an applicable measure, the reduction can also be calculated from the remaining feasible-region volume. |
 | **Project Profile** | Formal project input that defines proposal-identified open parameters. |
 | **Proposition** | Core addressable semantic element of the solution model. It is not an Engineering Object by default. It can later be materialized, carried, or realized by Engineering Objects. |
 | **Relation** | Typed semantic or structural association between addressable elements, qualified by scope, revision, time, and Project Profile semantics. |
@@ -465,7 +466,7 @@ Mathematical symbols are part of the proposal dictionary. This table is authorit
 | $\mathbf W_a,\mathbf W_b$ | Ordered materialized Work Product sequences of compared trajectories. |
 | $L$ | Engineering Layer. |
 | $L_R$ | Engineering Layer of Rollback Contract $C_R$. |
-| $X_t$ | Engineering State at observation point $t$. |
+| $X_{\kappa,t}$ | Engineering State at observation point $t$, retaining the engineering context $\kappa$ under which it is interpreted. $X_t$ can be used as local shorthand only where $\kappa$ is fixed explicitly. |
 | $X_0$ | Common initial Engineering State used when comparing trajectories. |
 | $K_t$ | Product Evolution History accumulated by observation point $t$. |
 | $P^{mat}_t$ | Materialized Product State at observation point $t$. |
@@ -476,10 +477,14 @@ Mathematical symbols are part of the proposal dictionary. This table is authorit
 | $\mathbb D_\kappa$ | Set of Engineering Domains applicable to engineering context $\kappa$. |
 | $\mathbb S_{\kappa,t}$ | Common ordered Scale applicable to engineering context $\kappa$ at observation point $t$. |
 | $\Omega$ | Solution Universe. |
-| $\mathcal S_\kappa$ | Solution Space applicable to engineering context $\kappa$. |
-| $\mathcal F(X_t)$ | Feasible Region under Engineering State $X_t$. |
+| $\mathcal S^q_{\kappa,t}$ | Solution Space applicable to bounded engineering problem $q$, engineering context $\kappa$, and observation point $t$. |
+| $\mathcal C^q_{\kappa,t}$ | Active constraint set used to calculate the Feasible Region for problem $q$ in context $\kappa$ at observation point $t$. |
+| $\mathcal F^q_{\kappa,t}$ | Feasible Region: solutions in $\mathcal S^q_{\kappa,t}$ satisfying $\mathcal C^q_{\kappa,t}$. |
+| $\preceq_F$ | Feasible-region inclusion order; $\mathcal F_1\preceq_F\mathcal F_2$ iff $\mathcal F_1\subseteq\mathcal F_2$. |
+| $\preceq_P$ | Prescriptiveness order induced by reduction of a finer-Layer Feasible Region. |
+| $\mu_L$ | Applicable measure of solution-region volume at finer Engineering Layer $L$, used only where that domain has a meaningful measure. |
 | $q$ | Bounded engineering problem or query. |
-| $\Pi_q(X_t)$ | State Projection of $X_t$ selected for problem $q$. |
+| $\Pi_q(X_{\kappa,t})$ | State Projection of context-qualified Engineering State selected for problem $q$. |
 | $T(q,t)$ | Trade Space for problem $q$ at observation point $t$. |
 | $\sigma$ | Scope. |
 | $\kappa$ | Engineering context. |
@@ -602,7 +607,9 @@ $$t,$$
 
 the applicable computational input is the State Projection:
 
-$$\Pi_q(X_t)\subseteq X_t.$$
+$$\Pi_q(X_{\kappa,t})\subseteq X_{\kappa,t}.$$
+
+Engineering State retains the context under which the projected information is interpreted. Where a section fixes $\kappa$ explicitly, $X_t$ can be used as local shorthand for $X_{\kappa,t}$.
 
 The projection selects the governed engineering information required for the problem according to the applicable:
 
@@ -617,7 +624,7 @@ The projection selects the governed engineering information required for the pro
 
 The selected information retains its semantic identity and applicable qualification from:
 
-$$X_t.$$
+$$X_{\kappa,t}.$$
 
 Computation can derive, compare, simulate, optimize, infer, or explore additional information from that projection.
 
@@ -684,25 +691,21 @@ For:
 
 $$t_1<t_2,$$
 
-consider:
+consider context-qualified Engineering States:
 
-$$X_{t_1}$$
-
-and:
-
-$$X_{t_2}.$$
-
-When the applicable Space-defining context remains:
-
-$$\kappa,$$
-
-both satisfy:
-
-$$X_{t_1}\subseteq\mathcal E_\kappa$$
+$$X_{\kappa_1,t_1}\subseteq\mathcal E_{\kappa_1}$$
 
 and:
 
-$$X_{t_2}\subseteq\mathcal E_\kappa.$$
+$$X_{\kappa_2,t_2}\subseteq\mathcal E_{\kappa_2}.$$
+
+The contexts can be equal or different:
+
+$$\kappa_1=\kappa_2$$
+
+or:
+
+$$\kappa_1\neq\kappa_2.$$
 
 Product Evolution History grows monotonically:
 
@@ -718,29 +721,23 @@ contains the governed engineering history established between the observations.
 >
 > Product Evolution History can retain new or revised Propositions, Decision states, Evidence, relations, Contracts and Contract events, Engineering Objects, Work Products, Gaps, UNKNOWNs, Future Actions, provenance, Rollback information, and other governed engineering information.
 
-Each retained element carries its applicable temporal and lifecycle/status qualification.
+Each retained element remains associated with the Engineering State and engineering context under which its historical qualification was established.
+
+Product Evolution History is not required to be a subset of the current Engineering State. A later Engineering Space can therefore narrow, broaden, or otherwise change without forcing historical engineering information into the current Space.
 
 The relation:
 
-$$X_{t_1}\rightarrow X_{t_2}$$
+$$X_{\kappa_1,t_1}\rightarrow X_{\kappa_2,t_2}$$
 
 represents temporal Engineering State evolution.
 
 Concurrent engineering activities can contribute multiple governed events between these observation points.
 
-A material or contextual change of the Space-defining context can establish:
+A material or contextual change of Space-defining bounds can establish:
 
-$$\kappa'$$
+$$\mathcal E_{\kappa_2}\neq\mathcal E_{\kappa_1}.$$
 
-with:
-
-$$X_{t_2}\subseteq\mathcal E_{\kappa'}$$
-
-and:
-
-$$\mathcal E_{\kappa'}\neq\mathcal E_\kappa.$$
-
-Product Evolution History preserves the engineering history spanning that transition.
+Product Evolution History preserves the engineering history spanning that transition without rewriting the earlier State or its context.
 
 #### 5.4.4 Operation-specific state effects
 
@@ -799,28 +796,26 @@ Implementation mechanisms can batch or transport engineering information without
 
 ### 5.5 Human ingress and choice set
 
-Human interaction is a known set before delegated-autonomy rules are applied:
+Human-originated participation is represented through four named forms:
 
-$$H=\{HAI,HVC,HPC,HWP\}.$$
-
-- `HAI` = HUMAN_ARBITRARY_INPUT.
-- `HVC` = HUMAN_VOLUNTARY_CHOICE.
-- `HPC` = HUMAN_PRESCRIPTIVE_CHOICE.
+- `HAI` = HUMAN_ARBITRARY_INPUT;
+- `HVC` = HUMAN_VOLUNTARY_CHOICE;
+- `HPC` = HUMAN_PRESCRIPTIVE_CHOICE;
 - `HWP` = HUMAN_WORK_PRODUCT.
 
-These classes describe how Human-originated information enters Hive operation. They do not define authority.
+These names do not form one mathematical state-transition type. Human origin establishes provenance; the ingressed information or Work Product receives its governed semantic role through the common model.
 
-For Human $h$ and Human-originated input $x$:
+For Human $h$ and Human-originated item $x$:
 
-$$HumanOrigin(x,h)\not\Rightarrow Authorized(h,x).$$
+$$HumanOrigin(x,h)\not\Rightarrow\exists o,\sigma,t,\kappa:\ AuthorizedFor(h,o,x,\sigma,t,\kappa).$$
 
-`HAI` can arrive asynchronously and can project a successor engineering universe. It can be controversial or outside the current Hive recommendation. It does not erase prior state and does not by itself create Binding, Contract revision, Assignment, or another authoritative effect.
+`HAI` is Human-originated information that can introduce new engineering information, challenge current assumptions, or require ordinary governed reassessment. It does not by itself create Binding, Contract revision, Assignment, Decision commitment, or another authoritative effect.
 
-`HVC` is optional while autonomous continuation remains possible. A Human-selected candidate is assessed against the current Solution Space before commitment.
+`HVC` records voluntary Human support for a Decision Candidate while autonomous Hive continuation remains available.
 
-`HPC` is required only for an obligatory Decision when no Hive-committable choice remains or when that Decision authority is explicitly human. Requesting a Human prescription does not make any responding Human authoritative automatically.
+`HPC` records Human prescription for a Decision Candidate where an obligatory Decision requires applicable Human Decision authority. Requesting a Human prescription does not make a responding Human authoritative automatically.
 
-`HWP` is a Work Product supplied by a Human or human organization. Human origin provides provenance but does not bypass Work Product, information-boundary, traceability, Evidence, validation, or Acceptance rules.
+`HWP` is a Work Product authored or supplied by a Human or human organization. It can be a contribution to another Work Product or the complete Contract-required Work Product. Human origin provides provenance but does not bypass Work Product, information-boundary, traceability, Evidence, validation, Contract accountability, or Acceptance rules.
 
 Binding remains restricted to qualifying obligatory Decisions:
 
@@ -856,17 +851,19 @@ Expertise can be relevant to Evidence, assessment, or participant selection.
 
 #### 5.5.2 Authority does not create correctness or feasibility
 
-Authority permits a governed effect. It does not prove that the effect is correct, feasible, or sufficiently evidenced:
+Authority permits a governed effect. It does not prove that the effect is correct, feasible, or sufficiently evidenced.
+
+For Decision Candidate $d$ concerning bounded problem $q$:
 
 $$AuthorizedFor(a,o,x,\sigma,t,\kappa)\not\Rightarrow Correct(x)$$
 
-$$AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\not\Rightarrow Feasible(d)$$
+$$AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\not\Rightarrow \mathcal F^q_{\kappa,t}\neq\varnothing$$
 
 $$AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\not\Rightarrow EvidenceSufficient(d).$$
 
-Human authority cannot change physical, mathematical, technical, or logical feasibility.
+Human authority cannot change physical, mathematical, technical, logical, or economically bounded engineering feasibility. It can authorize a governed change that changes the applicable Solution Space, active constraints, resources, Product intent, or another input to later feasibility analysis.
 
-#### 5.5.3 Authority kinds and role separation
+#### 5.5.3 Authority kinds and hard Contract role separation
 
 At minimum, authority can be required to commit an obligatory Decision, create a Contract, revise a Contract, establish or revise Assignment, delegate Acceptance assessment, or perform another explicitly governed operation.
 
@@ -880,19 +877,17 @@ $$AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\not\Rightarrow Authorize
 
 Contract Issuer, Executor, Acceptance delegate, Human Decision authority, input originator, Work Product producer, and Engineering Layer participant remain distinct roles.
 
-The following implications express that separation:
+For the same Contract, Issuer and Executor are mutually exclusive:
 
-$$Executor(C)=a\not\Rightarrow Issuer(C)=a$$
+$$Issuer(C)=a\Rightarrow Executor(C)\neq a.$$
 
-$$Executor(C)=a\not\Rightarrow DecisionAuthority(a,C)$$
+The Issuer also cannot receive delegated authority for an operation governed by that same Contract:
 
-$$AcceptanceDelegate(a,C)\not\Rightarrow DesignAuthority(a,C)$$
+$$Issuer(C)=a\Rightarrow\neg\exists b,o,\sigma,I,\kappa:\ Delegates(b,a,o,C,\sigma,I,\kappa).$$
 
-and:
+These are common-model invariants. A Project Profile, shared Hive membership, Engineering Layer placement, Magnification Band, or another local configuration cannot weaken them.
 
-$$OriginatesRequest(a,C)\not\Rightarrow Issuer(C)=a.$$
-
-One Actor can carry several roles where the Project Profile and required independence rules permit that combination.
+Other role combinations can be permitted only where they do not violate these common-model separation rules or another required independence rule.
 
 #### 5.5.4 Multi-layer and Contract-boundary locality
 
@@ -905,6 +900,8 @@ $$Band(L,\kappa,t)\subseteq Band(h,\kappa,t).$$
 This is an applicability condition only:
 
 $$Band(L,\kappa,t)\subseteq Band(h,\kappa,t)\not\Rightarrow AuthorizedFor(h,o,x,\sigma,t,\kappa).$$
+
+Magnification applicability never overrides Contract role-separation invariants.
 
 A Human can participate in several Engineering Layers without creating cross-layer authority:
 
@@ -930,9 +927,9 @@ Authority can be delegated only where the authority source permits delegation.
 
 Let:
 
-$$Delegates(a,b,o,\sigma,I)$$
+$$Delegates(a,b,o,x,\sigma,I,\kappa)$$
 
-mean Actor $a$ delegates operation $o$ within Scope $\sigma$ and applicability interval $I$ to Actor $b$.
+mean Actor $a$ delegates operation $o$ on governed subject $x$, within Scope $\sigma$, applicability interval $I$, and engineering context $\kappa$ to Actor $b$.
 
 Delegation is explicit and bounded. It does not imply unlimited transfer:
 
@@ -942,7 +939,9 @@ unless another independent authority source establishes broader authority for $b
 
 Delegation does not create Contract Assignment automatically:
 
-$$Delegates(a,b,o)\not\Rightarrow Executor(C)=b.$$
+$$Delegates(a,b,o,C,\sigma,I,\kappa)\not\Rightarrow Executor(C)=b.$$
+
+For Contract $C$, the Issuer cannot be the recipient of delegated Contract authority as established in §5.5.3.
 
 Authority can expire or be revoked. Later authority change does not rewrite the authority state under which earlier governed operations occurred.
 
@@ -952,217 +951,50 @@ Every Human-originated item is classified into the applicable governed semantics
 
 Therefore:
 
-$$HumanOrigin(x)\not\Rightarrow DecisionKind(x,\kappa).$$
+$$HumanOrigin(x,h)\not\Rightarrow DecisionKind(x,\kappa).$$
 
-Human provenance does not replace semantic typing. The common model does not define a taxonomy of Human-input or information-ingress forms.
+HAI remains ordinary Human-originated information until another common-model role is established.
 
-#### 5.5.7 Human inputs as Engineering State transformations
+HVC and HPC concern a Decision Candidate but are not themselves the Decision. Where Human $h$ supports Decision Candidate $d^{candidate}$, that support is represented through the ordinary Decision-support relation and retains its Human provenance:
 
-Authority qualification determines whether a Human input is permitted to act. When its applicable authority and semantic role are established, its engineering effect can transform the current engineering state.
+$$DecisionSupport(h,d^{candidate}).$$
 
-Let the current Engineering State be:
+The support record can be Evidence that the Human supported or prescribed the candidate. It is not, solely by origin, technical Evidence that the candidate is correct or feasible.
 
-$$X_t.$$
+Human provenance does not replace semantic typing or safety qualification. Human-originated information remains subject to the same applicable trust, provenance-integrity, information-boundary, exploitation-resistance, validation, and governance rules as other ingress.
 
-The corresponding feasible continuation is:
+#### 5.5.7 Human Work Product participation
 
-$$\mathcal F(X_t)\subseteq\mathcal S_\kappa.$$
+A Human can participate on a Contract boundary as an Actor, delegated Actor where delegation is permitted, supplementary participant, or accountable Executor, subject to the hard role-separation rules of §5.5.3.
 
-For Human input $A$ with applicable authority, define a potentially partial transformation:
+A Human Work Product can be:
 
-The transformation can change constraints, objectives, Product intent, trajectories, Contracts, capability assumptions, or other governed information and thereby produce a successor Engineering State.
+- a partial Work Product contribution to a broader required result; or
+- the complete Contract-required Work Product.
 
-A partial transformation is used because a Human input can change the structure or cardinality of the space and can also be non-composable with the state produced by another input.
+For Human-authored contribution $w_h$ to Work Product $w$:
 
-Authority and transformation remain separate:
+$$Contributes(w_h,w)$$
 
-$$AuthorizedInput(A)\Rightarrow EligibleToApply(\Phi_A)$$
+preserves contribution ancestry.
 
-but:
+Supplying or submitting a contributing HWP does not by itself establish submission of the complete Contract-required Work Product or move the parent Contract into the submitted state.
 
-$$AuthorizedInput(A)\not\Rightarrow Feasible(\Phi_A(X_t)).$$
+Where the Human is the valid accountable Executor and the HWP is the complete required Work Product revision, the ordinary Contract submission and Acceptance semantics apply.
 
-#### 5.5.8 Sequential Human input algebra
+Human authorship does not weaken the Check Cascade, Work Product information boundary, Evidence requirements, verification independence, Acceptance rules, or Contract accountability.
 
-For readability define:
-
-$$X_t+A\equiv\Phi_A(X_t).$$
-
-Sequential inputs are evaluated from left to right:
-
-$$X_t+A+B=\Phi_B(\Phi_A(X_t)).$$
-
-Human-input composition is not assumed commutative:
-
-$$A+B\neq B+A$$
-
-in general, equivalently:
-
-$$\Phi_B\circ\Phi_A\neq\Phi_A\circ\Phi_B.$$
-
-The first input can change the context in which the second input is interpreted. It can remove candidates, introduce constraints, create Contracts, change Product intent, open a new Solution Space region, or change the Engineering Layer or Scale at which the second input becomes material.
-
-Human input is therefore state-dependent:
-
-$$\Phi_A(X_1)\neq\Phi_A(X_2)$$
-
-in general.
-
-For an ordered Human-input sequence:
-
-$$\Sigma_H=(A_1,A_2,\ldots,A_n)$$
-
-let:
-
-$$\Phi_{\Sigma_H}=\Phi_{A_n}\circ\cdots\circ\Phi_{A_2}\circ\Phi_{A_1}.$$
-
-A permutation $\pi(\Sigma_H)$ does not generally preserve the resulting engineering state:
-
-$$\Phi_{\pi(\Sigma_H)}(X_t)\neq\Phi_{\Sigma_H}(X_t).$$
-
-The temporal order of Human inputs is therefore semantically material and remains part of historical state.
-
-#### 5.5.9 Retraction and supersession are not inverse operations
-
-Removing, retracting, superseding, or reversing Human input $A$ does not mean applying $\Phi_A^{-1}$.
-
-Define a governed retraction operation:
-
-$$R_A.$$
-
-Then in general:
-
-$$B+A-A\neq B$$
-
-and:
-
-$$R_A\circ\Phi_A\circ\Phi_B\neq\Phi_B.$$
-
-After $A$ has been applied, subsequent Engineering States can already contain new Decisions, Evidence, Contracts, completed work, Product realization, Work Product revisions, resource expenditure, external commitments, discovered constraints, and later inputs.
-
-Therefore:
-
-$$Retract(A)\neq HistoricalErasure(A).$$
-
-Likewise, explicit supersession:
-
-$$Supersedes(B,A,\sigma,t)$$
-
-controls continuing applicability of $A$ in the stated Scope and time but does not imply:
-
-$$B=A^{-1}$$
-
-or restoration of the state that existed before $A$.
-
-#### 5.5.10 Composable Human inputs
-
-After applicable authority is established, multiple Human inputs are evaluated through their engineering composition; no additional governance-dispute primitive is introduced.
-
-Define:
-
-When:
-
-$$Composable(A,B,X_t),$$
-
-let:
-
-$$X_{AB}=\Phi_B(\Phi_A(X_t)).$$
-
-The resulting feasible region is non-empty when:
-
-$$\mathcal F(X_{AB})\neq\varnothing,$$
-
-both inputs can participate in a valid successor engineering state. Their joint effect can narrow, broaden, restructure, or redirect the active Solution Space.
-
-#### 5.5.11 Non-composable Human inputs
-
-The first failure mode occurs when the transformations cannot produce a sufficiently defined successor engineering state:
-
-$$\neg Composable(A,B,X_t).$$
-
-Using partial-function notation:
-
-$$\Phi_B(\Phi_A(X_t))\uparrow.$$
-
-This is an input-composition failure. Authority qualification has already been resolved before transformation application.
-
-When:
-
-$$\neg Composable(A,B,X_t),$$
-
-the composed successor Engineering State is undefined:
-
-$$\Phi_B(\Phi_A(X_t))\uparrow.$$
-
-A Decision candidate space for that undefined successor state is therefore not constructed.
-
-The Hive preserves both inputs, provenance, authority qualification, previous engineering state, the failed composition attempt, and the reason composition could not be established. Truthful incompleteness applies.
-
-#### 5.5.12 Composable inputs with empty feasible space
-
-A distinct failure mode occurs when the transformations compose successfully but the resulting feasible region is empty.
-
-Let:
-
-$$X_{AB}=\Phi_B(\Phi_A(X_t)).$$
-
-Then it is possible that:
-
-$$Composable(A,B,X_t)\land\mathcal F(X_{AB})=\varnothing.$$
-
-Here the successor engineering state is defined, and its Decision Space can be calculated, but no currently feasible continuation exists:
-
-$$\mathcal D_{feasible}(X_{AB})=\varnothing.$$
-
-This differs fundamentally from non-composition. In the non-composable case the successor state and corresponding Decision Space are undefined; in the empty-feasible-space case they are defined and explicitly infeasible.
-
-Because Human-input composition is order-sensitive, define the reverse ordering:
-
-$$X_{BA}=\Phi_A(\Phi_B(X_t)).$$
-
-It is possible that:
-
-$$\mathcal F(X_{AB})\neq\varnothing$$
-
-while:
-
-$$\mathcal F(X_{BA})=\varnothing,$$
-
-or that one ordering is composable while another is not.
-
-An empty feasible space means that autonomous commitment is unavailable:
-
-$$\mathcal F(X_t)=\varnothing\Rightarrow\neg AutonomousCommitmentAvailable.$$
-
-Recovery requires a governed change that restores a non-empty feasible continuation. Human authority still does not manufacture engineering feasibility.
-
-> **Example — recovery changes.**
->
-> Recovery can involve revision or relaxation of an input, another Human input, Product-intent revision, capability or enabling-technology acquisition, Contract revision, Resource Envelope change, external capability, or another newly explored trajectory.
-
-If a Human input changes a Space-defining material or contextual bound, the resulting state is evaluated under the resulting context:
-
-$$X_{t+1}\subseteq\mathcal E_{\kappa'}$$
-
-with corresponding:
-
-$$\mathcal S_{\kappa'}.$$
-
-#### 5.5.13 Binding and Contract lifecycle effect
+#### 5.5.8 Binding and Contract lifecycle effect
 
 For a Human response to create Binding, Decision semantics and applicable authority must both hold:
 
-$$Binding(d,\sigma,t)\Rightarrow DecisionKind(d,\kappa)\land AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\land ApplicableDecisionConditionsSatisfied(d,\kappa).$$
+$$Binding(d,\sigma,t)\Rightarrow DecisionKind(d,\kappa)\land\left(\exists a:\ AuthorizedFor(a,DecisionCommitment,d,\sigma,t,\kappa)\right)\land ApplicableDecisionConditionsSatisfied(d,\kappa).$$
 
-The common model does not introduce a generic `HumanOverride` primitive. A Human can cause a major change through the applicable ordinary governed concepts: Human ingress, Decision, Contract revision, Assignment, Work Product, Product transition, successor Engineering State, and other explicitly governed mechanisms defined by the applicable Project Profile.
+The common model does not introduce a generic `HumanOverride` primitive. A Human can cause a major change only through the applicable ordinary governed concepts: Human-originated information, Decision, Contract revision, Assignment, Work Product, Product transition, successor Engineering State, and other explicitly governed mechanisms defined by the applicable Project Profile.
 
-A Human input or authority change that materially revises a Contract feeds the existing revision-aware Contract FSM. It does not create a separate Human lifecycle.
+A Human input or authority change that materially revises a Contract feeds the existing revision-aware Contract lifecycle semantics. It does not create a separate Human lifecycle.
 
-Human intervention never destructively rewrites prior engineering history:
-
-$$X_t\rightarrow X_{t+1}$$
-
-preserves $X_t$ as an addressable historical State.
+Human intervention never destructively rewrites prior engineering history. The earlier context-qualified Engineering State remains historically addressable.
 
 ### 5.6 AX-1 - Semantic legitimacy
 
@@ -1232,19 +1064,21 @@ The common model does not require Engineering State to form a differentiable man
 
 **Intent.** Let the Hive act without routine human approval while preserving explicit human authority boundaries.
 
-For problem $q$ define:
+For bounded engineering problem $q$ at observation point $t$, let $HiveAuthorized(q,t)$ denote the represented candidates whose required Decision commitments fall inside the Hive's applicable authority. Define the currently represented Hive-committable region:
 
-$$HiveSpace(q)=Feasible(q)\cap HiveAuthorized(q).$$
+$$HiveSpace(q,t)=T(q,t)\cap\mathcal F^q_{\kappa,t}\cap HiveAuthorized(q,t).$$
 
-**Statement.** If $HiveSpace(q)$ is non-empty, the Hive can continue autonomously. If an obligatory Decision is required, feasible choices exist, and none can be committed by the Hive, HUMAN_PRESCRIPTIVE_CHOICE is required. If no feasible choice exists, human authority cannot make the solution feasible; the conflict remains explicit until the problem changes.
+$HiveAuthorized(q,t)$ is local AX-4 notation for an authority-qualified candidate subset; it is not a second feasibility function.
 
-$$HiveSpace(q)\neq\varnothing\Rightarrow AutonomousContinue(q).$$
+**Statement.** If $HiveSpace(q,t)$ is non-empty, the Hive can continue autonomously. If an obligatory Decision is required, represented feasible choices exist, and none can be committed by the Hive, HUMAN_PRESCRIPTIVE_CHOICE is required. If the represented Feasible Region is empty, authority cannot manufacture feasibility; the conflict remains explicit until governed engineering changes the applicable problem, Solution Space, active constraints, resources, or other feasibility basis.
 
-$$Feasible(q)\neq\varnothing\land HiveSpace(q)=\varnothing\land NeedsObligatoryDecision(q)\Rightarrow HPC(q)=REQUIRED.$$
+$$HiveSpace(q,t)\neq\varnothing\Rightarrow AutonomousContinue(q).$$
 
-$$Feasible(q)=\varnothing\Rightarrow PreserveConflict(q).$$
+$$T(q,t)\cap\mathcal F^q_{\kappa,t}\neq\varnothing\land HiveSpace(q,t)=\varnothing\land NeedsObligatoryDecision(q)\Rightarrow HPC(q)=REQUIRED.$$
 
-**Boundary.** AX-4 does not block HAI, HVC, or HWP while autonomous continuation is possible.
+$$T(q,t)\cap\mathcal F^q_{\kappa,t}=\varnothing\Rightarrow PreserveConflict(q).$$
+
+**Boundary.** AX-4 does not block HAI, HVC, or HWP while autonomous continuation is possible. It also does not claim that the represented Trade Space exhausts the theoretical Solution Space.
 
 **Validation.** Remove AX-4 and either all commitments require human approval or the Hive can make commitments outside its authority. Both outcomes violate the delegated-autonomy objective.
 
@@ -1356,9 +1190,9 @@ Both are ordinary Product evolution.
 
 #### Solution Universe, Solution Space, Feasible Region, and Trade Space
 
-The solution hierarchy is:
+For bounded engineering problem $q$, context $\kappa$, and observation point $t$, the solution hierarchy is:
 
-$$\mathcal F(X_t)\subseteq\mathcal S_\kappa\subseteq\Omega.$$
+$$\mathcal F^q_{\kappa,t}\subseteq\mathcal S^q_{\kappa,t}\subseteq\Omega.$$
 
 The Solution Universe:
 
@@ -1366,55 +1200,67 @@ $$\Omega$$
 
 provides the theoretical solution domain.
 
-The engineering context:
+The context- and time-qualified Solution Space:
 
-$$\kappa$$
+$$\mathcal S^q_{\kappa,t}$$
 
-establishes the material and contextual bounds of:
+contains solutions available to the bounded problem under the applicable Product boundary, engineering domains, capability, enabling technology, resource assumptions, physical bounds, and other Space-defining conditions.
 
-$$\mathcal S_\kappa.$$
+The active constraint set is:
 
-Engineering State:
+$$\mathcal C^q_{\kappa,t}.$$
 
-$$X_t$$
+The Feasible Region is the solution subset satisfying that active constraint set:
 
-establishes the state-dependent constraints used to determine:
+$$\mathcal F^q_{\kappa,t}=\left\{s\in\mathcal S^q_{\kappa,t}\mid\forall c\in\mathcal C^q_{\kappa,t}:s\models c\right\}.$$
 
-$$\mathcal F(X_t).$$
+Feasibility is therefore represented by an actual region of Solution Space and its set calculus. The common model does not define a Boolean `Feasible(...)` function.
 
-A Decision, Evidence result, Contract constraint, Human input, Product realization, or another governed state change can therefore change:
+Feasible-region comparison uses inclusion:
 
-$$\mathcal F(X_t).$$
+$$\mathcal F_1\preceq_F\mathcal F_2\iff\mathcal F_1\subseteq\mathcal F_2.$$
+
+Constraint relaxation can expand a Feasible Region. For a stable Solution Space, when:
+
+$$\mathcal C_2\subseteq\mathcal C_1,$$
+
+then:
+
+$$\mathcal F_1\subseteq\mathcal F_2.$$
+
+Expansion of the applicable Solution Space can also expose new feasible solutions. For compatible constraints, when:
+
+$$\mathcal S_1\subseteq\mathcal S_2,$$
+
+then the later Feasible Region can contain solutions unavailable in the earlier Space.
+
+A feasibility analysis can therefore identify governed changes in constraints, engineering domains, capability, enabling technology, resources, research, Product intent, or the production baseline. A request for a change does not itself alter $\mathcal S$ or $\mathcal F$; the applicable governed state or context must change first.
 
 The Trade Space:
 
-$$T(q,t)$$
+$$T(q,t)\subseteq\mathcal S^q_{\kappa,t}$$
 
-contains the part of the applicable Solution Space currently represented for comparison or exploration for problem $q$.
+contains the part of the applicable Solution Space currently represented for comparison or exploration. It can retain feasible, infeasible, and unresolved candidates so that exclusion rationale remains reconstructable.
 
-Exploration can enlarge or restructure:
+The represented feasible portion is:
 
-$$T(q,t)$$
+$$T(q,t)\cap\mathcal F^q_{\kappa,t}.$$
 
-while the Space-defining bounds of:
+The core reasoning chain is:
 
-$$\mathcal S_\kappa$$
+$$\Omega\supseteq\mathcal S^q_{\kappa,t}\supseteq\mathcal F^q_{\kappa,t}\rightarrow TradeSpaceAnalysis(q,t)\rightarrow Evidence\rightarrow Decision.$$
 
-remain stable.
+This arrow chain expresses traceable reasoning progression; it does not declare `TradeSpaceAnalysis` as a mathematical function or graph-atom type.
 
-A material change of Product boundary, capability, enabling technology, physical constraints, or another Space-defining condition can establish a changed context:
+Trade Space Analysis preserves enough context to reconstruct the applicable Solution Space, Feasible Region, active constraints, represented alternatives, exclusions, and rationale supporting a Decision. This trace prevents Human or Hive authority from substituting for engineering justification when Product constraints or Product realization are changed.
 
-$$\kappa'$$
-
-and therefore:
-
-$$\mathcal S_{\kappa'}\neq\mathcal S_\kappa.$$
+Feasibility control during trajectory development under bounded resources is a separate Project Profile activity. It governs how much exploration, research, capability acquisition, resource expansion, or constraint-revision work is economically justified; it does not redefine the core Feasible Region calculus.
 
 #### Engineering Universe, Engineering Space, and Engineering State
 
 The engineering hierarchy is:
 
-$$X_t\subseteq\mathcal E_\kappa\subseteq\mathcal U_E.$$
+$$X_{\kappa,t}\subseteq\mathcal E_\kappa\subseteq\mathcal U_E.$$
 
 The Engineering Universe provides the theoretical engineering domain.
 
@@ -1430,9 +1276,9 @@ Observation point:
 
 $$t$$
 
-establishes the temporal bound of:
+establishes the temporal bound of the context-qualified State:
 
-$$X_t.$$
+$$X_{\kappa,t}.$$
 
 For two observations under the same Engineering Space:
 
@@ -1466,9 +1312,9 @@ Product Evolution History preserves temporal continuity across the corresponding
 
 ### 6.1 Engineering Universe, Engineering Space, Engineering State, and State Projection
 
-The formal engineering model uses four successively bounded sets:
+The formal engineering model uses successively bounded sets while retaining the context of each time-bounded State:
 
-$$\Pi_q(X_t)\subseteq X_t\subseteq\mathcal E_\kappa\subseteq\mathcal U_E.$$
+$$\Pi_q(X_{\kappa,t})\subseteq X_{\kappa,t}\subseteq\mathcal E_\kappa\subseteq\mathcal U_E.$$
 
 #### Engineering Universe
 
@@ -1476,7 +1322,7 @@ $$\mathcal U_E$$
 
 is the theoretical domain of engineering elements, relations, configurations, and outcomes expressible by the common model.
 
-Product-, project-, contextual-, material-, and temporal bounds select progressively narrower subsets from this domain.
+Product-, project-, contextual-, and material bounds select progressively narrower subsets from this domain.
 
 #### Engineering Space
 
@@ -1506,15 +1352,11 @@ $$\mathcal E_{\kappa'}\neq\mathcal E_\kappa.$$
 
 #### Engineering State
 
-At observation point:
+At observation point $t$ under engineering context $\kappa$, Engineering State is:
 
-$$t,$$
+$$X_{\kappa,t}\subseteq\mathcal E_\kappa.$$
 
-Engineering State is:
-
-$$X_t\subseteq\mathcal E_\kappa.$$
-
-$X_t$ contains the governed engineering elements and relations addressable at that observation point together with the qualifications required for their interpretation.
+$X_{\kappa,t}$ contains the governed engineering elements and relations addressable at that observation point together with the qualifications required for their interpretation.
 
 These qualifications include, where applicable:
 
@@ -1526,19 +1368,20 @@ These qualifications include, where applicable:
 - temporal qualification;
 - authority applicability;
 - relation qualification;
+- engineering context;
 - Project Profile context.
 
-Engineering State includes both current and historical engineering information according to these qualifications.
+The State therefore retains the context in which its contents were valid. Where $\kappa$ is fixed explicitly by a local section, $X_t$ can be used as shorthand for $X_{\kappa,t}$.
 
 Product Evolution History:
 
-$$K_t\subseteq X_t$$
+$$K_t$$
 
-contains the accumulated temporal history.
+contains accumulated historical engineering information and preserves the State/context qualification under which each historical element was established. It is monotonic in time but is not required to be a subset of the current Engineering State.
 
 Materialized Product State:
 
-$$P^{mat}_t\subseteq X_t$$
+$$P^{mat}_t\subseteq X_{\kappa,t}$$
 
 identifies the currently realized Product content.
 
@@ -1550,7 +1393,7 @@ $$q,$$
 
 the applicable State Projection is:
 
-$$\Pi_q(X_t)\subseteq X_t.$$
+$$\Pi_q(X_{\kappa,t})\subseteq X_{\kappa,t}.$$
 
 It selects the portion of Engineering State required for that operation.
 
@@ -1562,6 +1405,7 @@ The selected elements retain their applicable:
 - status;
 - temporal qualification;
 - provenance;
+- engineering context;
 - relations.
 
 A graph query, Contract-local context, Decision-impact context, Work Product context, Magnification traversal, tool context, or computational input can therefore be expressed as a State Projection.
@@ -2513,6 +2357,8 @@ This protects formal structure, semantic role, intellectual property, security, 
 
 Engineering checking follows a cost-ordered cascade.
 
+The Check Cascade establishes required properties for Work Product conformity, Acceptance, re-check, and rework. It does not calculate Solution Space Feasibility or establish the Feasible Region. A test, simulation, or other check can produce Evidence used by Trade Space or feasibility analysis without making Feasibility part of the Check Cascade.
+
 The classes do not represent increasing quality. They represent increasingly expensive ways to establish different engineering properties.
 
 A subject can require one, two, or all three classes. The classes are not bound to a particular Engineering Layer, Work Product type, lifecycle phase, or Actor.
@@ -3357,9 +3203,9 @@ Contract topology itself does not determine which case applies.
 
 Decision Blast Radius is calculated for a **Decision Candidate before commitment**.
 
-For Decision Candidate $d^{candidate}$ evaluated against current Engineering State $X_t$:
+For Decision Candidate $d^{candidate}$ evaluated against current Engineering State $X_{\kappa,t}$:
 
-$$BR(d^{candidate},X_t)$$
+$$BR(d^{candidate},X_{\kappa,t})$$
 
 is the calculated reach of the change through the engineering state available to the Decision exploration.
 
@@ -3375,7 +3221,7 @@ It is not commitment.
 
 Therefore:
 
-$$Calculated(BR(d^{candidate},X_t))\not\Rightarrow Committed(d).$$
+$$Calculated(BR(d^{candidate},X_{\kappa,t}))\not\Rightarrow Committed(d).$$
 
 ### 9.17 Decision Blast Radius, feasibility, and economy
 
@@ -3385,11 +3231,11 @@ The calculated propagation can establish that the candidate is not committable u
 
 > **Example — non-committable propagation result.**
 >
-> A candidate can be rejected because propagation exposes an empty feasible Solution Space, inability of an affected Engineering Layer to accommodate the change, excessive Work Product rework, reverification or reintegration, unavailable capability, Resource Envelope violation, physical or supplier consequences, unacceptable engineering or economic impact, or another project-defined blocking condition.
+> A candidate can be rejected because propagation exposes an empty Feasible Region, inability of an affected Engineering Layer to accommodate the change, excessive Work Product rework, reverification or reintegration, unavailable capability, Resource Envelope violation, physical or supplier consequences, unacceptable engineering or economic impact, or another project-defined blocking condition.
 
 Conceptually:
 
-$$CalculateBlastRadius(d^{candidate},X_t)\rightarrow AssessFeasibilityAndEconomy(d^{candidate}).$$
+$$CalculateBlastRadius(d^{candidate},X_{\kappa,t})\rightarrow AssessFeasibilityAndEconomy(d^{candidate}).$$
 
 The resulting assessment can lead to commitment, revision, further exploration, deferral, or rejection of the candidate.
 
@@ -3481,11 +3327,11 @@ Neither property is inferred from the other.
 
 Propagation stops at the nearest Engineering Layer in the affected domain that can accommodate the Decision Candidate within its local Solution Space and applicable domain-local propagation boundary.
 
-For Decision Candidate $d^{candidate}$ and affected Engineering Layer $L$, let $X'$ be the prospective Engineering State produced by local accommodation of that Decision.
+For Decision Candidate $d^{candidate}$ and affected Engineering Layer $L$, let $X'_{\kappa',t'}$ be the prospective context-qualified Engineering State produced by local accommodation of that Decision, and let $q_L$ be the bounded local engineering problem.
 
-Local accommodation requires:
+Local accommodation requires a non-empty local Feasible Region:
 
-$$CanAccommodate(d^{candidate},L,X')\Rightarrow\mathcal F(X')\neq\varnothing.$$
+$$CanAccommodate(d^{candidate},L,X'_{\kappa',t'})\Rightarrow\mathcal F^{q_L}_{\kappa',t'}\neq\varnothing.$$
 
 The calculated local propagation must also remain inside the applicable single-domain extent established by the Project Profile.
 
@@ -3581,19 +3427,17 @@ $$q,$$
 
 the Trade Space:
 
-$$T(q,t)$$
+$$T(q,t)\subseteq\mathcal S^q_{\kappa,t}$$
 
-is the project-visible subset of the applicable Solution Space represented for comparison or exploration at observation point $t$.
+is the project-visible part of the applicable Solution Space represented for comparison or exploration at observation point $t$.
 
-The Trade Space can retain candidates without requiring one universal feasibility-state taxonomy.
+The Trade Space can retain feasible, infeasible, and unresolved candidates. Candidate disposition does not require one universal project-specific feasibility taxonomy in the common model.
 
-> **Example — Trade Space candidate states.**
->
-> A Project Profile can distinguish established feasibility, established infeasibility, unresolved feasibility, pending evaluation, or other project-defined candidate states.
+The represented feasible part is:
 
-The currently feasible part represented inside the Trade Space is:
+$$T(q,t)\cap\mathcal F^q_{\kappa,t}.$$
 
-$$\mathcal F(X_t)\cap T(q,t).$$
+Trade Space Analysis operates over the represented candidates together with the applicable Solution Space, Feasible Region, active constraints, Evidence, and engineering assumptions. Its retained rationale supports reconstruction of why a particular solution or Decision was selected and why alternatives were excluded.
 
 Engineering exploration can enlarge or restructure:
 
@@ -3601,9 +3445,11 @@ $$T(q,t)$$
 
 inside:
 
-$$\mathcal S_\kappa.$$
+$$\mathcal S^q_{\kappa,t}.$$
 
-A changed Space-defining context provides the corresponding Solution Space for subsequent Trade Spaces.
+Governed changes can also change the applicable Solution Space or Feasible Region through constraint revision, engineering-domain expansion, capability or enabling-technology acquisition, resource change, research results, production-baseline change, or Product-intent revision.
+
+A proposal or request for such a change does not itself change the region. The applicable Engineering State, engineering context, Solution Space, or active constraints must first change through their ordinary governed semantics.
 
 A Trade Space can contain discrete alternatives and references to project-defined continuous optimization. Continuous parameter optimization is not automatically Hive global search.
 
@@ -3791,6 +3637,8 @@ A Contract records **who** is responsible, **what** result is expected, and **wh
 The Contract is durable and revision-qualified. Previous Contract states remain addressable so that later fulfilment, failure, discontinuation, reassignment, or post-mortem analysis does not rewrite execution history.
 
 A Contract becomes executable only when its Assignment is unambiguous for the applicable scope. Conflicting directives that would establish incompatible Assignments for the same scope require resolution under the applicable authority rules before execution proceeds. Human-originated input does not bypass this rule. The Human role and authority model is a prerequisite of safe execution and is defined separately from this Contract section.
+
+The Contract Issuer cannot be the Executor of the same Contract and cannot receive delegated authority for an operation governed by that Contract. This common-model separation takes precedence over Project Profile role combinations, shared Hive membership, Engineering Layer placement, and Magnification applicability.
 
 A Contract identifies its Product relationship and required Work Product independently. A Contract can create or modify Product state, verify Product state, analyze Product state, produce Evidence about Product state, construct a Work Product without directly changing Product state, or perform another Project Profile-defined engineering responsibility. The Contract must not infer Product effect merely from the type or existence of its Work Product.
 
@@ -4110,7 +3958,7 @@ It can refer to:
 
 At runtime:
 
-$$Ready(C^k,t)\Rightarrow\forall p\in PrerequisiteSpec(C^k):Evaluate(p,X_t)=TRUE.$$
+$$Ready(C^k,t)\Rightarrow\forall p\in PrerequisiteSpec(C^k):Evaluate(p,X_{\kappa,t})=TRUE.$$
 
 `UNKNOWN` prerequisite evaluation does not silently become `TRUE`.
 
@@ -4740,13 +4588,13 @@ where:
 
 For ordered lifecycle event $e_n$:
 
-$$z_{n+1}=\delta_C(z_n,e_n,C^k,X_t)$$
+$$z_{n+1}=\delta_C(z_n,e_n,C^k,X_{\kappa,t})$$
 
 when the applicable transition exists and its guard succeeds.
 
 If no applicable transition exists:
 
-$$\delta_C(z_n,e_n,C^k,X_t)\uparrow.$$
+$$\delta_C(z_n,e_n,C^k,X_{\kappa,t})\uparrow.$$
 
 An undefined transition does not permit the Hive to invent a successor lifecycle state.
 
@@ -4790,7 +4638,7 @@ $$ASSIGNED(C^k,t)\Rightarrow G_A(C^k,t).$$
 
 Define:
 
-$$G_R(C^k,t)=G_A(C^k,t)\land\bigwedge_{p\in PrerequisiteSpec(C^k)}Evaluate(p,X_t)=TRUE.$$
+$$G_R(C^k,t)=G_A(C^k,t)\land\bigwedge_{p\in PrerequisiteSpec(C^k)}Evaluate(p,X_{\kappa,t})=TRUE.$$
 
 Then:
 
@@ -6320,73 +6168,49 @@ A Project Profile can combine Confidence with actual operational observations.
 >
 > Repeated validation failure, Resource Envelope pressure, unhealthy divergence, inability to obtain required Evidence, persistent rework, deadline risk, or explicit Human-reserved authority can participate in such a Project Profile-defined combination.
 
-## 13. Maturity, prescriptiveness, and brittleness
+## 13. Prescriptiveness and brittleness
 
-Maturity in this proposal is not an Acceptance state, completeness score, quality grade, or lifecycle state.
+Prescriptiveness describes reduction of available solution freedom caused by applying a Proposition or constraint. It is distinct from correctness, Evidence sufficiency, Acceptance, authority, and lifecycle state.
 
-It represents **deliberate prescriptiveness** at a defined engineering context: how much of the currently feasible solution freedom a Proposition removes.
+### 13.1 Prescriptiveness order and measurable reduction
 
-Maturity changes alter the Solution Space. They therefore also require reassessment of the affected Decision Blast Radius and Decision Extent.
+For bounded problem $q$, context $\kappa$, observation point $t$, and applicable finer Engineering Layer $L_f$, let:
 
-### 13.1 Prescriptiveness order
+$$\mathcal F^{q,L_f}_{\kappa,t}$$
 
-For context $\kappa$, let:
-
-$$F_\kappa$$
-
-be the feasible solution region before applying Proposition $p$.
+be the feasible region available at that finer Layer before applying Proposition $p$.
 
 Let:
 
-$$F_\kappa[p]=\{x\in F_\kappa\mid x\text{ satisfies }p\}$$
+$$\mathcal F^{q,L_f}_{\kappa,t}[p]=\left\{x\in\mathcal F^{q,L_f}_{\kappa,t}\mid x\text{ satisfies }p\right\}$$
 
-be the feasible region remaining after $p$ is applied.
+be the remaining feasible region after applying $p$.
 
-Two Propositions are equivalent with respect to prescriptiveness when they leave the same feasible region:
+Two Propositions are equivalent with respect to prescriptiveness in that context when they leave the same finer-Layer feasible region:
 
-$$p_1\equiv_\kappa p_2\iff F_\kappa[p_1]=F_\kappa[p_2].$$
+$$p_1\equiv_{P,\kappa,t,L_f}p_2\iff\mathcal F^{q,L_f}_{\kappa,t}[p_1]=\mathcal F^{q,L_f}_{\kappa,t}[p_2].$$
 
 Define the prescriptiveness order by:
 
-$$[p_1]_\kappa\preceq_M[p_2]_\kappa\iff F_\kappa[p_2]\subseteq F_\kappa[p_1].$$
+$$[p_1]_{\kappa,t,L_f}\preceq_P[p_2]_{\kappa,t,L_f}\iff\mathcal F^{q,L_f}_{\kappa,t}[p_2]\subseteq\mathcal F^{q,L_f}_{\kappa,t}[p_1].$$
 
-Therefore $p_2$ is at least as prescriptive as $p_1$ when it leaves no more solution freedom than $p_1$.
+Therefore $p_2$ is at least as prescriptive as $p_1$ when it leaves no more finer-Layer solution freedom than $p_1$.
 
 The order is partial. Propositions constraining different dimensions can be incomparable.
 
-Prescriptiveness is context-qualified. The same Proposition can remove substantial freedom in one engineering context and little freedom in another.
+Where the finer-Layer solution domain has a meaningful measure $\mu_{L_f}$ and the baseline region has non-zero measure, the relative reduction of available freedom can be calculated as:
 
-### 13.2 Maturity interpretation
+$$\operatorname{Prescriptiveness}\!\left(p\mid q,L_f,\kappa,t\right)=1-\frac{\mu_{L_f}\left(\mathcal F^{q,L_f}_{\kappa,t}[p]\right)}{\mu_{L_f}\left(\mathcal F^{q,L_f}_{\kappa,t}\right)}$$
 
-Maturity describes whether the degree of prescriptiveness is intentional and appropriate for the current engineering horizon.
+This numeric form is used only where the participating regions share an applicable measurable domain. Where no meaningful measure exists, the set-inclusion order remains the common-model comparison and no artificial scalar is required.
 
-A mature Proposition does not have to contain more detail.
+Prescriptiveness is context-, time-, problem-, and finer-Layer-qualified. The same Proposition can remove substantial freedom in one context and little freedom in another.
 
-A high-level Proposition can be mature while deliberately preserving substantial implementation freedom.
+### 13.2 Prescriptiveness change and Decision Extent
 
-A detailed Proposition can be mature when the applicable engineering context has sufficient reason and authority to constrain that detail.
+A material increase or decrease in prescriptiveness changes the applicable Feasible Region and can alter the effects of existing Decisions.
 
-The model therefore does not infer:
-
-$$MoreDetail\Rightarrow MoreMature$$
-
-or:
-
-$$MorePrescriptive\Rightarrow Better.$$
-
-Maturity, correctness, evidence sufficiency, Acceptance, and lifecycle state remain separate properties.
-
-### 13.3 Maturity change and Decision Extent
-
-A change in Maturity changes the feasible Solution Space and can alter the effects of existing Decisions.
-
-Therefore:
-
-$$MaturityChanged(p,\kappa)\Rightarrow ReassessBlastAndExtent(p,\kappa).$$
-
-This rule does not mean that every Maturity change necessarily produces a large Decision Extent.
-
-It means that the existing Decision Blast Radius cannot be assumed to remain valid after the feasible Solution Space changes.
+Therefore a material prescriptiveness change requires reassessment of the affected Decision Blast Radius and Decision Extent.
 
 An increase in prescriptiveness can:
 
@@ -6395,17 +6219,19 @@ An increase in prescriptiveness can:
 - require Decision rework;
 - change Exchange Items;
 - trigger Work Product rework or reverification;
-- propagate through subsequent Engineering Layers under the adjacent-layer propagation rules. The economic impact can therefore be much larger than the apparent size of the changed Proposition.
+- propagate through subsequent Engineering Layers under the adjacent-layer propagation rules.
 
-#### 13.3.1 Freezing a de-facto downstream solution
+The economic impact can therefore be much larger than the apparent size of the changed Proposition.
 
-A special case occurs when an upstream Maturity change formalizes a solution that is already established de facto at the adjacent downstream Scale.
+### 13.3 Freezing a de-facto downstream solution
+
+A special case occurs when an upstream prescriptiveness increase formalizes a solution that is already established de facto at the adjacent downstream Scale.
 
 In this case the material implementation can already conform to the new upstream restriction, so the immediate Decision Blast Radius can be smaller than for a genuinely new constraint.
 
 This does **not** make the pattern economically or architecturally desirable by itself.
 
-The upstream change still evolves the Solution Space and requires the affected downstream state, traceability, evidence, Decisions, and Work Products to be reassessed for consistency.
+The upstream change still evolves the Feasible Region and requires the affected downstream state, traceability, Evidence, Decisions, and Work Products to be reassessed for consistency.
 
 The pattern can be legitimate when downstream engineering has, for a valid reason, performed engineering normally owned by an upstream context and the result is subsequently propagated upward through the applicable adjacent-layer propagation and authority rules.
 
@@ -6477,19 +6303,15 @@ $$\exists\delta\in\Delta(p,\kappa):MinorOrWrongScale(\delta,p,\kappa)\land Sever
 
 The essential property is **disproportion** between the apparent significance of the triggering detail and the resulting impact.
 
-### 13.7 Maturity and Brittleness
+### 13.7 Prescriptiveness and Brittleness
 
-Maturity and Brittleness remain formally distinct properties.
+Prescriptiveness and Brittleness remain formally distinct properties.
 
-The proposal does not assert:
+Increasing prescriptiveness can create conditions that make Brittleness more likely because fewer remaining alternatives can make later changes harder to absorb and can increase Decision Extent or downstream rework.
 
-$$MoreMature\Rightarrow MoreBrittle$$
+No universal implication is asserted:
 
-because that implication is not established.
-
-However, increasing prescriptiveness can create conditions that make Brittleness more likely: fewer remaining alternatives can make later changes harder to absorb and can increase Decision Extent or downstream rework.
-
-Therefore a material increase in Maturity should prompt Brittleness assessment, but Brittleness is established only from actual sensitivity to plausible perturbations.
+$$MorePrescriptive\not\Rightarrow MoreBrittle.$$
 
 A highly prescriptive solution can remain robust.
 
@@ -6513,7 +6335,7 @@ A Decision can have:
 - small Decision Extent but high Brittleness, when a small local change causes severe cost inside that region;
 - both large Decision Extent and high Brittleness, which is a strong signal that the Decision requires reassessment.
 
-Maturity changes can affect both dimensions and therefore require reassessment of each rather than assuming one from the other.
+Prescriptiveness changes can affect both dimensions and therefore require reassessment of each rather than assuming one from the other.
 
 ## 14. UNKNOWNs, Gaps, and Future Actions
 
@@ -7314,9 +7136,9 @@ It specializes the common model for a Product, engineering domain, organization,
 | **Scale and engineering topology** | Scale orientation and representation; Magnification interpretation; Magnification Band representation; Scale interval semantics; Engineering Layer Band establishment, compaction, split, merge, and refinement controls; Engineering Domain topology and Domain Nature; cross-Domain Band alignment; topology-preservation and no-fold validation; Magnification traversal; state-relative Layer adjacency; adjacent-Layer transfer; direct same-Band cross-Domain relation rules; Human Magnification-applicability representation where used; Magnification Conflict handling; execution sub-scale rules; Product engineering consumer-need representation; Y Branch establishment and applicability; Y Branch placement rules; Informational and Objective Exchange Item boundary rules; Feedback Exchange Item rules. |
 | **Work Products, Evidence, and validation** | Work Product schemas; semantic-role constraints; required validators; information-exposure policies; Acceptance rules; Instrumental Checks; Low-profile and High-profile Assessments; escalation and instrumentation-improvement rules; Evidence rules; UNKNOWN materiality; Gap and Future Action policy. |
 | **Contract definition and lifecycle** | Contract-type vocabulary and required fields; identity, revision-materiality, and successor criteria; Product-target representation; Work Product Requirement schema; prerequisite and dependency types, states, and internal/external representation; Contract Resource Budget; Acceptance Specification; information policy; enforcement; supplementary participants; event types and retention; derived runtime views; Contract/Profile migration; readiness prerequisite kinds; lifecycle transition guards; runtime-regression and definition-revision materiality; same-time event ordering; temporary blocking and reassessment; readiness evaluation and resumption; Work Product preparation, submission, and revision handling; Acceptance materiality, dispositions, delegation, and reuse of unaffected validation or Evidence; discontinuation guards; blocker categories; successor and external Contract dependencies. |
-| **Authority and Human input** | Contract parties; explicit authority sources and records; authority kinds and operation-level requirements; Human and non-Human authority Scope and applicability; Contract-Issuer, Contract-revision, Assignment, Decision-commitment, and Acceptance-delegation authority; delegability, delegation limits, revocation, expiry, and role combinations; Human identity/authentication where applicable; Human-input normalization, transformation, Scope, ordering, atomic/joint groups, composability, Decision Space derivation, infeasibility handling, retraction, supersession, and recovery. |
+| **Authority and Human input** | Contract parties; explicit authority sources and records; authority kinds and operation-level requirements; Human and non-Human authority Scope and applicability; Contract-Issuer, Contract-revision, Assignment, Decision-commitment, and Acceptance-delegation authority; delegability, delegation limits, revocation, expiry, and permitted role combinations subject to the common Issuer/Executor/delegate separation invariant; Human identity/authentication where applicable; HAI/HVC/HPC classification; Human Decision-support provenance; HWP contribution and complete-result handling; trust, provenance-integrity, information-boundary, exploitation-resistance, validation, and recovery rules applicable to Human-originated information. |
 | **Execution, communication, verification, and integration** | Team API rules; external-party communication constraints and formats; Contract-type execution policies and Executor eligibility; required Contract-type independence and Hive/Actor separation; validation/verification independence topology; integration/composition strategies and validation requirements; integration-input verification and rework rules. |
-| **Exploration, resources, Rollback, and recovery** | Trade Space representation; trajectory rating; Cluster independence; outlier policy; Rollback Cost model; Resource Envelope dimensions and measurement; invention allocation; Waste classification; Contract-execution health, divergence, and back-off; Agent and Contract-role Actor deactivation; reassignment; recovery; termination; post-mortem criteria. |
+| **Exploration, resources, Feasibility control, Rollback, and recovery** | Trade Space representation; trajectory rating; bounded feasibility-control policy; exploration and research budget; economic stopping criteria; capability, enabling-technology, resource, domain-expansion, constraint-revision, production-baseline, and timeline escalation policy; Cluster independence; outlier policy; Rollback Cost model; Resource Envelope dimensions and measurement; invention allocation; Waste classification; Contract-execution health, divergence, and back-off; Agent and Contract-role Actor deactivation; reassignment; recovery; termination; post-mortem criteria. Project Profile feasibility control governs expenditure and governed change proposals; it does not redefine the common Feasible Region calculus. |
 | **Confidence** | Response to material Contract and Acceptance failures; representation; observation window; trend calculation; update frequency; inputs from convergence/divergence, Evidence, Decision progression, validation, Resource Cost, remaining Resource Envelope, and historical resolution; permitted exploration-diversity mechanisms; operator-facing representation; permitted automated uses and their Evidence basis; post-mortem tuning and drift assessment. |
 | **Supporting processes and lifecycle vocabulary** | Configuration Management, Change Management, Baseline, release, deployment, production, risk, quality, and other supporting-process predicates; lifecycle labels for Decisions, Engineering Objects, Work Products, Contracts, and other project elements. |
 
@@ -7401,6 +7223,7 @@ The registry contains reusable common-model identifiers. Project Profile extensi
 | $ProductRole(x,\kappa)$ | predicate | $x$ plays Product role | §6.7 | predicate |
 | $WorkProductRole(x,C)$ | predicate | $x$ plays Work Product role for $C$ | §6.7 | predicate |
 | $AuthorizedFor(a,o,x,\sigma,t,\kappa)$ | predicate | Actor authority for operation $o$ on subject $x$ | §5.5 | predicate |
+| $Delegates(a,b,o,x,\sigma,I,\kappa)$ | relation/predicate | Actor $a$ delegates operation $o$ on governed subject $x$ to Actor $b$ within bounded Scope, interval, and context | §5.5 | governed relation |
 | $Binding(d,\sigma,t)$ | predicate/relation | Decision $d$ is binding in Scope/time | §5.5 | governed relation |
 | $Assignment(C,a)$ | relation | Actor $a$ is the accountable Assignment of Contract $C$ | §11.1 | relation |
 | $Issuer(C)$ | function | Issuer of Contract $C$ | §11.1 | function |
@@ -7422,10 +7245,9 @@ The registry contains reusable common-model identifiers. Project Profile extensi
 | $Traverse(G,Q)$ | set-valued function | Bounded graph traversal under query $Q$ | §7.2.1 | function |
 | $BR(d^{candidate},X)$ | function | Decision Blast Radius for Decision Candidate $d^{candidate}$ evaluated against Engineering State $X$ | §9.16 | function |
 | $DecisionExtent(d,t)$ | function | Actual materialized propagation of committed Decision | §9.18 | function |
+| $\operatorname{Prescriptiveness}\!\left(p\mid q,L_f,\kappa,t\right)$ | partial derived scalar | Relative reduction of measurable finer-Layer feasible-region volume caused by Proposition $p$; defined only where $\mu_{L_f}$ is meaningful and the baseline region has non-zero measure | §13.1 | derived quantity |
 | $CanAccommodate(d^{candidate},L,X')$ | predicate | Layer $L$ can accommodate Decision Candidate $d^{candidate}$ in prospective State $X'$ | §9.21 | predicate |
 | $AffectedDomains(d^{candidate})$ | function/set-valued mapping | Domains affected by Decision Candidate $d^{candidate}$ | §9.22 | function |
-| $\Phi_A(X)$ | partial transformation | Human input $A$ applied to Engineering State $X$ | §5.5 | function |
-| $Composable(A,B,X)$ | predicate | Ordered Human inputs compose over State $X$ | §5.5 | predicate |
 | $PrerequisiteSpec(C)$ | function/set-valued mapping | Contract readiness prerequisites | §11.1 | function |
 | $Evaluate(p,X)$ | function | Evaluates prerequisite $p$ against Engineering State $X$ | §11.1 | function |
 | $\delta_C$ | partial function | Guarded Contract lifecycle transition | §11.1 | function |
@@ -7452,8 +7274,8 @@ The release audit applies the following model-integrity checks.
 | **Symbol uniqueness** | Each reusable mathematical symbol has one §4.4 dictionary meaning. |
 | **Predicate/function signature** | Reusable predicates and functions use the signature in §21.4. |
 | **Product/Proposition notation** | $P$ denotes Product, $p$ denotes Proposition, and $\mathbb P$ denotes the Proposition set. |
-| **Engineering State notation** | Engineering State uses $X_t$. |
-| **Projection/revision notation** | $\Pi_q(X_t)$ denotes State Projection and $\rho$ denotes revision mapping. |
+| **Engineering State notation** | Canonical Engineering State uses $X_{\kappa,t}$ so the time-bounded State retains its engineering context. $X_t$ is permitted only as local shorthand where $\kappa$ is fixed explicitly. |
+| **Projection/revision notation** | $\Pi_q(X_{\kappa,t})$ denotes State Projection and $\rho$ denotes revision mapping. |
 | **Project Profile notation** | $PP$ identifies Project Profile semantics; $P$ remains reserved for Product. |
 | **Integration readiness** | $W^{ready}_{C_I}\subseteq W_I$, with full readiness exactly when $W^{ready}_{C_I}=W_I$. |
 | **Scale vocabulary** | $Band$, $Layer$, $Domain$, $AdjacentLayer$, and $MagnificationConflict$ use the §21.4 signatures; Scale deltas use $\delta_s$ and $\Delta_s(s_i,s_j)$. |
