@@ -16,11 +16,25 @@ Proposal milestones use tags of the form `proposal-X.Y`. The reconstructed miles
 - `proposal-0.50`
 - `proposal-0.60`
 
-Core releases use the source archive notation, for example `core-v5.0.0-rc.1`. Version strings are not added to filenames inside `core/` merely because the imported archive has that version.
+Fetch milestone tags with `git fetch origin --tags`. The original annotated proposal tags are retained unchanged. In particular, `proposal-0.50` and `proposal-0.60` identify the original release lineage referenced by the historical audit records.
+
+Core releases use tags such as `core-v5.0.0-rc.1` and `core-v5.0.0-rc.2`. Version strings are not added to filenames inside `core/` merely because the imported archive has that version.
 
 ## Core foundation
 
-The AI DevMode standards release identified in `project.toml` is committed under `core/` as the initial Git commit and tagged `core-v5.0.0-rc.1`. The release-versioned archive wrapper is not stored in the repository, and its version is not added to filenames inside `core/`.
+The initial rc.1 import is the root commit, tagged `core-v5.0.0-rc.1`. Its original archive metadata remains in `project.toml` under `core.foundation`. The release-versioned archive wrapper is not stored in the repository.
+
+The current core is rc.2, retained as a repository update after the original proposal release lineage. Its source commit and current tag are recorded separately from the rc.1 archive provenance; no rc.2 archive checksum is asserted. The proposal's declared language baseline remains rc.1 and is explicitly recorded under `proposal.language_baseline`. Integrating rc.2 into the proposal's normative language profile remains BL-22.
+
+## Evolution integrity
+
+The mainline retains the original tagged proposal history and the two unique repository changes recovered from the superseded branch. Equivalent replayed proposal commits are represented once on the mainline. `recovery/pre-rework-2026-09-30` preserves the superseded published head for rollback and the audit that reviewed it.
+
+The [recovery evidence](audit/2026-09-30_history_recovery.json) records exact retained and superseded commit identities, equivalent changes, unique replays, and milestone targets. It is supporting evidence; Git commits and tags remain the evolution source.
+
+`make validate-history` verifies milestone ancestry, audit-target availability, core provenance, and the recovery mapping. It requires a Git checkout with its tags. Full `make validate` includes this check; `make validate-proposal` validates portable source/build inputs without Git-history requirements.
+
+Future changes extend the accepted mainline with new commits. Released tags and committed audit records remain immutable. A history repair preserves its source refs and records the mapping before publication.
 
 ## Build
 

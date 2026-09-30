@@ -6,11 +6,17 @@ author = "Julia (Ilya) Lebedev <ilya@lebedev.net>"
 
 [core]
 name = "AI DevMode Standards"
+version = "5.0.0-rc.2"
+tag = "core-v5.0.0-rc.2"
+source_kind = "repository-update"
+source_commit = "66d3186523c08e3508370d1b0c820c2dd3b06c3e"
+required = true
+
+[core.foundation]
 version = "5.0.0-rc.1"
 source_archive = "AI_DevMode_Standards_v5.0.0-rc.1.zip"
 sha256 = "4a9c1cd1acaa35fff791dfceca50144784cc5207e8021156a110e10f20846f20"
 tag = "core-v5.0.0-rc.1"
-required = true
 
 [proposal]
 title = "AI Aided Hive Engineering Proposal"
@@ -19,6 +25,11 @@ status = "draft"
 date = "2026-09-30"
 source = "proposal/AI_Aided_Hive_Engineering.md"
 tag = "proposal-0.60"
+language_baseline = "5.0.0-rc.1"
+language_baseline_tag = "core-v5.0.0-rc.1"
+
+[history]
+recovery_record = "audit/2026-09-30_history_recovery.json"
 
 [paths]
 images = "assets/images"

@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "date": "2026-09-30",
+  "common_ancestor": "f76b81ea6b895a4fe5ab0b3527e8407ae4c431db",
+  "superseded_head": "46faf0f7c48efdc1d22e850dd0ed04a65ebeb8a2",
+  "superseded_ref": "recovery/pre-rework-2026-09-30",
+  "canonical_release": "168568217a39cb4ec5669ce30f2aea56dfaeb2e8",
+  "restored_head": "f0e0fe499e5380458d87e9fe496f8f01d5f40dcc",
+  "comparison": "Exact diff text including paths, modes, hunk context, and changed content; only index blob-object header lines are excluded. All 35 equivalent pairs match.",
+  "milestones": [
+    {
+      "tag": "core-v5.0.0-rc.1",
+      "tag_object": "09380c6792994955b75c604461cba9f5995923e1",
+      "commit": "8fb76ee7a1527a05e2b6c3a33a90ed6e6c0cb644"
+    },
+    {
+      "tag": "proposal-0.2",
+      "tag_object": "079ff5d955a04f039a4b4cf1e27ff4b83c75afa8",
+      "commit": "d861ac0ff872ddad88f65fbf54ee951971dd6dcd"
+    },
+    {
+      "tag": "proposal-0.17",
+      "tag_object": "c619cfd13da180efcad3900d41fb7188bc79cfa7",
+      "commit": "8cba27d5a5a861c3351f5bf9efc76d5bcf0df882"
+    },
+    {
+      "tag": "proposal-0.25",
+      "tag_object": "4a94746a97d1fcd388c19baf16dd456fc5a00310",
+      "commit": "7655434e7afafef8421beab35cd1bc1e80626e9b"
+    },
+    {
+      "tag": "proposal-0.30",
+      "tag_object": "d41c85f6465c9a0ef2c695db3289fc24ff307a7b",
+      "commit": "39cc29ff41a4656ddb0e66c90e8b6f2f52651bc2"
+    },
+    {
+      "tag": "proposal-0.40",
+      "tag_object": "73d3111af36825596b0200d6dc60823fa1ea34ce",
+      "commit": "935e3dfcfa63d80ba00ffdbecaa12bb662be4261"
+    },
+    {
+      "tag": "proposal-0.50",
+      "tag_object": "93d33dd810641820cee0cd009f28d19ef76952a0",
+      "commit": "2feda1a4e52ff0029fa25d794c449a781f48872e"
+    },
+    {
+      "tag": "proposal-0.60",
+      "tag_object": "900b06e05ac3928c08bee619c76d8a2cbaf82fcf",
+      "commit": "168568217a39cb4ec5669ce30f2aea56dfaeb2e8"
+    }
+  ],
+  "equivalent_changes": [
+    {
+      "superseded": "c41ed7c776320082adcb75033e30bc805b1e905a",
+      "retained": "d9a059a69ef45bf1f1394c3024f5184853b25070",
+      "subject": "Clarify Decision candidate lifecycle"
+    },
+    {
+      "superseded": "39916a7aae480dd61a5f5d9402a242d3b0dc6274",
+      "retained": "b0e1cd5769b99e573f56fec472d23eb29b59729d",
+      "subject": "Clean proposal front matter"
+    },
+    {
+      "superseded": "6b57830249c9b2d060887b106ce171e46b3b9fd5",
+      "retained": "481f673317421a098a5fe33f7d0098220c0828f0",
+      "subject": "Fix proposal structural defects"
+    },
+    {
+      "superseded": "f8dbc57b93afebfcfa8f47641e9c88c486707fc2",
+      "retained": "7f8c70142ed68d0e26f106ba6c2de980cd4461fc",
+      "subject": "Compact formal statement roles"
+    },
+    {
+      "superseded": "dbe07d8adf351a115e14c115ead2ea9c40464974",
+      "retained": "2aada6c72d41b8cdd1a4878c3b2897f3ac90e698",
+      "subject": "Compact Confidence semantics"
+    },
+    {
+      "superseded": "9fbb24086aa8485f8f7d72bbfb70d33bb02a016a",
+      "retained": "76c760bffebcbaa1e75ea0af936c3e58fae20b41",
+      "subject": "Define Exchange Item transfer semantics"
+    },
+    {
+      "superseded": "7eee7524e465a10ca94c837c5242943438cb3338",
+      "retained": "0c17c169cc674d3c67c394a15ca3497bb2efed65",
+      "subject": "Define pull-driven Y-model reconciliation"
+    },
+    {
+      "superseded": "507dd2da87938ca0ae730dc4fb0762aea7271f37",
+      "retained": "bfe91ec2fb5324f5ed446ef680c692ea9e07d361",
+      "subject": "Repair mathematical formula source"
+    },
+    {
+      "superseded": "042f690d331664ff76f5c5d592a58309f1f3410b",
+      "retained": "c4ab8393bfc9e3d13ce293e0ec769dcc17426f4c",
+      "subject": "Make Scale interval-based and dynamically refinable"
+    },
+    {
+      "superseded": "02ccbbd03970a8e23c6f4d852556dc866236203a",
+      "retained": "c46b66935b305ba91cd4ffb6d240a705e2668d83",
+      "subject": "Externalize Figure 9-1 rendering specification"
+    },
+    {
+      "superseded": "8984467d39ed99db4d312a474da76c9ab465f5d9",
+      "retained": "18b51685d8fce0c93cff247e0ea7dc311b63126c",
+      "subject": "Externalize Y-model illustration rendering details"
+    },
+    {
+      "superseded": "6c104d5abdf63152c5d7251b23c19bfeca35834d",
+      "retained": "7b293e4d5b65f18b24ad0bb87ca395c9f01de035",
+      "subject": "Remove supporting engineering references section"
+    },
+    {
+      "superseded": "51902cb2d37f8941d8882874d591713866b55de6",
+      "retained": "a9a61ab35a760055d00ed3e69a1ed13b653d088e",
+      "subject": "Externalize proposal backlog"
+    },
+    {
+      "superseded": "6b9d82b79a0d4b2783782ca5eb36ca819a7bc171",
+      "retained": "7e711b14d0b82ba904fc0a9b67e908c46c26896a",
+      "subject": "Align remaining Magnification terminology"
+    },
+    {
+      "superseded": "2d97d948a4ec25d63cb5fc483ea3e821e8e9a086",
+      "retained": "d1bf9ef1e849adb54d08545dc48362028631279b",
+      "subject": "Remove duplicate Magnification traversal definition"
+    },
+    {
+      "superseded": "fada63603d65ea71e42b578fd804cba194dfcbaa",
+      "retained": "4ff5857093ea7a9f18563eff5a979c418ca1e1fa",
+      "subject": "Standardize non-binding examples and illustrations"
+    },
+    {
+      "superseded": "dbfcdbab15d69283f43552a469ebc52429320f9c",
+      "retained": "07863057f30397ccb0c2a500fddac470198ca1ad",
+      "subject": "Retire completed example-placement backlog item"
+    },
+    {
+      "superseded": "3d67c1c804e67deba2c496670496443c9bd328bd",
+      "retained": "98a5a49855acdf3e8924171a2a4bbf69d1df1cc7",
+      "subject": "Prioritize literature and topology research backlog"
+    },
+    {
+      "superseded": "098ba073ccf19197b46b44f6c4f721e76901ef80",
+      "retained": "25885a8513e9f5d583a49cd63aef2031540f55bd",
+      "subject": "Add repository audit record area"
+    },
+    {
+      "superseded": "cd55b255094ef0f2dd7442514d14de5d6c1ddc22",
+      "retained": "1cf542e11b82009011f768bcb39becfcd3d0a3a5",
+      "subject": "Record semantic audit of repository state 25885a8"
+    },
+    {
+      "superseded": "705cdb0e5eddef73e4ea6b7acd5e6d5113893a51",
+      "retained": "b51faac6f2ca76ea3d934ee2d51ca94952f4dac5",
+      "subject": "Define audit finding and change-control workflow"
+    },
+    {
+      "superseded": "39b4802ed97efbd0581072e899436b9f6389fddc",
+      "retained": "d18f2d3c086fd39a74a6d6c04ec5cf4349b92031",
+      "subject": "Organize related work and toolbox research"
+    },
+    {
+      "superseded": "748a1ea62e12a6a1965559c100137c7cdea139f7",
+      "retained": "8cc00efb2b5a64e618c4e07b72a253d67721b5d0",
+      "subject": "Integrate related work and engineering toolbox"
+    },
+    {
+      "superseded": "6859452229b97490bc1a8cf655757dc9fa876989",
+      "retained": "ac6f62eeac8b7a7d3847c04df1a56396b95d4aa7",
+      "subject": "Define sparse Magnification Band topology and no-fold invariants"
+    },
+    {
+      "superseded": "9db81eaf893deb2bd71af6d09f1580baca867292",
+      "retained": "52f5f0ef9974e341568e5ab94539772490cca4da",
+      "subject": "Verify Scale topology correction against semantic audit"
+    },
+    {
+      "superseded": "1e65817c2b61a6c709cb5074e0f7d75611e25676",
+      "retained": "9012c5fa70dd4a32455fa0ebaaf60825eacee86e",
+      "subject": "Separate information ingress from common semantic forms"
+    },
+    {
+      "superseded": "7ba3022ba8d692c71ab90004ae4e5029618e01fa",
+      "retained": "27bf87bb92ee50e55d16f9e3a7f5a6b27d92004d",
+      "subject": "Move representative forms into explanatory blocks"
+    },
+    {
+      "superseded": "3ed6064f11f1875a9298378a4b1fbe2d2be82b44",
+      "retained": "8842a4768d91c38a34fe7ae2f0300fc9d1eaae74",
+      "subject": "Verify ingress and representative-form cleanup"
+    },
+    {
+      "superseded": "0cb91604d9cc4f23049ce72b7ce5758417855177",
+      "retained": "9f9c4b7735502f6d83621135ee7db2463f612fca",
+      "subject": "Retire completed ingress and example cleanup backlog items"
+    },
+    {
+      "superseded": "5ec06daab634ee6d519f644aeea562ad46b5972e",
+      "retained": "7810adc262d73f865e373b67b3e7c0a35f045362",
+      "subject": "Define adjacent-layer exchange decomposition and inter-Hive handoff"
+    },
+    {
+      "superseded": "eec90ebb3cb3bb2cae35c477c9b976a888976dee",
+      "retained": "440fe46979e362b5531054bef7c15b01893b28ff",
+      "subject": "Verify exchange decomposition and terminal handoff semantics"
+    },
+    {
+      "superseded": "8497f028c4b75e5d8f61e337965d42222c4bfc61",
+      "retained": "2feda1a4e52ff0029fa25d794c449a781f48872e",
+      "subject": "Correct exchange re-audit commit reference"
+    },
+    {
+      "superseded": "bffa8e6c169cafd8f5a821b92d1843fe58607fbb",
+      "retained": "624ba4d95c25e0c7358a2579ec5c0b125a651c7c",
+      "subject": "Rework feasibility, Human ingress, and model controls"
+    },
+    {
+      "superseded": "81d2273f20f651a6048baa53a685c51ef387beb5",
+      "retained": "5445783cdb67894890535b045cadbafd7a368e4a",
+      "subject": "Audit 0.60 model rework against authoritative 0.50 baseline"
+    },
+    {
+      "superseded": "46faf0f7c48efdc1d22e850dd0ed04a65ebeb8a2",
+      "retained": "168568217a39cb4ec5669ce30f2aea56dfaeb2e8",
+      "subject": "Release AI Aided Hive Engineering Proposal 0.60"
+    }
+  ],
+  "unique_changes": [
+    {
+      "source": "350ce30ff497d1f16201f33035a5e48190a2869a",
+      "replayed": "24a8e601734ff836de44cbcc1d162228680e8382",
+      "subject": "Fixed project name in config"
+    },
+    {
+      "source": "66d3186523c08e3508370d1b0c820c2dd3b06c3e",
+      "replayed": "f0e0fe499e5380458d87e9fe496f8f01d5f40dcc",
+      "subject": "ADS core bump to 5.0.0-rc2"
+    }
+  ],
+  "preserved_proposal_files": [
+    "proposal/AI_Aided_Hive_Engineering.md",
+    "proposal/BACKLOG.md",
+    "proposal/DATA_MODEL.md",
+    "proposal/RETRACTIONS.md"
+  ],
+  "recovered_audit_targets": [
+    "25885a8513e9f5d583a49cd63aef2031540f55bd",
+    "ac6f62eeac8b7a7d3847c04df1a56396b95d4aa7",
+    "27bf87bb92ee50e55d16f9e3a7f5a6b27d92004d",
+    "7810adc262d73f865e373b67b3e7c0a35f045362",
+    "624ba4d95c25e0c7358a2579ec5c0b125a651c7c",
+    "2feda1a4e52ff0029fa25d794c449a781f48872e"
+  ]
+}

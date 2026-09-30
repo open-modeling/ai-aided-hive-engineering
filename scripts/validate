@@ -101,4 +101,8 @@ if errors:
     for error in errors:
         print(f"ERROR: {error}", file=sys.stderr)
     raise SystemExit(1)
+if not args.proposal_only and "history" in META:
+    result = subprocess.run([sys.executable, str(ROOT / "scripts/validate-history")], cwd=ROOT)
+    if result.returncode:
+        raise SystemExit(result.returncode)
 print("validation passed")

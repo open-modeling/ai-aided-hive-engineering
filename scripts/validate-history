@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+"""Verify retained evolution refs and byte-equivalent recovery changes offline."""
+from __future__ import annotations
+
+import json
+import re
+import subprocess
+import sys
+import tomllib
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def git(*args: str) -> str:
+    return subprocess.check_output(
+        ["git", *args], cwd=ROOT, text=True, stderr=subprocess.PIPE
+    ).strip()
+
+
+def require(condition: bool, message: str) -> None:
+    if not condition:
+        raise ValueError(message)
+
+
+def ancestor(commit: str, ref: str = "HEAD") -> bool:
+    return subprocess.run(
+        ["git", "merge-base", "--is-ancestor", commit, ref],
+        cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+    ).returncode == 0
+
+
+def delta(commit: str) -> str:
+    patch = subprocess.check_output(
+        ["git", "diff", commit + "^", commit, "--binary", "--no-ext-diff"],
+        cwd=ROOT, text=True, stderr=subprocess.PIPE,
+    )
+    # Blob headers differ when an unrelated field in that file changed earlier.
+    # Keep all paths, modes, hunk context, and changed content for comparison.
+    return re.sub(r"^index [^\n]*\n", "", patch, flags=re.M)
+
+
+def suite_at(ref: str) -> str:
+    doc = git("show", ref + ":core/00_governance_and_bootstrap.md")
+    match = re.search(r"^\*\*Suite version:\*\*\s+(\S+)", doc, re.M)
+    require(match is not None, f"missing core suite version at {ref}")
+    return match.group(1)
+
+
+def main() -> None:
+    require(Path(git("rev-parse", "--show-toplevel")).resolve() == ROOT,
+            "history validation requires this repository's Git checkout")
+    meta = tomllib.loads((ROOT / "project.toml").read_text())
+    record = json.loads((ROOT / meta["history"]["recovery_record"]).read_text())
+    require(record["schema_version"] == 1, "unsupported recovery record version")
+
+    archive = record["superseded_ref"]
+    require(git("rev-parse", archive + "^{commit}") == record["superseded_head"],
+            "superseded recovery ref changed")
+    milestones = record["milestones"]
+    for milestone in milestones:
+        ref, expected = milestone["tag"], milestone["commit"]
+        require(git("cat-file", "-t", "refs/tags/" + ref) == "tag",
+                f"milestone must retain an annotated tag: {ref}")
+        require(git("rev-parse", ref + "^{commit}") == expected,
+                f"milestone target changed: {ref}")
+        require(git("rev-parse", "refs/tags/" + ref) == milestone["tag_object"],
+                f"milestone annotation changed: {ref}")
+        require(ancestor(expected), f"milestone is outside current ancestry: {ref}")
+    require(ancestor(meta["proposal"]["tag"]), "current proposal milestone unavailable")
+
+    retained = set()
+    for row in record["equivalent_changes"]:
+        old, new = row["superseded"], row["retained"]
+        require(ancestor(old, archive), f"superseded change missing from archive: {old}")
+        require(ancestor(new), f"retained change missing from current ancestry: {new}")
+        require(not ancestor(old), f"superseded replay remains on current mainline: {old}")
+        require(new not in retained, f"duplicate retained change mapping: {new}")
+        require(delta(old) == delta(new), f"recovery changes differ: {old} / {new}")
+        retained.add(new)
+    for row in record["unique_changes"]:
+        old, replay = row["source"], row["replayed"]
+        require(ancestor(old, archive), f"unique source change is unavailable: {old}")
+        require(ancestor(replay), f"unique replay is unavailable: {replay}")
+        require(delta(old) == delta(replay), f"unique replay differs from source: {old}")
+
+    require(ancestor(record["restored_head"]), "restored history head is unavailable")
+    for path in record["preserved_proposal_files"]:
+        expected = git("rev-parse", record["canonical_release"] + ":" + path)
+        require(git("rev-parse", record["restored_head"] + ":" + path) == expected,
+                f"recovery changed a proposal artifact: {path}")
+
+    core = meta["core"]
+    require(suite_at("HEAD") == core["version"], "active core metadata disagrees with HEAD")
+    current_doc = (ROOT / "core/00_governance_and_bootstrap.md").read_text()
+    require(f"**Suite version:** {core['version']}" in current_doc,
+            "working core version differs from active metadata")
+    require(ancestor(core["tag"]), "active core tag is outside current ancestry")
+    require(suite_at(core["tag"]) == core["version"], "active core tag has wrong version")
+    require(git("rev-parse", core["tag"] + ":core") == git("rev-parse", "HEAD:core"),
+            "current committed core differs from its declared tag")
+    require(git("rev-parse", core["source_commit"] + ":core") ==
+            git("rev-parse", core["tag"] + ":core"), "core update differs from its source")
+    foundation = core["foundation"]
+    root = git("rev-list", "--max-parents=0", "HEAD").splitlines()
+    require(root == [git("rev-parse", foundation["tag"] + "^{commit}")],
+            "foundation tag does not identify the unique root")
+    require(suite_at(foundation["tag"]) == foundation["version"],
+            "foundation version disagrees with original import")
+    proposal = meta["proposal"]
+    require(ancestor(proposal["language_baseline_tag"]), "proposal LMC baseline unavailable")
+    require(suite_at(proposal["language_baseline_tag"]) == proposal["language_baseline"],
+            "declared proposal LMC baseline disagrees with its tag")
+    prose = (ROOT / proposal["source"]).read_text()
+    require(f"**AI DevMode Standards (ADS) {proposal['language_baseline']}**" in prose,
+            "proposal governing clause disagrees with declared LMC baseline")
+
+    targets = set()
+    for path in sorted((ROOT / "audit").glob("*.md")):
+        for ref in re.findall(r"`([a-f0-9]{7,40})`", path.read_text()):
+            try:
+                targets.add(git("rev-parse", "--verify", ref + "^{commit}"))
+            except subprocess.CalledProcessError:
+                raise ValueError(f"unavailable commit in audit record {path.name}: {ref}")
+    for ref in record["recovered_audit_targets"]:
+        require(ancestor(ref), f"original audit target is outside restored lineage: {ref}")
+
+    print(f"history validation passed: {len(milestones)} original milestones, "
+          f"{len(retained)} equivalent replays replaced, "
+          f"{len(record['unique_changes'])} unique changes retained, "
+          f"{len(targets)} audit commit identities available")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (ValueError, KeyError, OSError, subprocess.CalledProcessError) as exc:
+        print(f"ERROR: history validation: {exc}", file=sys.stderr)
+        raise SystemExit(1)
