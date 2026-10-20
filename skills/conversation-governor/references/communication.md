@@ -26,3 +26,7 @@ Name the actor, required operation, target, condition or prerequisite, and expec
 Check message type; intended receiver; authority and scope; actionable wording; canonical terminology; source protection; ambiguity; relevance; evidence/claim alignment; acceptance outcome.
 
 Machine checks can validate marked fields, known terms, and forbidden mechanical constructions. Semantic checks require the communicating agent or a designated language reviewer. Hosts may lack a pre-send interception point. Hook coverage is verified per host and never assumed.
+
+## Agent message format
+
+For an Agent message on a supported delegation or messaging tool, start with `[INFORMATION]` or `[DIRECTION]`. A directional message includes separate `Action:`, `Target:`, and `Expected-Result:` fields. Only the receiver decides ACCEPT, REJECT, or DEFER. The host controls permission to execute.
