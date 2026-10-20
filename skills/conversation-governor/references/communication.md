@@ -30,3 +30,7 @@ Machine checks can validate marked fields, known terms, and forbidden mechanical
 ## Agent message format
 
 For an Agent message on a supported delegation or messaging tool, start with `[INFORMATION]` or `[DIRECTION]`. A directional message includes separate `Action:`, `Target:`, and `Expected-Result:` fields. Only the receiver decides ACCEPT, REJECT, or DEFER. The host controls permission to execute.
+
+### Shared validator format
+
+Use a standalone kind header. For information, provide `Statement:` in neutral declarative wording. Preserve a source instruction with `Source-Quote:` as a JSON-encoded string. For directions, provide `Action:`, `Target:`, and `Expected-Result:` on separate lines. Interpret an informational label as a declaration that requires independent semantic review.
