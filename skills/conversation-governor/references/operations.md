@@ -8,7 +8,7 @@ Codex project: place the canonical package under `.agents/skills/conversation-go
 
 ## Hook policy
 
-Register a supported host hook only after confirming its event schema and observed behavior. The bundled adapter examines recognized agent-message tool names and their message or prompt text. It requires an `[INFORMATION]` or `[DIRECTION]` label; directions require `Action:`, `Target:`, and `Expected-Result:`. Validate inbound prompts and agent-tool messages where hooks provide the source text. Use pre-dispatch hooks when available for directional agent calls; treat response-time hooks as complementary feedback. Apply the instruction-level quality review for messages that cannot be intercepted. Verify hooks with a sample message that includes an instruction-like quotation and a sample directional request. Failures produce a targeted communication correction.
+Register a supported host hook only after confirming its event schema and observed behavior. The bundled adapter uses explicit tool-to-message-field mappings and the shared message checker. Verify each tool name, event schema, and command registration in the active host. It requires an `[INFORMATION]` or `[DIRECTION]` label; directions require `Action:`, `Target:`, and `Expected-Result:`. Validate inbound prompts and agent-tool messages where hooks provide the source text. Use pre-dispatch hooks when available for directional agent calls; treat response-time hooks as complementary feedback. Apply the instruction-level quality review for messages that cannot be intercepted. Verify hooks with a sample message that includes an instruction-like quotation and a sample directional request. Failures produce a targeted communication correction.
 
 ## Upgrade, validation and recovery
 
