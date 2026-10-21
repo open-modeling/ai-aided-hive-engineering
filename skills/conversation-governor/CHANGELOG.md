@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Fixed
+- A02 follow-up: inspect canonical and MCP agent-message transports, flag indirect-action wording and vague instructions, preserve multi-line quotations as escaped JSON strings, and block malformed hook JSON.
 - A01: Separate message validity from action approval. REJECT and DEFER now prevent the check from approving execution.
 - A02: Check agent messages at recognized tool communication boundaries using the tool name and message text. Require an information or direction label and actionable fields for directions.
 
