@@ -152,7 +152,7 @@ def inspect_agent_message(message):
 
     if kind == "informational":
         statement = fields.get("Statement", "")
-        clauses = re.split(r"(?<=[.!?])\\s+", statement)
+        clauses = re.split(r"(?<=[.!?])\s+", statement)
         suspicious = (
             any(_IMPERATIVE.search(clause) for clause in clauses)
             or _DIRECTED_ACTOR.search(statement)
