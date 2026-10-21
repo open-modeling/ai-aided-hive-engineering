@@ -17,3 +17,7 @@ Review CHANGELOG.md and the installed version, replace the host projection with 
 ## Conformance
 
 Compare behavior with requirements/BASELINE.md; test each of F01–F08 in both hosts. Verify formal ADS/ASD-STE100 conformance only using designated checker or review evidence. Measure false instruction acceptance and missed clarification in addition to language quality.
+
+## Communication quality verification
+
+Use `python3 -m unittest discover -s tests -v` at the canonical package root. Verify actual PreToolUse event routing and tool name mappings in each required host. Validate A01 acceptance and A02 source-safe information, directive messages, and unsupported transports. The local test suite is only component evidence; host runtime verification remains a separate mandatory gate.
