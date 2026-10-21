@@ -3,6 +3,8 @@
 ## Unreleased
 
 ### Fixed
+- Differentiate valid informational processing from action permission; require trusted recipient authority, scope, and conditions for direction acceptance.
+- Return a review-required result for ambiguous informational statements, including instructions in later sentences.
 - A02 transport audit: replace suffix-based MCP transport detection with exact registered tool identity and message-field mappings, avoiding unrelated messaging tools and supporting verified hyphenated service names through explicit mappings.
 - Add receiver-side regression tests for information non-execution, acceptance with trusted authority, and transport classification.
 - A02 follow-up: inspect canonical and MCP agent-message transports, flag indirect-action wording and vague instructions, preserve multi-line quotations as escaped JSON strings, and block malformed hook JSON.
