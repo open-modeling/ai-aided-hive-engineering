@@ -3,6 +3,8 @@
 ## Unreleased
 
 ### Fixed
+- A02 transport audit: replace suffix-based MCP transport detection with exact registered tool identity and message-field mappings, avoiding unrelated messaging tools and supporting verified hyphenated service names through explicit mappings.
+- Add receiver-side regression tests for information non-execution, acceptance with trusted authority, and transport classification.
 - A02 follow-up: inspect canonical and MCP agent-message transports, flag indirect-action wording and vague instructions, preserve multi-line quotations as escaped JSON strings, and block malformed hook JSON.
 - A01: Separate message validity from action approval. REJECT and DEFER now prevent the check from approving execution.
 - A02: Check agent messages at recognized tool communication boundaries using the tool name and message text. Require an information or direction label and actionable fields for directions.
