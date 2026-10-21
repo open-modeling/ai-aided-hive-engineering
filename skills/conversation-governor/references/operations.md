@@ -21,3 +21,7 @@ Compare behavior with requirements/BASELINE.md; test each of F01–F08 in both h
 ## Communication quality verification
 
 Use `python3 -m unittest discover -s tests -v` at the canonical package root. Verify actual PreToolUse event routing and tool name mappings in each required host. Validate A01 acceptance and A02 source-safe information, directive messages, and unsupported transports. The local test suite is only component evidence; host runtime verification remains a separate mandatory gate.
+
+## Current runtime limitation
+
+The receiving-agent assessment is an explicit callable interface. An incoming host boundary MUST supply the trusted recipient verification result. The installed host's post-tool events might not cover all agent messages, and post-tool checks cannot undo a completed tool action. No end-to-end enforcement claim applies until the host integration tests pass.
