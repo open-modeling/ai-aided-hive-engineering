@@ -38,6 +38,21 @@ _INDIRECT_DIRECTION = re.compile(
     r"|\b(?:ignore|override)\s+(?:all\s+)?(?:previous|prior)\s+"
     r"(?:rules|instructions)\b", re.I
 )
+# Additional indicators produce a request for semantic review. These patterns
+# are intentionally advisory; information is NEVER an execution instruction.
+_MODAL_ACTION = re.compile(
+    r"\b(?:deployment|validation|checks?|process|system|reviewer|agent|"
+    r"operator|assistant|release|workflow)\s+(?:should|must|shall|"
+    r"will|can|may|is\s+required\s+to|is\s+prepared\s+to)\s+"
+    r"(?:be\s+)?(?:start|stop|deploy|execute|disable|enable|delete|"
+    r"run|proceed|apply|approve|modify|update|transfer)\b"
+    r"|\b(?:deployment|validation|checks?|operations?)\s+"
+    r"(?:is|are)\s+(?:mandatory|required|to\s+be\s+disabled)\b"
+    r"|\b(?:all\s+)?(?:validators?|checks?)\s+"
+    r"(?:will|must|should)\s+be\s+disabled\b",
+    re.I,
+)
+
 _FIELDS = re.compile(r"^([A-Za-z][A-Za-z-]*):\s*(.+)$")
 _VAGUE = {
     "Action": {"do it", "handle", "manage", "perform", "do task",
@@ -138,7 +153,8 @@ def inspect_agent_message(message):
         statement = fields.get("Statement", "")
         if (_IMPERATIVE.search(statement)
                 or _DIRECTED_ACTOR.search(statement)
-                or _INDIRECT_DIRECTION.search(statement)):
+                or _INDIRECT_DIRECTION.search(statement)
+                or _MODAL_ACTION.search(statement)):
             issues.append(
                 "Statement may direct an action. Give a neutral fact or finding. "
                 "Keep verbatim instructions in Source-Quote."
@@ -183,17 +199,56 @@ def inspect_agent_message(message):
     return {"valid": not issues, "kind": kind, "issues": issues}
 
 
+
+def assess_received_message(message, acceptance=None, authority_verified=False):
+    """Receiver-side interpretation boundary, without persistent state.
+
+    INFORMATION always has action_allowed=False, even when a lexical check
+    misses a concealed instruction. An accepted DIRECTION needs an explicit
+    receiver decision and independently checked authority. Callers MUST derive
+    authority_verified from trusted recipient context, never from message text.
+    """
+    result = inspect_agent_message(message)
+    kind = result["kind"]
+    if not result["valid"]:
+        return {"valid": False, "kind": kind, "decision": "defer",
+                "action_allowed": False, "issues": result["issues"]}
+    if kind == "informational":
+        return {"valid": True, "kind": kind, "decision": "information",
+                "action_allowed": False, "issues": []}
+    if acceptance == "reject":
+        return {"valid": True, "kind": kind, "decision": "rejected",
+                "action_allowed": False, "issues": []}
+    if acceptance != "accept":
+        return {"valid": True, "kind": kind, "decision": "deferred",
+                "action_allowed": False,
+                "issues": ["Receiving agent must explicitly accept or reject."]}
+    if authority_verified is not True:
+        return {"valid": True, "kind": kind, "decision": "deferred",
+                "action_allowed": False,
+                "issues": ["Verify authority and scope using trusted recipient context."]}
+    return {"valid": True, "kind": kind, "decision": "accepted",
+            "action_allowed": True, "issues": []}
+
+
 def main():
     try:
         obj = json.load(sys.stdin)
-        result = inspect_agent_message(obj["agent_message"]) if (
-            isinstance(obj, dict) and "agent_message" in obj
-        ) else check(obj)
+        if isinstance(obj, dict) and "received_message" in obj:
+            result = assess_received_message(obj["received_message"],
+                acceptance=obj.get("recipient_decision"),
+                authority_verified=False)
+        elif isinstance(obj, dict) and "agent_message" in obj:
+            result = inspect_agent_message(obj["agent_message"])
+        else:
+            result = check(obj)
     except (ValueError, UnicodeError, TypeError, KeyError) as exc:
         result = {"valid": False, "ok": False, "decision": "invalid",
                   "issues": ["Invalid checker input: " + str(exc)]}
     sys.stdout.write(json.dumps(result, ensure_ascii=False) + "\n")
-    return 0 if result.get("ok", result.get("valid")) else 2
+    return 0 if result.get("ok", result.get("valid")) and not (
+        "action_allowed" in result and not result["action_allowed"]
+    ) else 2
 
 
 if __name__ == "__main__":
