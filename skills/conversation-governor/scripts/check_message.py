@@ -133,6 +133,7 @@ def inspect_agent_message(message):
         "Action", "Target", "Expected-Result"
     }
     issues = []
+    needs_review = False
     fields = {}
     for line in lines[1:]:
         match = _FIELDS.fullmatch(line)
@@ -151,13 +152,19 @@ def inspect_agent_message(message):
 
     if kind == "informational":
         statement = fields.get("Statement", "")
-        if (_IMPERATIVE.search(statement)
-                or _DIRECTED_ACTOR.search(statement)
-                or _INDIRECT_DIRECTION.search(statement)
-                or _MODAL_ACTION.search(statement)):
+        clauses = re.split(r"(?<=[.!?])\\s+", statement)
+        suspicious = (
+            any(_IMPERATIVE.search(clause) for clause in clauses)
+            or _DIRECTED_ACTOR.search(statement)
+            or _INDIRECT_DIRECTION.search(statement)
+            or _MODAL_ACTION.search(statement)
+        )
+        if suspicious:
+            needs_review = True
             issues.append(
-                "Statement may direct an action. Give a neutral fact or finding. "
-                "Keep verbatim instructions in Source-Quote."
+                "NEEDS_REVIEW: Statement may contain an instruction. "
+                "Identify the factual meaning, write a neutral Statement, "
+                "and preserve quoted commands in Source-Quote."
             )
         if "Source-Quote" in fields:
             try:
@@ -196,11 +203,12 @@ def inspect_agent_message(message):
             })
         })
         issues.extend(outcome["issues"])
-    return {"valid": not issues, "kind": kind, "issues": issues}
+    return {"valid": not issues, "status": ("needs_review" if needs_review and not any(not issue.startswith("NEEDS_REVIEW:") for issue in issues) else "invalid" if issues else "valid"), "kind": kind, "issues": issues}
 
 
 
-def assess_received_message(message, acceptance=None, authority_verified=False):
+def assess_received_message(message, acceptance=None, authority_verified=False,
+                            scope_verified=False, conditions_verified=False):
     """Receiver-side interpretation boundary, without persistent state.
 
     INFORMATION always has action_allowed=False, even when a lexical check
@@ -211,10 +219,14 @@ def assess_received_message(message, acceptance=None, authority_verified=False):
     result = inspect_agent_message(message)
     kind = result["kind"]
     if not result["valid"]:
-        return {"valid": False, "kind": kind, "decision": "defer",
-                "action_allowed": False, "issues": result["issues"]}
+        return {"valid": False, "kind": kind,
+                "status": result.get("status", "invalid"),
+                "decision": "review" if result.get("status") == "needs_review" else "defer",
+                "processed": False, "action_allowed": False,
+                "issues": result["issues"]}
     if kind == "informational":
-        return {"valid": True, "kind": kind, "decision": "information",
+        return {"valid": True, "kind": kind, "status": "valid",
+                "decision": "information", "processed": True,
                 "action_allowed": False, "issues": []}
     if acceptance == "reject":
         return {"valid": True, "kind": kind, "decision": "rejected",
@@ -223,12 +235,13 @@ def assess_received_message(message, acceptance=None, authority_verified=False):
         return {"valid": True, "kind": kind, "decision": "deferred",
                 "action_allowed": False,
                 "issues": ["Receiving agent must explicitly accept or reject."]}
-    if authority_verified is not True:
+    if (authority_verified is not True or scope_verified is not True
+            or conditions_verified is not True):
         return {"valid": True, "kind": kind, "decision": "deferred",
-                "action_allowed": False,
-                "issues": ["Verify authority and scope using trusted recipient context."]}
+                "processed": False, "action_allowed": False,
+                "issues": ["Verify authority, scope, and conditions using trusted recipient context."]}
     return {"valid": True, "kind": kind, "decision": "accepted",
-            "action_allowed": True, "issues": []}
+            "processed": True, "action_allowed": True, "issues": []}
 
 
 def main():
@@ -246,9 +259,12 @@ def main():
         result = {"valid": False, "ok": False, "decision": "invalid",
                   "issues": ["Invalid checker input: " + str(exc)]}
     sys.stdout.write(json.dumps(result, ensure_ascii=False) + "\n")
-    return 0 if result.get("ok", result.get("valid")) and not (
-        "action_allowed" in result and not result["action_allowed"]
-    ) else 2
+    if "action_allowed" in result:
+        # Valid information is processed successfully and remains non-executable.
+        return 0 if (result.get("processed") and
+                     (result.get("kind") == "informational" or
+                      result.get("action_allowed"))) else 2
+    return 0 if result.get("ok", result.get("valid")) else 2
 
 
 if __name__ == "__main__":
