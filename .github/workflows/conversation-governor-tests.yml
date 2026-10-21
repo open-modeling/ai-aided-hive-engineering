@@ -1,5 +1,8 @@
 name: Conversation Governor tests
 on:
+  push:
+    branches:
+      - feature/conversation-governor-communication-only
   pull_request:
     paths:
       - 'skills/conversation-governor/**'
