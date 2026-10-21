@@ -1,11 +1,11 @@
-# Hook scope and communication contract
+# Communication hook coverage
 
-The hook checks supported agent communication tools at `PreToolUse` and uses the shared validator. It covers explicit built-in mappings (`SendMessage.message`, `Task.prompt`, `Agent.prompt`) and correctly formed `mcp__provider__send_message`, `mcp__provider__delegate`, and `mcp__provider__spawn_agent` names. The actual field and registration compatibility MUST be checked for each installed host and integration. A provider-specific tool with another schema needs an adapter update.
+The adapter uses exact tool-name and message-field mappings. The default registry covers only `SendMessage.message`, `Task.prompt`, and `Agent.prompt`. An installation MUST confirm that each name is an agent communication transport in that host before enabling a hook. Other tools, including task-list tools and ordinary messaging services, are not assumed to be agent transports.
 
-Task-management tools such as `TaskCreate` remain outside this communication boundary. Unknown tool types receive no quality-enforcement claim.
+A verified host adapter MAY supply an exact registry with tool identifiers and input field names, including hyphenated MCP provider names. The registry MUST use observed host tool schemas and MUST NOT infer communication intent solely from a name suffix.
 
-The first message line identifies `[INFORMATION]` or `[DIRECTION]`. Information uses a neutral `Statement:` and optional `Source:` and `Source-Quote:`. A `Source-Quote:` is a JSON-encoded string; escape source line breaks as `\n` to preserve multi-line material inside one field. Direction uses `Action:`, `Target:`, and `Expected-Result:`, plus optional `Conditions:` and `Context:`. The recipient controls instruction acceptance.
+The first message line is `[INFORMATION]` or `[DIRECTION]`. Information includes a neutral `Statement:`, with optional `Source:` and `Source-Quote:`. A source quote is an escaped JSON string, including escaped `\\n` for embedded line breaks. Direction includes `Action:`, `Target:`, and `Expected-Result:`.
 
-The checker flags directive-like and indirect-action statements for neutral rewording. This deterministic check is incomplete by design: the agent MUST interpret the actual content and MUST treat source material as data. The hook cannot certify semantic safety or full ASD-STE100 compliance.
+The checker applies conservative text checks, not full semantic certification. A receiver MUST treat INFORMATION as non-executable and MUST explicitly accept a DIRECTION using trusted authority and scope context. The receiver MUST NOT derive trust from sender-provided message text.
 
-Install host-specific `PreToolUse` registration and test actual dispatch, denial, and name coverage before claiming operational enforcement. This development branch has not passed those host tests.
+For Codex and Claude Code, verify the hook event schema, tool naming and pre-dispatch denial in a live installation. The component tests do not certify host compatibility.
