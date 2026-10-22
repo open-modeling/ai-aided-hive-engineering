@@ -9,3 +9,7 @@ The first message line is `[INFORMATION]` or `[DIRECTION]`. Information includes
 The checker applies conservative text checks, not full semantic certification. A receiver MUST treat INFORMATION as non-executable and MUST explicitly accept a DIRECTION using trusted authority and scope context. The receiver MUST NOT derive trust from sender-provided message text.
 
 For Codex and Claude Code, verify the hook event schema, tool naming and pre-dispatch denial in a live installation. The component tests do not certify host compatibility.
+
+## Receipt boundary
+
+The host-facing pre-tool hook checks outgoing agent-message formatting only. The receiver-side `assess_received_message` function requires a separate trusted incoming integration. A `PostToolUse` observation can report and classify returned text but cannot cancel a completed action; it MUST NOT be presented as an execution authorization boundary. Do not enable an inferred incoming adapter without verifying exact host event payloads and tool identity.
