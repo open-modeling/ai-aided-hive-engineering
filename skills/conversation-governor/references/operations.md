@@ -25,3 +25,7 @@ Use `python3 -m unittest discover -s tests -v` at the canonical package root. Ve
 ## Current runtime limitation
 
 The receiving-agent assessment is an explicit callable interface. An incoming host boundary MUST supply the trusted recipient verification result. The installed host's post-tool events might not cover all agent messages, and post-tool checks cannot undo a completed tool action. No end-to-end enforcement claim applies until the host integration tests pass.
+
+## Automated ADS contract verification
+
+The package contains exact copies of the ADS 5.0.0-rc.2 Skill API, envelope, and common definitions schemas under `schemas/ads/`. Run `python3 -m pip install 'jsonschema>=4.20,<5'` in an isolated test environment, then run `python3 -m unittest discover -s tests -v`. Run `python3 scripts/validate_ads.py` from the package root to validate the local Skill API. The `check_envelope` function validates addressed requests against the local API and offline schema bundle. This does not establish the caller's authority or execute payloads. A payload that has its own declared request schema still requires validation against that target schema.
