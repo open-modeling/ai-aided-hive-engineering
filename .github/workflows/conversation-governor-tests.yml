@@ -17,6 +17,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Schema dependency
+        run: python -m pip install "jsonschema>=4.20,<5"
       - name: Syntax check
         run: python -m compileall -q skills/conversation-governor/scripts skills/conversation-governor/tests
       - name: Regression suite
