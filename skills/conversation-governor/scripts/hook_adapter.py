@@ -51,11 +51,15 @@ def verdict(event, registry=None):
     tool = event.get("tool_name")
     field = transport_field(tool, registry)
     if field is None:
+        # This hook does not cover the tool; no permission claim is made.
         return {}
     args = event.get("tool_input")
     if not isinstance(args, dict):
         return deny("Supply structured agent-message arguments.")
     outcome = inspect_agent_message(args.get(field))
+    if outcome.get("classification_source") == "default":
+        return deny("Untagged Agent content defaults to INFORMATION. "
+                    "Add [INFORMATION] and Statement for outgoing communication.")
     if not outcome["valid"]:
         return deny(" ".join(outcome["issues"]))
     return {}

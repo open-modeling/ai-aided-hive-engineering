@@ -69,8 +69,13 @@ def check(item):
     issues = []
     if not isinstance(item, dict):
         return {"valid": False, "ok": False, "decision": "invalid",
+                "action_allowed": False,
                 "issues": ["Input must be an object."]}
-    kind = item.get("kind")
+    # A02: Agent messages without recognized kinds remain informational.
+    supplied_kind = item.get("kind")
+    kind = (supplied_kind if supplied_kind in KINDS
+            else "informational" if item.get("channel") == "agent"
+            else supplied_kind)
     direction = item.get("direction")
     message = item.get("text")
     acceptance = item.get("accepted")
@@ -83,6 +88,10 @@ def check(item):
     if not isinstance(message, str) or not message.strip():
         issues.append("Provide nonempty message text.")
     decision = "information" if kind == "informational" else "outgoing"
+    if kind == "informational" and acceptance is not None:
+        issues.append("INFORMATION cannot carry an acceptance decision. Remove accepted.")
+    if item.get("channel") == "agent" and direction == "outgoing" and supplied_kind not in KINDS:
+        issues.append("Outgoing Agent content requires an explicit kind.")
     if kind == "mixed":
         decision = "unresolved"
         issues.append("Classify informational and directional segments separately.")
@@ -101,12 +110,18 @@ def check(item):
                     if not isinstance(item.get(key), str) or not item[key].strip():
                         issues.append("Identify the " + key + " for the directional message.")
     valid = not issues
-    ok = valid and decision not in {"rejected", "deferred", "unresolved"}
+    # The structural 'ok' result is never execution approval for a direction.
+    ok = (valid and decision not in {"rejected", "deferred", "unresolved"}
+          and (direction == "outgoing" or kind == "informational"))
     if valid and decision == "rejected":
         issues.append("The receiving agent rejected the direction. Do not execute it.")
     if valid and decision == "deferred":
         issues.append("The receiving agent deferred the direction. Obtain clarification.")
-    return {"valid": valid, "ok": ok, "decision": decision, "issues": issues}
+    return {"valid": valid, "ok": ok, "decision": decision,
+            "kind": kind,
+            "classification_source": ("default" if item.get("channel") == "agent"
+                                       and supplied_kind not in KINDS else "explicit"),
+            "action_allowed": False, "issues": issues}
 
 
 def inspect_agent_message(message):
@@ -117,14 +132,33 @@ def inspect_agent_message(message):
     The receiving agent still checks authority before acting on DIRECTION.
     """
     if not isinstance(message, str) or not message.strip():
-        return {"valid": False, "kind": "unknown",
+        return {"valid": False, "kind": "informational", "status": "invalid",
+                "format_valid": False,
+                "classification_source": "default",
                 "issues": ["Provide a nonempty agent message."]}
     lines = [line.strip() for line in message.strip().splitlines()]
     label = lines[0]
     if label not in ("[INFORMATION]", "[DIRECTION]"):
-        return {"valid": False, "kind": "unknown", "issues": [
-            "Start with [INFORMATION] or [DIRECTION] on a separate line."
-        ]}
+        # Missing or unrecognized tags are INFORMATION by default.
+        # The message can still require review and never grants action.
+        statement = message.strip()
+        clauses = re.split(r"(?<=[.!?])\s+", statement)
+        suspicious = (
+            any(_IMPERATIVE.search(clause) for clause in clauses)
+            or bool(_DIRECTED_ACTOR.search(statement))
+            or bool(_INDIRECT_DIRECTION.search(statement))
+            or bool(_MODAL_ACTION.search(statement))
+            or bool(re.search(r"(?m)^\s*(?:Action|Target|Expected-Result):", statement))
+            or bool(label.startswith("[") and label.endswith("]"))
+        )
+        issues = (["NEEDS_REVIEW: The untagged Agent message is INFORMATION. "
+                   "It contains a possible request for action. Preserve its "
+                   "text and ask for an explicit classified message."]
+                  if suspicious else [])
+        return {"valid": not suspicious,
+                "status": "needs_review" if suspicious else "valid",
+                "kind": "informational", "classification_source": "default",
+                "format_valid": False, "issues": issues}
     kind = "informational" if label == "[INFORMATION]" else "directional"
     allowed = {"Statement", "Source", "Source-Quote"} if kind == "informational" else {
         "Action", "Target", "Expected-Result", "Conditions", "Context"
@@ -203,7 +237,11 @@ def inspect_agent_message(message):
             })
         })
         issues.extend(outcome["issues"])
-    return {"valid": not issues, "status": ("needs_review" if needs_review and not any(not issue.startswith("NEEDS_REVIEW:") for issue in issues) else "invalid" if issues else "valid"), "kind": kind, "issues": issues}
+    # An instruction-like Statement can be well-formed but require semantic review.
+    format_valid = not any(not issue.startswith("NEEDS_REVIEW:") for issue in issues)
+    return {"valid": not issues, "classification_source": "explicit",
+            "format_valid": format_valid,
+            "status": ("needs_review" if needs_review and not any(not issue.startswith("NEEDS_REVIEW:") for issue in issues) else "invalid" if issues else "valid"), "kind": kind, "issues": issues}
 
 
 
@@ -245,13 +283,16 @@ def assess_received_message(message, acceptance=None, authority_verified=False,
 
 
 def main():
+    mode = "check"
     try:
         obj = json.load(sys.stdin)
         if isinstance(obj, dict) and "received_message" in obj:
+            mode = "received"
             result = assess_received_message(obj["received_message"],
                 acceptance=obj.get("recipient_decision"),
                 authority_verified=False)
         elif isinstance(obj, dict) and "agent_message" in obj:
+            mode = "outgoing"
             result = inspect_agent_message(obj["agent_message"])
         else:
             result = check(obj)
@@ -259,12 +300,14 @@ def main():
         result = {"valid": False, "ok": False, "decision": "invalid",
                   "issues": ["Invalid checker input: " + str(exc)]}
     sys.stdout.write(json.dumps(result, ensure_ascii=False) + "\n")
-    if "action_allowed" in result:
-        # Valid information is processed successfully and remains non-executable.
+    # Dispatch by mode. A checker result is not an authorization decision.
+    if mode == "received":
         return 0 if (result.get("processed") and
                      (result.get("kind") == "informational" or
-                      result.get("action_allowed"))) else 2
-    return 0 if result.get("ok", result.get("valid")) else 2
+                      result.get("action_allowed") is True)) else 2
+    if mode == "outgoing":
+        return 0 if (result.get("valid") and result.get("format_valid")) else 2
+    return 0 if result.get("ok") is True else 2
 
 
 if __name__ == "__main__":
