@@ -43,12 +43,12 @@ class CommunicationTest(unittest.TestCase):
         self.assertFalse(r["valid"])
 
     def test_a02_unknown_tag_informational(self):
-        r=inspect_agent_message("[URGENT]\\nAction: Deploy")
+        r=inspect_agent_message("[URGENT]\nAction: Deploy")
         self.assertEqual(r["kind"],"informational")
         self.assertFalse(r["valid"])
 
     def test_a02_explicit_invalid_direction(self):
-        r=inspect_agent_message("[DIRECTION]\\nAction: Deploy")
+        r=inspect_agent_message("[DIRECTION]\nAction: Deploy")
         self.assertEqual(r["kind"],"directional")
         self.assertFalse(r["valid"])
 
