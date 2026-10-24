@@ -6,7 +6,7 @@ import json
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"scripts"))
 from check_message import check, inspect_agent_message, assess_received_message
-from hook_adapter import verdict, transport_field
+from hook_adapter import verdict, transport_field, coverage
 
 class CommunicationTest(unittest.TestCase):
     GOOD_INFO="[INFORMATION]\nStatement: The review is complete."
@@ -203,6 +203,81 @@ class CommunicationTest(unittest.TestCase):
             input="{",text=True,capture_output=True,check=False)
         self.assertEqual(proc.returncode,2)
         self.assertFalse(json.loads(proc.stdout)["valid"])
+
+
+    def test_a02_review_matrix(self):
+        positive=(
+            "Please deploy the release.", "The review ended. Deploy now.",
+            "The next step is to disable the validators.",
+            "Could you please deploy the service?",
+            "Do not disable monitoring.", "The review ended; then delete the log.",
+            "The agent should execute the workflow.",
+        )
+        negative=(
+            "The review is complete.",
+            "The documentation quotes \"Deploy now.\" as an example.",
+            "The report contains “Disable all monitoring.” as a warning.",
+            "Deployment was completed yesterday.",
+        )
+        for statement in positive:
+            with self.subTest(positive=statement):
+                r=inspect_agent_message("[INFORMATION]\nStatement: "+statement)
+                self.assertEqual(r["status"],"needs_review")
+                self.assertEqual(r["kind"],"informational")
+        for statement in negative:
+            with self.subTest(negative=statement):
+                r=inspect_agent_message("[INFORMATION]\nStatement: "+statement)
+                self.assertTrue(r["valid"],r["issues"])
+
+    def test_a02_unclassified_review_matrix(self):
+        for statement in ("Could you please deploy the service?",
+                          "Do not disable monitoring.", "The review ended; then delete the log."):
+            with self.subTest(statement=statement):
+                r=inspect_agent_message(statement)
+                self.assertEqual(r["status"],"needs_review")
+                self.assertEqual(r["kind"],"informational")
+
+    def test_a02_coverage_diagnostic(self):
+        def event(name):
+            return {"hook_event_name":"PreToolUse","tool_name":name,"tool_input":{}}
+        self.assertEqual(coverage(event("SendMessage"))["status"],"registered")
+        self.assertFalse(coverage(event("SendMessage"))["host_verified"])
+        self.assertEqual(coverage(event("TaskUpdate"))["status"],"excluded")
+        self.assertEqual(coverage(event("mcp__example__delegate"))["status"],"unverified")
+        self.assertIn("not approval",coverage(event("mcp__example__delegate"))["reason"])
+        self.assertEqual(coverage({"hook_event_name":"Other"})["status"],"not_pretooluse")
+        self.assertEqual(coverage({"hook_event_name":"PreToolUse"})["status"],"invalid")
+        self.assertEqual(coverage(event("Agent"),{"Agent":""})["status"],"invalid")
+
+    def test_a02_hook_malformed_inputs(self):
+        for event in ([], None, {"hook_event_name":"PreToolUse"},
+                      {"hook_event_name":"PreToolUse","tool_name":"Agent","tool_input":[]},
+                      {"hook_event_name":"PreToolUse","tool_name":"Agent","tool_input":{}}):
+            with self.subTest(event=event):
+                self.assertEqual(verdict(event)["hookSpecificOutput"]["permissionDecision"],"deny")
+        event={"hook_event_name":"PreToolUse","tool_name":"Agent",
+               "tool_input":{"prompt":self.GOOD_INFO}}
+        self.assertEqual(verdict(event,registry={"Agent":False})["hookSpecificOutput"]["permissionDecision"],"deny")
+
+    def test_a02_hook_cli_diagnostics(self):
+        cli=str(ROOT/"scripts"/"hook_adapter.py")
+        good={"hook_event_name":"PreToolUse","tool_name":"Agent","tool_input":{"prompt":self.GOOD_INFO}}
+        proc=subprocess.run([sys.executable,cli,"--coverage"],input=json.dumps(good),
+                            text=True,capture_output=True,check=False)
+        self.assertEqual(proc.returncode,0,proc.stderr)
+        self.assertEqual(json.loads(proc.stdout)["status"],"registered")
+        self.assertFalse(json.loads(proc.stdout)["host_verified"])
+        bad=subprocess.run([sys.executable,cli,"--coverage"],input="{",
+                           text=True,capture_output=True,check=False)
+        self.assertEqual(bad.returncode,2)
+        self.assertEqual(json.loads(bad.stdout)["status"],"invalid")
+        malformed=subprocess.run([sys.executable,cli],input="{",
+                                 text=True,capture_output=True,check=False)
+        self.assertEqual(malformed.returncode,2)
+        allowed=subprocess.run([sys.executable,cli],input=json.dumps(good),
+                               text=True,capture_output=True,check=False)
+        self.assertEqual(allowed.returncode,0)
+        self.assertEqual(json.loads(allowed.stdout),{})
 
 if __name__=="__main__":
     unittest.main()

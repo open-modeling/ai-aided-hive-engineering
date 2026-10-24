@@ -53,6 +53,34 @@ _MODAL_ACTION = re.compile(
     re.I,
 )
 
+# Strip clearly delimited quotations only for the advisory wording check.
+# Source-Quote is validated separately and is never treated as a direction.
+_QUOTED_SOURCE = re.compile(
+    r'"[^"\n]*"|“[^”\n]*”|‘[^’\n]*’|\x60[^\x60\n]*\x60'
+)
+_NEGATIVE_IMPERATIVE = re.compile(r"^(?:do\s+not|don't|never)\s+\w+\b", re.I)
+_DIRECT_REQUEST = re.compile(
+    r"\b(?:could|would|can|will)\s+you\s+(?:please\s+)?"
+    r"(?:run|deploy|delete|disable|enable|execute|approve|send|"
+    r"update|install|remove|apply|start|stop|change|publish|commit)\b",
+    re.I,
+)
+
+
+def _instruction_like(statement):
+    """Conservative review trigger; a false negative never grants authority."""
+    unquoted = _QUOTED_SOURCE.sub(" ", statement)
+    clauses = re.split(r"(?<=[.!?])\s+|(?<=;)\s*|:\s*|,\s*(?=then\b)", unquoted)
+    for clause in clauses:
+        clause = re.sub(r"^(?:then|next)\s+", "", clause.strip(), flags=re.I)
+        if _IMPERATIVE.search(clause) or _NEGATIVE_IMPERATIVE.search(clause):
+            return True
+    return bool(_DIRECTED_ACTOR.search(unquoted)
+                or _INDIRECT_DIRECTION.search(unquoted)
+                or _MODAL_ACTION.search(unquoted)
+                or _DIRECT_REQUEST.search(unquoted))
+
+
 _FIELDS = re.compile(r"^([A-Za-z][A-Za-z-]*):\s*(.+)$")
 _VAGUE = {
     "Action": {"do it", "handle", "manage", "perform", "do task",
@@ -142,12 +170,8 @@ def inspect_agent_message(message):
         # Missing or unrecognized tags are INFORMATION by default.
         # The message can still require review and never grants action.
         statement = message.strip()
-        clauses = re.split(r"(?<=[.!?])\s+", statement)
         suspicious = (
-            any(_IMPERATIVE.search(clause) for clause in clauses)
-            or bool(_DIRECTED_ACTOR.search(statement))
-            or bool(_INDIRECT_DIRECTION.search(statement))
-            or bool(_MODAL_ACTION.search(statement))
+            _instruction_like(statement)
             or bool(re.search(r"(?m)^\s*(?:Action|Target|Expected-Result):", statement))
             or bool(label.startswith("[") and label.endswith("]"))
         )
@@ -186,13 +210,7 @@ def inspect_agent_message(message):
 
     if kind == "informational":
         statement = fields.get("Statement", "")
-        clauses = re.split(r"(?<=[.!?])\s+", statement)
-        suspicious = (
-            any(_IMPERATIVE.search(clause) for clause in clauses)
-            or _DIRECTED_ACTOR.search(statement)
-            or _INDIRECT_DIRECTION.search(statement)
-            or _MODAL_ACTION.search(statement)
-        )
+        suspicious = _instruction_like(statement)
         if suspicious:
             needs_review = True
             issues.append(
