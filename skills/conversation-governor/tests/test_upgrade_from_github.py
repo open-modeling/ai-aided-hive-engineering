@@ -53,3 +53,5 @@ class GitHubUpgradeTests(unittest.TestCase):
             self.assertIn("--verbose",command)
             self.assertNotIn("--no-hook",command)
             self.assertFalse(result["host_verified"])
+            self.assertFalse(result["migration"]["required"])
+            self.assertFalse(result["reload"]["performed"])

@@ -106,7 +106,10 @@ def upgrade(*, ref=DEFAULT_REF, project=None, dest=None, verbose=True,
         if not isinstance(installed, dict):
             raise ValueError("Installation helper returned an unexpected response.")
         return {"source_commit": sha, "source_ref": ref,
-                "repository": REPOSITORY_URL, **installed}
+                "repository": REPOSITORY_URL,
+                "migration": {"required": False, "reason": "Stateless skill; no persistent skill data."},
+                "reload": {"performed": False, "action": "Start a new Codex session if instructions have not reloaded."},
+                **installed}
 
 
 def main(argv=None):
