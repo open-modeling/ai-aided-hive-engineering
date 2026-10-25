@@ -18,6 +18,18 @@ With `--verbose`, setup also prepares a project-local advisory `PreToolUse` hook
 
 You can explicitly add the **temporary, nonblocking project-local** diagnostic with `--prepare-hook` outside verbose mode. It edits only `.codex/hooks.json`, preserves existing unrelated entries, and needs separate trust approval via `/hooks` before any live call. `--remove-hook` removes only the helper's diagnostic. Do not use it to infer execution permission or automatically register enforcement. A separate real collaboration-tool event is necessary to establish hook invocation, readable fields, and pre-dispatch ordering. Existing installed destination is retained unless explicitly upgraded. If an older installation lacks diagnostic scripts, `--verbose` tests the source separately and reports `requires_upgrade: true`; it does not claim the old installation passed. Use `--upgrade --verbose` to atomically replace that installation and preserve a full backup. Add `--prepare-hook` only if local hook configuration is also desired; Codex trust and actual invocation remain separate.
 
+## Upgrade directly from a Codex shell
+
+From any working directory, once the updater is installed:
+
+```sh
+python3 "${CODEX_HOME:-$HOME/.codex}/skills/conversation-governor/scripts/upgrade_from_github.py" --verbose --project .
+```
+
+The updater fetches the canonical repository's `feature/conversation-governor-communication-only` branch into a temporary checkout, runs the tested installer with `--upgrade`, preserves the previous package as a backup, and prepares a project-local advisory hook for Codex trust approval. Pin `--ref <full-commit-sha>` for reproducibility. Use `--no-hook` to omit hook installation. The `--project` argument refers to the directory where local `.codex/hooks.json` belongs; specify that explicitly if the current shell is not inside the intended project. The updater does not claim actual host activation.
+
+**Bootstrap for an older installation without the updater:** from a checkout of the canonical repository, run `python3 skills/conversation-governor/scripts/install_verbose.py --upgrade --verbose --project .` once. A newer `upgrade_from_github.py` is then available from the installed package. Remote fetch requires Git and access to the canonical GitHub repository.
+
 ## Hook policy
 
 Register a supported host hook only after confirming its event schema and observed behavior. The bundled adapter uses explicit tool-to-message-field mappings and the shared message checker. Verify each tool name, event schema, and command registration in the active host. It requires an `[INFORMATION]` or `[DIRECTION]` label; directions require `Action:`, `Target:`, and `Expected-Result:`. Validate inbound prompts and agent-tool messages where hooks provide the source text. Use pre-dispatch hooks when available for directional agent calls; treat response-time hooks as complementary feedback. Apply the instruction-level quality review for messages that cannot be intercepted. Verify hooks with a sample message that includes an instruction-like quotation and a sample directional request. Failures produce a targeted communication correction.
