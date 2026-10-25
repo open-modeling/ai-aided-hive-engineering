@@ -42,7 +42,7 @@ def _is_skill(path):
 def _diagnostics_match(source, target):
     """Identify stale installed diagnostics even when manifest versions match."""
     for item in ("scripts/install_verbose.py", "scripts/codex_hook_probe.py",
-                 "scripts/hook_adapter.py"):
+                 "scripts/hook_adapter.py", "agents/openai.yaml"):
         left, right = source / item, target / item
         if not left.is_file() or not right.is_file():
             return False

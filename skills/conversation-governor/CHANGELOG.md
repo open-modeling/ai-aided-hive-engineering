@@ -14,6 +14,7 @@
 - A02: Check agent messages at recognized tool communication boundaries using the tool name and message text. Require an information or direction label and actionable fields for directions.
 
 ### Changed
+- Expose the human-readable name `Conversation Governor` in Codex skill metadata without changing the skill identifier.
 - Route supported agent-message tool calls through the shared checker; use exact transport mappings and exclude task-list tools.
 - Require neutral informational statements, preserve verbatim source commands as quoted text, and validate directional fields.
 - Add adversarial cases for disguised instructions, direct instructions, missing fields, and unclassified messages.
