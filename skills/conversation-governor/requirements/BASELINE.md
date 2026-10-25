@@ -31,7 +31,7 @@ Normative terms in uppercase have BCP 14 meaning (RFC 2119 and RFC 8174). This b
 | CG-TR-04 | **MUST** | operate as a stateless communication capability. |
 | CG-TR-05 | **MUST** | provide automated communication-quality checks through supported host hooks. |
 | CG-TR-06 | **MUST** | validate messages at supported communication boundaries. |
-| CG-TR-07 | **MUST** | provide actionable feedback when a quality check fails. |
+| CG-TR-10 | **MUST** | report when a host communication boundary exposes only opaque message content, without claiming content validation or action authorization. |\n| CG-TR-11 | **SHOULD** | provide project-local advisory hook setup during verbose installation, subject to host trust approval. |\n| CG-TR-07 | **MUST** | provide actionable feedback when a quality check fails. |
 | CG-TR-08 | **MUST** | apply applicable ADS Skill Architecture communication contracts to addressed skill exchanges. |
 | CG-TR-09 | **MUST** | provide SKILL.md, skill-api.json, CHANGELOG.md, and references/operations.md. |
 | CG-VR-01 | **MUST** | provide tests for all eight core communication functions. |

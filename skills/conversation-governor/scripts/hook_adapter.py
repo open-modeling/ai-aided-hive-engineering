@@ -5,6 +5,7 @@ Only exact tools in TRANSPORTS receive automatic checks. Unknown tools have no
 claim of coverage. Recipient acceptance is a separate trusted decision.
 """
 import json
+import re
 import sys
 from check_message import inspect_agent_message
 
@@ -14,8 +15,24 @@ TRANSPORTS = {
     "SendMessage": "message",
     "Task": "prompt",
     "Agent": "prompt",
+    # Actual hook identifiers reported from Codex CLI 0.164.0.
+    "collaborationspawn_agent": "message",
+    "collaborationsend_message": "message",
+    # Not field-tested. Treat as a candidate mapping, never as proof of coverage.
+    "collaborationfollowup_task": "message",
 }
 NON_TRANSPORTS = {"TaskCreate", "TaskUpdate", "TaskList", "Bash"}
+# The pattern is a diagnostic indicator only; it is not encryption validation.
+_OPAQUE = re.compile(r"^gAAAA[A-Za-z0-9_-]{20,}={0,2}$")
+
+
+def advisory(reason):
+    """Give guidance without a permission decision or a payload echo."""
+    return {"hookSpecificOutput": {
+        "hookEventName": "PreToolUse",
+        "additionalContext": "Conversation Governor: " + reason
+    }}
+
 
 
 def _valid_registry(registry):
@@ -93,7 +110,15 @@ def verdict(event, registry=None):
     args = event.get("tool_input")
     if not isinstance(args, dict):
         return deny("Supply structured agent-message arguments.")
-    outcome = inspect_agent_message(args.get(field))
+    payload = args.get(field)
+    if isinstance(payload, str) and _OPAQUE.fullmatch(payload):
+        # Cannot inspect the original message. Do not block or guess its content.
+        return advisory(
+            "Opaque Agent message observed. Content checks are unavailable at "
+            "this host boundary; classify and review the plaintext before "
+            "sending. This is not an authorization or enforcement result."
+        )
+    outcome = inspect_agent_message(payload)
     if outcome.get("classification_source") == "default":
         return deny("Untagged Agent content defaults to INFORMATION. "
                     "Add [INFORMATION] and Statement for outgoing communication.")

@@ -41,7 +41,7 @@ class VerboseInstallerTests(unittest.TestCase):
             (target/"scripts"/"codex_hook_probe.py").unlink()
             script=ROOT/"scripts"/"install_verbose.py"
             args=[sys.executable,str(script),"--source",str(ROOT),
-                  "--dest",str(target),"--project",str(project),"--verbose"]
+                  "--dest",str(target),"--project",str(project),"--verbose","--no-hook"]
             p=subprocess.run(args,text=True,capture_output=True)
             self.assertEqual(p.returncode,0,p.stderr)
             out=json.loads(p.stdout)

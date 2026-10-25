@@ -259,6 +259,18 @@ class CommunicationTest(unittest.TestCase):
                "tool_input":{"prompt":self.GOOD_INFO}}
         self.assertEqual(verdict(event,registry={"Agent":False})["hookSpecificOutput"]["permissionDecision"],"deny")
 
+    def test_a02_opaque_transport_is_advisory_not_denial(self):
+        opaque="gAAAA"+("A"*50)
+        for name in ("collaborationspawn_agent", "collaborationsend_message",
+                     "collaborationfollowup_task"):
+            with self.subTest(name=name):
+                event={"hook_event_name":"PreToolUse","tool_name":name,
+                       "tool_input":{"message":opaque}}
+                r=verdict(event)["hookSpecificOutput"]
+                self.assertNotIn("permissionDecision",r)
+                self.assertIn("Opaque",r["additionalContext"])
+                self.assertNotIn(opaque,r["additionalContext"])
+
     def test_a02_hook_cli_diagnostics(self):
         cli=str(ROOT/"scripts"/"hook_adapter.py")
         good={"hook_event_name":"PreToolUse","tool_name":"Agent","tool_input":{"prompt":self.GOOD_INFO}}

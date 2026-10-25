@@ -144,7 +144,7 @@ def _hook_command(source):
 
 def _our_handler(source):
     return {"type": "command", "command": _hook_command(source),
-            "statusMessage": "Conversation Governor A02 diagnostic (nonblocking)"}
+            "statusMessage": "Conversation Governor A02 observation (advisory only)"}
 
 
 def _hook_path(project):
@@ -242,7 +242,9 @@ def main(argv=None):
     parser.add_argument("--upgrade", action="store_true",
                         help="Explicitly replace an older installed skill and retain a backup.")
     parser.add_argument("--prepare-hook", action="store_true",
-                        help="Explicitly create a project-local, nonblocking A02 probe hook.")
+                        help="Prepare a project-local, advisory A02 hook (default with --verbose).")
+    parser.add_argument("--no-hook", action="store_true",
+                        help="Skip project-local hook installation during --verbose.")
     parser.add_argument("--remove-hook", action="store_true",
                         help="Remove the project-local A02 probe hook only.")
     args = parser.parse_args(argv)
@@ -251,6 +253,8 @@ def main(argv=None):
     project = args.project.resolve()
     if args.prepare_hook and args.remove_hook:
         parser.error("--prepare-hook and --remove-hook are mutually exclusive.")
+    if args.prepare_hook and args.no_hook:
+        parser.error("--prepare-hook and --no-hook are mutually exclusive.")
     if not project.is_dir():
         parser.error("--project must be an existing directory.")
     try:
@@ -274,7 +278,8 @@ def main(argv=None):
             result["diagnostic_source"] = ("installed" if installed_current else
                                             "source_only_not_installed")
             result["offline"] = _smoke(diagnostic_root)
-        if args.prepare_hook:
+        prepare = args.prepare_hook or (args.verbose and not args.no_hook)
+        if prepare:
             if not installed_current:
                 raise ValueError(
                     "Installed skill is older than the verbose diagnostics. "
@@ -286,6 +291,9 @@ def main(argv=None):
             result["hook_configuration"] = (
                 "diagnostic_entry_present_unverified" if _has_our_hook(hooks)
                 else "not_prepared")
+        result["hook_requires_trust"] = result["hook_configuration"] in (
+            "prepared_requires_codex_trust", "diagnostic_entry_present_unverified",
+            "already_prepared")
         result["next_step"] = (
             "Installed skill is older than source. Re-run with --upgrade --verbose "
             "to replace it explicitly and retain a backup; --prepare-hook additionally "
