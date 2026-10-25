@@ -28,7 +28,7 @@ python3 "${CODEX_HOME:-$HOME/.codex}/skills/conversation-governor/scripts/upgrad
 
 The updater fetches the canonical repository's `feature/conversation-governor-communication-only` branch into a temporary checkout, runs the tested installer with `--upgrade`, preserves the previous package as a backup, and prepares a project-local advisory hook for Codex trust approval. Pin `--ref <full-commit-sha>` for reproducibility. Use `--no-hook` to omit hook installation. The `--project` argument refers to the directory where local `.codex/hooks.json` belongs; specify that explicitly if the current shell is not inside the intended project. The updater does not claim actual host activation.
 
-**Bootstrap for an older installation without the updater:** from a checkout of the canonical repository, run `python3 skills/conversation-governor/scripts/install_verbose.py --upgrade --verbose --project .` once. A newer `upgrade_from_github.py` is then available from the installed package. Remote fetch requires Git and access to the canonical GitHub repository.
+**Bootstrap for an older installation without the updater:** follow the standalone pinned-source recovery in [`references/upgrade.md`](upgrade.md). It fetches a temporary copy of `upgrade_from_github.py` and runs it with explicit `--dest` and `--project`, without requiring a project-local skill or deleting the installed version first. Remote fetch requires Git and access to GitHub.
 
 ## Hook policy
 
