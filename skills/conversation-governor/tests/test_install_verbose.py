@@ -84,7 +84,7 @@ class VerboseInstallerTests(unittest.TestCase):
             script=ROOT/"scripts"/"install_verbose.py"
             p=subprocess.run([sys.executable,str(script),"--source",str(ROOT),
                               "--dest",str(target),"--project",str(project),
-                              "--verbose"],text=True,capture_output=True)
+                              "--verbose","--no-hook"],text=True,capture_output=True)
             self.assertEqual(p.returncode,0,p.stderr)
             result=json.loads(p.stdout)
             self.assertEqual(result["hook_configuration"],"not_prepared")
