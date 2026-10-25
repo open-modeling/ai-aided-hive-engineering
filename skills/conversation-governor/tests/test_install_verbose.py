@@ -7,15 +7,51 @@ import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from install_verbose import install, _smoke, configure_hook, remove_hook, _read_hooks
+from install_verbose import install, _smoke, configure_hook, remove_hook, _read_hooks, _diagnostics_match
 
 class VerboseInstallerTests(unittest.TestCase):
     def test_copy_and_existing_install(self):
         with tempfile.TemporaryDirectory() as d:
             target=pathlib.Path(d)/"installed"/"conversation-governor"
-            self.assertEqual(install(ROOT,target),"installed")
-            self.assertEqual(install(ROOT,target),"already_installed")
+            self.assertEqual(install(ROOT,target)["status"],"installed")
+            self.assertEqual(install(ROOT,target)["status"],"already_installed")
             self.assertEqual(json.loads((target/"skill-api.json").read_text())["version"],"0.3.0-dev")
+
+    def test_existing_stale_install_upgrade_and_backup(self):
+        with tempfile.TemporaryDirectory() as d:
+            target=pathlib.Path(d)/"skills"/"conversation-governor"
+            self.assertEqual(install(ROOT,target)["status"],"installed")
+            probe=target/"scripts"/"codex_hook_probe.py"
+            probe.unlink()
+            self.assertFalse(_diagnostics_match(ROOT,target))
+            self.assertEqual(install(ROOT,target)["status"],"already_installed")
+            self.assertFalse(probe.exists())
+            result=install(ROOT,target,upgrade=True)
+            self.assertEqual(result["status"],"upgraded")
+            self.assertTrue(probe.exists())
+            self.assertTrue(pathlib.Path(result["backup"]).exists())
+            self.assertFalse((pathlib.Path(result["backup"])/"scripts"/"codex_hook_probe.py").exists())
+            self.assertTrue(_diagnostics_match(ROOT,target))
+
+    def test_stale_verbose_explains_upgrade_instead_of_failing(self):
+        with tempfile.TemporaryDirectory() as d:
+            project=pathlib.Path(d)
+            target=project/"skills"/"conversation-governor"
+            install(ROOT,target)
+            (target/"scripts"/"codex_hook_probe.py").unlink()
+            script=ROOT/"scripts"/"install_verbose.py"
+            args=[sys.executable,str(script),"--source",str(ROOT),
+                  "--dest",str(target),"--project",str(project),"--verbose"]
+            p=subprocess.run(args,text=True,capture_output=True)
+            self.assertEqual(p.returncode,0,p.stderr)
+            out=json.loads(p.stdout)
+            self.assertTrue(out["requires_upgrade"])
+            self.assertEqual(out["diagnostic_source"],"source_only_not_installed")
+            self.assertEqual(out["offline"]["probe"],"passed_synthetic_only")
+            self.assertFalse((target/"scripts"/"codex_hook_probe.py").exists())
+            upgraded=subprocess.run(args+["--upgrade"],text=True,capture_output=True)
+            self.assertEqual(upgraded.returncode,0,upgraded.stderr)
+            self.assertEqual(json.loads(upgraded.stdout)["installation"],"upgraded")
 
     def test_verbose_smoke(self):
         result=_smoke(ROOT)

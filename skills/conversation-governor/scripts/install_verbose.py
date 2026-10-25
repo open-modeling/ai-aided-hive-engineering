@@ -39,17 +39,30 @@ def _is_skill(path):
             and meta.get("lifecycle_classification") == "stateless")
 
 
-def install(source, target):
-    """Copy a skill only into a new destination, without overwriting it."""
+def _diagnostics_match(source, target):
+    """Identify stale installed diagnostics even when manifest versions match."""
+    for item in ("scripts/install_verbose.py", "scripts/codex_hook_probe.py",
+                 "scripts/hook_adapter.py"):
+        left, right = source / item, target / item
+        if not left.is_file() or not right.is_file():
+            return False
+        if left.read_bytes() != right.read_bytes():
+            return False
+    return True
+
+
+def install(source, target, upgrade=False):
+    """Install a package or explicitly upgrade, preserving an untouched backup."""
     if not _is_skill(source):
         raise ValueError("The source is not a valid Conversation Governor skill.")
     if target.exists():
         if not _is_skill(target):
             raise ValueError("Destination exists but is not the expected skill: " + str(target))
-        return "already_installed"
+        if not upgrade or source == target:
+            return {"status": "already_installed", "backup": None}
     target.parent.mkdir(parents=True, exist_ok=True)
-    # Stage in the target filesystem; do not expose a partially copied package.
     staging = Path(tempfile.mkdtemp(prefix=".conversation-governor-stage-", dir=target.parent))
+    backup_dir = None
     try:
         for item in source.iterdir():
             if item.name == "__pycache__":
@@ -59,13 +72,27 @@ def install(source, target):
                 shutil.copytree(item, to, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
             else:
                 shutil.copy2(item, to)
-        if not _is_skill(staging):
+        if not _is_skill(staging) or not _diagnostics_match(source, staging):
             raise ValueError("Staged skill validation failed.")
+        if target.exists():
+            # Keep the entire old skill as a rollback copy; do not delete it.
+            backup_dir = Path(tempfile.mkdtemp(
+                prefix=".conversation-governor-backup-", dir=target.parent))
+            backup = backup_dir / SKILL_NAME
+            target.rename(backup)
+            try:
+                staging.rename(target)
+            except OSError:
+                backup.rename(target)
+                raise
+            return {"status": "upgraded", "backup": str(backup)}
         staging.rename(target)
+        return {"status": "installed", "backup": None}
     finally:
         if staging.exists():
             shutil.rmtree(staging)
-    return "installed"
+        if backup_dir is not None and backup_dir.exists() and not any(backup_dir.iterdir()):
+            backup_dir.rmdir()
 
 
 def _smoke(path):
@@ -212,6 +239,8 @@ def main(argv=None):
                         help="Project root for optional local hook configuration.")
     parser.add_argument("--verbose", action="store_true",
                         help="Install or inspect; run local smoke tests and report hook status.")
+    parser.add_argument("--upgrade", action="store_true",
+                        help="Explicitly replace an older installed skill and retain a backup.")
     parser.add_argument("--prepare-hook", action="store_true",
                         help="Explicitly create a project-local, nonblocking A02 probe hook.")
     parser.add_argument("--remove-hook", action="store_true",
@@ -230,14 +259,27 @@ def main(argv=None):
             print(json.dumps({"hook_configuration": change,
                               "host_verified": False}))
             return 0
-        state = install(source, target)
+        change = install(source, target, upgrade=args.upgrade)
+        installed_current = _diagnostics_match(source, target)
         info = json.loads((target / "skill-api.json").read_text(encoding="utf-8"))
-        result = {"installation": state, "path": str(target),
+        result = {"installation": change["status"], "path": str(target),
                   "skill_uri": info["skill_uri"], "version": info["version"],
-                  "host_verified": False}
+                  "installed_current": installed_current,
+                  "requires_upgrade": not installed_current,
+                  "backup": change["backup"], "host_verified": False}
         if args.verbose:
-            result["offline"] = _smoke(target)
+            # Inspect current source when the installed copy is older. Avoid
+            # misrepresenting source-only results as installed behavior.
+            diagnostic_root = target if installed_current else source
+            result["diagnostic_source"] = ("installed" if installed_current else
+                                            "source_only_not_installed")
+            result["offline"] = _smoke(diagnostic_root)
         if args.prepare_hook:
+            if not installed_current:
+                raise ValueError(
+                    "Installed skill is older than the verbose diagnostics. "
+                    "Run with --upgrade --verbose --prepare-hook to replace it "
+                    "explicitly and retain a backup.")
             result["hook_configuration"] = configure_hook(project, target)
         else:
             hooks = _read_hooks(_hook_path(project))
@@ -245,11 +287,15 @@ def main(argv=None):
                 "diagnostic_entry_present_unverified" if _has_our_hook(hooks)
                 else "not_prepared")
         result["next_step"] = (
+            "Installed skill is older than source. Re-run with --upgrade --verbose "
+            "to replace it explicitly and retain a backup; --prepare-hook additionally "
+            "prepares a temporary hook."
+            if not installed_current else
             "Review and trust in Codex /hooks, then make a real harmless Agent "
             "tool call; only real hook invocation can verify host coverage."
-            if result["hook_configuration"] != "not_prepared"
-            else "Use --prepare-hook for an opt-in project-local probe, "
-                 "then approve in Codex /hooks.")
+            if result["hook_configuration"] != "not_prepared" else
+            "Use --prepare-hook for an opt-in project-local probe, "
+            "then approve in Codex /hooks.")
         print(json.dumps(result, indent=2 if args.verbose else None))
         return 0
     except (OSError, ValueError, TimeoutError, subprocess.TimeoutExpired) as exc:
