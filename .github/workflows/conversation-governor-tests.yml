@@ -1,0 +1,26 @@
+name: Conversation Governor tests
+on:
+  push:
+    branches:
+      - feature/conversation-governor-communication-only
+  pull_request:
+    paths:
+      - 'skills/conversation-governor/**'
+      - '.github/workflows/conversation-governor-tests.yml'
+jobs:
+  python-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Schema dependency
+        run: python -m pip install "jsonschema>=4.20,<5"
+      - name: Syntax check
+        run: python -m compileall -q skills/conversation-governor/scripts skills/conversation-governor/tests
+      - name: Regression suite
+        working-directory: skills/conversation-governor
+        run: python -m unittest discover -s tests -v
