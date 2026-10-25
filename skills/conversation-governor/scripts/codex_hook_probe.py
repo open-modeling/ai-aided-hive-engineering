@@ -93,7 +93,7 @@ def main(argv=None):
         print("{}")
         return 0
     # Output no message content, source quotation, or secret values.
-    found = report["sentinel_visible"]
+    found = report.get("sentinel_visible")
     found_label = "unspecified" if found is None else "yes" if found else "no"
     marker = ("CG-A02-PROBE-v1 observed_" + report["status"] + "_tool; "
               "sentinel_visible=" + found_label + "; no permission decision")
