@@ -6,6 +6,18 @@ Version: 0.3.0-dev. Canonical URI: skill:ai-devmode.conversation-governor.
 
 Codex project: place the canonical package under `.agents/skills/conversation-governor/`. Claude Code project: place the same canonical package under `.claude/skills/conversation-governor/`. Verify each host discovers the same `skill_uri`, version, and `skill-api.json`. Inspect other installed skills for same-name conflicts. Prefer links to a single canonical package where supported.
 
+## Verbose installation and opt-in A02 probe
+
+The upstream Codex `$skill-installer` copies files only; it does not register communication hooks. The package provides an independent, project-owned helper:
+
+```sh
+python3 skills/conversation-governor/scripts/install_verbose.py --verbose --project .
+```
+
+This installs the local skill into `${CODEX_HOME:-~/.codex}/skills/conversation-governor` when absent, validates its manifest, runs a synthetic hook probe, and checks registered/excluded/unverified local mappings. It does not create configuration in default verbose mode or imply any real host invocation. To use an already installed skill as the source, run `python3 ~/.codex/skills/conversation-governor/scripts/install_verbose.py --verbose --source ~/.codex/skills/conversation-governor --project .`.
+
+Explicitly add a **temporary, nonblocking project-local** diagnostic with `--prepare-hook`. It edits only `.codex/hooks.json`, preserves existing unrelated entries, and needs separate trust approval via `/hooks` before any live call. `--remove-hook` removes only the helper's diagnostic. Do not use it to infer execution permission or automatically register enforcement. A separate real collaboration-tool event is necessary to establish hook invocation, readable fields, and pre-dispatch ordering. Existing installed destination is retained, not silently replaced. For a newer source version, explicitly replace the skill using the normal installer lifecycle.
+
 ## Hook policy
 
 Register a supported host hook only after confirming its event schema and observed behavior. The bundled adapter uses explicit tool-to-message-field mappings and the shared message checker. Verify each tool name, event schema, and command registration in the active host. It requires an `[INFORMATION]` or `[DIRECTION]` label; directions require `Action:`, `Target:`, and `Expected-Result:`. Validate inbound prompts and agent-tool messages where hooks provide the source text. Use pre-dispatch hooks when available for directional agent calls; treat response-time hooks as complementary feedback. Apply the instruction-level quality review for messages that cannot be intercepted. Verify hooks with a sample message that includes an instruction-like quotation and a sample directional request. Failures produce a targeted communication correction.

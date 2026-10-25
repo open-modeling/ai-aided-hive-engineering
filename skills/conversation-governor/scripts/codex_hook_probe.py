@@ -75,6 +75,8 @@ def main(argv=None):
     mode.add_argument("--marker", action="store_true",
                       help="Print inert additionalContext for opt-in PreToolUse probe.")
     parser.add_argument("--sentinel", help="Harmless test token to find, never print.")
+    parser.add_argument("--observe-unmapped", action="store_true",
+                        help="Emit inert marker for other PreToolUse names too.")
     args = parser.parse_args(argv)
     if args.sentinel == "":
         parser.error("sentinel must be nonempty")
@@ -86,13 +88,14 @@ def main(argv=None):
     if args.inspect:
         print(json.dumps(report, ensure_ascii=False))
         return 2 if report["status"] == "invalid" else 0
-    if report["status"] != "candidate":
+    if report["status"] != "candidate" and not (
+            args.observe_unmapped and report["status"] == "unmapped"):
         print("{}")
         return 0
     # Output no message content, source quotation, or secret values.
     found = report["sentinel_visible"]
     found_label = "unspecified" if found is None else "yes" if found else "no"
-    marker = ("CG-A02-PROBE-v1 observed_candidate_tool; "
+    marker = ("CG-A02-PROBE-v1 observed_" + report["status"] + "_tool; "
               "sentinel_visible=" + found_label + "; no permission decision")
     print(json.dumps({"hookSpecificOutput": {
         "hookEventName": "PreToolUse",
