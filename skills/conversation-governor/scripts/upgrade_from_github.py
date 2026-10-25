@@ -49,7 +49,7 @@ def fetch_package(workdir, ref):
     """Fetch exactly the requested ref into an isolated checkout."""
     ref = validate_ref(ref)
     checkout = workdir / "checkout"
-    checkout.mkdir()
+    checkout.mkdir(exist_ok=True)
     _git(["-C", str(checkout), "init", "-q"])
     _git(["-C", str(checkout), "fetch", "--depth=1", REPOSITORY_URL, ref])
     _git(["-C", str(checkout), "checkout", "-q", "--detach", "FETCH_HEAD"])
