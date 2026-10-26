@@ -34,7 +34,7 @@ Every project skill **MUST** follow these principles.
 8. Reuse compatible common schemas before defining duplicates.
 9. Keep the activation surface compact.
 10. Use progressive disclosure for detailed material.
-11. Keep canonical YAML frontmatter limited to `name` and `description`.
+11. Validate canonical YAML frontmatter, including supported display and release metadata.
 12. Separate installation, configuration, initialization, and reinitialization.
 13. Apply initialization and reinitialization only to stateful skills.
 14. Persist project-derived data only inside the active project.
@@ -241,7 +241,7 @@ Project operation **MUST NOT** write project-derived information into the packag
 
 ### 6.1 Frontmatter
 
-Canonical frontmatter **MUST** contain only these fields.
+Canonical frontmatter **MUST** contain `name` and `description`. It **MAY** include `license` and `metadata` when those fields validate against the common schema.
 
 ```yaml
 ---
@@ -252,7 +252,7 @@ description: <routing summary of when the skill applies and its important bounda
 
 The frontmatter **MUST** conform to the common frontmatter schema.
 
-The canonical frontmatter **MUST** use only the subset accepted by both required hosts.
+The canonical frontmatter **MUST** use a supported common contract. Host-specific display metadata **MUST** retain the same human-readable name.
 
 The parent canonical package directory name **MUST** equal the frontmatter `name` exactly.
 

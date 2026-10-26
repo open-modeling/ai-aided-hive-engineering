@@ -4,6 +4,12 @@ All notable changes to AI DevMode Standards are recorded here.
 
 ## [Unreleased]
 
+### Candidate amendment — 2026-10-26
+- Accept common frontmatter license and display metadata fields.
+- Align metadata identity and version checks with the Skill API and host-facing display name.
+- Designated language and required-host reviews remain open.
+
+
 ## [5.0.0-rc.2] - 2026-09-26
 
 ### Changed

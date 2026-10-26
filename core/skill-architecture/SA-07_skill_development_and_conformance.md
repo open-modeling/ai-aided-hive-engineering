@@ -116,7 +116,7 @@ Add `scripts/`, `schemas/`, `assets/`, and other resources only when they suppor
 
 ### Step 9 — Write the activation contract
 
-Use only `name` and `description` in canonical frontmatter.
+Use `name` and `description` in canonical frontmatter and validate any optional `license` and `metadata` fields.
 
 Validate frontmatter against the common frontmatter schema.
 
@@ -317,7 +317,7 @@ Verify these conditions.
 - Root `skill-api.json` exists.
 - Root `CHANGELOG.md` exists.
 - `references/operations.md` exists.
-- Frontmatter contains only `name` and `description`.
+- Frontmatter includes `name` and `description` and validates optional license and metadata fields.
 - Every routed resource exists.
 - Every packaged resource supports a justified purpose.
 
