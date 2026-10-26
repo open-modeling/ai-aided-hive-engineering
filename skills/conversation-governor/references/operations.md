@@ -1,59 +1,46 @@
-# Operations and host coverage
+# Operations
 
-Version: 0.3.0-dev. Canonical URI: skill:ai-devmode.conversation-governor.
+## Package identity
+
+Display name: Conversation Governor.
+Machine name: `conversation-governor`.
+Canonical URI: `skill:ai-devmode.conversation-governor`.
+Version authority: `skill-api.json`.
+
+The skill is stateless and non-configurable. Each invocation resolves current project policy and any provided project dictionary.
 
 ## Installation
 
-Codex project: place the canonical package under `.agents/skills/conversation-governor/`. Claude Code project: place the same canonical package under `.claude/skills/conversation-governor/`. Verify each host discovers the same `skill_uri`, version, and `skill-api.json`. Inspect other installed skills for same-name conflicts. Prefer links to a single canonical package where supported.
+1. Obtain the complete local `conversation-governor/` package or the local standalone ZIP.
+2. Place the package in the host's supported skill discovery location.
+3. Verify `SKILL.md`, `skill-api.json`, `CHANGELOG.md`, `agents/openai.yaml`, local standards, and schemas.
+4. Check the canonical URI, version, and visible skill-name collisions.
+5. Verify explicit `$conversation-governor` invocation and representative implicit activation in Codex.
+6. Verify native discovery and activation in Claude Code.
+7. Record the actual installed package and host behavior.
 
-## Verbose installation and opt-in A02 probe
+For Codex, a project installation uses `.agents/skills/conversation-governor/`. For Claude Code, a project installation uses `.claude/skills/conversation-governor/`. The same canonical package provides both projections.
 
-The upstream Codex `$skill-installer` copies files only; it does not register communication hooks. The package provides an independent, project-owned helper:
+## Local upgrade
 
-```sh
-python3 skills/conversation-governor/scripts/install_verbose.py --verbose --project .
-```
+1. Select a tested local skill package.
+2. Inspect the installed version and read `CHANGELOG.md`.
+3. Use `python3 scripts/install_verbose.py --source <local-package> --dest <installed-skill> --upgrade --no-hook` to preserve a backup.
+4. Validate the resulting installation and its host-visible identity.
+5. Review project-local advisory hook entries and request host trust approval when required.
+6. Start a new host session when discovery requires reloading package instructions.
+7. Report the installed version, backup, tests, and remaining host-verification conditions.
 
-With `--verbose`, setup also prepares a project-local advisory `PreToolUse` hook for Codex trust review; use `--no-hook` to omit this. The hook is not active until Codex trusts it. This installs the local skill into `${CODEX_HOME:-~/.codex}/skills/conversation-governor` when absent, validates its manifest, runs a synthetic hook probe, and checks registered/excluded/unverified local mappings. It does not create configuration in default verbose mode or imply any real host invocation. To use an already installed skill as the source, run `python3 ~/.codex/skills/conversation-governor/scripts/install_verbose.py --verbose --source ~/.codex/skills/conversation-governor --project .`.
+An upgrade operates on local package content. Existing unrelated skills and host configuration retain their owners.
 
-You can explicitly add the **temporary, nonblocking project-local** diagnostic with `--prepare-hook` outside verbose mode. It edits only `.codex/hooks.json`, preserves existing unrelated entries, and needs separate trust approval via `/hooks` before any live call. `--remove-hook` removes only the helper's diagnostic. Do not use it to infer execution permission or automatically register enforcement. A separate real collaboration-tool event is necessary to establish hook invocation, readable fields, and pre-dispatch ordering. Existing installed destination is retained unless explicitly upgraded. If an older installation lacks diagnostic scripts, `--verbose` tests the source separately and reports `requires_upgrade: true`; it does not claim the old installation passed. Use `--upgrade --verbose` to atomically replace that installation and preserve a full backup. Add `--prepare-hook` only if local hook configuration is also desired; Codex trust and actual invocation remain separate.
+## Validation
 
-## Upgrade directly from a Codex shell
+Run `python3 scripts/validate_ads.py` and `python3 -m unittest discover -s tests -v` from the package root. Install the local Python `jsonschema` dependency in the designated test environment. Run `python3 scripts/package_skill.py --repository-root <local-repository> --output <file.zip>` to build a source distribution with its license.
 
-From any working directory, once the updater is installed:
+Language conformance requires designated ASD-STE100 review evidence. Host compatibility requires observed Codex and Claude Code tests. Local tests establish component behavior, not host execution.
 
-```sh
-python3 "${CODEX_HOME:-$HOME/.codex}/skills/conversation-governor/scripts/upgrade_from_github.py" --verbose --project .
-```
+## Recovery
 
-The updater fetches the canonical repository's `feature/conversation-governor-communication-only` branch into a temporary checkout, runs the tested installer with `--upgrade`, preserves the previous package as a backup, and prepares a project-local advisory hook for Codex trust approval. Pin `--ref <full-commit-sha>` for reproducibility. Use `--no-hook` to omit hook installation. The `--project` argument refers to the directory where local `.codex/hooks.json` belongs; specify that explicitly if the current shell is not inside the intended project. The updater does not claim actual host activation.
+Restore the retained backup when an upgrade fails verification. Report missing references, unavailable host events, version collisions, and their next corrective action.
 
-**Bootstrap for an older installation without the updater:** follow the standalone pinned-source recovery in [`references/upgrade.md`](upgrade.md). It fetches a temporary copy of `upgrade_from_github.py` and runs it with explicit `--dest` and `--project`, without requiring a project-local skill or deleting the installed version first. Remote fetch requires Git and access to GitHub.
-
-## Hook policy
-
-Register a supported host hook only after confirming its event schema and observed behavior. The bundled adapter uses explicit tool-to-message-field mappings and the shared message checker. Verify each tool name, event schema, and command registration in the active host. It requires an `[INFORMATION]` or `[DIRECTION]` label; directions require `Action:`, `Target:`, and `Expected-Result:`. Validate inbound prompts and agent-tool messages where hooks provide the source text. Use pre-dispatch hooks when available for directional agent calls; treat response-time hooks as complementary feedback. Apply the instruction-level quality review for messages that cannot be intercepted. Verify hooks with a sample message that includes an instruction-like quotation and a sample directional request. Failures produce a targeted communication correction.
-
-## Upgrade, validation and recovery
-
-Review CHANGELOG.md and the installed version, replace the host projection with the tested canonical release, and verify discovery and relevant hook execution. On missing project dictionary, preserve the supplied term and ask for a definition when necessary. On unsupported hook events, run the in-context checks and report the event-coverage limitation. Stateless operation requires no initialization or reinitialization.
-
-## Conformance
-
-Compare behavior with requirements/BASELINE.md; test each of F01–F08 in both hosts. Verify formal ADS/ASD-STE100 conformance only using designated checker or review evidence. Measure false instruction acceptance and missed clarification in addition to language quality.
-
-## Communication quality verification
-
-Use `python3 -m unittest discover -s tests -v` at the canonical package root. Verify actual PreToolUse event routing and tool name mappings in each required host. Validate A01 acceptance and A02 source-safe information, directive messages, and unsupported transports. The local test suite is only component evidence; host runtime verification remains a separate mandatory gate.
-
-## Current runtime limitation
-
-The receiving-agent assessment is an explicit callable interface. An incoming host boundary MUST supply the trusted recipient verification result. The installed host's post-tool events might not cover all agent messages, and post-tool checks cannot undo a completed tool action. No end-to-end enforcement claim applies until the host integration tests pass.
-
-## Automated ADS contract verification
-
-The package contains exact copies of the ADS 5.0.0-rc.2 Skill API, envelope, and common definitions schemas under `schemas/ads/`. Run `python3 -m pip install 'jsonschema>=4.20,<5'` in an isolated test environment, then run `python3 -m unittest discover -s tests -v`. Run `python3 scripts/validate_ads.py` from the package root to validate the local Skill API. The `check_envelope` function validates addressed requests against the local API and offline schema bundle. This does not establish the caller's authority or execute payloads. A payload that has its own declared request schema still requires validation against that target schema.
-
-## Opaque collaboration messages
-
-Codex CLI 0.164.0 tests showed that `collaborationspawn_agent.message` and `collaborationsend_message.message` reached `PreToolUse` as opaque-looking strings. The adapter treats these as uninspectable, issues advisory context without a permission decision, and does not claim content validation. The `collaborationfollowup_task` alias is a candidate pending field testing. Classification and receipt-side acceptance remain the responsibility of the communicating agents and trusted host boundaries. Neither advisory hook setup nor delivery of a marker proves enforcement.
+The canonical identifier remains `conversation-governor`. The human-facing display name is `Conversation Governor`. A shell that displays only machine identifiers needs separate presentation support.

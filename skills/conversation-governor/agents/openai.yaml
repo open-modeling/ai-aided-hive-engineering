@@ -1,2 +1,5 @@
 interface:
   display_name: "Conversation Governor"
+  short_description: "Maintain consistency and uniformity of communication."
+policy:
+  allow_implicit_invocation: true

@@ -10,9 +10,9 @@ class SchemaTests(unittest.TestCase):
         return {"message_type":"role-to-skill","dispatch_state":"resolved",
                 "source_role":"architect",
                 "target_skill_uri":"skill:ai-devmode.conversation-governor",
-                "resolved_target_version":"0.3.0-dev",
-                "capability_id":"listen-human",
-                "expected_outcome_ids":["understood-intent"],
+                "resolved_target_version":"0.4.0-dev",
+                "capability_id":"control-language",
+                "expected_outcome_ids":["quality-message"],
                 "intent":"Interpret request",
                 "payload_schema_uri":"https://example.org/message.json",
                 "payload":{"text":"Hello"}}

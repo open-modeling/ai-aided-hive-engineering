@@ -1,18 +1,17 @@
-# Portable ADS language and meaning profile
+# Language and terminology rules
 
-Source: ADS 5.0.0-rc.2, ADS-00, LMC-01..04, SA-01 and SA-06. Normative source: https://github.com/open-modeling/ai-aided-hive-engineering/tree/core-v5.0.0-rc.2/core . This file restates the project integration rules and does not reproduce ASD-STE100.
+Use the authoritative local ADS chapters under `standards/ads/`. Apply their Language & Meaning Core to human-readable skill content and outgoing communication.
 
-1. Use uppercase BCP 14 terms only with RFC 2119 / RFC 8174 normative meaning.
-2. Apply project-authorized ASD-STE100 Issue 9 vocabulary and writing rules to applicable project-authored English prose. Full conformance uses project-designated checker or review evidence.
-3. Use one authorized preferred project term for one concept. Recognize documented non-preferred synonyms during listening; prefer canonical terms when talking.
-4. Keep facts, assumptions, recommendations, decisions, requirements, and evidence distinct.
-5. State the actor, action, object, scope, relevant conditions, and reference when omission would change meaning.
-6. Prefer positive construction, direct wording, and ordered procedures when sequence matters.
-7. Preserve protected quotations and imported material, identifiers, commands, code, mathematical expressions, protocol tokens, and exact values. Normalize only surrounding authored prose.
-8. Label explanatory examples and illustrations explicitly when they appear in governed publications; keep their meaning explanatory.
-9. For unresolved authority or material ambiguity, request clarification and describe the missing element.
-10. Apply ADS LMC-04 conformance sequence and evidence levels to formal conformance claims.
+1. Use authorized ASD-STE100 Issue 9 vocabulary and construction rules for applicable English prose. Obtain designated language-review evidence for formal conformance.
+2. Apply the relevant ISO, IEC, and IEEE profiles through the packaged Language & Meaning Core.
+3. Use BCP 14 semantics for uppercase normative keywords in normative provisions.
+4. Use a single preferred term for each controlled concept. Read `references/dictionary.md` for skill-specific definitions.
+5. Use authorized project-specific dictionaries when the active project provides them. Their location and format follow project policy.
+6. Consult the packaged ADS terminology where a common concept is defined or where a definition conflict must be resolved.
+7. Distinguish facts, assumptions, decisions, requirements, and evidence.
+8. State actors, actions, objects, scope, and relevant conditions when these determine meaning.
+9. Use positive construction and short, direct instructions.
+10. Preserve imported and protected text, technical identifiers, mathematical expressions, commands, and machine syntax.
+11. Identify Examples and Illustrations explicitly and keep them explanatory.
 
-Classification for received text: authored prose; protected/imported prose; code or mathematical syntax; literal token; mixed content. Apply only relevant language controls to each region.
-
-Term sources: common LMC definitions, SA-01 skill dictionary, active-project approved dictionaries, and domain-specific standards. Resolve the active project source at invocation time.
+Use `standards/ads/language-core/LMC-04_language_and_meaning_conformance.md` for review evidence. A project-designated review establishes the formal ASD-STE100 conformance result.

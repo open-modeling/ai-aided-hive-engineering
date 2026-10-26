@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+### 0.4.0-dev candidate — 2026-10-26
+- Align the human-facing display name across activation and host metadata.
+- Enable implicit invocation and retain explicit `$conversation-governor` invocation.
+- Reframe the activation procedure around language norms, communication, and validation.
+- Add a minimal skill-owned dictionary and locally packaged ADS references.
+- Update the public capability contract and provide a local-package upgrade path.
+- Retain a designated language review and clean-host runtime verification as release gates.
+
+
 ### Fixed
 - Add offline validation of the ADS Skill API and SA-06 addressed communication envelope; reject mismatched targets, capabilities, outcomes, versions, and malformed payload contracts.
 - Add vendored ADS 5.0.0-rc.2 schemas and Python CI schema tests.
