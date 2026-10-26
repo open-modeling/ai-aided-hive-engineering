@@ -15,7 +15,7 @@ class VerboseInstallerTests(unittest.TestCase):
             target=pathlib.Path(d)/"installed"/"conversation-governor"
             self.assertEqual(install(ROOT,target)["status"],"installed")
             self.assertEqual(install(ROOT,target)["status"],"already_installed")
-            self.assertEqual(json.loads((target/"skill-api.json").read_text())["version"],"0.3.0-dev")
+            self.assertEqual(json.loads((target/"skill-api.json").read_text())["version"],"0.4.0-dev")
 
     def test_existing_stale_install_upgrade_and_backup(self):
         with tempfile.TemporaryDirectory() as d:
