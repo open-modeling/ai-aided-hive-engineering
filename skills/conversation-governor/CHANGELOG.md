@@ -3,6 +3,9 @@
 ## Unreleased
 
 ### 0.4.0-dev candidate — 2026-10-26
+- Align activation instructions with ADS information-construction and terminology rules.
+- Use a connected receive, prepare, and verify workflow with conditional references.
+- Align the ADS skill URI location rule with frontmatter metadata.
 - Align the human-facing display name across activation and host metadata.
 - Enable implicit invocation and retain explicit `$conversation-governor` invocation.
 - Reframe the activation procedure around language norms, communication, and validation.

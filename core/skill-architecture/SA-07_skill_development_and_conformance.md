@@ -126,7 +126,7 @@ Reject a name reserved by a required host, including Claude Code `synced` in the
 
 Keep `SKILL.md` compact.
 
-State the canonical `skill_uri` in the body.
+State the canonical `skill_uri` in frontmatter metadata or, when that metadata is absent, in the body.
 
 Route the agent to `skill-api.json` and `references/operations.md`.
 

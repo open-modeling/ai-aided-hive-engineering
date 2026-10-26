@@ -260,7 +260,7 @@ The `name` in `skill-api.json` **MUST** equal the same directory and frontmatter
 
 ### 6.2 Identity and API routing
 
-The body **MUST** identify the canonical `skill_uri`.
+`SKILL.md` **MUST** identify the canonical `skill_uri` in frontmatter metadata or, when that metadata is absent, in the body.
 
 The body **MUST** route the agent to root `skill-api.json` for the complete applicability, capability, and outcome contract.
 

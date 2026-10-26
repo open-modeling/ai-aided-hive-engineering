@@ -24,6 +24,25 @@ class PackageTests(unittest.TestCase):
                              "standards/ads/skill-architecture/SA-02_skill_architecture_framework.md"):
                     self.assertIn(prefix + item, names)
                 self.assertTrue(all(name.startswith(prefix) for name in names))
+    def test_activation_rules_and_references(self):
+        import re
+        from urllib.parse import unquote
+        source = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        body = source.split("---", 2)[2]
+        self.assertIn("# Conversation Governor", body)
+        self.assertIn("## 1. Apply communication norms", body)
+        self.assertIn("## 2. Receive a message", body)
+        self.assertIn("## 3. Prepare a message", body)
+        self.assertIn("## 4. Verify communication", body)
+        self.assertNotIn("skill:ai-devmode.conversation-governor", body)
+        for target in re.findall(r"\\[[^\\]]+\\]\\(([^)]+)\\)", body):
+            filename, _, fragment = target.partition("#")
+            path = ROOT / unquote(filename)
+            self.assertTrue(path.is_file(), "Missing activation reference: " + target)
+            if fragment:
+                headings = path.read_text(encoding="utf-8").lower()
+                self.assertIn("## " + fragment.replace("-", " "), headings)
+
     def test_identity_and_host_display(self):
         text = (ROOT / "SKILL.md").read_text()
         host = (ROOT / "agents/openai.yaml").read_text()
