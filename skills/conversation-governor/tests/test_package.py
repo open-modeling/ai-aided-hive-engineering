@@ -59,8 +59,9 @@ class PackageTests(unittest.TestCase):
         for internal_term in ("ADS", "ASD-STE100", "ISO"):
             self.assertNotIn(internal_term, description)
         self.assertIn("every agent message", host)
-        self.assertTrue(all("language" in item.lower() or "messages" in item.lower()
-                            for item in api["applicability"]["when_to_use"]))
+        self.assertEqual(len(api["applicability"]["when_to_use"]), 2)
+        self.assertIn("in any language", api["applicability"]["when_to_use"][0])
+        self.assertIn("handoffs", api["applicability"]["when_to_use"][1])
         language_rules = (ROOT / "references/language-rules.md").read_text(encoding="utf-8")
         self.assertIn("## Language applicability", language_rules)
         self.assertIn("For other languages", language_rules)
