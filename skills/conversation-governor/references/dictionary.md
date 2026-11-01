@@ -1,6 +1,6 @@
 # Conversation Governor dictionary
 
-This dictionary owns concepts specific to communication control. Shared definitions retain their governing ADS meaning. The first normative use of each skill-specific term in a document links to its entry here. An exact protocol token uses code formatting.
+This dictionary defines concepts for communication control. Shared concepts use the definitions from AI DevMode Standards (ADS). Use a preferred term for each concept. Give a definition when the recipient needs one. Use code formatting for protocol tokens.
 
 ## Information
 
@@ -14,7 +14,7 @@ Content that requests an action by a recipient.
 
 Agent-message token: `[DIRECTION]`.
 
-An accepted direction provides the basis for an action.
+An accepted direction communicates the recipient's decision. Host permission controls govern task execution.
 
 ## Acceptance decision
 

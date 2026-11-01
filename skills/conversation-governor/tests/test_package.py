@@ -30,11 +30,9 @@ class PackageTests(unittest.TestCase):
         source = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         body = source.split("---", 2)[2]
         self.assertIn("# Conversation Governor", body)
-        for heading in ("## Purpose", "## Communication responsibilities",
-                        "## Language and terminology", "## Receive a message",
-                        "## Prepare a message", "## Verify communication",
-                        "## Supporting operations"):
+        for heading in ("## Purpose", "## Rules", "## Maintenance"):
             self.assertIn(heading, body)
+        self.assertLess(len(body), 1100)
         self.assertNotIn("skill:ai-devmode.conversation-governor", body)
         for target in re.findall(r"\[[^\]]+\]\(([^)]+)\)", body):
             filename, _, fragment = target.partition("#")
@@ -54,7 +52,7 @@ class PackageTests(unittest.TestCase):
         self.assertIn('skill_version: "' + api["version"] + '"', text)
         self.assertEqual(api["name"], "conversation-governor")
         description = text.split("description: >-", 1)[1].split("\nlicense:", 1)[0]
-        self.assertIn("every message", description)
+        self.assertIn("Use whenever an AI agent receives", description)
         self.assertIn("in any language", description)
         for internal_term in ("ADS", "ASD-STE100", "ISO"):
             self.assertNotIn(internal_term, description)
@@ -69,6 +67,33 @@ class PackageTests(unittest.TestCase):
         baseline = (ROOT / "requirements/BASELINE.md").read_text(encoding="utf-8")
         self.assertIn("CG-LR-01 | **MUST** | apply applicable ADS", baseline)
         self.assertIn("CG-LR-02 | **MUST** | apply project-authorized ASD-STE100", baseline)
+
+    def test_runtime_scope_and_maintenance(self):
+        skill = (ROOT / "SKILL.md").read_text(encoding="utf-8")
+        communication = (ROOT / "references/communication.md").read_text(encoding="utf-8")
+        dictionary = (ROOT / "references/dictionary.md").read_text(encoding="utf-8")
+        language = (ROOT / "references/language-rules.md").read_text(encoding="utf-8")
+        operations = (ROOT / "references/operations.md").read_text(encoding="utf-8")
+        baseline = (ROOT / "requirements/BASELINE.md").read_text(encoding="utf-8")
+        api = json.loads((ROOT / "skill-api.json").read_text(encoding="utf-8"))
+
+        self.assertIn("The receiving agent does the task through its host.", skill)
+        self.assertIn("The receiving agent performs the task through its host.", communication)
+        self.assertIn("Host permission controls govern task execution.", dictionary)
+        self.assertIn("designated language review process maintains", language)
+        self.assertIn("## Maintenance scope", operations)
+        self.assertIn("runtime outputs consist of messages", baseline)
+        self.assertIn("## ASD-STE100 language review", language)
+        self.assertIn("approved words, meanings, and parts of speech", language)
+        self.assertIn("technical nouns and verbs", language)
+        self.assertIn("required reference that was unavailable", language)
+        self.assertEqual(
+            [item["id"] for item in api["capabilities"]],
+            ["control-language", "control-messages", "accept-direction"],
+        )
+        for path in ("scripts/install_verbose.py", "scripts/package_skill.py",
+                     "scripts/hook_adapter.py", "references/operations.md"):
+            self.assertTrue((ROOT / path).is_file(), path)
 
 if __name__ == "__main__":
     unittest.main()

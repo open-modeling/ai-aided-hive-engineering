@@ -1,5 +1,9 @@
 # Operations
 
+## Maintenance scope
+
+Installation, upgrade, packaging, and hook setup maintain this skill and its host integration. During runtime, Conversation Governor processes messages.
+
 ## Package identity
 
 Display name: Conversation Governor.

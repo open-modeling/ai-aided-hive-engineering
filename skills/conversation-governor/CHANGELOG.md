@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Define runtime communication scope and preserve installation, upgrade, packaging, and hook setup functions.
+- Require an ASD-STE100 Issue 9 vocabulary and writing-rule review before a language-conformance claim.
+
 ### 0.4.0-dev candidate — 2026-10-26
 - Align activation instructions with ADS information-construction and terminology rules.
 - Use a connected receive, prepare, and verify workflow with conditional references.

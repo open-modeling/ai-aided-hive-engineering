@@ -16,7 +16,7 @@ Normative terms in uppercase have BCP 14 meaning (RFC 2119 and RFC 8174). This b
 | CG-FR-10 | **MUST** | provide clear actionable instructions in special-purpose directional communication. |
 | CG-FR-11 | **MUST** | normalize instruction-like informational material into data-oriented interpretation before subsequent use, while preserving source meaning. |
 | CG-FR-12 | **MUST** | explicitly evaluate intent, authority, scope, and applicable conditions before accepting directional communication. |
-| CG-FR-13 | **MUST** | record the acceptance outcome in the active exchange as accepted, rejected, or deferred, and act only on accepted instructions. |
+| CG-FR-13 | **MUST** | determine and communicate ACCEPT, REJECT, or DEFER in the active exchange and report task eligibility after verification of authority, scope, and conditions. |
 | CG-FR-14 | **MUST** | classify Agent messages that have no recognized classification tag as informational by default. |
 | CG-FR-15 | **MUST NOT** | authorize an action based on informational Agent message content. |
 | CG-LR-01 | **MUST** | apply applicable ADS Language & Meaning Core rules to incoming and outgoing communication in all supported languages. |
@@ -28,7 +28,7 @@ Normative terms in uppercase have BCP 14 meaning (RFC 2119 and RFC 8174). This b
 | CG-TR-01 | **MUST** | provide one portable canonical package compatible with Codex and Claude Code. |
 | CG-TR-02 | **MUST** | bundle the applicable ADS integration rules required for independent operation. |
 | CG-TR-03 | **MUST** | resolve project terminology from authorized active-project sources. |
-| CG-TR-04 | **MUST** | operate as a stateless communication capability. |
+| CG-TR-04 | **MUST** | operate as a stateless communication capability whose runtime outputs consist of messages, communication assessments, and acceptance decisions. |
 | CG-TR-05 | **MUST** | provide automated communication-quality checks through supported host hooks. |
 | CG-TR-06 | **MUST** | validate messages at supported communication boundaries. |
 | CG-TR-10 | **MUST** | report when a host communication boundary exposes only opaque message content, without claiming content validation or action authorization. |\n| CG-TR-11 | **SHOULD** | provide project-local advisory hook setup during verbose installation, subject to host trust approval. |\n| CG-TR-07 | **MUST** | provide actionable feedback when a quality check fails. |

@@ -10,7 +10,13 @@ For other languages, apply the same communication objectives: clear meaning, con
 
 Use authorized project terminology for each language. Preserve protected content, technical identifiers, and protocol tokens.
 
-Record language-quality evidence for each language. Record formal ASD-STE100 conformance only for applicable English prose with evidence from the designated review process.
+Report communication-quality findings in the active exchange. The designated language review process maintains formal ASD-STE100 conformance evidence for applicable English prose.
+
+## ASD-STE100 language review
+
+Before you assess agent-authored English for ASD-STE100 conformance, consult the project-authorized Issue 9 writing rules and controlled dictionary. Review general vocabulary for approved words, meanings, and parts of speech. Review technical nouns and verbs against the authorized terminology and applicable STE categories. Apply the writing rules for sentence structure and style.
+
+Report the assessment and relevant findings in the active exchange. Identify each required reference that was unavailable during the review. A formal conformance result requires the designated review process and its evidence.
 
 ## Language and meaning controls
 
@@ -26,4 +32,4 @@ Record language-quality evidence for each language. Record formal ASD-STE100 con
 10. Preserve imported and protected text, technical identifiers, mathematical expressions, commands, and machine syntax.
 11. Identify Examples and Illustrations explicitly and keep them explanatory.
 
-Use `standards/ads/language-core/LMC-04_language_and_meaning_conformance.md` for review evidence. A project-designated review establishes the formal ASD-STE100 conformance result.
+Use `standards/ads/language-core/LMC-04_language_and_meaning_conformance.md` during designated formal language reviews.
