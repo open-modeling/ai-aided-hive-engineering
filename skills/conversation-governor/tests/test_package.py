@@ -30,12 +30,13 @@ class PackageTests(unittest.TestCase):
         source = (ROOT / "SKILL.md").read_text(encoding="utf-8")
         body = source.split("---", 2)[2]
         self.assertIn("# Conversation Governor", body)
-        self.assertIn("## 1. Apply communication norms", body)
-        self.assertIn("## 2. Receive a message", body)
-        self.assertIn("## 3. Prepare a message", body)
-        self.assertIn("## 4. Verify communication", body)
+        for heading in ("## Purpose", "## Communication responsibilities",
+                        "## Language and terminology", "## Receive a message",
+                        "## Prepare a message", "## Verify communication",
+                        "## Supporting operations"):
+            self.assertIn(heading, body)
         self.assertNotIn("skill:ai-devmode.conversation-governor", body)
-        for target in re.findall(r"\\[[^\\]]+\\]\\(([^)]+)\\)", body):
+        for target in re.findall(r"\[[^\]]+\]\(([^)]+)\)", body):
             filename, _, fragment = target.partition("#")
             path = ROOT / unquote(filename)
             self.assertTrue(path.is_file(), "Missing activation reference: " + target)
@@ -52,6 +53,21 @@ class PackageTests(unittest.TestCase):
         self.assertIn("allow_implicit_invocation: true", host)
         self.assertIn('skill_version: "' + api["version"] + '"', text)
         self.assertEqual(api["name"], "conversation-governor")
+        description = text.split("description: >-", 1)[1].split("\nlicense:", 1)[0]
+        self.assertIn("every message", description)
+        self.assertIn("in any language", description)
+        for internal_term in ("ADS", "ASD-STE100", "ISO"):
+            self.assertNotIn(internal_term, description)
+        self.assertIn("every agent message", host)
+        self.assertTrue(all("language" in item.lower() or "messages" in item.lower()
+                            for item in api["applicability"]["when_to_use"]))
+        language_rules = (ROOT / "references/language-rules.md").read_text(encoding="utf-8")
+        self.assertIn("## Language applicability", language_rules)
+        self.assertIn("For other languages", language_rules)
+        self.assertIn("English-specific vocabulary and grammar restrictions only to English", language_rules)
+        baseline = (ROOT / "requirements/BASELINE.md").read_text(encoding="utf-8")
+        self.assertIn("CG-LR-01 | **MUST** | apply applicable ADS", baseline)
+        self.assertIn("CG-LR-02 | **MUST** | apply project-authorized ASD-STE100", baseline)
 
 if __name__ == "__main__":
     unittest.main()

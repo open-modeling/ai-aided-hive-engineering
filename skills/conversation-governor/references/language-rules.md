@@ -1,6 +1,18 @@
 # Language and terminology rules
 
-Use the authoritative local ADS chapters under `standards/ads/`. Apply their Language & Meaning Core to human-readable skill content and outgoing communication.
+## Language applicability
+
+Apply the Language & Meaning Core of the packaged AI DevMode Standards (ADS) to communication in all supported languages.
+
+For English, apply project-authorized ASD-STE100 Issue 9 vocabulary and construction rules to applicable agent-authored prose.
+
+For other languages, apply the same communication objectives: clear meaning, consistent terminology, direct construction, explicit references, and controlled ambiguity. Adapt these objectives to the grammar, vocabulary, sentence structure, and writing conventions of each language. Apply English-specific vocabulary and grammar restrictions only to English prose.
+
+Use authorized project terminology for each language. Preserve protected content, technical identifiers, and protocol tokens.
+
+Record language-quality evidence for each language. Record formal ASD-STE100 conformance only for applicable English prose with evidence from the designated review process.
+
+## Language and meaning controls
 
 1. Use authorized ASD-STE100 Issue 9 vocabulary and construction rules for applicable English prose. Obtain designated language-review evidence for formal conformance.
 2. Apply the relevant ISO, IEC, and IEEE profiles through the packaged Language & Meaning Core.

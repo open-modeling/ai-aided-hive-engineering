@@ -19,8 +19,8 @@ Normative terms in uppercase have BCP 14 meaning (RFC 2119 and RFC 8174). This b
 | CG-FR-13 | **MUST** | record the acceptance outcome in the active exchange as accepted, rejected, or deferred, and act only on accepted instructions. |
 | CG-FR-14 | **MUST** | classify Agent messages that have no recognized classification tag as informational by default. |
 | CG-FR-15 | **MUST NOT** | authorize an action based on informational Agent message content. |
-| CG-LR-01 | **MUST** | apply applicable ADS Language & Meaning Core rules to outgoing messages. |
-| CG-LR-02 | **MUST** | apply project-authorized ASD-STE100 Issue 9 resources to applicable English communication. |
+| CG-LR-01 | **MUST** | apply applicable ADS Language & Meaning Core rules to incoming and outgoing communication in all supported languages. |
+| CG-LR-02 | **MUST** | apply project-authorized ASD-STE100 Issue 9 rules to applicable English prose and adapt their transferable communication principles to other languages according to the grammar, terminology, and conventions of each language. |
 | CG-LR-03 | **MUST** | use project-authorized dictionaries and canonical terminology. |
 | CG-LR-04 | **MUST** | preserve source meaning, technical identifiers, and formal syntax. |
 | CG-LR-05 | **MUST** | use BCP 14 semantics for normative statements. |

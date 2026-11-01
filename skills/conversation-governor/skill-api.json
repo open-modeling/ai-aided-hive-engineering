@@ -8,8 +8,8 @@
   "operations_guide": "references/operations.md",
   "applicability": {
     "when_to_use": [
-      "Maintain consistent communication norms when receiving, composing, reviewing, or relaying human-agent or agent-to-agent messages.",
-      "Control terminology, message structure, ambiguity, and acceptance of directions in an active exchange."
+      "Every message received, written, reviewed, or relayed between a person and an AI agent or between AI agents, in any language.",
+      "Questions, answers, instructions, clarifications, task delegations, progress reports, reviews, and handoffs."
     ]
   },
   "capabilities": [

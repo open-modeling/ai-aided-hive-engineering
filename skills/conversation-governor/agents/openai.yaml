@@ -1,5 +1,5 @@
 interface:
   display_name: "Conversation Governor"
-  short_description: "Maintain consistency and uniformity of communication."
+  short_description: "Control clarity and meaning in every agent message."
 policy:
   allow_implicit_invocation: true
