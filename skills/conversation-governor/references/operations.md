@@ -39,6 +39,8 @@ An upgrade operates on local package content. Existing unrelated skills and host
 
 ## Validation
 
+The canonical package includes `LICENSE`. The packager uses the bundled license for standalone installations and the repository license as a fallback for older source checkouts.
+
 Run `python3 scripts/validate_ads.py` and `python3 -m unittest discover -s tests -v` from the package root. Install the local Python `jsonschema` dependency in the designated test environment. Run `python3 scripts/package_skill.py --repository-root <local-repository> --output <file.zip>` to build a source distribution with its license.
 
 Language conformance requires designated ASD-STE100 review evidence. Host compatibility requires observed Codex and Claude Code tests. Local tests establish component behavior, not host execution.

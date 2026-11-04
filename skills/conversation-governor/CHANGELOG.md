@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Support standalone packaging verification with the canonical license bundled in the skill.
+
 - Define runtime communication scope and preserve installation, upgrade, packaging, and hook setup functions.
 - Reference external language standards and define conversation-specific extensions and conformance evidence.
 

@@ -8,9 +8,10 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 def build(repository_root: Path, output: Path):
-    license_file = repository_root / "LICENSE"
+    bundled_license = ROOT / "LICENSE"
+    license_file = bundled_license if bundled_license.is_file() else repository_root / "LICENSE"
     if not license_file.is_file():
-        raise ValueError("The local repository LICENSE is required for source distribution.")
+        raise ValueError("A LICENSE is required in the skill package or repository.")
     required = ("SKILL.md", "skill-api.json", "CHANGELOG.md",
                 "references/dictionary.md", "references/operations.md",
                 "standards/ads/00_governance_and_bootstrap.md",

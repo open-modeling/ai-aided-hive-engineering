@@ -1,6 +1,8 @@
 """Checks for independent distribution and consistent source metadata."""
 import json
 from pathlib import Path
+import shutil
+import subprocess
 import tempfile
 import unittest
 import zipfile
@@ -13,6 +15,9 @@ from package_skill import build
 
 class PackageTests(unittest.TestCase):
     def test_packaged_standards_and_license(self):
+        self.assertTrue((ROOT / "LICENSE").is_file())
+        if (REPO / "LICENSE").is_file():
+            self.assertEqual((ROOT / "LICENSE").read_bytes(), (REPO / "LICENSE").read_bytes())
         with tempfile.TemporaryDirectory() as temp:
             path = build(REPO, Path(temp) / "conversation-governor.zip")
             with zipfile.ZipFile(path) as z:
@@ -24,6 +29,25 @@ class PackageTests(unittest.TestCase):
                              "standards/ads/skill-architecture/SA-02_skill_architecture_framework.md"):
                     self.assertIn(prefix + item, names)
                 self.assertTrue(all(name.startswith(prefix) for name in names))
+    def test_repackage_standalone_installation(self):
+        with tempfile.TemporaryDirectory() as temp:
+            temp = Path(temp)
+            standalone = temp / "isolated" / "conversation-governor"
+            shutil.copytree(ROOT, standalone, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+            output = temp / "standalone.zip"
+            process = subprocess.run(
+                [sys.executable, str(standalone / "scripts/package_skill.py"),
+                 "--repository-root", str(temp / "no-repository"),
+                 "--output", str(output)],
+                capture_output=True, text=True, check=False,
+            )
+            self.assertEqual(process.returncode, 0, process.stderr)
+            with zipfile.ZipFile(output) as archive:
+                self.assertEqual(
+                    archive.read("conversation-governor/LICENSE"),
+                    (standalone / "LICENSE").read_bytes(),
+                )
+
     def test_activation_rules_and_references(self):
         import re
         from urllib.parse import unquote
