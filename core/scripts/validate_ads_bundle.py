@@ -241,6 +241,7 @@ def self_tests(docs, registry):
         raise Failure('semantic Skill API identity mismatch was not rejected')
 
     assert_valid(fm_v, {'name': 'document-governor', 'description': 'Govern project documents.'}, 'valid frontmatter')
+    assert_valid(fm_v, {'name': 'document-governor', 'description': 'Govern project documents.', 'license': 'EPL-2.0', 'metadata': {'display_name':'Document Governor', 'skill_uri':'skill:acme.document-governor', 'skill_version':'1.2.3', 'ads_version':'5.0.0-rc.2', 'repository':'https://example.invalid/repository', 'lifecycle':'stateless', 'configuration':'non-configurable'}}, 'extended frontmatter')
     assert_invalid(fm_v, {'name': 'synced', 'description': 'Reserved.'}, 'reserved Claude skill name')
 
     request_schema = {
@@ -381,6 +382,14 @@ def validate_skill_package(path: Path, docs, registry):
     semantic_skill_api(api)
     if api['name'] != fm['name']:
         raise Failure(f'{path}: skill-api name does not match SKILL.md name')
+    if 'metadata' in fm:
+        m = fm['metadata']
+        for key, value in (('skill_uri', api['skill_uri']), ('skill_version', api['version']), ('lifecycle', api['lifecycle_classification']), ('configuration', api['configuration_classification'])):
+            if m.get(key) != value:
+                raise Failure(f'{path}: frontmatter {key} differs from skill-api.json')
+        host = path / 'agents' / 'openai.yaml'
+        if host.is_file() and (yaml.safe_load(host.read_text(encoding='utf-8')) or {}).get('interface', {}).get('display_name') != m['display_name']:
+            raise Failure(f'{path}: host display name differs from frontmatter')
     if not re.search(rf'(?<![A-Za-z0-9]){re.escape(api["skill_uri"])}(?![A-Za-z0-9])', (path/'SKILL.md').read_text(encoding='utf-8')):
         raise Failure(f'{path}: SKILL.md does not state canonical skill_uri {api["skill_uri"]}')
 
