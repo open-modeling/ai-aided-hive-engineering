@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Compare installed communication rules and packaged resources during upgrade checks; use the current Codex user discovery path by default.
 - Support standalone packaging verification with the canonical license bundled in the skill.
 
 - Define runtime communication scope and preserve installation, upgrade, packaging, and hook setup functions.

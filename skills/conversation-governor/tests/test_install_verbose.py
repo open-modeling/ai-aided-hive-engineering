@@ -1,15 +1,48 @@
 import json
+import os
 import pathlib
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from install_verbose import install, _smoke, configure_hook, remove_hook, _read_hooks, _diagnostics_match
+from install_verbose import install, _smoke, configure_hook, remove_hook, _read_hooks, _diagnostics_match, destination
 
 class VerboseInstallerTests(unittest.TestCase):
+    def test_default_discovery_path_and_codex_home_override(self):
+        with tempfile.TemporaryDirectory() as d:
+            home = pathlib.Path(d)
+            with patch.dict(os.environ, {}, clear=True):
+                with patch("pathlib.Path.home", return_value=home):
+                    self.assertEqual(
+                        destination(),
+                        home / ".agents" / "skills" / "conversation-governor",
+                    )
+                    with patch.dict(os.environ, {"CODEX_HOME": str(home / "custom-codex")}):
+                        self.assertEqual(
+                            destination(),
+                            home / "custom-codex" / "skills" / "conversation-governor",
+                        )
+
+    def test_installed_rules_and_license_are_compared(self):
+        with tempfile.TemporaryDirectory() as d:
+            target = pathlib.Path(d) / "skills" / "conversation-governor"
+            self.assertEqual(install(ROOT, target)["status"], "installed")
+            for name in ("SKILL.md", "references/language-rules.md",
+                         "references/communication.md", "LICENSE"):
+                with self.subTest(file=name):
+                    installed = target / name
+                    original = installed.read_bytes()
+                    installed.write_bytes(original + b"\n")
+                    self.assertFalse(_diagnostics_match(ROOT, target))
+                    installed.write_bytes(original)
+                    self.assertTrue(_diagnostics_match(ROOT, target))
+            (target / "references/hooks.md").unlink()
+            self.assertFalse(_diagnostics_match(ROOT, target))
+
     def test_copy_and_existing_install(self):
         with tempfile.TemporaryDirectory() as d:
             target=pathlib.Path(d)/"installed"/"conversation-governor"

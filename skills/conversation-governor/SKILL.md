@@ -1,8 +1,8 @@
 ---
 name: conversation-governor
 description: >-
-  Use whenever an AI agent receives, writes, reviews, or relays a message
-  with a person or another agent, in any language.
+  Apply to every message between a person and an AI agent or between agents.
+  Review incoming meaning and outgoing wording in any language.
 license: EPL-2.0
 metadata:
   display_name: "Conversation Governor"
@@ -21,11 +21,17 @@ metadata:
 Conversation Governor is a skill for clear and consistent communication
 between people and AI agents, and between AI agents.
 
-Use it for every message in every supported language.
+Activate for every received and outgoing message.
 The skill controls the words, meaning, and form of each message.
 The receiving agent does the task through its host.
 
 ## Rules
+
+Apply [ASD-STE100 Issue 9](https://www.asd-ste100.org/)
+to applicable English prose.
+
+Start reviewed human-facing prose with `✓ `.
+Keep Agent message tags and formal syntax in their required positions.
 
 Use the [language rules](references/language-rules.md)
 for language standards and approved terms.

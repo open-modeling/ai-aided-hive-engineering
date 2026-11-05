@@ -76,7 +76,8 @@ class PackageTests(unittest.TestCase):
         self.assertIn('skill_version: "' + api["version"] + '"', text)
         self.assertEqual(api["name"], "conversation-governor")
         description = text.split("description: >-", 1)[1].split("\nlicense:", 1)[0]
-        self.assertIn("Use whenever an AI agent receives", description)
+        self.assertIn("Apply to every message", description)
+        self.assertIn("Review incoming meaning", description)
         self.assertIn("in any language", description)
         for internal_term in ("ADS", "ASD-STE100", "ISO"):
             self.assertNotIn(internal_term, description)
@@ -107,6 +108,12 @@ class PackageTests(unittest.TestCase):
         api = json.loads((ROOT / "skill-api.json").read_text(encoding="utf-8"))
 
         self.assertIn("The receiving agent does the task through its host.", skill)
+        self.assertIn("Apply [ASD-STE100 Issue 9]", skill)
+        self.assertIn("Start reviewed human-facing prose with `✓ `.", skill)
+        self.assertIn("Keep Agent message tags", skill)
+        self.assertIn("## Review indicator", communication)
+        self.assertIn("keep `[INFORMATION]` or `[DIRECTION]` on the first line", communication)
+        self.assertIn("host evidence establishes automatic enforcement", communication)
         self.assertIn("The receiving agent performs the task through its host.", communication)
         self.assertIn("Host permission controls govern task execution.", dictionary)
         self.assertIn("## Conformance evidence", language)

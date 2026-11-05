@@ -18,6 +18,12 @@ A message can contain both information and directions. Evaluate each unit in its
 3. Add instructions only when the recipient needs an action.
 4. Ask for clarification when material uncertainty remains.
 
+## Review indicator
+
+Complete the language and communication checks before you add `✓ ` at the start of outgoing human-facing prose. Use the mark for messages reviewed in the active exchange. The mark reports an agent-side review; host evidence establishes automatic enforcement.
+
+For Agent messages, keep `[INFORMATION]` or `[DIRECTION]` on the first line. Report check status through host diagnostics. Preserve the required structure of code, JSON, and other formal payloads.
+
 ## Send to an agent
 
 1. Identify the recipient and communication type.

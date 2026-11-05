@@ -25,7 +25,10 @@ def skill_root():
 
 
 def destination():
-    return Path(os.environ.get("CODEX_HOME", str(Path.home() / ".codex"))) / "skills" / SKILL_NAME
+    codex_home = os.environ.get("CODEX_HOME")
+    if codex_home:
+        return Path(codex_home) / "skills" / SKILL_NAME
+    return Path.home() / ".agents" / "skills" / SKILL_NAME
 
 
 def _is_skill(path):
@@ -40,14 +43,18 @@ def _is_skill(path):
 
 
 def _diagnostics_match(source, target):
-    """Identify stale installed diagnostics even when manifest versions match."""
-    for item in ("scripts/install_verbose.py", "scripts/codex_hook_probe.py",
-                 "scripts/hook_adapter.py", "agents/openai.yaml"):
-        left, right = source / item, target / item
-        if not left.is_file() or not right.is_file():
-            return False
-        if left.read_bytes() != right.read_bytes():
-            return False
+    """Compare the complete distributed package, including communication rules."""
+    if not source.is_dir() or not target.is_dir():
+        return False
+    for left in source.rglob("*"):
+        relative = left.relative_to(source)
+        if ("__pycache__" in relative.parts or left.suffix == ".pyc"
+                or left.name == ".DS_Store"):
+            continue
+        if left.is_file():
+            right = target / relative
+            if not right.is_file() or left.read_bytes() != right.read_bytes():
+                return False
     return True
 
 

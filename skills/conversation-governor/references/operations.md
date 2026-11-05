@@ -23,14 +23,18 @@ The skill is stateless and non-configurable. Each invocation resolves current pr
 6. Verify native discovery and activation in Claude Code.
 7. Record the actual installed package and host behavior.
 
-For Codex, a project installation uses `.agents/skills/conversation-governor/`. For Claude Code, a project installation uses `.claude/skills/conversation-governor/`. The same canonical package provides both projections.
+For Codex, use `.agents/skills/conversation-governor/` in a project or `~/.agents/skills/conversation-governor/` for the user. The installer defaults to the user path. Set `CODEX_HOME` for an existing custom Codex layout, or specify `--dest` for a project installation. Check for older copies under `~/.codex/skills/` before changing a host installation.
+
+For Claude Code, use `.claude/skills/conversation-governor/` in a project or `~/.claude/skills/conversation-governor/` for the user. The same canonical package provides both projections.
+
+Verify skill discovery in the target host. For recurring activation, include an explicit Conversation Governor instruction in the host's project policy (`AGENTS.md` for Codex, `CLAUDE.md` for Claude Code). The visible `✓` marker reports agent-side review. Host invocation and hook results establish actual enforcement.
 
 ## Local upgrade
 
 1. Select a tested local skill package.
 2. Inspect the installed version and read `CHANGELOG.md`.
 3. Use `python3 scripts/install_verbose.py --source <local-package> --dest <installed-skill> --upgrade --no-hook` to preserve a backup.
-4. Validate the resulting installation and its host-visible identity.
+4. Validate the complete installed package against the source, including `SKILL.md`, references, and the license. Verify its host-visible identity.
 5. Review project-local advisory hook entries and request host trust approval when required.
 6. Start a new host session when discovery requires reloading package instructions.
 7. Report the installed version, backup, tests, and remaining host-verification conditions.

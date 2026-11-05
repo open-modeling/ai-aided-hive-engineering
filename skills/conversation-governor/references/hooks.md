@@ -10,6 +10,8 @@ Supported adapters supplement the message procedure with machine-checkable valid
 6. Provide corrective feedback for a detected issue.
 7. Report event coverage and its verification level.
 
+The visible `✓ ` marker is an agent-side report for reviewed human-facing prose. Host event evidence establishes hook execution and coverage.
+
 A post-dispatch observation provides diagnostics. An opaque message field produces a coverage limitation rather than a content-validation result.
 
 Run `python3 scripts/hook_adapter.py --coverage` for local coverage diagnostics. Use `scripts/codex_hook_probe.py` for the optional synthetic Codex event probe. Actual host execution establishes host-specific coverage.
