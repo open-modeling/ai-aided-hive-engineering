@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Prefer native interactive clarification or focused dialogue; fix external-link validation in activation tests.
 - Compare installed communication rules and packaged resources during upgrade checks; use the current Codex user discovery path by default.
 - Support standalone packaging verification with the canonical license bundled in the skill.
 

@@ -16,7 +16,7 @@ A message can contain both information and directions. Evaluate each unit in its
 1. State the answer or intended result directly.
 2. Use clear, controlled terms and relevant evidence.
 3. Add instructions only when the recipient needs an action.
-4. Ask for clarification when material uncertainty remains.
+4. For material decisions, prefer available host-native interactive questions. Otherwise ask one focused, open-ended question. Adapt subsequent questions to the answers. Keep project constraints separate. Avoid plain-text multiple-choice menus.
 
 ## Review indicator
 

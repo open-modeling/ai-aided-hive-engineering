@@ -6,7 +6,7 @@ Normative terms in uppercase have BCP 14 meaning (RFC 2119 and RFC 8174). This b
 |---|---|---|
 | CG-FR-01 | **MUST** | interpret incoming Human messages using the active conversation context. |
 | CG-FR-02 | **MUST** | identify material ambiguities and irrelevant interpretations of Human intent. |
-| CG-FR-03 | **MUST** | request targeted clarification when ambiguity materially affects the intended response or action. |
+| CG-FR-03 | **MUST** | request targeted clarification when ambiguity materially affects the intended response or action, using host-native interactive questions when available and appropriate. |
 | CG-FR-04 | **MUST** | formulate clear, relevant, and context-appropriate messages to Humans. |
 | CG-FR-05 | **MUST** | formulate precise and actionable messages to Agents. |
 | CG-FR-06 | **MUST** | interpret incoming Agent messages using their communication context. |

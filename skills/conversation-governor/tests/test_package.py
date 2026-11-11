@@ -59,6 +59,8 @@ class PackageTests(unittest.TestCase):
         self.assertLess(len(body), 1100)
         self.assertNotIn("skill:ai-devmode.conversation-governor", body)
         for target in re.findall(r"\[[^\]]+\]\(([^)]+)\)", body):
+            if target.startswith(("https://", "http://")):
+                continue
             filename, _, fragment = target.partition("#")
             path = ROOT / unquote(filename)
             self.assertTrue(path.is_file(), "Missing activation reference: " + target)
@@ -114,6 +116,10 @@ class PackageTests(unittest.TestCase):
         self.assertIn("## Review indicator", communication)
         self.assertIn("keep `[INFORMATION]` or `[DIRECTION]` on the first line", communication)
         self.assertIn("host evidence establishes automatic enforcement", communication)
+        self.assertIn("host-native interactive questions", communication)
+        self.assertIn("Avoid plain-text multiple-choice menus.", communication)
+        self.assertIn("CG-FR-03 | **MUST** | request targeted clarification", baseline)
+        self.assertIn("using host-native interactive questions when available and appropriate.", baseline)
         self.assertIn("The receiving agent performs the task through its host.", communication)
         self.assertIn("Host permission controls govern task execution.", dictionary)
         self.assertIn("## Conformance evidence", language)
