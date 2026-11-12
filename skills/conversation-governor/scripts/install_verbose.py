@@ -58,6 +58,17 @@ def _diagnostics_match(source, target):
     return True
 
 
+def _release_entry(path, version):
+    """Return the exact version entry from a packaged changelog."""
+    lines = (path / "CHANGELOG.md").read_text(encoding="utf-8").splitlines()
+    for index, line in enumerate(lines):
+        if line.startswith("## " + version + " "):
+            end = next((i for i in range(index + 1, len(lines))
+                        if lines[i].startswith("## ")), len(lines))
+            return "\n".join(lines[index:end]).strip()
+    raise ValueError("Missing changelog entry for skill version " + version)
+
+
 def install(source, target, upgrade=False):
     """Install a package or explicitly upgrade, preserving an untouched backup."""
     if not _is_skill(source):
@@ -270,11 +281,20 @@ def main(argv=None):
             print(json.dumps({"hook_configuration": change,
                               "host_verified": False}))
             return 0
+        previous_version = (
+            json.loads((target / "skill-api.json").read_text(encoding="utf-8"))["version"]
+            if _is_skill(target) else None
+        )
+        source_version = json.loads((source / "skill-api.json").read_text(encoding="utf-8"))["version"]
+        _release_entry(source, source_version)
         change = install(source, target, upgrade=args.upgrade)
         installed_current = _diagnostics_match(source, target)
         info = json.loads((target / "skill-api.json").read_text(encoding="utf-8"))
         result = {"installation": change["status"], "path": str(target),
                   "skill_uri": info["skill_uri"], "version": info["version"],
+                  "previous_version": previous_version,
+                  "changelog_path": str(target / "CHANGELOG.md"),
+                  "release_entry": _release_entry(target, info["version"]),
                   "installed_current": installed_current,
                   "requires_upgrade": not installed_current,
                   "backup": change["backup"], "host_verified": False}

@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from install_verbose import install, _smoke, configure_hook, remove_hook, _read_hooks, _diagnostics_match, destination
+from install_verbose import install, _smoke, configure_hook, remove_hook, _read_hooks, _diagnostics_match, destination, _release_entry
 
 class VerboseInstallerTests(unittest.TestCase):
     def test_default_discovery_path_and_codex_home_override(self):
@@ -43,12 +43,35 @@ class VerboseInstallerTests(unittest.TestCase):
             (target / "references/hooks.md").unlink()
             self.assertFalse(_diagnostics_match(ROOT, target))
 
+    def test_release_entry_served_by_installer(self):
+        version = json.loads((ROOT / "skill-api.json").read_text())["version"]
+        self.assertIn("## " + version, _release_entry(ROOT, version))
+        with tempfile.TemporaryDirectory() as d:
+            project = pathlib.Path(d)
+            target = project / "installed" / "conversation-governor"
+            cmd = [sys.executable, str(ROOT / "scripts/install_verbose.py"),
+                   "--source", str(ROOT), "--dest", str(target),
+                   "--project", str(project), "--no-hook"]
+            first = subprocess.run(cmd, capture_output=True, text=True)
+            self.assertEqual(first.returncode, 0, first.stderr)
+            report = json.loads(first.stdout)
+            self.assertIsNone(report["previous_version"])
+            self.assertEqual(report["version"], version)
+            self.assertIn("## " + version, report["release_entry"])
+            self.assertTrue(pathlib.Path(report["changelog_path"]).is_file())
+            upgrade = subprocess.run(cmd + ["--upgrade"], capture_output=True, text=True)
+            self.assertEqual(upgrade.returncode, 0, upgrade.stderr)
+            second = json.loads(upgrade.stdout)
+            self.assertEqual(second["installation"], "upgraded")
+            self.assertEqual(second["previous_version"], version)
+            self.assertTrue(pathlib.Path(second["backup"]).is_dir())
+
     def test_copy_and_existing_install(self):
         with tempfile.TemporaryDirectory() as d:
             target=pathlib.Path(d)/"installed"/"conversation-governor"
             self.assertEqual(install(ROOT,target)["status"],"installed")
             self.assertEqual(install(ROOT,target)["status"],"already_installed")
-            self.assertEqual(json.loads((target/"skill-api.json").read_text())["version"],"0.4.0-dev")
+            self.assertEqual(json.loads((target/"skill-api.json").read_text())["version"],json.loads((ROOT/"skill-api.json").read_text())["version"])
 
     def test_existing_stale_install_upgrade_and_backup(self):
         with tempfile.TemporaryDirectory() as d:

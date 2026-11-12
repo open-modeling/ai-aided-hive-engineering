@@ -1,5 +1,6 @@
 import sys
 import pathlib
+import json
 import unittest
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"scripts"))
@@ -10,7 +11,7 @@ class SchemaTests(unittest.TestCase):
         return {"message_type":"role-to-skill","dispatch_state":"resolved",
                 "source_role":"architect",
                 "target_skill_uri":"skill:ai-devmode.conversation-governor",
-                "resolved_target_version":"0.4.0-dev",
+                "resolved_target_version":json.loads((ROOT/"skill-api.json").read_text())["version"],
                 "capability_id":"control-language",
                 "expected_outcome_ids":["quality-message"],
                 "intent":"Interpret request",

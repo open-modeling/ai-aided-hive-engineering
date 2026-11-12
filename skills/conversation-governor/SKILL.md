@@ -7,7 +7,7 @@ license: EPL-2.0
 metadata:
   display_name: "Conversation Governor"
   skill_uri: "skill:ai-devmode.conversation-governor"
-  skill_version: "0.4.0-dev"
+  skill_version: "0.5.0-rc.1"
   ads_version: "5.0.0-rc.2"
   repository: "https://github.com/open-modeling/ai-aided-hive-engineering"
   lifecycle: "stateless"

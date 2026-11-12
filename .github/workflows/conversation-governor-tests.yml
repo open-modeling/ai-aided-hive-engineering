@@ -2,6 +2,7 @@ name: Conversation Governor tests
 on:
   push:
     branches:
+      - main
       - feature/conversation-governor-communication-only
       - feature/conversation-governor-ads-alignment-2026-10-26
   pull_request:

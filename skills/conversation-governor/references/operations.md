@@ -31,15 +31,15 @@ Verify skill discovery in the target host. For recurring activation, include an 
 
 ## Local upgrade
 
-1. Select a tested local skill package.
-2. Inspect the installed version and read `CHANGELOG.md`.
-3. Use `python3 scripts/install_verbose.py --source <local-package> --dest <installed-skill> --upgrade --no-hook` to preserve a backup.
-4. Validate the complete installed package against the source, including `SKILL.md`, references, and the license. Verify its host-visible identity.
-5. Review project-local advisory hook entries and request host trust approval when required.
-6. Start a new host session when discovery requires reloading package instructions.
-7. Report the installed version, backup, tests, and remaining host-verification conditions.
+1. Select a versioned local package; check `skill-api.json`, its release entry in `CHANGELOG.md`, and offline ADS and regression tests.
+2. Identify the active host's installed path. Check for legacy Codex copies under `~/.codex/skills/`; specify `--dest` for a legacy or project installation. Preserve unrelated skills and host configuration.
+3. Run `python3 scripts/install_verbose.py --source <local-package> --dest <installed-skill> --upgrade --verbose --no-hook`. The installer reports the previous and target versions, release notes, and retained backup. Offline smoke tests are synthetic.
+4. Verify `installed_current=true`, target version, package content, and retained backup. Restore the backup if verification fails.
+5. Review optional advisory hook entries separately and obtain host trust approval. Hook configuration alone is not enforcement evidence.
+6. Start a fresh host session; verify first-turn implicit and explicit invocation, then inspect real Agent transport coverage in Codex and Claude Code.
+7. Report versions, release entry, backup, tests, and remaining verification limits. Retain the backup until host checks succeed.
 
-An upgrade operates on local package content. Existing unrelated skills and host configuration retain their owners.
+An upgrade changes only the selected local skill installation. Project records and unrelated host configuration keep their owners.
 
 ## Validation
 

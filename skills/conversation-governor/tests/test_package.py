@@ -76,6 +76,7 @@ class PackageTests(unittest.TestCase):
         self.assertIn('display_name: "Conversation Governor"', host)
         self.assertIn("allow_implicit_invocation: true", host)
         self.assertIn('skill_version: "' + api["version"] + '"', text)
+        self.assertIn("## " + api["version"] + " — ", (ROOT / "CHANGELOG.md").read_text(encoding="utf-8"))
         self.assertEqual(api["name"], "conversation-governor")
         description = text.split("description: >-", 1)[1].split("\nlicense:", 1)[0]
         self.assertIn("Apply to every message", description)

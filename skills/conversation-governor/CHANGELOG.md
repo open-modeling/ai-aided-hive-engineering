@@ -2,14 +2,27 @@
 
 ## Unreleased
 
-- Prefer native interactive clarification or focused dialogue; fix external-link validation in activation tests.
-- Compare installed communication rules and packaged resources during upgrade checks; use the current Codex user discovery path by default.
-- Support standalone packaging verification with the canonical license bundled in the skill.
+## 0.5.0-rc.1 — 2026-11-12
 
-- Define runtime communication scope and preserve installation, upgrade, packaging, and hook setup functions.
-- Reference external language standards and define conversation-specific extensions and conformance evidence.
+### Added
+- Apply stateless Human-Agent and Agent-Agent communication controls with project terminology, targeted clarification, and explicit INFORMATION/DIRECTION classification.
+- Prefer native interactive clarification for material planning choices; otherwise use a focused, adaptive question.
+- Mark reviewed human-facing prose with a leading `✓` while preserving Agent protocol headers.
 
-### 0.4.0-dev candidate — 2026-10-26
+### Changed
+- Improve activation guidance, installed-package freshness checks, and Codex discovery path defaults.
+- Serve version-specific release notes during installation and retain a rollback backup during upgrades.
+- Preserve the skill URI, public capabilities, and stateless lifecycle; no schema or project-state migration is required.
+
+### Fixed
+- Package the EPL-2.0 license for standalone verification and correct external standards-link validation.
+- Harden information-versus-direction processing and acceptance decisions.
+
+### Known verification limits
+- Host-hook enforcement remains advisory; actual Codex and Claude Code transport coverage is not fully verified.
+- Formal ASD-STE100 conformance still requires designated evidence.
+
+## 0.4.0-dev candidate — 2026-10-26
 - Align activation instructions with ADS information-construction and terminology rules.
 - Use a connected receive, prepare, and verify workflow with conditional references.
 - Align the ADS skill URI location rule with frontmatter metadata.
