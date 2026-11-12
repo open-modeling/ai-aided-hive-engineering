@@ -1,0 +1,5 @@
+interface:
+  display_name: "Conversation Governor"
+  short_description: "Review every agent message and human reply before sending."
+policy:
+  allow_implicit_invocation: true

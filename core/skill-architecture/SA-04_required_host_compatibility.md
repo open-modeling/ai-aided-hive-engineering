@@ -36,7 +36,7 @@ The canonical package **MUST** be host-neutral for required behavior.
 
 The canonical package **MUST** use `SKILL.md` as its host activation entry point.
 
-Canonical YAML frontmatter **MUST** contain only `name` and `description`.
+Canonical YAML frontmatter **MUST** contain `name` and `description` and **MAY** contain the common schema's `license` and `metadata` fields.
 
 The canonical package directory name **MUST** equal the frontmatter `name` and the Skill API `name`.
 
