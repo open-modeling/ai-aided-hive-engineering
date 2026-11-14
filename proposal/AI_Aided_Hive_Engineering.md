@@ -12,23 +12,27 @@ date: "28 September 2026"
 
 ## 1. Abstract and intent
 
-This proposal originates from a practical problem observed in AI-assisted engineering: a substantial part of computation can be spent coordinating agents, replaying context, polling execution, and maintaining an artificial organization around the engineering work. These problems largely originate from applying human-like organizational, reasoning, and consensus models directly to AI execution.
+This proposal originates from a practical problem observed in AI-assisted engineering: a substantial part of computation can be spent coordinating agents, replaying context, polling execution, and maintaining an artificial organization around the engineering work. These problems largely \textbf{originate} from applying human-like organizational, reasoning, and consensus models directly to AI execution. 
+NA: twice "originate" in 2 consequent sentences.
 
 Orchestration frameworks and role models shaped like real organizations inherit many of the same deficiencies: locked waits, polling, administrative and coordination work, and context pollution by intermediate thinking. AI makes these losses directly visible because they immediately appear as computational and execution cost.
+NA: Does "same" mean frameworks and models are the same, or same as "real organizations". If second - I think you need to rewrite the sentance:-)
 
-This proposal does not aim to build a better virtual organization or incrementally improve orchestration processes. It proposes a different coordination and synchronization model whose purpose is to reduce overall engineering cost while preserving engineering rigor.
+This proposal does not aim to build a better virtual organization or incrementally improve orchestration processes. It proposes a different coordination and synchronization model whose purpose is to reduce overall engineering cost while preserving engineering rigor. NA: not sure you need this paragraph. 
 
-**Hive** is a form of distributed intelligence in which orchestration is performed through coordinated multi-agent operations rather than through a persistent human-like organization. To an observer, it acts as one coherent engineering intelligence while retaining distributed specialization internally.
+**Hive** is a form of distributed intelligence in which orchestration is performed through coordinated multi-agent operations rather than through a persistent human-like organization. To an observer, it acts as one coherent engineering intelligence while retaining distributed specialization internally. NA: I would argue with the first sentcence (human-lie organization)... Might be hierarchical, or matrix, or having other structure? crowd is also a human-like organization-)
 
-Engineering meaning is held in explicit shared state rather than in conversations or private agent memory. At its foundation, this state is represented as a multidimensional temporal graph that preserves project entities, evidence, relationships, and evolution without requiring the whole history to participate in every task.
+Engineering meaning is held in explicit shared state rather than in conversations or private agent memory. At its foundation, this state is represented as a multidimensional temporal graph that preserves project entities, evidence, relationships, and evolution without requiring the whole history to participate in every task. NA: (idk, might be there is an answer later): is it hidden state?
 
-Hive engineering is intentionally concurrent and non-deterministic. Starting from the same initial engineering basis, separate valid Hive executions can explore different Solution Space regions, commit Decisions in different orders, materialize different Work Products, and converge to different Product realizations. The governance model establishes engineering validity, traceability, authority, convergence, and resource control. It does not define Product development as deterministic reproduction of one trajectory or one Product realization.
+Hive engineering is intentionally concurrent and non-deterministic. Starting from the same initial engineering basis, separate valid Hive executions can explore different Solution Space regions, commit Decisions in different orders (NA: sequences?), materialize different Work Products, and converge to different Product realizations. The governance model establishes engineering validity, traceability, authority, convergence, and resource control. It does not define Product development as deterministic reproduction of one trajectory or one Product realization. NA: So far seems alike to Cathegory theory
 
 The intended result is faster and more stable engineering delivery through lower coordination overhead, less context pollution, controlled rework and exploration, preserved engineering evidence, and economically justified use of computational and engineering resources. The proposal complements established engineering lifecycles, processes, and standards rather than replacing them.
 
 ## 2. Why a Hive/Swarm architecture
 
 ### 2.1 Three orchestration paradigms
+
+NA: visual diagram would help.... Can't figure out why "Three" orchestration paradigms - I see table and one more table, bith are having more lines than 3-) In general I don't understand this section except it has some mapping. I think I'm missing some piece of information so far, probably lack of context.
 
 | Property | Organization-mimetic agent harness | Reasoning-mimetic harness | Hive/Swarm proposal |
 |---|---|---|---|
@@ -65,29 +69,29 @@ The measured archive does not contain exact model identifiers for all sub-agents
 
 ## 3. Why this proposal is needed and what it contains
 
-The proposal addresses a coordination problem rather than a lack of AI capability. Modern models can already perform substantial analysis, design, implementation, and validation work. The remaining problem is how to coordinate that work without reproducing the cost, loss of information, loss of decision reasoning, loss of decision history and participants, and overall instability of a large human organization.
+The proposal addresses a coordination problem rather than a lack of AI capability. Modern models can already perform substantial analysis, design, implementation, and validation work. The remaining problem is how to coordinate that work without reproducing the cost, loss of information, loss of decision reasoning, loss of decision history and participants, and overall instability of a large human organization. NA: What's "reproducing the cost"?.
 
 ### 3.1 Operational reasons
 
-- Coordination should not become a major part of execution. Waiting, polling, task tracking, responsibility assignment and reassignment, status reporting, synchronization, repeated handoffs, and duplicated context consume capacity without directly improving the Product.
-- Intermediate reasoning should not continuously pollute the working context. Only information that remains relevant to engineering state should survive beyond the computation that produced it.
-- Independent work should proceed in parallel and without unnecessary blocking.
-- Decisions should propagate through changed engineering information and affected Product elements, not through organizational waiting chains.
-- Bottom-up findings should be handled first at the nearest affected level. Higher levels should remain undisturbed when the change can be resolved locally.
-- This allows unaffected work to continue in parallel and prevents local changes from triggering unnecessary synchronization or replanning across the Hive.
-- Independent specialists should be able to contribute without requiring a persistent organizational hierarchy around every task.
-- The execution model should preserve continuity when participants, tools, models, or external services change.
-- Human participation should remain possible without making routine engineering dependent on continuous human approval.
+- Coordination should not become a major part of execution.(NA: I think this should be changed, current meaning could be read as " we should not care about coordination, but you probably mean: coordination should be cheap part of the process. but might be I'm wrong) Waiting, polling, task tracking, responsibility assignment and reassignment, status reporting, synchronization, repeated handoffs, and duplicated context consume capacity without directly improving the Product.
+- Intermediate reasoning should not continuously pollute the working context. Only information that remains relevant to engineering state should survive beyond the computation that produced it. NA: Interesting and very useful. Though I don't see how to realize this without additional "context evaluation tools" and checks that these tools are working....
+- Independent work should proceed in parallel and without unnecessary blocking. NA: probably you mean smth like: apply paralleization for a pices that are independent. 
+- Decisions should propagate through changed engineering information and affected Product elements, not through organizational waiting chains. NA: I feel bad about it....there must be something preventing database drop.... 
+- Bottom-up findings should be handled first at the nearest affected level. Higher levels should remain undisturbed when the change can be resolved locally. NA: local optimum might be not win for the whole system. But it might depend on contract, idk yet.
+- This allows unaffected work to continue in parallel and prevents local changes from triggering unnecessary synchronization or replanning across the Hive. NA: Not sure, not sure. I mean, it's good as written, not sure in implementation
+- Independent specialists (NA: agents?) should be able to contribute without requiring a persistent organizational hierarchy around every task.
+- The execution model should preserve continuity when participants, tools, models, or external services change. NA: it depends on definition of continuity, and changes....
+- Human participation should remain possible without making routine engineering dependent on continuous human approval. NA: trust level, guardrails, cheating...
 
 ### 3.2 Engineering reasons
 
-- Engineering decisions should remain traceable to the information, evidence, constraints, alternatives, and authority that justified them.
-- Incomplete knowledge should remain visible. A known gap is safer than an apparently complete but unjustified engineering chain.
-- Failure should be exposed early. Fast failure followed by reassessment is healthier than forced continuation after an engineering path has become unsound, because forced execution accumulates rework, invalid evidence, and downstream cost.
-- Engineering information exists at different levels of Product decomposition and abstraction. Their relations must remain explicit without allowing detailed local reasoning to acquire unintended authority elsewhere.
-- Alternatives, rejected directions, outliers, and the reasoning behind past Decisions are valuable engineering knowledge. Good projects already record part of this information in local decision records, but those records often become large, weakly structured collections with poor evolution, visibility, and traceability to the Product elements they affected.
-- Decision history should therefore remain connected to the relevant Product state, evidence, alternatives, and later changes instead of becoming detached documentation.
-- The model should support software, physical products, mixed systems, and established engineering lifecycles without assuming one artifact taxonomy or organizational structure.
+- Engineering decisions should remain traceable to the information, evidence, constraints, alternatives, and authority that justified them. NA should and must are 2 different words...
+- Incomplete knowledge should remain visible. A known gap is safer than an apparently complete but unjustified engineering chain. NA: How would you ensure in this? I hardly can convince any LLM not to average replies...
+- Failure should be exposed early. Fast failure followed by reassessment is healthier than forced continuation after an engineering path has become unsound, because forced execution accumulates rework, invalid evidence, and downstream cost. NA: I see a problem here with long trajectories...
+- Engineering information exists at different levels of Product decomposition and abstraction. Their (NA: not sure what are behind "their") relations must remain explicit without allowing detailed local reasoning to acquire unintended authority elsewhere. NA: in general, not sure I'm fully understand this - add more information, add access or what?
+- Alternatives, rejected directions, outliers, and the reasoning behind past Decisions are valuable engineering knowledge. Good projects already record part of this information in local decision records, but those records often become large, weakly structured collections with poor evolution, visibility, and traceability to the Product elements they affected. NA: I see a problem here. LLM can't reason, it is stupid, but can iterate fast, so check millions of path - is it useful? Or do you need to store only some meaningful, and desing what is "meaningful"?
+- Decision history should therefore remain connected to the relevant Product state, evidence, alternatives, and later changes instead of becoming detached documentation. - NA: I'm not sure we can track all changes made by LLM.....Not in terms "they are in gihub" but anyone can actually go through these changes permanently to find the source of truth.
+- The model should support software, physical products, mixed systems, and established engineering lifecycles without assuming one artifact taxonomy or organizational structure. NA: this seems much as cathegory' theory application... though there are only a few examples...
 
 ### 3.3 Economic reasons
 
@@ -102,11 +106,13 @@ The proposal addresses a coordination problem rather than a lack of AI capabilit
 - Trade-space analysis is a basis for informed and data-driven decision making. It preserves viable alternatives and their consequences so that human and autonomous Decisions do not lose the information generated during exploration.
 - The objective is reliable Product delivery within explicitly available project resources, not unlimited search for a theoretical global optimum.
 
+NA: there could be multiple ways to achieve smth, how do you ensure you picked right one? how do work with tradeoffs?
+
 ### 3.4 Logical reasons
 
-Engineering information cannot be treated as true merely because it is connected, repeated, agreed by several participants, produced by a capable model, or prescribed by a human.
+Engineering information cannot be treated as true merely because it is connected, repeated, agreed by several participants, produced by a capable model, or prescribed by a human. NA: not sure I understand this....
 
-The proposal therefore needs a consistent foundation for identity, relations, evidence, time, scope, authority, uncertainty, change, and the boundaries between different parts of the Product.
+The proposal therefore needs a consistent foundation for identity, relations, evidence, time, scope, authority, uncertainty, change, and the boundaries between different parts of the Product. NA: Classical decomposition -)
 
 This foundation separates engineering meaning from the temporary computation used to discover it and makes both the current engineering state and the reasoning that led to it inspectable after participants or reasoning sessions disappear.
 
@@ -117,7 +123,7 @@ The proposal is organized around five complementary concerns:
 - a **language and terminology foundation** that keeps engineering concepts stable and unambiguous;
 - a **mathematical foundation** for entities, relations, graph structure, temporal evolution, reasoning, and Product decomposition;
 - an **operational and data model** that preserves engineering state independently from individual agents, tools, and conversations;
-- an **engineering governance model** for Decisions, trade-space exploration, evidence, Contracts, validation, traceability, Product delivery, human intervention, resource use, and supporting engineering processes;
+- an **engineering governance model** for Decisions, trade-space exploration, evidence, Contracts, validation, traceability, Product delivery, human intervention, resource use, and supporting engineering processes; NA: Capitalization seems inconsistent...
 - a **Project Profile and conformance model** that keeps domain-, lifecycle-, organization-, and standard-specific choices outside the universal foundation.
 
 The remaining parts of the proposal formalize these concerns while leaving implementation technology and project-specific engineering practice open.
@@ -135,6 +141,7 @@ The remaining parts of the proposal formalize these concerns while leaving imple
 ### 4.1 Governing baseline
 
 This proposal applies the relevant governance provisions of **AI DevMode Standards (ADS) 5.0.0-rc.1** and **Part I - Language & Meaning Core (LMC)**.
+NA: I'm not sure people have any idea of what is that. But might be it is smth known in industry, anyways - link would be helpful. Basically I'm skipping this section -)
 
 The applicable Language & Meaning Core provides the common rules for:
 
@@ -529,11 +536,11 @@ First, a graph edge is not truth. Engineering traceability fails if the model tr
 
 Second, missing information must remain visible. A false trace is more dangerous than an explicit unresolved item because it hides the need for work.
 
-Third, engineering has scale. A component-level decision and a Product-level decision can both be valid without one inheriting the other's authority.
+Third, engineering has scale. A component-level decision and a Product-level decision can both be valid without one inheriting the other's authority. NA: can't understand this
 
-Fourth, autonomy has an authority boundary. A Hive should decide when a feasible choice is inside its authority and should ask for human prescription only when the missing commitment requires it.
+Fourth, autonomy has an authority boundary. A Hive should decide when a feasible choice is inside its authority and should ask for human prescription only when the missing commitment requires it. NA: Decide? or explicetely constraint?
 
-Fifth, exploration has a cost. The Hive should preserve discoveries but should not keep spending resources on every trajectory or promise a global optimum when Contract fulfilment does not require one.
+Fifth, exploration has a cost. The Hive should preserve discoveries but should not keep spending resources on every trajectory or promise a global optimum when Contract fulfilment does not require one. NA: looks like ordered set. but that might be not always feasable (for ex: profit is not monotonic)
 
 The mathematics below exists to make those observations testable. Sets represent candidate spaces. Relations represent typed associations. Graphs provide projections for navigation. Validators decide whether a relation can be used semantically. Time and revision preserve history. Resource vectors control active computation without deleting knowledge.
 
